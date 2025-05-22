@@ -1,0 +1,121 @@
+﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
+using GameLogEscritorio.Utilidades;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GameLogEscritorio.Servicios.APIRawg.Servicio
+{
+    public static class ServicioBuscarJuego
+    {
+        private static readonly string _RawgAPIURL = Properties.Resources.RawAPIGames;
+        private static readonly HttpClient clienteHttp = new HttpClient();
+
+        public static async Task<JuegoModelo> BuscarJuegoPorSlug(string nombre)
+        {
+            JuegoModelo juegoModelo = new JuegoModelo();
+            try
+            {
+                HttpResponseMessage mensajeObtenido = await clienteHttp.GetAsync($"{_RawgAPIURL}{nombre}?key={Properties.Resources.RawgKey}");
+                if (!mensajeObtenido.IsSuccessStatusCode)
+                {
+                    juegoModelo.detail = Properties.Resources.ErrorAlBuscarJuego;
+                }
+                else if(mensajeObtenido.IsSuccessStatusCode)
+                {
+                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
+                    juegoModelo = JsonConvert.DeserializeObject<JuegoModelo>(contenidoJson)!;
+                }
+
+            }
+            catch(HttpRequestException)
+            {
+                juegoModelo.detail = Properties.Resources.HttpExcepcion;
+            }
+            catch(JsonException)
+            {
+                juegoModelo.detail = Properties.Resources.JsonExcepcion;
+            }
+            catch(Exception)
+            {
+                juegoModelo.detail = Properties.Resources.Excepcion;
+            }
+            return juegoModelo;
+        }
+
+        public static async Task<JuegoModelo> BuscarJuegoPorID(int idJuego)
+        {
+            JuegoModelo juegoModelo = new JuegoModelo();
+            using (var clienteHttp = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage mensajeObtenido = await clienteHttp.GetAsync($"{_RawgAPIURL}{idJuego}?key={Properties.Resources.RawgKey}");
+                    if (!mensajeObtenido.IsSuccessStatusCode)
+                    {
+                        juegoModelo.detail = Properties.Resources.ErrorAlBuscarJuego;
+                    }
+                    else
+                    {
+                        string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
+                        juegoModelo = JsonConvert.DeserializeObject<JuegoModelo>(contenidoJson)!;
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    juegoModelo.detail = Properties.Resources.HttpExcepcion;
+                }
+                catch (JsonException)
+                {
+                    juegoModelo.detail = Properties.Resources.JsonExcepcion;
+                }
+                catch (Exception)
+                {
+                    juegoModelo.detail = Properties.Resources.Excepcion;
+                }
+            }
+            return juegoModelo;
+        }
+
+        public static async Task<ObservableCollection<JuegoCompleto>> ObtenerJuegosPendientesJugador()
+        {
+            ObservableCollection<JuegoCompleto> juegosPendientes = new ObservableCollection<JuegoCompleto>();
+            var respuesta = await ServicioJuego.ObtenerJuegosPendientes(UsuarioSingleton.Instancia.idJugador);
+            if (respuesta.estado == Constantes.CodigoExito)
+            {
+                List<Juego> juegosPendietesObtenidos = respuesta.juegos!;
+                foreach (var juego in juegosPendietesObtenidos)
+                {
+                    JuegoModelo juegoObtenidoRawg = await ServicioBuscarJuego.BuscarJuegoPorID(juego.idJuego);
+                    juegosPendientes.Add(new JuegoCompleto()
+                    {
+                        idJuego = juego.idJuego,
+                        nombre = juego.nombre!,
+                        fechaLanzamiento = juegoObtenidoRawg.released!,
+                        descripcion = juegoObtenidoRawg.description!,
+                        rating = juegoObtenidoRawg.rating,
+                        imagenFondo = juegoObtenidoRawg.backgroundImage!,
+                        platforms = juegoObtenidoRawg.platforms!
+                    });
+                }
+            }
+            else if (respuesta.estado == Constantes.CodigoErrorSolicitud || respuesta.estado == Constantes.CodigoErrorServidor)
+            {
+                juegosPendientes.Add(new JuegoCompleto()
+                {
+                    idJuego = respuesta.estado,
+                    descripcion = respuesta.mensaje!
+                });
+            }
+            return juegosPendientes;
+        }
+    }
+}

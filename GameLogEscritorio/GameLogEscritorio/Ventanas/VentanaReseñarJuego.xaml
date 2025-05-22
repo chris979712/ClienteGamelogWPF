@@ -1,0 +1,119 @@
+﻿<Window x:Class="GameLogEscritorio.Ventanas.VentanaReseñarJuego"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Reseñar Juego"
+        Height="600" Width="920"
+        Background="Black"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="Fill"/>
+        </Grid.Background>
+
+        <Grid Height="30" Background="#23588A" VerticalAlignment="Top">
+            <Button Content="Salir"
+                    Width="80"
+                    Height="25"
+                    HorizontalAlignment="Right"
+                    Margin="0,2,10,0"
+                    Background="Transparent"
+                    Foreground="White"
+                    Click="Salir_Click"
+                    Cursor="Hand"
+                    FontSize="14"
+                    FontWeight="DemiBold">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#0C3C5C"/>
+                                <Setter Property="Foreground" Value="#FF5F5F5F"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+
+        <Grid Margin="20,40,20,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
+                <Image Source="/Imagenes/Amarillo/iconoLapizA.png" Width="120" Height="120" Stretch="UniformToFill" Margin="10"/>
+                <Border Background="#FFC000" CornerRadius="10" Padding="10" MinWidth="300" Height="100" HorizontalAlignment="Center">
+                    <Grid>
+                        <TextBlock Text="Reseña"
+                       Foreground="White"
+                       FontSize="42"
+                       FontWeight="Bold"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"  
+                       FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"/>
+        </Grid>
+                </Border>
+            </StackPanel>
+
+
+            <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                <Label Content="Calificación"
+                       FontWeight="Bold"
+                       FontSize="20"
+                       Foreground="#F2F2F1"
+                       FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                <StackPanel Orientation="Horizontal" x:Name="RatingPanel" Margin="0,5">
+                    <Image x:Name="img_EstrellaUno" Width="40" Height="40" Source="/Imagenes/Iconos/estrella_vacia.png" MouseLeftButtonDown="Estrella_Click" Tag="1"/>
+                    <Image x:Name="img_EstrellaDos" Width="40" Height="40" Source="/Imagenes/Iconos/estrella_vacia.png" MouseLeftButtonDown="Estrella_Click" Tag="2"/>
+                    <Image x:Name="img_EstrellaTres" Width="40" Height="40" Source="/Imagenes/Iconos/estrella_vacia.png" MouseLeftButtonDown="Estrella_Click" Tag="3"/>
+                    <Image x:Name="img_EstrellaCuatro" Width="40" Height="40" Source="/Imagenes/Iconos/estrella_vacia.png" MouseLeftButtonDown="Estrella_Click" Tag="4"/>
+                    <Image x:Name="img_EstrellaCinco" Width="40" Height="40" Source="/Imagenes/Iconos/estrella_vacia.png" MouseLeftButtonDown="Estrella_Click" Tag="5"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Margin="0,20,0,0">
+                <Label Content="Opinión"
+                       FontWeight="Bold"
+                       FontSize="20"
+                       Foreground="#F2F2F1"
+                       FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                <TextBox x:Name="txtb_Opinion"
+                         Height="155"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         MaxLength="500"
+                         VerticalScrollBarVisibility="Auto"
+                         FontSize="14"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <Button Content="Reseñar"
+                        Width="150"
+                        Margin="10,0"
+                        Background="Green"
+                        Foreground="White"
+                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                        Click="Reseniar_Click"/>
+                <Button Content="Cancelar"
+                        Width="150"
+                        Margin="10,0"
+                        Background="Red"
+                        Foreground="White"
+                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                        Click="Cancelar_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

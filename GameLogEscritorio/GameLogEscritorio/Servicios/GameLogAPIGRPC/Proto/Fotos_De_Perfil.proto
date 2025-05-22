@@ -1,0 +1,31 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Gamelog.Proto";
+
+package Gamelog;
+
+message FotoDePerfilDatos
+{
+    string nombreDeUsuario = 1;
+    bytes datos = 2;
+}
+
+message ActualizacionFotoDePerfil
+{
+    string nombreDeUsuario = 1;
+    string rutaImagenAntigua = 2;
+    bytes datos = 3;
+}
+
+message FotoDePerfilRuta
+{
+    string rutaArchivo = 1;
+}
+
+service FotosDePerfil
+{
+    rpc SubirFotoDeUsuario(FotoDePerfilDatos) returns (FotoDePerfilRuta);
+    rpc ObtenerFotoDePerfilUsuario(FotoDePerfilRuta) returns (FotoDePerfilDatos);
+    rpc ActualizarFotoDePerfil(ActualizacionFotoDePerfil) returns (FotoDePerfilRuta);
+}
+

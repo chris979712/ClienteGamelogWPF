@@ -1,0 +1,75 @@
+﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
+using GameLogEscritorio.Utilidades;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
+{
+    public static class ServicioJugador
+    {
+
+        private static readonly string _ApiURLJugador = Properties.Resources.ApiUrlJugador;
+
+        public static async Task<ApiJugadorRespuesta> ObtenerJugadorPorNombreDeUsuario(string nombreDeUsuario)
+        {
+            ApiJugadorRespuesta respuestaJugador = new ApiJugadorRespuesta();
+            using(var clienteHttp = new HttpClient())
+            {
+                string tokenUsuario = SesionToken.LeerToken();
+                try
+                {
+                    var mensajeHttp = new HttpRequestMessage()
+                    {
+                        Method = HttpMethod.Get,
+                        RequestUri = new Uri(string.Concat(_ApiURLJugador, $"/{nombreDeUsuario}"))
+                    };
+                    mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
+                    HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
+                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
+                    respuestaJugador = JsonConvert.DeserializeObject<ApiJugadorRespuesta>(contenidoJson)!;
+                }
+                catch (Exception excepcion)
+                {
+                    respuestaJugador = ClasificadorExcepcion.DeterminarTipoExcepcionAPIRest<ApiJugadorRespuesta>(excepcion);
+                }
+            }
+            return respuestaJugador;
+        }
+
+        public static async Task<ApiRespuestaBase> ActualizarDatosDeJugador(PutJugadorSolicitud datosSolicitud, int idJugador)
+        {
+            ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
+            using (var clienteHttp = new HttpClient())
+            {
+                string tokenUsuario = SesionToken.LeerToken();
+                try
+                {
+                    var mensajeHttp = new HttpRequestMessage()
+                    {
+                        Method = HttpMethod.Put,
+                        RequestUri = new Uri(string.Concat(_ApiURLJugador, $"/{idJugador}")),
+                        Content = new StringContent(JsonConvert.SerializeObject(datosSolicitud), Encoding.UTF8, "application/json")
+                    };
+                    mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
+                    HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
+                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
+                    respuestaBase = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                }
+                catch (Exception excepcion)
+                {
+                    respuestaBase = ClasificadorExcepcion.DeterminarTipoExcepcionAPIRest<ApiRespuestaBase>(excepcion);
+                }
+            }
+            return respuestaBase;
+        }
+
+    }
+}

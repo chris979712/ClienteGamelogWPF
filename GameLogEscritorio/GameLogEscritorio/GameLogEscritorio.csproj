@@ -1,0 +1,173 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Servicios\GameLogAPIGRPC\Proto\Fotos_De_Perfil.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.31.0" />
+    <PackageReference Include="Grpc.Core" Version="2.46.6" />
+    <PackageReference Include="Grpc.Core.Api" Version="2.71.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.72.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Servicios\GameLogAPIGRPC\Proto\Fotos_De_Perfil.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Fuentes\AnchoxSportRegular-Jpm1m.otf" />
+    <Resource Include="Fuentes\OCRAStd.otf" />
+    <Resource Include="Fuentes\OCRBStd.otf" />
+    <Resource Include="Imagenes\Editar_Perfil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Blanco\gameLogGrandeB.png" />
+    <Resource Include="Imagenes\Blanco\gameLogLargoB.png" />
+    <Resource Include="Imagenes\Blanco\iconoLapizB.png" />
+    <Resource Include="Imagenes\Blanco\logoCompletoB.png" />
+    <Resource Include="Imagenes\Blanco\logoGiganteB.png" />
+    <Resource Include="Imagenes\Blanco\logoGrandeB.png" />
+    <Resource Include="Imagenes\Blanco\logoLargoB.png" />
+    <Resource Include="Imagenes\Blanco\logoMedioB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Negro\gameLogGrandeN.png" />
+    <Resource Include="Imagenes\Negro\gameLogLargoN.png" />
+    <Resource Include="Imagenes\Negro\iconoLapizN.png" />
+    <Resource Include="Imagenes\Negro\logoCompletoN.png" />
+    <Resource Include="Imagenes\Negro\logoGiganteB.png" />
+    <Resource Include="Imagenes\Negro\logoGrandeN.png" />
+    <Resource Include="Imagenes\Negro\logoLargoN.png" />
+    <Resource Include="Imagenes\Negro\logoMedioN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Azul\gameLogGrandeAZ.png" />
+    <Resource Include="Imagenes\Azul\gameLogLargoAZ.png" />
+    <Resource Include="Imagenes\Azul\iconoLapizAZ.png" />
+    <Resource Include="Imagenes\Azul\logoCompletoAZ.png" />
+    <Resource Include="Imagenes\Azul\logoGiganteAZ.png" />
+    <Resource Include="Imagenes\Azul\logoGrandeAZ.png" />
+    <Resource Include="Imagenes\Azul\logoLargoAZ.png" />
+    <Resource Include="Imagenes\Azul\logoMedioAZ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Amarillo\gameLogGrandeA.png" />
+    <Resource Include="Imagenes\Amarillo\gameLogLargoA.png" />
+    <Resource Include="Imagenes\Amarillo\iconoLapizA.png" />
+    <Resource Include="Imagenes\Amarillo\logoCompletoA.png" />
+    <Resource Include="Imagenes\Amarillo\logoGiganteA.png" />
+    <Resource Include="Imagenes\Amarillo\logoGrandeA.png" />
+    <Resource Include="Imagenes\Amarillo\logoLargoA.png" />
+    <Resource Include="Imagenes\Amarillo\logoMedioA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Crear_Cuenta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\InicioSesion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\BG_EditarPerfil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\FondoInterfaces.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\capturar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\estrella_llena.png" />
+    <Resource Include="Imagenes\Iconos\estrella_vacia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\megusta_vacio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\megusta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\ListaSeguidores.png" />
+    <Resource Include="Imagenes\lupa.png" />
+    <Resource Include="Imagenes\Reseña.png" />
+    <Resource Include="Imagenes\Usuario.png" />
+    <Resource Include="Imagenes\Usuarios.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\videojuego.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\salir.png" />
+    <Resource Include="Imagenes\tendencias.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\MiReseña.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\imagendeperfildefaultgamelog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\Info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\Advertencia.png" />
+    <Resource Include="Imagenes\Iconos\Exito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\Usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Imagenes\carga.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Utilidades\carga.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\IconoNoVisibleOscuro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\IconoVisibleOscuro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\camara-fotografica.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Iconos\estrella_media.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\estrella_media.png" />
+  </ItemGroup>
+  <ItemGroup />
+</Project>
