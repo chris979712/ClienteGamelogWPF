@@ -204,4 +204,16 @@
   <data name="GRPCServidorNoDisponible" xml:space="preserve">
     <value>Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia , inténtelo más tarde.</value>
   </data>
+  <data name="ArchivoNoEsImagen" xml:space="preserve">
+    <value>El archivo que desea ingresar no es una imagen</value>
+  </data>
+  <data name="TamañoImagenMayor" xml:space="preserve">
+    <value>El archivo de la imagen a ingresar debe ser menor a 2mb</value>
+  </data>
+  <data name="ErrorAlLeerImagen" xml:space="preserve">
+    <value>Ha ocurrido un error al querer leer la imagen a ingresar</value>
+  </data>
+  <data name="EdicionSinCambios" xml:space="preserve">
+    <value>Si desea realizar una modificación, por favor actualice uno de los campos mostrados</value>
+  </data>
 </root>

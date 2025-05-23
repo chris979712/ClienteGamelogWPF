@@ -79,7 +79,7 @@ namespace GameLogEscritorio.Ventanas
         {
             bool fotoEncontrada = false;
             RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(UsuarioSingleton.Instancia.foto!);
-            if(respuestaGRPC.codigo == Constantes.CodigoEstadoOKGRPC)
+            if(respuestaGRPC.codigo == Constantes.CodigoExito)
             {
                 UsuarioSingleton.Instancia.fotoDePerfil = respuestaGRPC.datosBinario;
                 fotoEncontrada = true;
