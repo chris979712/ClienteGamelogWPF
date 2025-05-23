@@ -27,6 +27,20 @@ namespace GameLogEscritorio.Ventanas
             InitializeComponent();
         }
 
+        public static ImageSource ConvertirBytesAImagen(byte[] imagenBytes)
+        {
+            using (var ms = new MemoryStream(imagenBytes))
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = ms;
+                bitmap.EndInit();
+                bitmap.Freeze();
+                return bitmap;
+            }
+        }
+
         private void Registrar_Click(object sender, RoutedEventArgs e)
         {
 
@@ -34,7 +48,9 @@ namespace GameLogEscritorio.Ventanas
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
-
+            MenuPrincipal menuPrincipal = new MenuPrincipal();
+            menuPrincipal.Show();
+            this.Close();
         }
 
         private void txtb_Nombre_TextChanged(object sender, TextChangedEventArgs e)

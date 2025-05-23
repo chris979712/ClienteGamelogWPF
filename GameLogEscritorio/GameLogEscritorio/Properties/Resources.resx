@@ -118,34 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApiGrpcUrl" xml:space="preserve">
-    <value>http://localhost/gamelogapigrpc</value>
+    <value>localhost:1235</value>
   </data>
   <data name="ApiUrlAcceso" xml:space="preserve">
-    <value>http://localhost/gamelogapi/gamelog/acceso</value>
+    <value>https://localhost/gamelogapi/gamelog/acceso</value>
   </data>
   <data name="ApiUrlBase" xml:space="preserve">
-    <value>http://localhost/gamelogapi/gamelog</value>
+    <value>https://localhost/gamelogapi/gamelog</value>
   </data>
   <data name="ApiUrlJuego" xml:space="preserve">
-    <value>http://localhost/gamelogapi/gamelog/juego</value>
+    <value>https://localhost/gamelogapi/gamelog/juego</value>
   </data>
   <data name="ApiUrlJugador" xml:space="preserve">
-    <value>http://localhost/gamelogapi/gamelog/jugador</value>
+    <value>https://localhost/gamelogapi/gamelog/jugador</value>
   </data>
   <data name="ApiUrlLike" xml:space="preserve">
-    <value>http://localhost/gamelogapi/gamelog/like</value>
+    <value>https://localhost/gamelogapi/gamelog/like</value>
   </data>
   <data name="ApiUrlLogin" xml:space="preserve">
-    <value>http://localhost/gamelogapi/gamelog/login</value>
+    <value>https://localhost/gamelogapi/gamelog/login</value>
   </data>
   <data name="ApiUrlReporte" xml:space="preserve">
-    <value>http://localhost/gamelogapi/gamelog/reporte</value>
+    <value>https://localhost/gamelogapi/gamelog/reporte</value>
   </data>
   <data name="ApiUrlResena" xml:space="preserve">
-    <value>http://localhost/gamelogapi/gamelog/resena</value>
+    <value>https://localhost/gamelogapi/gamelog/resena</value>
   </data>
   <data name="ApiUrlSeguidor" xml:space="preserve">
-    <value>http://localhost/gamelogapi/gamelog/seguidor</value>
+    <value>https://localhost/gamelogapi/gamelog/seguidor</value>
   </data>
   <data name="ArgumentNullExcepcion" xml:space="preserve">
     <value>Argumentos para realizar la solicitud inválidos</value>
@@ -183,10 +183,25 @@
   <data name="RutaFotoPorDefecto" xml:space="preserve">
     <value>/home/app/fotos/imagendeperfildefaultgamelog.png</value>
   </data>
+  <data name="GRPCErrorInterno" xml:space="preserve">
+    <value>Ha ocurrido un error al querer ejecutar la operación dentro del servidor multimedia</value>
+  </data>
   <data name="TaskCanceledExcepcion" xml:space="preserve">
     <value>Tiempo de espera agotado.</value>
   </data>
   <data name="tipoDeUsuarioPorDefecto" xml:space="preserve">
     <value>Jugador</value>
+  </data>
+  <data name="GRPCArgumentosInvalidos" xml:space="preserve">
+    <value>Los argumentos para realizar la solicitud no son los correctos, por favor verifique los datos que desea mandar.</value>
+  </data>
+  <data name="GRPCPermisosInvalidos" xml:space="preserve">
+    <value>No cuenta con permisos para poder conectarse con el servidor multimedia. I</value>
+  </data>
+  <data name="GRPElementosNoEncontrado" xml:space="preserve">
+    <value>La(s) foto(s) de perfil a obtener no han sido encontradas.</value>
+  </data>
+  <data name="GRPCServidorNoDisponible" xml:space="preserve">
+    <value>Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia , inténtelo más tarde.</value>
   </data>
 </root>

@@ -21,7 +21,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> RegistrarNuevoSeguidor(PostSeguidorSolicitud datosSolicitud)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try
@@ -48,7 +50,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiSeguidoresRespuesta> ObtenerJugadoresSeguidores(int idJugadorSeguido)
         {
             ApiSeguidoresRespuesta respuestaSeguidores = new ApiSeguidoresRespuesta();
-            using(var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try
@@ -74,7 +78,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiSeguidosRespuesta> ObtenerJugadoresSeguidos(int idJugadorSeguidor)
         {
             ApiSeguidosRespuesta respuestaSeguidos = new ApiSeguidosRespuesta();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try
@@ -102,7 +108,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> EliminarJugadorSeguido(int idJugadorSeguidor, int idJugadorSeguido)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try

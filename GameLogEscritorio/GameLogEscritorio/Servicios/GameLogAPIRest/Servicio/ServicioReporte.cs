@@ -19,7 +19,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiReportesRespuesta> ObtenerReporteTendencias(string fechaInicioBusqueda, string fechaFinBusqueda)
         {
             ApiReportesRespuesta respuestaReportes = new ApiReportesRespuesta();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try
@@ -45,7 +47,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiReportesRespuesta> ObtenerReporteTendenciasRevivalRetro(string fechaInicioBusqueda, string fechaFinBusqueda)
         {
             ApiReportesRespuesta respuestaReportes = new ApiReportesRespuesta();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try

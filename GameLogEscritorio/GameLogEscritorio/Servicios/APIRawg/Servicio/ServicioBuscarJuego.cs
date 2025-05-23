@@ -54,7 +54,9 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
         public static async Task<JuegoModelo> BuscarJuegoPorID(int idJuego)
         {
             JuegoModelo juegoModelo = new JuegoModelo();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 try
                 {

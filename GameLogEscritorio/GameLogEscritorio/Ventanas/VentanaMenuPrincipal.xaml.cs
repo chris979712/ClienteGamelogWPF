@@ -4,6 +4,7 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,21 @@ namespace GameLogEscritorio.Ventanas
                 ic_JuegosPendientes.Visibility = Visibility.Collapsed;
                 txt_SinJuegos.Visibility = Visibility.Visible;
             }
+            img_FotoDePerfil.Source = ConvertirBytesAImagen(UsuarioSingleton.Instancia.fotoDePerfil!);
+        }
+
+        public static ImageSource ConvertirBytesAImagen(byte[] imagenBytes)
+        {
+            using (var ms = new MemoryStream(imagenBytes))
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = ms;
+                bitmap.EndInit();
+                bitmap.Freeze(); 
+                return bitmap;
+            }
         }
 
         public async void Salir_Click(object sender, RoutedEventArgs e)
@@ -50,7 +66,9 @@ namespace GameLogEscritorio.Ventanas
 
         public void IrVentanaEditarPerfil_Click(object sender, RoutedEventArgs e)
         {
-     
+            VentanaEditarPerfil ventanaEditarPerfil = new VentanaEditarPerfil();
+            ventanaEditarPerfil.Show();
+            this.Close();
         }
 
         public void IrVentanaBuscarJuego_Click(object sender, RoutedEventArgs e)

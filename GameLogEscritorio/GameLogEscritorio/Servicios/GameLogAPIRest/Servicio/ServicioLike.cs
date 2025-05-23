@@ -20,7 +20,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> RegistrarLikeAReseña(PostLikeSolicitud datosSolicitud)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try
@@ -47,7 +49,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> EliminarLikeAReseña(int idResena,int idJugador)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try

@@ -19,7 +19,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiLoginRespuesta> IniciarSesion(PostLoginSolicitud datosSolicitud)
         {
             ApiLoginRespuesta respuesta = new ApiLoginRespuesta();
-            using(var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 try
                 {
@@ -49,7 +51,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<APIRecuperacionDeCuentaRespuesta> RecuperacionDeCuenta(PostRecuperacionDeCuentaSolicitud datosSolicitud)
         {
             APIRecuperacionDeCuentaRespuesta respuesta = new APIRecuperacionDeCuentaRespuesta();
-            using(var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 try
                 {
@@ -74,7 +78,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> RecuperacionDeCuentaValidacion(PostRecuperacionDeCuentaValidacion datosSolicitud)
         {
             ApiRespuestaBase respuesta = new ApiLoginRespuesta();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 try
                 {
@@ -99,7 +105,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> CerrarSesion(string correo)
         {
             ApiRespuestaBase respuesta = new ApiLoginRespuesta();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 try
                 {
