@@ -18,7 +18,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> RegistrarReseña(PostReseñaSolicitud datosSolicitud)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try
@@ -45,7 +47,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiReseñaPersonalRespuesta> ObtenerReseñasDeUnJugador(int idJugador, int idJugadoBuscador)
         {
             ApiReseñaPersonalRespuesta respuestaReseñas = new ApiReseñaPersonalRespuesta();
-            using(var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try
@@ -71,7 +75,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiReseñaJugadoresRespuesta> ObtenerReseñasDeUnJuego(int idJuego, int idJugadoBuscador)
         {
             ApiReseñaJugadoresRespuesta respuestaReseñasJugadores = new ApiReseñaJugadoresRespuesta();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try
@@ -97,7 +103,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiReseñaJugadoresRespuesta> ObtenerReseñasDeJugadoresSeguidosEnUnJuego(int idJuego, int idJugadoBuscador)
         {
             ApiReseñaJugadoresRespuesta respuestaReseñasJugadores = new ApiReseñaJugadoresRespuesta();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try
@@ -123,7 +131,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> EliminarReseña(int idReseña)
         {
             ApiRespuestaBase respuestaReseñasJugadores = new ApiRespuestaBase();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
                 try

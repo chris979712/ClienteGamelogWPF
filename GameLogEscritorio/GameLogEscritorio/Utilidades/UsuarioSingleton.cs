@@ -22,9 +22,9 @@ namespace GameLogEscritorio.Utilidades
         public string? primerApellido { get; private set; }
         public string? segundoApellido { get; private set; }
         public string? nombreDeUsuario {  get; private set; }
-
         public string? descripcion {  get; private set; }
         public string? foto { get; private set; }
+        public byte[]? fotoDePerfil { get; set; }
 
         private UsuarioSingleton() { }
 

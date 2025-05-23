@@ -2,8 +2,6 @@
 
 option csharp_namespace = "Gamelog.Proto";
 
-package Gamelog;
-
 message FotoDePerfilDatos
 {
     string nombreDeUsuario = 1;
@@ -28,4 +26,3 @@ service FotosDePerfil
     rpc ObtenerFotoDePerfilUsuario(FotoDePerfilRuta) returns (FotoDePerfilDatos);
     rpc ActualizarFotoDePerfil(ActualizacionFotoDePerfil) returns (FotoDePerfilRuta);
 }
-

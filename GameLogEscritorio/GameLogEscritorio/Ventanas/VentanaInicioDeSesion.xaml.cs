@@ -1,5 +1,7 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
 using GameLogEscritorio.Servicios.APIRawg.Servicio;
+using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
+using GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Login;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
@@ -47,6 +49,7 @@ namespace GameLogEscritorio.Ventanas
                 {
                     UsuarioSingleton.Instancia.IniciarSesion(respuesta.cuenta!.FirstOrDefault()!);
                     Constantes.juegosPendientes = await ServicioBuscarJuego.ObtenerJuegosPendientesJugador();
+                    await CargarFotoDePerfilUsuario();
                     ApiJuegosRespuesta juegosFavoritosObtenidos = await ServicioJuego.ObtenerJuegosFavoritos(UsuarioSingleton.Instancia.idJugador);
                     if ((Constantes.juegosPendientes.Count == 1 && Constantes.juegosPendientes[0].idJuego == Constantes.CodigoErrorSolicitud) ||
                         (juegosFavoritosObtenidos.estado == Constantes.CodigoErrorSolicitud || juegosFavoritosObtenidos.estado == Constantes.CodigoErrorServidor))
@@ -70,6 +73,24 @@ namespace GameLogEscritorio.Ventanas
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Constantes.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
             }
+        }
+
+        private async Task<bool> CargarFotoDePerfilUsuario()
+        {
+            bool fotoEncontrada = false;
+            RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(UsuarioSingleton.Instancia.foto!);
+            if(respuestaGRPC.codigo == Constantes.CodigoEstadoOKGRPC)
+            {
+                UsuarioSingleton.Instancia.fotoDePerfil = respuestaGRPC.datosBinario;
+                fotoEncontrada = true;
+            }
+            else
+            {
+                UsuarioSingleton.Instancia.fotoDePerfil = FotoPorDefecto.ObtenerFotoDePerfilPorDefecto();
+                ManejadorRespuestas.ManejadorRespuestasGRPC(respuestaGRPC.codigo);
+                fotoEncontrada = false;
+            }
+            return fotoEncontrada;
         }
 
         private void CargarListaDeJuegos(ApiJuegosRespuesta juegosFavoritosObtenidos)

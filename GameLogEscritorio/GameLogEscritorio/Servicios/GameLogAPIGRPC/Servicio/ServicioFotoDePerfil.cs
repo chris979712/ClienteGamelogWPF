@@ -28,10 +28,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
                     NombreDeUsuario = nombreDeUsuario,
                     Datos = Google.Protobuf.ByteString.CopyFrom(fotoDePerfil)
                 };
-                FotoDePerfilRuta respuesta = await cliente.SubirFotoDeUsuarioAsync(datosFotoDePerfil);
+                FotoDePerfilRuta respuesta = cliente.SubirFotoDeUsuario(datosFotoDePerfil);
                 resultadoFotoDePerfil.codigo = Constantes.CodigoExito;
                 resultadoFotoDePerfil.detalles = respuesta.RutaArchivo.ToString();
-                await canal.ShutdownAsync();
             }
             catch (HttpRequestException)
             {
@@ -42,6 +41,10 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
             {
                 resultadoFotoDePerfil.detalles = excepcionRpc.Status.Detail;
                 resultadoFotoDePerfil.codigo = (int)excepcionRpc.Status.StatusCode;
+            }
+            finally
+            {
+                await canal.ShutdownAsync();
             }
             return resultadoFotoDePerfil;
         }
@@ -58,9 +61,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
                 {
                     RutaArchivo = rutaFoto
                 };
-                FotoDePerfilDatos datosObtenidos = await cliente.ObtenerFotoDePerfilUsuarioAsync(rutaFotoDePerfil);
+                FotoDePerfilDatos datosObtenidos = cliente.ObtenerFotoDePerfilUsuario(rutaFotoDePerfil);
                 resultadoFotoDePerfil.codigo = Constantes.CodigoExito;
-                resultadoFotoDePerfil.detalles = datosObtenidos.Datos.ToString();
+                resultadoFotoDePerfil.datosBinario = datosObtenidos.Datos.ToByteArray();
             }
             catch (HttpRequestException)
             {
@@ -71,6 +74,10 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
             {
                 resultadoFotoDePerfil.detalles = excepcionRpc.Status.Detail;
                 resultadoFotoDePerfil.codigo = (int)excepcionRpc.Status.StatusCode;
+            }
+            finally
+            {
+                await canal.ShutdownAsync();
             }
             return resultadoFotoDePerfil;
         }
@@ -89,7 +96,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
                     RutaImagenAntigua = rutaAntigua,
                     Datos = Google.Protobuf.ByteString.CopyFrom(fotoDePerfil)
                 };
-                FotoDePerfilRuta datosObtenidos = await cliente.ActualizarFotoDePerfilAsync(datosActualizacionDeFoto);
+                FotoDePerfilRuta datosObtenidos = cliente.ActualizarFotoDePerfil(datosActualizacionDeFoto);
                 resultadoFotoDePerfil.codigo = Constantes.CodigoExito;
                 resultadoFotoDePerfil.detalles = datosObtenidos.RutaArchivo;
             }
@@ -102,6 +109,10 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
             {
                 resultadoFotoDePerfil.detalles = excepcionRpc.Status.Detail;
                 resultadoFotoDePerfil.codigo = (int)excepcionRpc.Status.StatusCode;
+            }
+            finally
+            {
+                await canal.ShutdownAsync();
             }
             return resultadoFotoDePerfil;
         }

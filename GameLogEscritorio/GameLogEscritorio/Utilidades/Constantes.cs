@@ -28,6 +28,12 @@ namespace GameLogEscritorio.Utilidades
         public const int CodigoErrorServidor = 500;
         public const int CodigoErrorAcceso = 401;
         public const int CodigoSinResultadosEncontrados = 404;
+        public const int CodigoEstadoOKGRPC = 0;
+        public const int CodigoArgumentosInvalidosGRPC = 3;
+        public const int CodigoPermisosDenegadosGRPC = 7;
+        public const int CodigoElementoNoEncontradoGRPC = 5;
+        public const int CodigoErrorInternoGRPC = 13;
+        public const int CodigoServidorNoDisponibleGRPC = 14;
         public const string tipoJugadorPorDefecto = "Jugador";
         public const string TipoDeEstadoPorDefecto = "Desbaneado";
         public const string JuegoNoEncontradoRawg = "Not found.";

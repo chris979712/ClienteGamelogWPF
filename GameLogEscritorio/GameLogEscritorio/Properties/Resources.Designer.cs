@@ -22,7 +22,7 @@ namespace GameLogEscritorio.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace GameLogEscritorio.Properties {
         ///   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GameLogEscritorio.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace GameLogEscritorio.Properties {
         ///   búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,90 +61,90 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapigrpc.
+        ///   Busca una cadena traducida similar a localhost:1235.
         /// </summary>
-        internal static string ApiGrpcUrl {
+        public static string ApiGrpcUrl {
             get {
                 return ResourceManager.GetString("ApiGrpcUrl", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapi/gamelog/acceso.
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/acceso.
         /// </summary>
-        internal static string ApiUrlAcceso {
+        public static string ApiUrlAcceso {
             get {
                 return ResourceManager.GetString("ApiUrlAcceso", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapi/gamelog.
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog.
         /// </summary>
-        internal static string ApiUrlBase {
+        public static string ApiUrlBase {
             get {
                 return ResourceManager.GetString("ApiUrlBase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapi/gamelog/juego.
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/juego.
         /// </summary>
-        internal static string ApiUrlJuego {
+        public static string ApiUrlJuego {
             get {
                 return ResourceManager.GetString("ApiUrlJuego", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapi/gamelog/jugador.
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/jugador.
         /// </summary>
-        internal static string ApiUrlJugador {
+        public static string ApiUrlJugador {
             get {
                 return ResourceManager.GetString("ApiUrlJugador", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapi/gamelog/like.
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/like.
         /// </summary>
-        internal static string ApiUrlLike {
+        public static string ApiUrlLike {
             get {
                 return ResourceManager.GetString("ApiUrlLike", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapi/gamelog/login.
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/login.
         /// </summary>
-        internal static string ApiUrlLogin {
+        public static string ApiUrlLogin {
             get {
                 return ResourceManager.GetString("ApiUrlLogin", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapi/gamelog/reporte.
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/reporte.
         /// </summary>
-        internal static string ApiUrlReporte {
+        public static string ApiUrlReporte {
             get {
                 return ResourceManager.GetString("ApiUrlReporte", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapi/gamelog/resena.
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/resena.
         /// </summary>
-        internal static string ApiUrlResena {
+        public static string ApiUrlResena {
             get {
                 return ResourceManager.GetString("ApiUrlResena", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost/gamelogapi/gamelog/seguidor.
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/seguidor.
         /// </summary>
-        internal static string ApiUrlSeguidor {
+        public static string ApiUrlSeguidor {
             get {
                 return ResourceManager.GetString("ApiUrlSeguidor", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a Argumentos para realizar la solicitud inválidos.
         /// </summary>
-        internal static string ArgumentNullExcepcion {
+        public static string ArgumentNullExcepcion {
             get {
                 return ResourceManager.GetString("ArgumentNullExcepcion", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport.
         /// </summary>
-        internal static string ConfiguracionCanalGRPC {
+        public static string ConfiguracionCanalGRPC {
             get {
                 return ResourceManager.GetString("ConfiguracionCanalGRPC", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a El juego a buscar no se encuentra registrado..
         /// </summary>
-        internal static string ErrorAlBuscarJuego {
+        public static string ErrorAlBuscarJuego {
             get {
                 return ResourceManager.GetString("ErrorAlBuscarJuego", resourceCulture);
             }
@@ -180,16 +180,61 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a Error inesperado al querer realizar la solicitud.
         /// </summary>
-        internal static string Excepcion {
+        public static string Excepcion {
             get {
                 return ResourceManager.GetString("Excepcion", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Los argumentos para realizar la solicitud no son los correctos, por favor verifique los datos que desea mandar..
+        /// </summary>
+        public static string GRPCArgumentosInvalidos {
+            get {
+                return ResourceManager.GetString("GRPCArgumentosInvalidos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ha ocurrido un error al querer ejecutar la operación dentro del servidor multimedia.
+        /// </summary>
+        public static string GRPCErrorInterno {
+            get {
+                return ResourceManager.GetString("GRPCErrorInterno", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No cuenta con permisos para poder conectarse con el servidor multimedia. I.
+        /// </summary>
+        public static string GRPCPermisosInvalidos {
+            get {
+                return ResourceManager.GetString("GRPCPermisosInvalidos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia , inténtelo más tarde..
+        /// </summary>
+        public static string GRPCServidorNoDisponible {
+            get {
+                return ResourceManager.GetString("GRPCServidorNoDisponible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La(s) foto(s) de perfil a obtener no han sido encontradas..
+        /// </summary>
+        public static string GRPElementosNoEncontrado {
+            get {
+                return ResourceManager.GetString("GRPElementosNoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error en la conexión de red o al intentar realizar la solicitud con el servidor.
         /// </summary>
-        internal static string HttpExcepcion {
+        public static string HttpExcepcion {
             get {
                 return ResourceManager.GetString("HttpExcepcion", resourceCulture);
             }
@@ -198,7 +243,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a La imagen de perfil no fue encontrada..
         /// </summary>
-        internal static string ImagenNoEncontrada {
+        public static string ImagenNoEncontrada {
             get {
                 return ResourceManager.GetString("ImagenNoEncontrada", resourceCulture);
             }
@@ -207,7 +252,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a Error al procesar la respuesta del Json.
         /// </summary>
-        internal static string JsonExcepcion {
+        public static string JsonExcepcion {
             get {
                 return ResourceManager.GetString("JsonExcepcion", resourceCulture);
             }
@@ -216,7 +261,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a El juego a buscar no se encuentra registrado..
         /// </summary>
-        internal static string juegoIngresadoNoEncontrado {
+        public static string juegoIngresadoNoEncontrado {
             get {
                 return ResourceManager.GetString("juegoIngresadoNoEncontrado", resourceCulture);
             }
@@ -225,7 +270,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a https://api.rawg.io/api/games/.
         /// </summary>
-        internal static string RawAPIGames {
+        public static string RawAPIGames {
             get {
                 return ResourceManager.GetString("RawAPIGames", resourceCulture);
             }
@@ -234,7 +279,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a 531c5bdb92ae41bd819b9901e3012568.
         /// </summary>
-        internal static string RawgKey {
+        public static string RawgKey {
             get {
                 return ResourceManager.GetString("RawgKey", resourceCulture);
             }
@@ -243,7 +288,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a Juego no encontrado, quizá quisiste buscar: .
         /// </summary>
-        internal static string RedireccionamientoSlug {
+        public static string RedireccionamientoSlug {
             get {
                 return ResourceManager.GetString("RedireccionamientoSlug", resourceCulture);
             }
@@ -252,7 +297,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a /home/app/fotos/imagendeperfildefaultgamelog.png.
         /// </summary>
-        internal static string RutaFotoPorDefecto {
+        public static string RutaFotoPorDefecto {
             get {
                 return ResourceManager.GetString("RutaFotoPorDefecto", resourceCulture);
             }
@@ -261,7 +306,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a Tiempo de espera agotado..
         /// </summary>
-        internal static string TaskCanceledExcepcion {
+        public static string TaskCanceledExcepcion {
             get {
                 return ResourceManager.GetString("TaskCanceledExcepcion", resourceCulture);
             }
@@ -270,7 +315,7 @@ namespace GameLogEscritorio.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a Jugador.
         /// </summary>
-        internal static string tipoDeUsuarioPorDefecto {
+        public static string tipoDeUsuarioPorDefecto {
             get {
                 return ResourceManager.GetString("tipoDeUsuarioPorDefecto", resourceCulture);
             }

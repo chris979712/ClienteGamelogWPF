@@ -68,5 +68,27 @@ namespace GameLogEscritorio.Utilidades
             return esEstadoCritico;
         }
 
+        public static void ManejadorRespuestasGRPC(int codigoDeRespuesta)
+        {
+            switch(codigoDeRespuesta)
+            {
+                case Constantes.CodigoArgumentosInvalidosGRPC:
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion,Properties.Resources.GRPCArgumentosInvalidos,Constantes.CodigoErrorSolicitud);
+                    break;
+                case Constantes.CodigoPermisosDenegadosGRPC:
+                    VentanaEmergente ventanaEmergenteDenegado = new VentanaEmergente(Constantes.TipoError,Properties.Resources.GRPCPermisosInvalidos, Constantes.CodigoErrorServidor);
+                    break;
+                case Constantes.CodigoElementoNoEncontradoGRPC:
+                    VentanaEmergente ventanaEmergenteNoEncontrado = new VentanaEmergente(Constantes.TipoInformacion,Properties.Resources.GRPElementosNoEncontrado, Constantes.CodigoErrorSolicitud);
+                    break;
+                case Constantes.CodigoErrorInternoGRPC:
+                    VentanaEmergente ventanaEmergenteErrorInterno = new VentanaEmergente(Constantes.TipoError,Properties.Resources.GRPCErrorInterno, Constantes.CodigoErrorServidor);
+                    break;
+                case Constantes.CodigoServidorNoDisponibleGRPC:
+                    VentanaEmergente ventanaEmergenteNoDisponible = new VentanaEmergente(Constantes.TipoInformacion,Properties.Resources.GRPCServidorNoDisponible, Constantes.CodigoErrorSolicitud);
+                    break;
+            }
+        }
+
     }
 }

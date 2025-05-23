@@ -19,7 +19,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiAccesoRespuesta<Perfil>> CrearCuenta(PostAccesoSolicitud datosSolicitud)
         {
             ApiAccesoRespuesta<Perfil> respuesta = new ApiAccesoRespuesta<Perfil>();
-            using(var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 try
                 {
@@ -44,7 +46,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiAccesoRespuesta<int>> ObtenerIdAccesoPorCorreo(string correo)
         {
             ApiAccesoRespuesta<int> respuesta = new ApiAccesoRespuesta<int>();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 try
                 {
@@ -68,7 +72,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> EditarCredencialesDeAcceso(PutAccesoSolicitud datosSolicitud, int idAcceso)
         {
             ApiRespuestaBase respuesta = new ApiRespuestaBase();
-            using(var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 try
                 {
@@ -93,7 +99,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> CambiarEstadoDeAcceso(PatchAccesoSolicitud datosSolicitud, int idAcceso)
         {
             ApiRespuestaBase respuesta = new ApiRespuestaBase();
-            using (var clienteHttp = new HttpClient())
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            using (var clienteHttp = new HttpClient(handler))
             {
                 try
                 {
