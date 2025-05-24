@@ -1,4 +1,6 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
+using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
+using GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Likes;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
@@ -7,6 +9,7 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -46,7 +49,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 if(reseñasJugadores.estado == Constantes.CodigoExito)
                 {
-                    CargarReseñasObtenidas(reseñasJugadores.reseñaJugadores!);
+                    await CargarReseñasObtenidas(reseñasJugadores.reseñaJugadores!);
                 }
             }
             else
@@ -65,7 +68,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 if (reseñasJugadores.estado == Constantes.CodigoExito)
                 {
-                    CargarReseñasObtenidas(reseñasJugadores.reseñaJugadores!);
+                    await CargarReseñasObtenidas(reseñasJugadores.reseñaJugadores!);
                 }
             }
             else
@@ -75,7 +78,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void CargarReseñasObtenidas(List<ReseñaJugadores> reseñasObtenidas)
+        private async Task CargarReseñasObtenidas(List<ReseñaJugadores> reseñasObtenidas)
         {
             Reseñas.Clear();
             foreach (var reseña in reseñasObtenidas)
@@ -94,10 +97,22 @@ namespace GameLogEscritorio.Ventanas
                     nombre = reseña.nombre,
                     foto = reseña.foto,
                     totalDeLikesReseña = reseña.totalDeLikes,
-                    existeLike = reseña.existeLike
+                    existeLike = reseña.existeLike,
+                    fotoJugador = await CargarFotoDePerfilUsuario(reseña.foto!)
                 };
                 Reseñas.Add(reseñaCompleta);
             }
+        }
+
+        private async Task<byte[]> CargarFotoDePerfilUsuario(string rutaFoto)
+        {
+            byte[] fotoEncontrada = FotoPorDefecto.ObtenerFotoDePerfilPorDefecto();
+            RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(rutaFoto);
+            if (respuestaGRPC.codigo == Constantes.CodigoExito)
+            {
+                fotoEncontrada = respuestaGRPC.datosBinario!;
+            }
+            return fotoEncontrada;
         }
 
         private async void EliminarReseña_Click(object sender, RoutedEventArgs e)
@@ -188,7 +203,7 @@ namespace GameLogEscritorio.Ventanas
 
     public class ReseñaCompleta : ReseñaJugadores, INotifyPropertyChanged
     {
-        byte[]? fotoJugador { get; set; }
+        public byte[]? fotoJugador { get; set; }
         private int _totalDeLikes;
         public int totalDeLikesReseña
         {

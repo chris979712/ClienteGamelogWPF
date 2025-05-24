@@ -80,7 +80,9 @@ namespace GameLogEscritorio.Ventanas
 
         public void IrVentanaBuscarUsuario_Click(object sender, RoutedEventArgs e)
         {
-
+            VentanaBuscarJugador ventanaBuscarJugador = new VentanaBuscarJugador();
+            ventanaBuscarJugador.Show();
+            this.Close();
         }
 
         public void IrVentanaMisReseñas_Click(object sender, RoutedEventArgs e)

@@ -17,7 +17,7 @@ namespace GameLogEscritorio.Utilidades
         private static Regex _soloLetrasYNumeros = new Regex(@"^[a-zA-Z0-9]{2,20}$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
         private static readonly Regex _soloLetrasNumerosCaracteres = new Regex(@"^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s!&*()_+=\[\]{};:'"",.¿?`\\-]*$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
         private static readonly Regex _soloDecimalesPositivos = new Regex(@"^\d{1,2}\.\d{1}$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
-        private static readonly Regex _soloRutas = new Regex(@"^(\/?[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.[a-zA-Z0-9]{4,255}$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
+        public static readonly Regex SoloRutas = new Regex(@"^(\/?[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.[a-zA-Z0-9]{2,255}$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
 
 
         public static bool ValidarPatronRegex(string datos, Regex regex)
@@ -133,7 +133,7 @@ namespace GameLogEscritorio.Utilidades
         {
             bool esValida = false;
             string rutaLimpia = Regex.Replace(ruta.Trim(), @"\s+", "", RegexOptions.None, TimeSpan.FromMilliseconds(500));
-            if (!string.IsNullOrWhiteSpace(rutaLimpia) && ValidarPatronRegex(rutaLimpia, _soloRutas))
+            if (!string.IsNullOrWhiteSpace(rutaLimpia) && ValidarPatronRegex(rutaLimpia, SoloRutas))
             {
                 esValida = true;
             }

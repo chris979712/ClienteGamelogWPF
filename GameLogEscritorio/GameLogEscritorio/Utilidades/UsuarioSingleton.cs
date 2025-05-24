@@ -18,12 +18,12 @@ namespace GameLogEscritorio.Utilidades
         public string? estado { get; private set; }
         public string? tipoDeAcceso { get; private set; }
         public int idJugador { get; private set; }
-        public string? nombre { get; private set; }
-        public string? primerApellido { get; private set; }
-        public string? segundoApellido { get; private set; }
-        public string? nombreDeUsuario {  get; private set; }
-        public string? descripcion {  get; private set; }
-        public string? foto { get; private set; }
+        public string? nombre { get; set; }
+        public string? primerApellido { get; set; }
+        public string? segundoApellido { get; set; }
+        public string? nombreDeUsuario {  get; set; }
+        public string? descripcion {  get; set; }
+        public string? foto { get; set; }
         public byte[]? fotoDePerfil { get; set; }
 
         private UsuarioSingleton() { }
