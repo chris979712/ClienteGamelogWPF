@@ -105,7 +105,7 @@
                 <Button Content="Regresar" Width="130" Height="40" Background="Red" Foreground="White" FontWeight="Bold"
                         FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Margin="5"
                         Click="Regresar_Click"/>
-                <Button x:Name="btn_AñadirAPendientes" Content="Añadir a lista de pendientes" Width="220" Height="45" Background="#23588A" Foreground="#F2F2F1"
+                <Button x:Name="btn_AñadirAPendientes" Content="Añadir pendientes" Width="189" Height="45" Background="#23588A" Foreground="#F2F2F1"
                         FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Margin="5"
                         Click="ListaPendientes_Click"/>
                 <Button x:Name="btn_QuitarPendientes" Content="Quitdar de lista de pendientes" Width="220" Height="45" Background="#23588A" Foreground="#F2F2F1"
