@@ -2,11 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Ventana Emergente" Height="330" Width="630"
-        WindowStyle="None"
         ResizeMode="NoResize"
         AllowsTransparency="False"
         Background="Transparent"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+>
 
     <Grid>
         <Image Source="/Imagenes/FondoInterfaces.png"
