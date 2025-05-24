@@ -202,7 +202,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                         Method = HttpMethod.Get,
                         RequestUri = new Uri(string.Concat(_JuegoURL, $"/favorito/{idJugador}")),
                     };
-                    mensajeHttp.Headers.Add("access_token", $"Bearer {tokenUsuario}");
+                    mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
                     string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
                     respuestaJuegos = JsonConvert.DeserializeObject<ApiJuegosRespuesta>(contenidoJson)!;

@@ -16,7 +16,7 @@
             <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="Fill"/>
         </Grid.Background>
 
-        <Border Grid.Row="0" Background="#23588A" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top" MouseLeftButtonDown="BarraSuperior_MouseLeftButtonDown">
+        <Border Grid.Row="0" Background="#23588A" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top">
             <Grid>
                 <TextBlock Text="Reseña" 
                                Foreground="White"

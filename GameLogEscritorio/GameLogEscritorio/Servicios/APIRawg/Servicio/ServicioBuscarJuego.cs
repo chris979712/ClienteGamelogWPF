@@ -38,14 +38,17 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
             }
             catch(HttpRequestException)
             {
+                juegoModelo.id = Constantes.ErrorEnLaOperacion;
                 juegoModelo.detail = Properties.Resources.HttpExcepcion;
             }
             catch(JsonException)
             {
+                juegoModelo.id = Constantes.ErrorEnLaOperacion;
                 juegoModelo.detail = Properties.Resources.JsonExcepcion;
             }
             catch(Exception)
             {
+                juegoModelo.id = Constantes.ErrorEnLaOperacion;
                 juegoModelo.detail = Properties.Resources.Excepcion;
             }
             return juegoModelo;
@@ -73,43 +76,58 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
                 }
                 catch (HttpRequestException)
                 {
+                    juegoModelo.id = Constantes.ErrorEnLaOperacion;
                     juegoModelo.detail = Properties.Resources.HttpExcepcion;
                 }
                 catch (JsonException)
                 {
+                    juegoModelo.id = Constantes.ErrorEnLaOperacion;
                     juegoModelo.detail = Properties.Resources.JsonExcepcion;
                 }
                 catch (Exception)
                 {
+                    juegoModelo.id = Constantes.ErrorEnLaOperacion;
                     juegoModelo.detail = Properties.Resources.Excepcion;
                 }
             }
             return juegoModelo;
         }
 
-        public static async Task<ObservableCollection<JuegoCompleto>> ObtenerJuegosPendientesJugador()
+        public static async Task<ObservableCollection<JuegoCompleto>> ObtenerJuegosPendientesJugador(int idJugador)
         {
             ObservableCollection<JuegoCompleto> juegosPendientes = new ObservableCollection<JuegoCompleto>();
-            var respuesta = await ServicioJuego.ObtenerJuegosPendientes(UsuarioSingleton.Instancia.idJugador);
+            var respuesta = await ServicioJuego.ObtenerJuegosPendientes(idJugador);
             if (respuesta.estado == Constantes.CodigoExito)
             {
                 List<Juego> juegosPendietesObtenidos = respuesta.juegos!;
                 foreach (var juego in juegosPendietesObtenidos)
                 {
                     JuegoModelo juegoObtenidoRawg = await ServicioBuscarJuego.BuscarJuegoPorID(juego.idJuego);
-                    juegosPendientes.Add(new JuegoCompleto()
+                    if(juegoObtenidoRawg.id == Constantes.ErrorEnLaOperacion)
                     {
-                        idJuego = juego.idJuego,
-                        nombre = juego.nombre!,
-                        fechaLanzamiento = juegoObtenidoRawg.released!,
-                        descripcion = juegoObtenidoRawg.description!,
-                        rating = juegoObtenidoRawg.rating,
-                        imagenFondo = juegoObtenidoRawg.backgroundImage!,
-                        platforms = juegoObtenidoRawg.platforms!
-                    });
+                        juegosPendientes.Insert(0, new JuegoCompleto()
+                        {
+                            idJuego = juegoObtenidoRawg.id,
+                            descripcion = juegoObtenidoRawg.detail
+                        });
+                        break;
+                    }
+                    else
+                    {
+                        juegosPendientes.Add(new JuegoCompleto()
+                        {
+                            idJuego = juego.idJuego,
+                            nombre = juego.nombre,
+                            fechaLanzamiento = juegoObtenidoRawg.released,
+                            descripcion = juegoObtenidoRawg.description,
+                            rating = juegoObtenidoRawg.rating,
+                            imagenFondo = juegoObtenidoRawg.backgroundImage,
+                            platforms = juegoObtenidoRawg.platforms
+                        });
+                    }
                 }
             }
-            else if (respuesta.estado == Constantes.CodigoErrorSolicitud || respuesta.estado == Constantes.CodigoErrorServidor)
+            else if (respuesta.estado == Constantes.CodigoErrorSolicitud || respuesta.estado == Constantes.CodigoErrorServidor || respuesta.estado == Constantes.CodigoErrorAcceso)
             {
                 juegosPendientes.Add(new JuegoCompleto()
                 {
@@ -119,5 +137,51 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
             }
             return juegosPendientes;
         }
+
+        public static async Task<ObservableCollection<JuegoCompleto>> ObtenerJuegosFavoritosJugador(int idJugador)
+        {
+            ObservableCollection<JuegoCompleto> juegosFavoritos = new ObservableCollection<JuegoCompleto>();
+            var respuesta = await ServicioJuego.ObtenerJuegosFavoritos(idJugador);
+            if (respuesta.estado == Constantes.CodigoExito)
+            {
+                List<Juego> juegosFavoritosObtenidos = respuesta.juegos!;
+                foreach (var juego in juegosFavoritosObtenidos)
+                {
+                    JuegoModelo juegoObtenidoRawg = await ServicioBuscarJuego.BuscarJuegoPorID(juego.idJuego);
+                    if (juegoObtenidoRawg.id == Constantes.ErrorEnLaOperacion)
+                    {
+                        juegosFavoritos.Insert(0, new JuegoCompleto()
+                        {
+                            idJuego = juegoObtenidoRawg.id,
+                            descripcion = juegoObtenidoRawg.detail
+                        });
+                        break;
+                    }
+                    else
+                    {
+                        juegosFavoritos.Add(new JuegoCompleto()
+                        {
+                            idJuego = juego.idJuego,
+                            nombre = juego.nombre,
+                            fechaLanzamiento = juegoObtenidoRawg.released,
+                            descripcion = juegoObtenidoRawg.description,
+                            rating = juegoObtenidoRawg.rating,
+                            imagenFondo = juegoObtenidoRawg.backgroundImage,
+                            platforms = juegoObtenidoRawg.platforms
+                        });
+                    }
+                }
+            }
+            else if (respuesta.estado == Constantes.CodigoErrorSolicitud || respuesta.estado == Constantes.CodigoErrorServidor || respuesta.estado == Constantes.CodigoErrorAcceso)
+            {
+                juegosFavoritos.Add(new JuegoCompleto()
+                {
+                    idJuego = respuesta.estado,
+                    descripcion = respuesta.mensaje!
+                });
+            }
+            return juegosFavoritos;
+        }
+
     }
 }

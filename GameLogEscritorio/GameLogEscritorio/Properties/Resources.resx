@@ -219,4 +219,7 @@
   <data name="ServidorGRPCNoEncontrado" xml:space="preserve">
     <value>No se ha podido localizar el servidor de archivos multimedia.</value>
   </data>
+  <data name="ErrorEnLaCargaDatosUsuario" xml:space="preserve">
+    <value>Ha ocurrido un error en la conexion al servidor al intentar obtener los datos de perfil del usuario.</value>
+  </data>
 </root>
