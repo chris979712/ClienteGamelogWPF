@@ -37,6 +37,28 @@ namespace GameLogEscritorio.Ventanas
                 txt_SinJuegos.Visibility = Visibility.Visible;
             }
             img_FotoDePerfil.Source = ConvertirBytesAImagen(UsuarioSingleton.Instancia.fotoDePerfil!);
+            DecorarNombre();
+        }
+
+        public void DecorarNombre()
+        {
+            if (!UsuarioSingleton.Instancia.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
+            {
+                LinearGradientBrush arcoiris = new LinearGradientBrush();
+                arcoiris.StartPoint = new Point(0, 0);
+                arcoiris.EndPoint = new Point(1, 0);
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Red, 0.0));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Orange, 0.2));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Yellow, 0.4));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Green, 0.6));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Blue, 0.8));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Purple, 1.0));
+                txt_Jugador.Foreground = arcoiris;
+            }
+            else
+            {
+                txt_Jugador.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC000"));
+            }
         }
 
         public static ImageSource ConvertirBytesAImagen(byte[] imagenBytes)

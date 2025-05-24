@@ -81,12 +81,37 @@ namespace GameLogEscritorio.Ventanas
             if (jugadorObtenido.nombreDeUsuario!.Equals(UsuarioSingleton.Instancia.nombreDeUsuario))
             {
                 txb_nombreJugador.Text = jugadorObtenido.nombreDeUsuario + " (TÚ)";
+                CargarNombreEstetico(jugadorObtenido);
             }
             else
             {
                 txb_nombreJugador.Text = jugadorObtenido.nombreDeUsuario;
+                CargarNombreEstetico(jugadorObtenido);
             }
             img_jugador.Source = BytesAImagen(_fotoDePerfilJugador);
+        }
+
+        private void CargarNombreEstetico(Perfil jugadorObtenido)
+        {
+            string nombreDeUsuario = txb_nombreJugador.Text;
+            if (!jugadorObtenido.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
+            {
+                txb_nombreJugador.Text = nombreDeUsuario + " ADMIN";
+                LinearGradientBrush arcoiris = new LinearGradientBrush();
+                arcoiris.StartPoint = new Point(0, 0);
+                arcoiris.EndPoint = new Point(1, 0);
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Red, 0.0));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Orange, 0.2));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Yellow, 0.4));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Green, 0.6));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Blue, 0.8));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Purple, 1.0));
+                txb_nombreJugador.Foreground = arcoiris;
+            }
+            else
+            {
+                txb_nombreJugador.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC000"));
+            }
         }
 
         private void AvatarJugador_Click(object sender, MouseButtonEventArgs e)
