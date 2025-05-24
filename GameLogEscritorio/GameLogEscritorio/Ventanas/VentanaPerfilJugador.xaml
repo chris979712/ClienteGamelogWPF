@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="Perfil Jugador" Height="650" Width="920" Background="Black"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow"
->
+        WindowStyle="SingleBorderWindow">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="UniformToFill"/>
@@ -103,9 +102,10 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Margin="20,48,0,0">
-                <TextBlock Text="Perfil"
+                <TextBlock x:Name="txt_NombreUsuario"
+                           Text="{Binding nombreDeUsuario}"
                            Foreground="White"
-                           FontSize="42"
+                           FontSize="33"
                            FontWeight="Bold"
                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
                            TextAlignment="Center"
@@ -124,15 +124,34 @@
                    Grid.Column="0"
                    Margin="24,20,0,0"/>
 
-            <Label Content="Descripcion"
-                   FontWeight="Bold"
-                   FontSize="20"
-                   Foreground="#F2F2F1"
-                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
-                   Grid.Row="1"
-                   Grid.Column="1"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top" Height="147" Width="532" Margin="30,10,0,0"/>
+            <StackPanel Grid.Row="1" Grid.Column="1" Margin="30,0,0,0" VerticalAlignment="Top">
+                <TextBlock Text="Nombre:"
+                           FontWeight="Bold"
+                           FontSize="16"
+                           Foreground="#F2F2F1"
+                           FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                <TextBlock x:Name="txt_NombreCompleto"
+                           Text="{Binding nombre}"
+                           FontSize="14"
+                           Foreground="White"
+                           Margin="0,0,0,10" Height="27"
+                           FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+
+                <TextBlock Text="Descripción:"
+                           FontWeight="Bold"
+                           FontSize="16"
+                           Foreground="#F2F2F1"
+                           FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                <Border BorderBrush="#F2F2F1" BorderThickness="1" CornerRadius="5" Padding="5" Width="507">
+                    <TextBlock x:Name="txt_Descripcion"
+                               Text="{Binding Descripcion}"
+                               FontSize="14"
+                               Foreground="White"
+                               TextWrapping="Wrap"
+                               MinHeight="80"
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                </Border>
+            </StackPanel>
 
             <Label Content="Videojuegos Favoritos"
                    FontWeight="Bold"
@@ -153,63 +172,88 @@
                        VerticalAlignment="Top"
                        Margin="20,10,0,0"/>
 
-            <StackPanel Orientation="Horizontal"
-                        Grid.Row="5"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Margin="74,5,0,0">
-                <Image x:Name="img_Favorito1"
-                       Source="{Binding rutaPortada}"
-                       Width="163"
-                       Height="208"
-                       Stretch="UniformToFill"
-                       ClipToBounds="True"
-                       Margin="10,0"/>
-                <Image x:Name="img_Favorito2"
-                       Source="{Binding rutaPortada}"
-                       Width="163"
-                       Height="208"
-                       Stretch="UniformToFill"
-                       ClipToBounds="True"
-                       Margin="20,0"/>
-                <Image x:Name="img_Favorito3"
-                       Source="{Binding rutaPortada}"
-                       Width="163"
-                       Height="208"
-                       Stretch="UniformToFill"
-                       ClipToBounds="True"
-                       Margin="20,0"/>
-                <Image x:Name="img_Favorito4"
-                       Source="{Binding rutaPortada}"
-                       Width="163"
-                       Height="208"
-                       Stretch="UniformToFill"
-                       ClipToBounds="True"
-                       Margin="20,0"/>
-            </StackPanel>
+            <TextBlock x:Name="txt_SinJuegosFavoritos"
+                       Grid.Row="5"
+                       Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Text="Este usuario no cuenta con juegos favoritos"
+                       FontSize="18"
+                       Foreground="#FFC000" Height="27"
+                       FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" Width="562"
+                       Visibility="Collapsed"/>
 
-            <StackPanel
-                        Grid.Column="2"
-                        VerticalAlignment="Top"
+            <ItemsControl x:Name="ic_JuegosFavoritos" Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top" 
+                    Visibility="Collapsed">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="74,5,0,0"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <Image Source="{Binding imagenFondo}"
+                                   Width="150"
+                                   Height="150"
+                                   Stretch="Uniform"
+                                   ClipToBounds="True"
+                                   Margin="10,0"/>
+                            <TextBlock Text="{Binding nombre}"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,10,0"
+                                   FontWeight="Bold"
+                                   FontSize="12"
+                                   Foreground="#FECA18"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <StackPanel Grid.Column="2"
+                        VerticalAlignment="Center"
                         HorizontalAlignment="Center" Grid.Row="1">
-                <Button Content="Bannear"
-                        Width="150"
+                <Button x:Name="btn_Banear" Content="Banear"
+                        Width="143"
                         Background="Red"
                         Foreground="White"
                         FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                         Click="Banear_Click"
                         Margin="0,0,0,10"
+                        HorizontalAlignment="Left"/>
+                <Button x:Name="btn_Desbanear" Content="Desbanear"
+                        Width="143"
+                        Background="Green"
+                        Foreground="White"
+                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                        Click="Desbanear_Click"
+                        Margin="0,0,0,10"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top"/>
-                <Button Content="Seguir"
-                        Width="150"
+                        Visibility="Collapsed"/>
+                <Button x:Name="btn_Seguir"  Content="Seguir"
+                        Width="143"
                         Background="#23588A"
                         Foreground="White"
                         FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                         Click="Seguir_Click"
                         Margin="0,10,0,10"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"/>
+                <Button x:Name="btn_DejarDeSeguir" Content="Dejar de seguir"
+                        Width="143"
+                        Background="#23588A"
+                        Foreground="White"
+                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                        Click="DejarDeSeguir_Click"
+                        Margin="0,10,0,10"
+                        FontSize="17"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"/>
             </StackPanel>

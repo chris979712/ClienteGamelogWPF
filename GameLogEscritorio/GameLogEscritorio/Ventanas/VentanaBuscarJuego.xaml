@@ -107,8 +107,8 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Image x:Name="img_juego" Grid.Row="0" Width="320" Height="320" Stretch="Uniform"
-                           Source="{Binding backgroundImage}" ClipToBounds="True" Margin="0,5"/>
+                        <Image x:Name="img_juego" Grid.Row="0" Width="300" Height="10" Stretch="Uniform"
+                           Source="/Imagenes/Amarillo/iconoLapizA.png" ClipToBounds="True" Margin="0,5"/>
 
                         <TextBlock x:Name="txt_nombreJuego" Grid.Row="1" FontSize="20" FontWeight="Bold" Foreground="Yellow"
                             HorizontalAlignment="Center" TextAlignment="Center" Margin="0,5,0,10"/>
@@ -119,9 +119,6 @@
                             Click="Detalles_Click" HorizontalAlignment="Center"/>
                     </Grid>
 
-                    <Button Grid.Row="4" Content="Regresar" Width="176" Background="Red" Foreground="White"
-                            FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                            Click="Regresar_Click" HorizontalAlignment="Center" Margin="0,20,0,0"/>
                 </Grid>
             </Grid>
         </Border>

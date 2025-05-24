@@ -1,9 +1,12 @@
-﻿using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
+﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
+using GameLogEscritorio.Servicios.APIRawg.Servicio;
+using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -16,6 +19,9 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaBuscarJugador : Window
     {
         private byte[] _fotoDePerfilJugador = new byte[0];
+
+        private Perfil _PerfilJugador = new Perfil();
+
         public VentanaBuscarJugador()
         {
             InitializeComponent();
@@ -51,9 +57,9 @@ namespace GameLogEscritorio.Ventanas
             {
                 if(jugadorRespuesta.estado == Constantes.CodigoExito)
                 {
-                    Perfil jugadorObtenido = jugadorRespuesta.jugador!.FirstOrDefault()!;
-                    _fotoDePerfilJugador = await ObtenerFotoDePerfilJugador(jugadorObtenido);
-                    CargarDatosJugador(jugadorObtenido);
+                    _PerfilJugador = jugadorRespuesta.jugador!.FirstOrDefault()!;
+                    _fotoDePerfilJugador = await ObtenerFotoDePerfilJugador(_PerfilJugador.foto!);
+                    CargarDatosJugador(_PerfilJugador);
                 }
             }
             else
@@ -63,10 +69,10 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async Task<byte[]> ObtenerFotoDePerfilJugador(Perfil perfilObtenido)
+        private async Task<byte[]> ObtenerFotoDePerfilJugador(string rutaFotoDePerfil)
         {
             byte[] fotoEncontrada = FotoPorDefecto.ObtenerFotoDePerfilPorDefecto();
-            RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(perfilObtenido.foto!);
+            RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(rutaFotoDePerfil!);
             ManejadorRespuestas.ManejadorRespuestasGRPC(respuestaGRPC.codigo);
             if (respuestaGRPC.codigo == Constantes.CodigoExito)
             {
@@ -81,12 +87,37 @@ namespace GameLogEscritorio.Ventanas
             if (jugadorObtenido.nombreDeUsuario!.Equals(UsuarioSingleton.Instancia.nombreDeUsuario))
             {
                 txb_nombreJugador.Text = jugadorObtenido.nombreDeUsuario + " (TÚ)";
+                CargarNombreEstetico(jugadorObtenido);
             }
             else
             {
                 txb_nombreJugador.Text = jugadorObtenido.nombreDeUsuario;
+                CargarNombreEstetico(jugadorObtenido);
             }
             img_jugador.Source = BytesAImagen(_fotoDePerfilJugador);
+        }
+
+        private void CargarNombreEstetico(Perfil jugadorObtenido)
+        {
+            string nombreDeUsuario = txb_nombreJugador.Text;
+            if (!jugadorObtenido.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
+            {
+                txb_nombreJugador.Text = nombreDeUsuario + " ADMIN";
+                LinearGradientBrush arcoiris = new LinearGradientBrush();
+                arcoiris.StartPoint = new Point(0, 0);
+                arcoiris.EndPoint = new Point(1, 0);
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Red, 0.0));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Orange, 0.2));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Yellow, 0.4));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Green, 0.6));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Blue, 0.8));
+                arcoiris.GradientStops.Add(new GradientStop(Colors.Purple, 1.0));
+                txb_nombreJugador.Foreground = arcoiris;
+            }
+            else
+            {
+                txb_nombreJugador.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC000"));
+            }
         }
 
         private void AvatarJugador_Click(object sender, MouseButtonEventArgs e)
@@ -135,9 +166,54 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void Detalles_Click(object sender, RoutedEventArgs e)
+        private async void Detalles_Click(object sender, RoutedEventArgs e)
         {
+            BloquearBotones();
+            ObservableCollection<JuegoCompleto> juegosFavoritos = await ServicioBuscarJuego.ObtenerJuegosFavoritosJugador(_PerfilJugador.idJugador);
+            bool errorAlObtenerJuegos = juegosFavoritos.Count >= 1 && (juegosFavoritos[0].idJuego == Constantes.CodigoErrorSolicitud || 
+                                        juegosFavoritos[0].idJuego == Constantes.CodigoErrorServidor || juegosFavoritos[0].idJuego == Constantes.ErrorEnLaOperacion ||
+                                        juegosFavoritos[0].idJuego == Constantes.CodigoErrorAcceso);
+            DesbloquearBotones();
+            if (errorAlObtenerJuegos)
+            {
+                if(juegosFavoritos[0].idJuego == Constantes.CodigoErrorAcceso){
+                    await ManejadorSesion.CerrarSesionForzadaDeUsuario();
+                    this.Close();
+                }
+                new VentanaEmergente(Constantes.TipoError, juegosFavoritos[0].descripcion!, Constantes.CodigoErrorServidor);
 
+            }
+            else
+            {
+                PerfilJugador perfilJugador = new PerfilJugador()
+                {
+                    idJugador = _PerfilJugador.idJugador,
+                    nombre = _PerfilJugador.nombre,
+                    primerApellido = _PerfilJugador.primerApellido,
+                    segundoApellido = _PerfilJugador.segundoApellido,
+                    nombreDeUsuario = _PerfilJugador.nombreDeUsuario,
+                    descripcion = _PerfilJugador.descripcion,
+                    foto = _PerfilJugador.foto,
+                    fotoDePerfil = await ObtenerFotoDePerfilJugador(_PerfilJugador.foto!),
+                    tipoDeAcceso = _PerfilJugador.tipoDeAcceso,
+                    estado = _PerfilJugador.estado
+                   
+                };
+                new VentanaPerfilJugador(perfilJugador, juegosFavoritos).Show();
+                this.Close();
+            }
+        }
+
+        public void BloquearBotones()
+        {
+            btn_Buscar.IsEnabled = false;
+            btn_VerPerfil.IsEnabled = false;
+        }
+
+        public void DesbloquearBotones()
+        {
+            btn_Buscar.IsEnabled = true;
+            btn_VerPerfil.IsEnabled = true;
         }
 
         private void Salir_Click(object sender, RoutedEventArgs e)
