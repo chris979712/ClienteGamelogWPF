@@ -72,10 +72,10 @@ namespace GameLogEscritorio.Ventanas
 
         private void EliminarJuegoPendiente()
         {
-            var juegoAEliminar = Constantes.juegosPendientes.FirstOrDefault(juego => juego.idJuego == _modeloJuegoAReseñar.id);
+            var juegoAEliminar = Estaticas.juegosPendientes.FirstOrDefault(juego => juego.idJuego == _modeloJuegoAReseñar.id);
             if (juegoAEliminar != null)
             {
-                Constantes.juegosPendientes.Remove(juegoAEliminar);
+                Estaticas.juegosPendientes.Remove(juegoAEliminar);
             }
         }
 

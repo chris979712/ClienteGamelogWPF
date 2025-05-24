@@ -5,18 +5,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:extensiones="clr-namespace:GameLogEscritorio.Extensiones"
     mc:Ignorable="d"
-    Title="GAMELOG" Height="600" Width="920"
-     ResizeMode="NoResize"
-     Background="Black"
-     WindowStartupLocation="CenterScreen"
-     WindowState="Maximized">
+    Title="GAMELOG" Height="600" Width="920" Background="Black"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow" AllowsTransparency="False"
+        ResizeMode="NoResize">
 
     <Window.Resources>
         <FontFamily x:Key="FuenteOCR">pack://application:,,,/GameLogEscritorio;component/Fuentes/Anchox Sport</FontFamily>
     </Window.Resources>
-    
-    <Border Background="#0C3C5C"
-    CornerRadius="25">
+
+    <Border CornerRadius="25">
+        <Border.Background>
+            <ImageBrush ImageSource="/Imagenes/FondoInterfaces.PNG" 
+                        Stretch="UniformToFill" 
+                        Opacity="0.9"/>
+        </Border.Background>
         <Grid>
 
 
@@ -32,7 +35,7 @@
 
                 <Image Source="/Imagenes/FondoInterfaces.png" 
                    Stretch="UniformToFill"
-                   Opacity="0.9"
+                   Opacity="0"
                    Grid.ColumnSpan="2"/>
 
                 <StackPanel HorizontalAlignment="Center"
@@ -54,15 +57,15 @@
 
                 <Image x:Name="img_FotoDePerfil"
                    Grid.Column="1"
-                   Margin="20"
+                   Margin="6,38,0,0"
                    Width="120"
                    Height="120"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
                    ClipToBounds="True"
                    Stretch="UniformToFill"/>
 
-                <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
                     <TextBlock x:Name="txtbl_JuegosPendientes"
                    FontSize="30"
                    Foreground="#FECA18"
@@ -85,7 +88,7 @@
                                     <ItemsPanelTemplate>
                                         <WrapPanel IsItemsHost="True"
                                                    Orientation="Horizontal"
-                                                   HorizontalAlignment="Center" />      
+                                                   HorizontalAlignment="Center" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
@@ -104,7 +107,7 @@
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Top"
                                                        MouseDown="IrAVentanaeseñarJuego_Click"
-                                                       Margin="5"/>         
+                                                       Margin="5"/>
                                                 <TextBlock Text="{Binding nombre}"
                                                            TextWrapping="Wrap"
                                                            TextAlignment="Center"
