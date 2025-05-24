@@ -205,6 +205,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Ha ocurrido un error en la conexion al servidor al intentar obtener los datos de perfil del usuario..
+        /// </summary>
+        public static string ErrorEnLaCargaDatosUsuario {
+            get {
+                return ResourceManager.GetString("ErrorEnLaCargaDatosUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error inesperado al querer realizar la solicitud.
         /// </summary>
         public static string Excepcion {

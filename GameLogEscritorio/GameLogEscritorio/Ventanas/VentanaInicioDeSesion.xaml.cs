@@ -9,6 +9,7 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -48,11 +49,11 @@ namespace GameLogEscritorio.Ventanas
                 if (respuesta.estado == 200)
                 {
                     UsuarioSingleton.Instancia.IniciarSesion(respuesta.cuenta!.FirstOrDefault()!);
-                    Estaticas.juegosPendientes = await ServicioBuscarJuego.ObtenerJuegosPendientesJugador();
+                    Estaticas.juegosPendientes = await ServicioBuscarJuego.ObtenerJuegosPendientesJugador(UsuarioSingleton.Instancia.idJugador);
                     ApiSeguidosRespuesta seguidosRespuesta = await ServicioSeguidor.ObtenerJugadoresSeguidos(UsuarioSingleton.Instancia.idJugador);
                     ApiJuegosRespuesta juegosFavoritosObtenidos = await ServicioJuego.ObtenerJuegosFavoritos(UsuarioSingleton.Instancia.idJugador);
                     await CargarFotoDePerfilUsuario();
-                    VerificarCargaCorrectaDeElementos(juegosFavoritosObtenidos, seguidosRespuesta);
+                    VerificarCargaCorrectaDeElementos(juegosFavoritosObtenidos, seguidosRespuesta, Estaticas.juegosPendientes);
                 }
                 else
                 {
@@ -65,22 +66,26 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void VerificarCargaCorrectaDeElementos(ApiJuegosRespuesta juegosFavoritosObtenidos,ApiSeguidosRespuesta seguidosObtenidosRespuesta)
+        private void VerificarCargaCorrectaDeElementos(ApiJuegosRespuesta juegosFavoritosObtenidos,ApiSeguidosRespuesta seguidosObtenidosRespuesta,ObservableCollection<JuegoCompleto> juegosPendientes)
         {
-            if ((Estaticas.juegosPendientes.Count == 1 && Estaticas.juegosPendientes[0].idJuego == Constantes.CodigoErrorSolicitud) ||
-                (juegosFavoritosObtenidos.estado == Constantes.CodigoErrorSolicitud || juegosFavoritosObtenidos.estado == Constantes.CodigoErrorServidor) ||
-                (seguidosObtenidosRespuesta.estado == Constantes.CodigoErrorSolicitud || seguidosObtenidosRespuesta.estado == Constantes.CodigoErrorServidor))
+            bool errorEnPendientes = Estaticas.juegosPendientes.Count == 1 && Estaticas.juegosPendientes[0].idJuego == Constantes.CodigoErrorSolicitud;
+            bool errorEnFavoritos = juegosFavoritosObtenidos.estado == Constantes.CodigoErrorSolicitud || juegosFavoritosObtenidos.estado == Constantes.CodigoErrorServidor;
+            bool errorEnSeguidos =seguidosObtenidosRespuesta.estado == Constantes.CodigoErrorSolicitud || seguidosObtenidosRespuesta.estado == Constantes.CodigoErrorServidor;
+            bool errorEnJuegoPendiente = juegosPendientes.Count >= 1 && (juegosPendientes[0].idJuego == Constantes.ErrorEnLaOperacion ||
+                 juegosPendientes[0].idJuego == Constantes.CodigoErrorSolicitud || juegosPendientes[0].idJuego == Constantes.CodigoErrorServidor);
+
+            if (errorEnPendientes || errorEnFavoritos || errorEnSeguidos || errorEnJuegoPendiente)
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Estaticas.juegosPendientes[0].descripcion!, Estaticas.juegosPendientes[0].idJuego);
+                new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.ErrorEnLaCargaDatosUsuario, Constantes.CodigoErrorServidor);
             }
             else
             {
                 CargarListaJugadoresSeguidos(seguidosObtenidosRespuesta);
                 CargarListaDeJuegos(juegosFavoritosObtenidos);
-                MenuPrincipal menuPrincipal = new MenuPrincipal();
-                menuPrincipal.Show();
+                new MenuPrincipal().Show();
                 this.Close();
             }
+
         }
 
         private void CargarListaJugadoresSeguidos(ApiSeguidosRespuesta jugadoresSeguidos)
