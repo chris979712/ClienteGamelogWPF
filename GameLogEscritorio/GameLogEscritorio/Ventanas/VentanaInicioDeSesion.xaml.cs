@@ -48,21 +48,11 @@ namespace GameLogEscritorio.Ventanas
                 if (respuesta.estado == 200)
                 {
                     UsuarioSingleton.Instancia.IniciarSesion(respuesta.cuenta!.FirstOrDefault()!);
-                    Constantes.juegosPendientes = await ServicioBuscarJuego.ObtenerJuegosPendientesJugador();
-                    await CargarFotoDePerfilUsuario();
+                    Estaticas.juegosPendientes = await ServicioBuscarJuego.ObtenerJuegosPendientesJugador();
+                    ApiSeguidosRespuesta seguidosRespuesta = await ServicioSeguidor.ObtenerJugadoresSeguidos(UsuarioSingleton.Instancia.idJugador);
                     ApiJuegosRespuesta juegosFavoritosObtenidos = await ServicioJuego.ObtenerJuegosFavoritos(UsuarioSingleton.Instancia.idJugador);
-                    if ((Constantes.juegosPendientes.Count == 1 && Constantes.juegosPendientes[0].idJuego == Constantes.CodigoErrorSolicitud) ||
-                        (juegosFavoritosObtenidos.estado == Constantes.CodigoErrorSolicitud || juegosFavoritosObtenidos.estado == Constantes.CodigoErrorServidor))
-                    {
-                        VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Constantes.juegosPendientes[0].descripcion!, Constantes.juegosPendientes[0].idJuego);
-                    }
-                    else
-                    {
-                        CargarListaDeJuegos(juegosFavoritosObtenidos);
-                        MenuPrincipal menuPrincipal = new MenuPrincipal();
-                        menuPrincipal.Show();
-                        this.Close();
-                    }   
+                    await CargarFotoDePerfilUsuario();
+                    VerificarCargaCorrectaDeElementos(juegosFavoritosObtenidos, seguidosRespuesta);
                 }
                 else
                 {
@@ -72,6 +62,35 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Constantes.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
+            }
+        }
+
+        private void VerificarCargaCorrectaDeElementos(ApiJuegosRespuesta juegosFavoritosObtenidos,ApiSeguidosRespuesta seguidosObtenidosRespuesta)
+        {
+            if ((Estaticas.juegosPendientes.Count == 1 && Estaticas.juegosPendientes[0].idJuego == Constantes.CodigoErrorSolicitud) ||
+                (juegosFavoritosObtenidos.estado == Constantes.CodigoErrorSolicitud || juegosFavoritosObtenidos.estado == Constantes.CodigoErrorServidor) ||
+                (seguidosObtenidosRespuesta.estado == Constantes.CodigoErrorSolicitud || seguidosObtenidosRespuesta.estado == Constantes.CodigoErrorServidor))
+            {
+                VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Estaticas.juegosPendientes[0].descripcion!, Estaticas.juegosPendientes[0].idJuego);
+            }
+            else
+            {
+                CargarListaJugadoresSeguidos(seguidosObtenidosRespuesta);
+                CargarListaDeJuegos(juegosFavoritosObtenidos);
+                MenuPrincipal menuPrincipal = new MenuPrincipal();
+                menuPrincipal.Show();
+                this.Close();
+            }
+        }
+
+        private void CargarListaJugadoresSeguidos(ApiSeguidosRespuesta jugadoresSeguidos)
+        {
+            if(jugadoresSeguidos.jugadoresSeguidos?.Count >= 1)
+            {
+                foreach(var jugadorSeguido in jugadoresSeguidos.jugadoresSeguidos)
+                {
+                    Estaticas.idJugadoresSeguido.Add(jugadorSeguido.idJugador);
+                }
             }
         }
 
@@ -110,13 +129,13 @@ namespace GameLogEscritorio.Ventanas
 
         private void CargarListaDeJuegos(ApiJuegosRespuesta juegosFavoritosObtenidos)
         {
-            if(Constantes.juegosFavoritos != null)
+            if(Estaticas.juegosFavoritos != null)
             {
-                Constantes.juegosFavoritos = new List<Juego>();
+                Estaticas.juegosFavoritos = new List<Juego>();
             }
             else
             {
-                Constantes.juegosFavoritos = juegosFavoritosObtenidos.juegos!;
+                Estaticas.juegosFavoritos = juegosFavoritosObtenidos.juegos!;
             }
         }
 

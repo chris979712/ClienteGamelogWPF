@@ -25,9 +25,9 @@ namespace GameLogEscritorio.Ventanas
         {
             InitializeComponent();
             txt_Jugador.Text = "Bienvenido " + UsuarioSingleton.Instancia.nombreDeUsuario!.ToString();
-            if (Constantes.juegosPendientes.Count >= 1)
+            if (Estaticas.juegosPendientes.Count >= 1)
             {
-                ic_JuegosPendientes.ItemsSource = Constantes.juegosPendientes;
+                ic_JuegosPendientes.ItemsSource = Estaticas.juegosPendientes;
                 ic_JuegosPendientes.Visibility = Visibility.Visible;
                 txt_SinJuegos.Visibility = Visibility.Collapsed;
             }

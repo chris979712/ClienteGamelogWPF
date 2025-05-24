@@ -1,8 +1,10 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Ventanas;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,9 @@ namespace GameLogEscritorio.Utilidades
         {
             await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!);
             UsuarioSingleton.Instancia.CerrarSesion();
+            Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
+            Estaticas.juegosFavoritos = new List<Juego>();
+            Estaticas.idJugadoresSeguido = new List<int>();
             SesionToken.CerrarSesion();
             return true;
         }
@@ -24,6 +29,9 @@ namespace GameLogEscritorio.Utilidades
             ApiRespuestaBase respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!);
             UsuarioSingleton.Instancia.CerrarSesion();
             SesionToken.CerrarSesion();
+            Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
+            Estaticas.juegosFavoritos = new List<Juego>();
+            Estaticas.idJugadoresSeguido = new List<int>(); ;
             VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuesta.mensaje!, respuesta.estado);
             VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
             ventanaInicioDeSesion.Show();
@@ -35,6 +43,9 @@ namespace GameLogEscritorio.Utilidades
             ApiRespuestaBase respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!);
             UsuarioSingleton.Instancia.CerrarSesion();
             SesionToken.CerrarSesion();
+            Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
+            Estaticas.juegosFavoritos = new List<Juego>();
+            Estaticas.idJugadoresSeguido = new List<int>();
             VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, mensajeSinAcceso, respuesta.estado);
             VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
             ventanaInicioDeSesion.Show();
@@ -46,6 +57,9 @@ namespace GameLogEscritorio.Utilidades
             ApiRespuestaBase respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!);
             UsuarioSingleton.Instancia.CerrarSesion();
             SesionToken.CerrarSesion();
+            Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
+            Estaticas.juegosFavoritos = new List<Juego>();
+            Estaticas.idJugadoresSeguido = new List<int>();
             VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
             ventanaInicioDeSesion.Show();
             return true;

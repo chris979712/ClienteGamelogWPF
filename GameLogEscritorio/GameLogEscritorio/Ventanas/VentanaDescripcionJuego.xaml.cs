@@ -43,7 +43,7 @@ namespace GameLogEscritorio.Ventanas
                 creadorString.Append(plataforma.platform!.name).Append(" ");
             }
             lbl_plataformas.Content = creadorString.ToString().Trim();
-            if(Constantes.juegosPendientes.Any(juego => juego.idJuego == _juegoObtenido.id))
+            if(Estaticas.juegosPendientes.Any(juego => juego.idJuego == _juegoObtenido.id))
             {
                 btn_AñadirAPendientes.Visibility = Visibility.Collapsed;
                 btn_QuitarPendientes.Visibility = Visibility.Visible;
@@ -53,7 +53,7 @@ namespace GameLogEscritorio.Ventanas
                 btn_QuitarPendientes.Visibility =Visibility.Collapsed;
                 btn_AñadirAPendientes.Visibility=Visibility.Visible;
             }
-            if(Constantes.juegosFavoritos != null && Constantes.juegosFavoritos.Any(juego => juego.idJuego == _juegoObtenido.id))
+            if(Estaticas.juegosFavoritos != null && Estaticas.juegosFavoritos.Any(juego => juego.idJuego == _juegoObtenido.id))
             {
                 btn_AgregarAFavoritos.Visibility = Visibility.Collapsed;    
                 btn_QuitarDeFavoritos.Visibility=Visibility.Visible;
@@ -80,7 +80,7 @@ namespace GameLogEscritorio.Ventanas
                 {
                     btn_AñadirAPendientes.Visibility = Visibility.Collapsed;
                     btn_QuitarPendientes.Visibility = Visibility.Visible;
-                    Constantes.juegosPendientes.Add(new JuegoCompleto()
+                    Estaticas.juegosPendientes.Add(new JuegoCompleto()
                     {
                         idJuego = _juegoObtenido.id,
                         nombre = _juegoObtenido.name,
@@ -110,10 +110,10 @@ namespace GameLogEscritorio.Ventanas
                 {
                     btn_QuitarPendientes.Visibility = Visibility.Collapsed;
                     btn_AñadirAPendientes.Visibility = Visibility.Visible;
-                    var juegoAEliminar = Constantes.juegosPendientes.FirstOrDefault(juego => juego.idJuego == _juegoObtenido.id);
+                    var juegoAEliminar = Estaticas.juegosPendientes.FirstOrDefault(juego => juego.idJuego == _juegoObtenido.id);
                     if (juegoAEliminar != null)
                     {
-                        Constantes.juegosPendientes.Remove(juegoAEliminar);
+                        Estaticas.juegosPendientes.Remove(juegoAEliminar);
                     }
                 }
             }
@@ -138,7 +138,7 @@ namespace GameLogEscritorio.Ventanas
                 {
                     btn_AgregarAFavoritos.Visibility = Visibility.Collapsed;
                     btn_QuitarDeFavoritos.Visibility = Visibility.Visible;
-                    Constantes.juegosFavoritos.Add(new Juego()
+                    Estaticas.juegosFavoritos.Add(new Juego()
                     {
                         idJuego = _juegoObtenido.id,
                         nombre = _juegoObtenido.name,
@@ -163,10 +163,10 @@ namespace GameLogEscritorio.Ventanas
                 {
                     btn_AgregarAFavoritos.Visibility = Visibility.Visible;
                     btn_QuitarDeFavoritos.Visibility = Visibility.Collapsed;
-                    var juegoAEliminar = Constantes.juegosFavoritos.FirstOrDefault(juego => juego.idJuego == _juegoObtenido.id);
+                    var juegoAEliminar = Estaticas.juegosFavoritos.FirstOrDefault(juego => juego.idJuego == _juegoObtenido.id);
                     if (juegoAEliminar != null)
                     {
-                        Constantes.juegosFavoritos.Remove(juegoAEliminar);
+                        Estaticas.juegosFavoritos.Remove(juegoAEliminar);
                     }
                 }
             }
