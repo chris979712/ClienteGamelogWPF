@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameLogEscritorio.Ventanas"
         mc:Ignorable="d"
-        Title="Buscar Socio" Height="600" Width="920" Background="Black"
+        Title="Buscar Jugador" Height="600" Width="920" Background="Black"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow" AllowsTransparency="False"
         ResizeMode="NoResize">
@@ -112,7 +112,9 @@
                                              Foreground="Black"
                                              BorderBrush="#FFC000"
                                              BorderThickness="1"
-                                             IsEnabled="True">
+                                             IsEnabled="True"
+                                             FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
+                                             MaxLength="20">
                                         <TextBox.Resources>
                                             <Style TargetType="{x:Type Border}">
                                                 <Setter Property="CornerRadius" Value="3"/>
@@ -156,23 +158,23 @@
                             </StackPanel>
                         </Border>
 
-                        <Grid x:Name="grd_resultadoJugador" Grid.Row="2" Visibility="Visible" Margin="0,0,0,10">
+                        <Grid x:Name="grd_resultadoJugador" Grid.Row="2" Visibility="Collapsed" Height="223" VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Border Grid.Column="0" Width="150" Height="150" 
                                     Background="#23588A" CornerRadius="125" 
-                                    Margin="20" Padding="5" BorderBrush="#FFC000" BorderThickness="1">
+                                    Margin="40,16,0,47" Padding="5" BorderBrush="#FFC000" BorderThickness="1">
                                 <Image x:Name="img_jugador" 
-                                       Stretch="Uniform" 
-                                       Source="{Binding imagenPerfil}">
+                                       Stretch="UniformToFill"
+                                       MouseDown="AvatarJugador_Click">
                                     <Image.Clip>
-                                        <EllipseGeometry Center="150,150" RadiusX="125" RadiusY="125"/>
+                                        <EllipseGeometry Center="70,70" RadiusX="70" RadiusY="70"/>
                                     </Image.Clip>
                                 </Image>
                             </Border>
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20">
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="53,0,20,0">
                                 <TextBlock x:Name="txb_nombreJugador" 
                                            FontSize="24" 
                                            FontWeight="Bold" 

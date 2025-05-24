@@ -1,4 +1,5 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,7 +39,5 @@ namespace GameLogEscritorio.Utilidades
         public const string tipoJugadorPorDefecto = "Jugador";
         public const string TipoDeEstadoPorDefecto = "Desbaneado";
         public const string JuegoNoEncontradoRawg = "Not found.";
-        public static ObservableCollection<JuegoCompleto> juegosPendientes = new ObservableCollection<JuegoCompleto>();
-        public static List<Juego> juegosFavoritos = new List<Juego>();
     }
 }

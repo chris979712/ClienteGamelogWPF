@@ -102,7 +102,7 @@
             </Border>
 
             <Image x:Name="img_FotoPerfil"
-                   Source="{Binding rutaFotoPerfil}"
+                   Source="{Binding fotoDePerfil}"
                    Width="174"
                    Height="158"
                    Stretch="UniformToFill"
