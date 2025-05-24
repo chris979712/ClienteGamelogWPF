@@ -75,6 +75,21 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
+        public void TextoSugeridoGtFocus (object sender, RoutedEventArgs e)
+        {
+            txtb_Sugerencia.Visibility = Visibility.Collapsed;
+        }
+        public void TextoSugeridoLosFocus(object sender, RoutedEventArgs e)
+        {
+            txtb_Sugerencia.Visibility = Visibility.Visible;
+        }
+
+        private void PasswordVisible(object sender, RoutedEventArgs e)
+        {
+            txtb_Sugerencia.Visibility = string.IsNullOrEmpty(pb_Contrasenia.Password) ? Visibility.Visible : Visibility.Collapsed; 
+        }
+
+
         private async Task<bool> CargarFotoDePerfilUsuario()
         {
             bool fotoEncontrada = false;

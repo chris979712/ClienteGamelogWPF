@@ -90,7 +90,7 @@
                                         <ColumnDefinition Width="80"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Source="/Imagenes/imagendeperfildefaultgamelog.png" Width="60" Height="60"
+                                    <Image Source="{Binding fotoJugador}" Width="60" Height="60"
                                            Grid.Column="0" Margin="5" Stretch="Uniform" ClipToBounds="True"/>
 
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0,10,0">

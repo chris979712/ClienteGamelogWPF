@@ -87,6 +87,9 @@ namespace GameLogEscritorio.Utilidades
                 case Constantes.CodigoServidorNoDisponibleGRPC:
                     VentanaEmergente ventanaEmergenteNoDisponible = new VentanaEmergente(Constantes.TipoInformacion,Properties.Resources.GRPCServidorNoDisponible, Constantes.CodigoErrorSolicitud);
                     break;
+                case Constantes.CodigoServidorNoEncontradoGRPC:
+                    VentanaEmergente ventanaEmergenteServidorNoEncontrado = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.ServidorGRPCNoEncontrado, Constantes.CodigoErrorSolicitud);
+                    break;
             }
         }
 

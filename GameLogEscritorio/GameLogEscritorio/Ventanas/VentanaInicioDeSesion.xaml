@@ -29,19 +29,27 @@
                              Width="204" Height="30" FontSize="16" Margin="0,5"/>
 
                     <Grid Width="204" Height="34" Margin="0,5">
+                        <TextBlock x:Name="txtb_Sugerencia" Text="Contraseña" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                         FontSize="16"
+                         Padding="10,0,40,0"  Margin="6,10,29,2"/>
                         <PasswordBox x:Name="pb_Contrasenia"
-                         extensiones:PasswordBoxExtensiones.TextoSugerido="Contraseña"
                         FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                       PasswordChanged="PasswordVisible"
+                       Background="Transparent"
+                        GotFocus="TextoSugeridoGtFocus"
+                        LostFocus="TextoSugeridoLosFocus"
                         FontSize="16"
                         Padding="10,0,40,0"
                         Visibility="Visible" />
 
+                       
+
                         <TextBox x:Name="txtb_Contrasenia"
-                        extensiones:TextBoxExtensiones.TextoSugerido="Contraseña"
                         FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                            Background="Transparent"
                         FontSize="16"
                         Padding="10,0,40,0"
-                        Visibility="Collapsed" />
+                        Visibility="Collapsed" Margin="0,0,35,-3" />
 
                         <ToggleButton x:Name="tbtn_VisibilidadContrasenia"
                         Width="30"

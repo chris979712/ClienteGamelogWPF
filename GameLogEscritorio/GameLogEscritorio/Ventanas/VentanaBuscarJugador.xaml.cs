@@ -14,12 +14,10 @@ using System.Windows.Shapes;
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaBuscarSocio.xaml
-    /// </summary>
-    public partial class VentanaBuscarSocio : Window
+
+    public partial class VentanaBuscarJugador : Window
     {
-        public VentanaBuscarSocio()
+        public VentanaBuscarJugador()
         {
             InitializeComponent();
         }
@@ -31,12 +29,14 @@ namespace GameLogEscritorio.Ventanas
 
         private void Regresar_Click(object sender, RoutedEventArgs e)
         {
-
+            MenuPrincipal menuPrincipal = new MenuPrincipal();
+            menuPrincipal.Show();
+            this.Close();
         }
 
         private void Buscar_Enter(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void Detalles_Click(object sender, RoutedEventArgs e)
@@ -46,7 +46,9 @@ namespace GameLogEscritorio.Ventanas
 
         private void Salir_Click(object sender, RoutedEventArgs e)
         {
-
+            MenuPrincipal menuPrincipal = new MenuPrincipal();
+            menuPrincipal.Show();
+            this.Close();
         }
     }
 }

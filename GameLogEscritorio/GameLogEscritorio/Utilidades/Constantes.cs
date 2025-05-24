@@ -32,6 +32,7 @@ namespace GameLogEscritorio.Utilidades
         public const int CodigoArgumentosInvalidosGRPC = 3;
         public const int CodigoPermisosDenegadosGRPC = 7;
         public const int CodigoElementoNoEncontradoGRPC = 5;
+        public const int CodigoServidorNoEncontradoGRPC = 12;
         public const int CodigoErrorInternoGRPC = 13;
         public const int CodigoServidorNoDisponibleGRPC = 14;
         public const string tipoJugadorPorDefecto = "Jugador";

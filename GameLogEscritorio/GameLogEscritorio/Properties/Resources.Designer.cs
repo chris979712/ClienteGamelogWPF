@@ -61,7 +61,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a localhost:1235.
+        ///   Busca una cadena traducida similar a https://localhost:443.
         /// </summary>
         public static string ApiGrpcUrl {
             get {
@@ -327,6 +327,15 @@ namespace GameLogEscritorio.Properties {
         public static string RutaFotoPorDefecto {
             get {
                 return ResourceManager.GetString("RutaFotoPorDefecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se ha podido localizar el servidor de archivos multimedia..
+        /// </summary>
+        public static string ServidorGRPCNoEncontrado {
+            get {
+                return ResourceManager.GetString("ServidorGRPCNoEncontrado", resourceCulture);
             }
         }
         
