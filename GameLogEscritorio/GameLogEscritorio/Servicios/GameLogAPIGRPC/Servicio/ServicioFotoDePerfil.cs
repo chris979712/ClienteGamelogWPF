@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Gamelog.Proto;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
 using GameLogEscritorio.Utilidades;
-using Gamelog.Proto;
 using Grpc.Core;
+using Grpc.Net.Client;
+using System.Net.Http;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
 {
@@ -18,8 +14,13 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
         public static async Task<RespuestaGRPC> SubirFotoDePerfilUsuario(byte[] fotoDePerfil, string nombreDeUsuario)
         {
             RespuestaGRPC resultadoFotoDePerfil = new RespuestaGRPC();
-            AppContext.SetSwitch(Properties.Resources.ConfiguracionCanalGRPC, true);
-            var canal = new Channel(Properties.Resources.ApiGrpcUrl, ChannelCredentials.Insecure);
+            var canal = GrpcChannel.ForAddress(Properties.Resources.ApiGrpcUrl, new GrpcChannelOptions
+            {
+                HttpHandler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                }
+            });
             var cliente = new FotosDePerfil.FotosDePerfilClient(canal);
             try
             {
@@ -52,8 +53,13 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
         public static async Task<RespuestaGRPC> ObtenerFotoJugador(string rutaFoto)
         {
             RespuestaGRPC resultadoFotoDePerfil = new RespuestaGRPC();
-            AppContext.SetSwitch(Properties.Resources.ConfiguracionCanalGRPC, true);
-            var canal = new Channel(Properties.Resources.ApiGrpcUrl, ChannelCredentials.Insecure);
+            var canal = GrpcChannel.ForAddress(Properties.Resources.ApiGrpcUrl, new GrpcChannelOptions
+            {
+                HttpHandler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                }
+            });
             var cliente = new FotosDePerfil.FotosDePerfilClient(canal);
             try
             {
@@ -85,8 +91,13 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
         public static async Task<RespuestaGRPC> ActualizarFotoDePerfilJugador(string rutaAntigua, string nombreDeUsuario, byte[] fotoDePerfil)
         {
             RespuestaGRPC resultadoFotoDePerfil = new RespuestaGRPC();
-            AppContext.SetSwitch(Properties.Resources.ConfiguracionCanalGRPC, true);
-            var canal = new Channel(Properties.Resources.ApiGrpcUrl, ChannelCredentials.Insecure);
+            var canal = GrpcChannel.ForAddress(Properties.Resources.ApiGrpcUrl, new GrpcChannelOptions
+            {
+                HttpHandler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                }
+            });
             var cliente = new FotosDePerfil.FotosDePerfilClient(canal);
             try
             {

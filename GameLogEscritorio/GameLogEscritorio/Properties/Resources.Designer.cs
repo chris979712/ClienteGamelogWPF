@@ -61,7 +61,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a localhost:1235.
+        ///   Busca una cadena traducida similar a https://localhost:443.
         /// </summary>
         public static string ApiGrpcUrl {
             get {
@@ -151,6 +151,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El archivo que desea ingresar no es una imagen.
+        /// </summary>
+        public static string ArchivoNoEsImagen {
+            get {
+                return ResourceManager.GetString("ArchivoNoEsImagen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Argumentos para realizar la solicitud inválidos.
         /// </summary>
         public static string ArgumentNullExcepcion {
@@ -169,11 +178,29 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Si desea realizar una modificación, por favor actualice uno de los campos mostrados.
+        /// </summary>
+        public static string EdicionSinCambios {
+            get {
+                return ResourceManager.GetString("EdicionSinCambios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El juego a buscar no se encuentra registrado..
         /// </summary>
         public static string ErrorAlBuscarJuego {
             get {
                 return ResourceManager.GetString("ErrorAlBuscarJuego", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ha ocurrido un error al querer leer la imagen a ingresar.
+        /// </summary>
+        public static string ErrorAlLeerImagen {
+            get {
+                return ResourceManager.GetString("ErrorAlLeerImagen", resourceCulture);
             }
         }
         
@@ -300,6 +327,24 @@ namespace GameLogEscritorio.Properties {
         public static string RutaFotoPorDefecto {
             get {
                 return ResourceManager.GetString("RutaFotoPorDefecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se ha podido localizar el servidor de archivos multimedia..
+        /// </summary>
+        public static string ServidorGRPCNoEncontrado {
+            get {
+                return ResourceManager.GetString("ServidorGRPCNoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El archivo de la imagen a ingresar debe ser menor a 2mb.
+        /// </summary>
+        public static string TamañoImagenMayor {
+            get {
+                return ResourceManager.GetString("TamañoImagenMayor", resourceCulture);
             }
         }
         

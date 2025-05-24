@@ -75,11 +75,26 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
+        public void TextoSugeridoGtFocus (object sender, RoutedEventArgs e)
+        {
+            txtb_Sugerencia.Visibility = Visibility.Collapsed;
+        }
+        public void TextoSugeridoLosFocus(object sender, RoutedEventArgs e)
+        {
+            txtb_Sugerencia.Visibility = Visibility.Visible;
+        }
+
+        private void PasswordVisible(object sender, RoutedEventArgs e)
+        {
+            txtb_Sugerencia.Visibility = string.IsNullOrEmpty(pb_Contrasenia.Password) ? Visibility.Visible : Visibility.Collapsed; 
+        }
+
+
         private async Task<bool> CargarFotoDePerfilUsuario()
         {
             bool fotoEncontrada = false;
             RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(UsuarioSingleton.Instancia.foto!);
-            if(respuestaGRPC.codigo == Constantes.CodigoEstadoOKGRPC)
+            if(respuestaGRPC.codigo == Constantes.CodigoExito)
             {
                 UsuarioSingleton.Instancia.fotoDePerfil = respuestaGRPC.datosBinario;
                 fotoEncontrada = true;
