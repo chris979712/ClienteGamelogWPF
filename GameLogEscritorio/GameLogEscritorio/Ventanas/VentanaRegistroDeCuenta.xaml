@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Registro De Cuenta" Height="600" Width="920" Background="Black"
         WindowStartupLocation="CenterScreen"
-        WindowState="Maximized"> 
+        WindowStyle="SingleBorderWindow"
+> 
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Imagenes/Crear_Cuenta.png" Stretch="UniformToFill"/>
@@ -20,40 +21,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas Background="#23588A" Grid.Row="0" Grid.Column="0">
-            <Button Content="Salir"
-                    FontSize="14"
-                    FontWeight="DemiBold"
-                    Width="80"
-                    Height="25"
-                    Canvas.Right="10"
-                    Canvas.Top="2"
-                    Cursor="Hand"
-                    Click="Salir_Click"
-                    Background="Transparent"
-                    Foreground="White">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#0C3C5C"/>
-                                <Setter Property="Foreground" Value="#FF5F5F5F"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </Canvas>
+        
 
         <Grid Grid.Row="1" Grid.Column="0" Margin="20">
             <Grid.ColumnDefinitions>

@@ -5,10 +5,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:extensiones="clr-namespace:GameLogEscritorio.Extensiones"
     mc:Ignorable="d"
-    Title="GAMELOG" Height="600" Width="920" Background="Black"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow" AllowsTransparency="False"
-        ResizeMode="NoResize">
+    Title="GAMELOG" Height="600" Width="920"
+     ResizeMode="NoResize"
+     Background="Black"
+     WindowStartupLocation="CenterScreen"
+     WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
         <FontFamily x:Key="FuenteOCR">pack://application:,,,/GameLogEscritorio;component/Fuentes/Anchox Sport</FontFamily>

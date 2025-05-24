@@ -8,7 +8,9 @@
         mc:Ignorable="d"
         Title="Recuperar Contrasenia" Height="310" Width="500"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+>
 
     <Grid>
         <Grid.Background>

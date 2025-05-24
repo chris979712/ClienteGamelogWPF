@@ -9,7 +9,7 @@
     ResizeMode="NoResize"
     Background="Black"
     WindowStartupLocation="CenterScreen"
-    WindowState="Maximized"
+    WindowStyle="SingleBorderWindow"
 >
 
 

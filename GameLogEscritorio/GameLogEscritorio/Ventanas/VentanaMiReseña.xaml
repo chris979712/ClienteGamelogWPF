@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Mi Reseña" Height="600" Width="920" Background="Black"
         WindowStartupLocation="CenterScreen"
-        WindowState="Maximized">
+        WindowStyle="SingleBorderWindow"
+>
     <Grid Background="#0C3C5C">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -18,40 +19,51 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas Background="#23588A" Grid.Row="0" Grid.Column="0">
-            <Button Content="Salir"
-                    FontSize="14"
-                    FontWeight="DemiBold"
-                    Width="80"
-                    Height="25"
-                    Canvas.Right="10"
-                    Canvas.Top="2"
-                    Cursor="Hand"
-                    Click="Salir_Click"
-                    Background="Transparent"
-                    Foreground="White">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#0C3C5C"/>
-                                <Setter Property="Foreground" Value="#FF5F5F5F"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </Canvas>
+        <Border Grid.Row="0" Background="#23588A" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top" MouseLeftButtonDown="BarraSuperior_MouseLeftButtonDown">
+            <Grid>
+                <TextBlock Text="MI RESEÑA" 
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               TextAlignment="Right"
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
+                               VerticalAlignment="Center"
+                               Margin="0,0,15,0"
+                               HorizontalAlignment="Right"/>
+
+                <Button x:Name="btnClose" Content="Regresar"
+                            Width="80" Height="30"
+                            HorizontalAlignment="Left" VerticalAlignment="Top"
+                            Margin="10,0,0,0"
+                            Click="Cancelar_Click"
+                            Cursor="Hand"
+                            Background="Transparent"
+                            Foreground="White"
+                            FontSize="14"
+                            FontWeight="Bold">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF5F5F5F"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Border>
 
         <Border Grid.Row="1" Grid.Column="0">
             <Border.Background>

@@ -9,7 +9,9 @@
         Title="Descripcion Juego" Height="690" Width="920"
         Background="Black"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResize">
+        ResizeMode="CanResize"
+        WindowStyle="SingleBorderWindow"
+>
 
     <Window.Resources>
         <util:EstrellaConverter x:Key="EstrellaConverter"/>
