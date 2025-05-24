@@ -1,8 +1,13 @@
 ﻿<Window x:Class="GameLogEscritorio.Ventanas.VentanaBuscarJuego"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Buscar Juego" Height="600" Width="920" ResizeMode="NoResize"
-        Background="Black" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
+        Title="Buscar Juego"
+        Height="600" Width="920"
+        ResizeMode="NoResize"
+        WindowStyle="SingleBorderWindow"
+        WindowStartupLocation="CenterScreen"
+        Background="Black">
+
     <Grid>
         <Border Background="#0C3C5C" />
         <Border>
@@ -17,7 +22,7 @@
 
                 <Border Grid.Row="0" Background="#23588A" CornerRadius="5,5,0,0">
                     <Grid>
-                        <TextBlock Text="BUCAR JUGADOR" 
+                        <TextBlock Text="BUCAR JUEGO" 
                            Foreground="White"
                            FontSize="16"
                            FontWeight="Bold"
