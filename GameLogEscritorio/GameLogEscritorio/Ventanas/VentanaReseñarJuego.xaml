@@ -8,39 +8,59 @@
         Height="600" Width="920"
         Background="Black"
         WindowStartupLocation="CenterScreen"
-        WindowState="Maximized">
+        WindowStyle="SingleBorderWindow"
+>
 
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="Fill"/>
         </Grid.Background>
 
-        <Grid Height="30" Background="#23588A" VerticalAlignment="Top">
-            <Button Content="Salir"
-                    Width="80"
-                    Height="25"
-                    HorizontalAlignment="Right"
-                    Margin="0,2,10,0"
-                    Background="Transparent"
-                    Foreground="White"
-                    Click="Salir_Click"
-                    Cursor="Hand"
-                    FontSize="14"
-                    FontWeight="DemiBold">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#0C3C5C"/>
-                                <Setter Property="Foreground" Value="#FF5F5F5F"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-        </Grid>
+        <Border Grid.Row="0" Background="#23588A" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top" MouseLeftButtonDown="BarraSuperior_MouseLeftButtonDown">
+            <Grid>
+                <TextBlock Text="Reseña" 
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               TextAlignment="Right"
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
+                               VerticalAlignment="Center"
+                               Margin="0,0,15,0"
+                               HorizontalAlignment="Right"/>
+
+                <Button x:Name="btnClose" Content="Regresar"
+                            Width="80" Height="30"
+                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Margin="15,0,0,0"
+                            Click="Cancelar_Click"
+                            Cursor="Hand"
+                            Background="Transparent"
+                            Foreground="White"
+                            FontSize="14"
+                            FontWeight="Bold">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF5F5F5F"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Border>
 
         <Grid Margin="20,40,20,20">
             <Grid.RowDefinitions>

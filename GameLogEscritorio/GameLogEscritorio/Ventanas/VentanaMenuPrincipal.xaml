@@ -9,7 +9,8 @@
      ResizeMode="NoResize"
      Background="Black"
      WindowStartupLocation="CenterScreen"
-     WindowState="Maximized">
+     WindowStyle="SingleBorderWindow"
+>
 
     <Window.Resources>
         <FontFamily x:Key="FuenteOCR">pack://application:,,,/GameLogEscritorio;component/Fuentes/Anchox Sport</FontFamily>

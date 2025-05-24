@@ -8,7 +8,9 @@
         Title="Recuperación de contraseña"
         Height="270" Width="500"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+>
 
     <Grid>
         <Grid.Background>
