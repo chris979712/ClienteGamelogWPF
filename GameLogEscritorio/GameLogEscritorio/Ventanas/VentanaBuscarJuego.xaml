@@ -17,7 +17,7 @@
 
                 <Border Grid.Row="0" Background="#23588A" CornerRadius="5,5,0,0">
                     <Grid>
-                        <TextBlock Text="BUCAR JUGADOR" 
+                        <TextBlock Text="BUCAR JUEGO" 
                            Foreground="White"
                            FontSize="16"
                            FontWeight="Bold"
