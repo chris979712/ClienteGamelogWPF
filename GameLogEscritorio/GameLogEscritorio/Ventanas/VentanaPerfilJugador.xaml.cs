@@ -44,5 +44,15 @@ namespace GameLogEscritorio.Ventanas
         {
 
         }
+
+        private void Desbanear_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DejarDeSeguir_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
