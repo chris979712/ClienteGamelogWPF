@@ -34,5 +34,14 @@ namespace GameLogEscritorio.Ventanas
         {
             this.Close();
         }
+
+        public partial class ReseñaJugador
+        {
+            public string? fotoVideojuego {  get; set; }
+            public string? nombre { get; set; }
+            public decimal calificacion {  get; set; }
+            public string? fecha { get; set; }
+            public string? opinion { get; set; }
+        }
     }
 }

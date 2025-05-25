@@ -188,6 +188,7 @@ namespace GameLogEscritorio.Ventanas
                 PerfilJugador perfilJugador = new PerfilJugador()
                 {
                     idJugador = _PerfilJugador.idJugador,
+                    idCuenta = _PerfilJugador.idCuenta,
                     nombre = _PerfilJugador.nombre,
                     primerApellido = _PerfilJugador.primerApellido,
                     segundoApellido = _PerfilJugador.segundoApellido,

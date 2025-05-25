@@ -113,7 +113,6 @@
                             FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                             Click="Detalles_Click" HorizontalAlignment="Center"/>
                     </Grid>
-
                 </Grid>
             </Grid>
         </Border>

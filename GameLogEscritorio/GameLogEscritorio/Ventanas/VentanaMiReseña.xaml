@@ -98,8 +98,8 @@
                        VerticalAlignment="Top" />
 
                 <Image Source="{Binding RutaImagenVideojuego}"
-                       Width="180"
-                       Height="250"
+                       Width="200"
+                       Height="200"
                        Grid.Row="1"
                        Grid.RowSpan="3"
                        Grid.Column="0"

@@ -1,9 +1,13 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
+using GameLogEscritorio.Servicios.APIRawg.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,6 +20,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static GameLogEscritorio.Ventanas.VentanaMiReseña;
 
 namespace GameLogEscritorio.Ventanas
 {
@@ -107,9 +112,52 @@ namespace GameLogEscritorio.Ventanas
             this.Close();
         }
 
-        public void IrVentanaMisReseñas_Click(object sender, RoutedEventArgs e)
+        public async void IrVentanaMisReseñas_Click(object sender, RoutedEventArgs e)
         {
-            
+            ApiReseñaPersonalRespuesta respuestaReseñasObtenidas = await ServicioReseña.ObtenerReseñasDeUnJugador(UsuarioSingleton.Instancia.idJugador, UsuarioSingleton.Instancia.idJugador);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReseñasObtenidas);
+            if (!esRespuestaCritica)
+            { 
+                if(respuestaReseñasObtenidas.estado == Constantes.CodigoExito)
+                {
+                    List<ReseñaPersonal> reseñasObtenidas = respuestaReseñasObtenidas.reseñasPersonales!;
+                    BuscarJuegosReseñadosPorUsuarioUsuario(reseñasObtenidas);
+                }  
+            }
+            else
+            {
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
+            }
+        }
+
+        private async void BuscarJuegosReseñadosPorUsuarioUsuario(List<ReseñaPersonal> reseñasJugador) 
+        {
+            ObservableCollection<ReseñaJugador> reseñasObtenidas = new ObservableCollection<ReseñaJugador>();
+            foreach (var reseña in reseñasJugador)
+            {
+                JuegoModelo juegoObtenido = await ServicioBuscarJuego.BuscarJuegoPorID(reseña.idJuego);
+                if(juegoObtenido.id == Constantes.ErrorEnLaOperacion)
+                {
+                    new VentanaEmergente(Constantes.TipoError, juegoObtenido.detail!,Constantes.CodigoErrorServidor).Show();
+                    break;
+                }
+                else
+                {
+                    DateTime fecha = DateTime.Parse(reseña.fecha!);
+                    string fecharFormateada = fecha.ToString("yyyy-MM-dd");
+                    reseñasObtenidas.Add(new ReseñaJugador()
+                    {
+                        calificacion = reseña.calificacion,
+                        opinion = reseña.opinion,
+                        fotoVideojuego = juegoObtenido.backgroundImage,
+                        fecha = fecharFormateada,
+                        nombre = juegoObtenido.name
+                    });
+                }
+            }
+            new VentanaHistorialDeReseñas(reseñasObtenidas).Show();
+            this.Close();
         }
 
         public void IrVentanaTendencias_Click(object sender, RoutedEventArgs e)
