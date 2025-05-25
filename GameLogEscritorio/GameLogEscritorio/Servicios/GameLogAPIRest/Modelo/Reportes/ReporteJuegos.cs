@@ -10,10 +10,10 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reportes
     public class ReporteJuegos
     {
 
-        [JsonProperty("idCuenta")]
+        [JsonProperty("idJuego")]
         public int idJuego {  get; set; }
 
-        [JsonProperty("idCuenta")]
+        [JsonProperty("nombre")]
         public string? nombre { get; set; }
 
         [JsonProperty("totalReseñas")]

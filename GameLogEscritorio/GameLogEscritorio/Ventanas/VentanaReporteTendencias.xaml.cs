@@ -1,4 +1,14 @@
-﻿using System;
+﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reportes;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
+using GameLogEscritorio.Utilidades;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using LiveChartsCore.SkiaSharpView.WPF;
+using SkiaSharp;
+using System;
+using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +21,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.WPF;
-using System.Collections.Generic;
 
 namespace GameLogEscritorio.Ventanas
 {
@@ -30,85 +36,137 @@ namespace GameLogEscritorio.Ventanas
         public VentanaReporteTendencias()
         {
             InitializeComponent();
-            dpInicio.SelectedDate = DateTime.Now;
-            dpFin.SelectedDate = DateTime.Now;
+            dp_Inicio.SelectedDate = DateTime.Now;
+            dp_Fin.SelectedDate = DateTime.Now;
         }
 
-        private void BtnRevival_Click(object sender, RoutedEventArgs e)
+        private async void BtnRevival_Click(object sender, RoutedEventArgs e)
         {
-            if (!FechasValidas()) return;
+            LimpiarGrafica();
+            DateTime? fechaInicioBusqueda = dp_Inicio.SelectedDate;
+            DateTime? fechaFinBusqueda = dp_Fin.SelectedDate;
+            string? fechaInicioBusquedaFormateada = fechaInicioBusqueda?.ToString("yyyy-MM-dd");
+            string? fechaFinBusquedaFormateada = fechaFinBusqueda?.ToString("yyyy-MM-dd");
+            if (ValidarDatos(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!))
+            {
+                ApiReportesRespuesta respuestaReportesRevivalRetro = await ServicioReporte.ObtenerReporteTendenciasRevivalRetro(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!);
+                bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReportesRevivalRetro);
+                if (!esRespuestaCritica)
+                {
+                    if (respuestaReportesRevivalRetro.estado == Constantes.CodigoExito)
+                    {
+                        List<ReporteJuegos> reportesObtenidos = respuestaReportesRevivalRetro.juegos!;
+                        ActualizarDatosGraficaReseñas(reportesObtenidos, Properties.Resources.DescripcionRevivalRetro,"Reseña revival retro");
+                    }
+                }
+                else
+                {
+                    await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                    this.Close();
+                }
+            }
+            else
+            {
+                new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.FechasInvalidas, Constantes.CodigoErrorServidor);
+            }
+        }
 
-            txtDescripcion.Text = "El reporte seleccionado muestra los juegos retros más reseñados por la comunidad de acuerdo a las fechas seleccionadas.";
+        private async void BtnMasResenados_Click(object sender, RoutedEventArgs e)
+        {
+            LimpiarGrafica();
+            DateTime? fechaInicioBusqueda = dp_Inicio.SelectedDate;
+            DateTime? fechaFinBusqueda = dp_Fin.SelectedDate;
+            string? fechaInicioBusquedaFormateada = fechaInicioBusqueda?.ToString("yyyy-MM-dd");
+            string? fechaFinBusquedaFormateada = fechaFinBusqueda?.ToString("yyyy-MM-dd");
+            if (ValidarDatos(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!))
+            {
+                ApiReportesRespuesta respuestaReportesTendencias = await ServicioReporte.ObtenerReporteTendencias(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!);
+                bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReportesTendencias);
+                if (!esRespuestaCritica)
+                {
+                    if(respuestaReportesTendencias.estado == Constantes.CodigoExito)
+                    {
+                        List<ReporteJuegos> reportesObtenidosTendencias = respuestaReportesTendencias.juegos!;
+                        ActualizarDatosGraficaReseñas(reportesObtenidosTendencias, Properties.Resources.DescripcionTendencias,"Reseña tendencias");
+                    }
+                }
+                else
+                {
+                    await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                    this.Close();
+                }
+            }
+            else
+            {
+                new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.FechasInvalidas, Constantes.CodigoErrorServidor);
+            }
+        }
 
+        private void LimpiarGrafica()
+        {
+            GraficaReporte.Series = null!;
+            GraficaReporte.XAxes = null!;
+            GraficaReporte.YAxes = null!;
+        }
+
+        private void ActualizarDatosGraficaReseñas(List<ReporteJuegos> reporteReseñas, string descripcionReporte, string tipoDeReporte)
+        {
+            txtDescripcion.Text = descripcionReporte;
+            IList<double> numeroDeReseñas = new List<double>();
+            IList<string>? nombreJuegos = new List<string>();
+            foreach (var reporte in reporteReseñas)
+            {
+                numeroDeReseñas.Add(reporte.totalReseñas!);
+                nombreJuegos?.Add(reporte.nombre!);
+            }
             Series = new ISeries[]
             {
-        new ColumnSeries<double>
-        {
-            Name = "Retro",
-            Values = new double[] { 15, 20, 10, 8, 12 }
-        }
+                new ColumnSeries<double>
+                {
+                    Name = tipoDeReporte,
+                    Values = numeroDeReseñas.ToList()
+                }
             };
 
             XAxes = new Axis[]
             {
-        new Axis { Labels = new[] { "Pac-Man", "Tetris", "Mario", "Zelda", "Sonic" } }
+                new Axis {
+                    Labels = nombreJuegos,
+                    LabelsPaint = new SolidColorPaint
+                    {
+                        Color = SKColors.LightGoldenrodYellow,
+                    },
+                    TextSize = 8
+                }
             };
 
             YAxes = new Axis[]
             {
-        new Axis { Labeler = value => value.ToString("N0") }
+                new Axis { Labeler = value => value.ToString("N0") }
             };
-
-            MiGrafica.Series = Series;
-            MiGrafica.XAxes = XAxes;
-            MiGrafica.YAxes = YAxes;
+            GraficaReporte.Series = Series;
+            GraficaReporte.XAxes = XAxes;
+            GraficaReporte.YAxes = YAxes;
         }
 
-        private void BtnMasResenados_Click(object sender, RoutedEventArgs e)
+        private bool ValidarDatos(string fechaInicioBusquedaFormateada, string fechaFinBusquedaFormateada)
         {
-            if (!FechasValidas()) return;
-
-            txtDescripcion.Text = "El reporte seleccionado muestra los juegos más reseñados por la comunidad.";
-
-            Series = new ISeries[]
+            DateTime? fechaInicioBusqueda = dp_Inicio.SelectedDate;
+            DateTime? fechaFinBusqueda = dp_Fin.SelectedDate;
+            bool fechaInicioValida = Validador.ValidarFecha(fechaInicioBusquedaFormateada!);
+            bool fechaFinValida = Validador.ValidarFecha(fechaFinBusquedaFormateada!);
+            if (!fechaInicioValida)
             {
-        new ColumnSeries<double>
-        {
-            Name = "Reseñas",
-            Values = new double[] { 30, 45, 38, 22, 50 }
-        }
-            };
-
-            XAxes = new Axis[]
+                dp_Inicio.BorderBrush = Brushes.Red;
+                AnimacionesVentana.Rebotar(dp_Inicio);
+            }
+            if(!fechaFinValida)
             {
-        new Axis { Labels = new[] { "Minecraft", "Fortnite", "Warzone", "Valorant", "LOL" } }
-            };
-
-            YAxes = new Axis[]
-            {
-        new Axis { Labeler = value => value.ToString("N0") }
-            };
-
-            MiGrafica.Series = Series;
-            MiGrafica.XAxes = XAxes;
-            MiGrafica.YAxes = YAxes;
-        }
-
-        private bool FechasValidas()
-        {
-            if (dpInicio.SelectedDate == null || dpFin.SelectedDate == null)
-            {
-                MessageBox.Show("Selecciona ambas fechas.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                dp_Fin.BorderBrush = Brushes.Red;
+                AnimacionesVentana.Rebotar(dp_Fin);
             }
 
-            if (dpInicio.SelectedDate > dpFin.SelectedDate)
-            {
-                MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha final.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
-            }
-
-            return true;
+            return fechaInicioValida && fechaFinValida && fechaInicioBusqueda <= fechaFinBusqueda;
         }
 
 

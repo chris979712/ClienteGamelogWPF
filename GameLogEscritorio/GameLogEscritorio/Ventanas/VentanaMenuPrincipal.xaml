@@ -83,13 +83,30 @@
                            HorizontalAlignment="Center"
                            Margin="20"
                            Visibility="Collapsed"/>
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <ScrollViewer.Resources>
+                                <Style TargetType="ScrollBar">
+                                    <Setter Property="Foreground" Value="Transparent"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ScrollBar">
+                                                <Grid Background="Transparent">
+                                                    <Track Name="PART_Track" IsDirectionReversed="true">
+                                                        <Track.Thumb>
+                                                            <Thumb Background="#FECA18" />
+                                                        </Track.Thumb>
+                                                    </Track>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ScrollViewer.Resources>
                             <ItemsControl x:Name="ic_JuegosPendientes" Margin="20">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel IsItemsHost="True"
-                                                   Orientation="Horizontal"
-                                                   HorizontalAlignment="Center" />
+                                        <StackPanel IsItemsHost="True" Orientation="Horizontal"/>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
@@ -99,23 +116,25 @@
                                                 Margin="15"
                                                 CornerRadius="15"
                                                 Width="200"
-                                                Height="240">
+                                                Height="200">
                                             <StackPanel>
                                                 <Image Source="{Binding imagenFondo}"
                                                        Stretch="Uniform"
-                                                       Width="200"
-                                                       Height="200"
+                                                       Width="190"
+                                                       Height="150"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Top"
+                                                       Cursor="Hand"
                                                        MouseDown="IrAVentanaeseñarJuego_Click"
-                                                       Margin="5"/>
+                                                       Margin="10"/>
                                                 <TextBlock Text="{Binding nombre}"
                                                            TextWrapping="Wrap"
                                                            TextAlignment="Center"
                                                            FontWeight="Bold"
-                                                           Margin="5,0,5,5"
+                                                           Margin="5,5,0,5"
                                                            FontSize="12"
                                                            MaxHeight="40"
+                                                           Foreground="#FECA18"
                                                            TextTrimming="CharacterEllipsis"/>
                                             </StackPanel>
                                         </Border>

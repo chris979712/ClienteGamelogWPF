@@ -1,4 +1,5 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
+using GameLogEscritorio.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,7 +31,14 @@ namespace GameLogEscritorio.Ventanas
 
         private void VerReseña_Click(object sender, RoutedEventArgs e)
         {
-
+            if (sender is Image imagen && imagen.DataContext is ReseñaJugador reseña)
+            {
+                if (reseña != null)
+                {
+                    new VentanaMiReseña(reseña).Show();
+                    this.Close();
+                }
+            }
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)

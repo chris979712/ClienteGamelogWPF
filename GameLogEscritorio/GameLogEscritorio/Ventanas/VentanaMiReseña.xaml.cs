@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameLogEscritorio.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,19 +20,18 @@ namespace GameLogEscritorio.Ventanas
     /// </summary>
     public partial class VentanaMiReseña : Window
     {
-        public VentanaMiReseña()
+        private ReseñaJugador _reseñaJugador = new ReseñaJugador();
+        public VentanaMiReseña(ReseñaJugador reseña)
         {
             InitializeComponent();
+            _reseñaJugador = reseña;
+            this.DataContext = _reseñaJugador;
         }
 
-
-        private void Salir_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
+            new VentanaHistorialDeReseñas(Estaticas.reseñasJugador).Show();
             this.Close();
         }
 

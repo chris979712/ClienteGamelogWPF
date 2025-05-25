@@ -222,4 +222,13 @@
   <data name="ErrorEnLaCargaDatosUsuario" xml:space="preserve">
     <value>Ha ocurrido un error en la conexion al servidor al intentar obtener los datos de perfil del usuario.</value>
   </data>
+  <data name="FechasInvalidas" xml:space="preserve">
+    <value>Fechas inválidas. Por favor verifique de que las fechas sean correctas y que la fecha de inicio de búsqueda no sea mayor a la fecha fin de búsqueda.</value>
+  </data>
+  <data name="DescripcionTendencias" xml:space="preserve">
+    <value>El tipo reporte seleccionado muestra los juegos más reseñados en la por la comunidad, sin importar el tipo de juego o fecha en que fueron publicados. Estos juegos forman parte de las tendencias en las fechas seleccionadas.</value>
+  </data>
+  <data name="DescripcionRevivalRetro" xml:space="preserve">
+    <value>El tipo reporte seleccionado muestra los juegos retro, los cuales fueron publicados antes de los años 2000, y que fueron los más reseñados por la comunidad, formando parte de las tendencias revival retro dentro de las fechas seleccionadas.</value>
+  </data>
 </root>

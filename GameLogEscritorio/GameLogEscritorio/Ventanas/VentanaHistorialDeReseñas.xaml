@@ -113,6 +113,8 @@
                                            Height="250"
                                            Stretch="Uniform"
                                            ClipToBounds="True"
+                                           Cursor="Hand"
+                                           MouseDown="VerReseña_Click"
                                            Margin="0,0"/>
                                     <TextBlock Text="{Binding nombre}"
                                            HorizontalAlignment="Center"

@@ -43,7 +43,7 @@
                            FontSize="16"
                            FontWeight="Bold"
                            TextWrapping="Wrap"
-                           TextAlignment="Center"
+                           TextAlignment="Justify"
                            Margin="0,0,0,20"
                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
                            />
@@ -51,11 +51,11 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <StackPanel Margin="10" VerticalAlignment="Center">
                             <TextBlock Text="Fecha inicio periodo consulta" Foreground="White" FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                            <DatePicker x:Name="dpInicio" Width="160"/>
+                            <DatePicker x:Name="dp_Inicio" Width="160"/>
                         </StackPanel>
                         <StackPanel Margin="10" VerticalAlignment="Center">
                             <TextBlock Text="Fecha fin periodo consulta" Foreground="White" FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                            <DatePicker x:Name="dpFin" Width="160"/>
+                            <DatePicker x:Name="dp_Fin" Width="160"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -74,7 +74,7 @@
                 </StackPanel>
 
                 <Border Grid.Row="4" Background="#AA222222" CornerRadius="10" Padding="10" Margin="10,27,0,0">
-                    <lvc:CartesianChart x:Name="MiGrafica"
+                    <lvc:CartesianChart x:Name="GraficaReporte"
                                         LegendPosition="Right"
                                         Width="700"
                                         Margin="65,0,65,1"
