@@ -114,7 +114,9 @@ namespace GameLogEscritorio.Ventanas
 
         public void IrVentanaTendencias_Click(object sender, RoutedEventArgs e)
         {
-
+            VentanaReporteTendencias ventanaReporteTendencias = new VentanaReporteTendencias();
+            ventanaReporteTendencias.Show();
+            this.Close();
         }
 
         public void IrVentanaSeguidores_Click(object sender,RoutedEventArgs e)

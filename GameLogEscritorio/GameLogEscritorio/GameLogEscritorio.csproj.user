@@ -5,5 +5,19 @@
     <Compile Update="Ventanas\VentanaImagen.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Ventanas\VentanaMisSeguidores.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Ventanas\VentanaReporteTendencias.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Ventanas\VentanaMisSeguidores.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Ventanas\VentanaReporteTendencias.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

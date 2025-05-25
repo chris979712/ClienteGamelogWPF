@@ -102,7 +102,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Image x:Name="img_juego" Grid.Row="0" Width="300" Height="10" Stretch="Uniform"
+                        <Image x:Name="img_juego" Grid.Row="0" Width="300" Height="100" Stretch="Uniform"
                            Source="/Imagenes/Amarillo/iconoLapizA.png" ClipToBounds="True" Margin="0,5"/>
 
                         <TextBlock x:Name="txt_nombreJuego" Grid.Row="1" FontSize="20" FontWeight="Bold" Foreground="Yellow"
