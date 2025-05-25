@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Reseñar Juego"
-        Height="600" Width="920"
+        Height="620" Width="920"
         Background="Black"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"

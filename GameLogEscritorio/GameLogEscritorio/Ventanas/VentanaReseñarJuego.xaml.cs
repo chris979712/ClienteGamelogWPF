@@ -82,9 +82,11 @@ namespace GameLogEscritorio.Ventanas
         private bool ValidarDatos()
         {
             Decimal calificacion = ObtenerCalificacion();
-            bool calificacionValida = Validador.ValidarCalificacion(calificacion.ToString());
+            bool calificacionValida = calificacion > 0 && calificacion <= 5; 
+
             bool opinionValida = Validador.ValidarOpinion(txtb_Opinion.Text);
-            if(!calificacionValida)
+
+            if (!calificacionValida)
             {
                 AnimacionesVentana.RebotarImagen(img_EstrellaUno);
                 AnimacionesVentana.RebotarImagen(img_EstrellaDos);
@@ -92,13 +94,14 @@ namespace GameLogEscritorio.Ventanas
                 AnimacionesVentana.RebotarImagen(img_EstrellaCuatro);
                 AnimacionesVentana.RebotarImagen(img_EstrellaCinco);
             }
-            if(!opinionValida)
+            if (!opinionValida)
             {
                 txtb_Opinion.BorderBrush = Brushes.Red;
                 AnimacionesVentana.Rebotar(txtb_Opinion);
             }
             return calificacionValida && opinionValida;
         }
+
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
@@ -127,25 +130,27 @@ namespace GameLogEscritorio.Ventanas
 
         private void Estrella_Click(object sender, MouseButtonEventArgs e)
         {
-            var estrella = sender as Image;
-
-            if (estrella != null)
+            if (sender is Image estrella)
             {
-                Decimal seleccion = Decimal.Parse(estrella.Tag?.ToString() ?? "0");
-                for (int i = 0; i < RatingPanel.Children.Count; i++)
+                if (Decimal.TryParse(estrella.Tag?.ToString(), out decimal seleccion))
                 {
-                    var img = RatingPanel.Children[i] as Image;
-                    if (img != null)
+                    _calificacionSeleccionada = seleccion;
+                    System.Diagnostics.Debug.WriteLine($"Calificación seleccionada: {_calificacionSeleccionada}");
+
+                    for (int i = 0; i < RatingPanel.Children.Count; i++)
                     {
-                        img.Source = new BitmapImage(new Uri(
-                            i < seleccion ? "/Imagenes/Iconos/estrella_llena.png" : "/Imagenes/EstrellaVacia.png",
-                            UriKind.Relative));
+                        if (RatingPanel.Children[i] is Image img)
+                        {
+                            img.Source = new BitmapImage(new Uri(
+                                i < seleccion ? "/Imagenes/Iconos/estrella_llena.png" : "/Imagenes/Iconos/estrella_vacia.png",
+                                UriKind.Relative));
+                        }
                     }
                 }
-                string textoFormateado = seleccion.ToString("0.0");
-                _calificacionSeleccionada = Decimal.Parse(textoFormateado);
             }
         }
+
+
         private Decimal ObtenerCalificacion()
         {
             return _calificacionSeleccionada;
