@@ -156,6 +156,7 @@ namespace GameLogEscritorio.Ventanas
                     });
                 }
             }
+            Estaticas.reseñasJugador = reseñasObtenidas;
             new VentanaHistorialDeReseñas(reseñasObtenidas).Show();
             this.Close();
         }

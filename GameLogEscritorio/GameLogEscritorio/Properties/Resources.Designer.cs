@@ -178,6 +178,24 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El tipo reporte seleccionado muestra los juegos retro, los cuales fueron publicados antes de los años 2000, y que fueron los más reseñados por la comunidad, formando parte de las tendencias revival retro dentro de las fechas seleccionadas..
+        /// </summary>
+        public static string DescripcionRevivalRetro {
+            get {
+                return ResourceManager.GetString("DescripcionRevivalRetro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El tipo reporte seleccionado muestra los juegos más reseñados en la por la comunidad, sin importar el tipo de juego o fecha en que fueron publicados. Estos juegos forman parte de las tendencias en las fechas seleccionadas..
+        /// </summary>
+        public static string DescripcionTendencias {
+            get {
+                return ResourceManager.GetString("DescripcionTendencias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Si desea realizar una modificación, por favor actualice uno de los campos mostrados.
         /// </summary>
         public static string EdicionSinCambios {
@@ -219,6 +237,15 @@ namespace GameLogEscritorio.Properties {
         public static string Excepcion {
             get {
                 return ResourceManager.GetString("Excepcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fechas inválidas. Por favor verifique de que las fechas sean correctas y que la fecha de inicio de búsqueda no sea mayor a la fecha fin de búsqueda..
+        /// </summary>
+        public static string FechasInvalidas {
+            get {
+                return ResourceManager.GetString("FechasInvalidas", resourceCulture);
             }
         }
         
