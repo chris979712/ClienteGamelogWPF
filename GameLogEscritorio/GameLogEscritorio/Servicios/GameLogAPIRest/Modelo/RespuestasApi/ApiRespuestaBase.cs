@@ -16,6 +16,8 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse
         public int estado { get; set; }
         [JsonProperty("mensaje")]
         public string? mensaje { get; set; }
+        [JsonProperty("resultado")]
+        public int resultado { get; set; }
 
     }
 }
