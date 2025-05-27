@@ -204,8 +204,8 @@ namespace GameLogEscritorio.Ventanas
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {
-                btn_Seguir.Visibility = Visibility.Collapsed;
-                btn_DejarDeSeguir.Visibility = Visibility.Visible;
+                btn_Seguir.Visibility = Visibility.Visible;
+                btn_DejarDeSeguir.Visibility = Visibility.Collapsed;
                 Estaticas.idJugadoresSeguido.Remove(_perfilJugador.idJugador);
             }
             else
