@@ -37,7 +37,7 @@ namespace GameLogEscritorio.Ventanas
                 ApiRespuestaBase respuestaBase = await ServicioAcceso.CrearCuenta(datosSolicitud);
                 if(respuestaBase.estado == Constantes.CodigoExito)
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaBase.mensaje!, respuestaBase.estado);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuestaBase.mensaje!, respuestaBase.estado);
                     VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
                     ventanaInicioDeSesion.Show();
                     this.Close();
@@ -133,9 +133,5 @@ namespace GameLogEscritorio.Ventanas
             this.Close();
         }
 
-        private void Salir_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
     }
 }

@@ -6,6 +6,7 @@ using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -105,6 +106,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             {
                 try
                 {
+                    string tokenUsuario = SesionToken.LeerToken();
                     var patchMethod = new HttpMethod("PATCH");
                     var mensajeHttp = new HttpRequestMessage()
                     {
@@ -112,6 +114,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                         RequestUri = new Uri(string.Concat(Properties.Resources.ApiUrlAcceso, $"/{idAcceso}")),
                         Content = new StringContent(JsonConvert.SerializeObject(datosSolicitud), Encoding.UTF8, "application/json")
                     };
+                    mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
                     string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
                     respuesta = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;

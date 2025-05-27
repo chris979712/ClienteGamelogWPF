@@ -1,5 +1,8 @@
-﻿using System;
+﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
+using GameLogEscritorio.Utilidades;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static GameLogEscritorio.Ventanas.VentanaMiReseña;
 
 namespace GameLogEscritorio.Ventanas
 {
@@ -19,18 +23,27 @@ namespace GameLogEscritorio.Ventanas
     /// </summary>
     public partial class VentanaHistorialDeReseñas : Window
     {
-        public VentanaHistorialDeReseñas()
+        public VentanaHistorialDeReseñas(ObservableCollection<ReseñaJugador> reseñasObtenidas)
         {
             InitializeComponent();
+            ic_reseñas.ItemsSource = reseñasObtenidas;
         }
 
-        private void Salir_Click(object sender, RoutedEventArgs e)
+        private void VerReseña_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (sender is Image imagen && imagen.DataContext is ReseñaJugador reseña)
+            {
+                if (reseña != null)
+                {
+                    new VentanaMiReseña(reseña).Show();
+                    this.Close();
+                }
+            }
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
+            new MenuPrincipal().Show();
             this.Close();
         }
     }

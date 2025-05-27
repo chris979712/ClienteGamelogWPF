@@ -104,15 +104,27 @@
                               Margin="0,20,0,20"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">
-                    <ItemsControl x:Name="ItemsResenas" ItemsSource="{Binding}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
+                    <ItemsControl x:Name="ic_reseñas">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding}" Width="150" Height="200" Margin="10" Stretch="UniformToFill"/>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                    <Image Source="{Binding fotoVideojuego}"
+                                           Width="250"
+                                           Height="250"
+                                           Stretch="Uniform"
+                                           ClipToBounds="True"
+                                           Cursor="Hand"
+                                           MouseDown="VerReseña_Click"
+                                           Margin="0,0"/>
+                                    <TextBlock Text="{Binding nombre}"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap"
+                                           Margin="0,0,0,0"
+                                           FontWeight="Bold"
+                                           FontSize="12"
+                                           Foreground="#FECA18"/>
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

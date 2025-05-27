@@ -1,4 +1,8 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Acceso;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
 using System;
@@ -132,24 +136,83 @@ namespace GameLogEscritorio.Ventanas
         }
 
 
-        private void Seguir_Click(object sender, RoutedEventArgs e)
+        private async void Seguir_Click(object sender, RoutedEventArgs e)
         {
-
+            PostSeguidorSolicitud postSeguidorSolicitud = new PostSeguidorSolicitud()
+            {
+                idJugadorSeguidor = UsuarioSingleton.Instancia.idJugador,
+                idJugadorSeguido = _perfilJugador.idJugador
+            };
+            ApiRespuestaBase respuestaBase = await ServicioSeguidor.RegistrarNuevoSeguidor(postSeguidorSolicitud);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
+            if (!esRespuestaCritica)
+            {
+                btn_Seguir.Visibility = Visibility.Collapsed;
+                btn_DejarDeSeguir.Visibility = Visibility.Visible;
+                Estaticas.idJugadoresSeguido.Add(_perfilJugador.idJugador);
+            }
+            else
+            {
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
+            }
         }
 
-        private void Banear_Click(object sender, RoutedEventArgs e)
+        private async void Banear_Click(object sender, RoutedEventArgs e)
         {
-
+            PatchAccesoSolicitud datosSolicitud = new PatchAccesoSolicitud()
+            {
+                estadoAcceso = "Baneado"
+            };
+            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, _perfilJugador.idCuenta);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
+            if (!esRespuestaCritica)
+            {
+                btn_Banear.Visibility = Visibility.Collapsed;
+                btn_Desbanear.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
+            }
         }
 
-        private void Desbanear_Click(object sender, RoutedEventArgs e)
+        private async void Desbanear_Click(object sender, RoutedEventArgs e)
         {
-
+            PatchAccesoSolicitud datosSolicitud = new PatchAccesoSolicitud()
+            {
+                estadoAcceso = "Desbaneado"
+            };
+            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, _perfilJugador.idCuenta);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
+            if (!esRespuestaCritica)
+            {
+                btn_Banear.Visibility = Visibility.Visible;
+                btn_Desbanear.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
+            }
         }
 
-        private void DejarDeSeguir_Click(object sender, RoutedEventArgs e)
+        private async void DejarDeSeguir_Click(object sender, RoutedEventArgs e)
         {
-
+            ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, _perfilJugador.idJugador);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
+            if (!esRespuestaCritica)
+            {
+                btn_Seguir.Visibility = Visibility.Visible;
+                btn_DejarDeSeguir.Visibility = Visibility.Collapsed;
+                Estaticas.idJugadoresSeguido.Remove(_perfilJugador.idJugador);
+            }
+            else
+            {
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
+            }
         }
 
         public void DecorarNombre()
@@ -177,6 +240,7 @@ namespace GameLogEscritorio.Ventanas
 
     public partial class PerfilJugador
     {
+        public int idCuenta { get; set; }
         public int idJugador { get; set; }
 
         public string? nombre { get; set; }
