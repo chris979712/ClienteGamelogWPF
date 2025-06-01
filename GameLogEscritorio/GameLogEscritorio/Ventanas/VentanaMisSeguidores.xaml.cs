@@ -33,5 +33,18 @@ namespace GameLogEscritorio.Ventanas
         {
 
         }
+
+        private void Btn_MostrarTodos_Click(object sender, RoutedEventArgs e)
+        {
+            itemsControlTodos.Visibility = Visibility.Visible;
+            itemsControlSeguidos.Visibility = Visibility.Collapsed;
+        }
+
+        private void Btn_MostrarSeguidos_Click(object sender, RoutedEventArgs e)
+        {
+            itemsControlTodos.Visibility = Visibility.Collapsed;
+            itemsControlSeguidos.Visibility = Visibility.Visible;
+        }
+
     }
 }
