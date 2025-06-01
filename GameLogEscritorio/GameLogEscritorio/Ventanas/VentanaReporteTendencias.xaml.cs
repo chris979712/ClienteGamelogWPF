@@ -29,9 +29,9 @@ namespace GameLogEscritorio.Ventanas
     /// </summary>
     public partial class VentanaReporteTendencias : Window
     {
-        public ISeries[] Series { get; set; }
-        public Axis[] XAxes { get; set; }
-        public Axis[] YAxes { get; set; }
+        public ISeries[]? Series { get; set; }
+        public Axis[]? XAxes { get; set; }
+        public Axis[]? YAxes { get; set; }
 
         public VentanaReporteTendencias()
         {
