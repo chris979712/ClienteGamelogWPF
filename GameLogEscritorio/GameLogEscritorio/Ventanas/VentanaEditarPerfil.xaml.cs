@@ -68,8 +68,13 @@ namespace GameLogEscritorio.Ventanas
                 if (ValidarDatos())
                 {
 
-                    if (await RealizarActualizacionFotoDePerfil())
+                    if (imagenASubir.Length!=UsuarioSingleton.Instancia.fotoDePerfil!.Length && await RealizarActualizacionFotoDePerfil())
                     {
+                        await RealizarActualizacionPerfil();
+                    }
+                    else
+                    {
+                        _rutaNuevaFoto = UsuarioSingleton.Instancia.foto!;
                         await RealizarActualizacionPerfil();
                     }
                 }
@@ -87,7 +92,7 @@ namespace GameLogEscritorio.Ventanas
         private async Task<bool> RealizarActualizacionFotoDePerfil()
         {
             bool actualizacionExitosa = false;
-            RespuestaGRPC respuestaGRPC = await Servicios.GameLogAPIGRPC.Servicio.ServicioFotoDePerfil.ActualizarFotoDePerfilJugador(UsuarioSingleton.Instancia.foto!, txtb_NombreUsuario.Text, imagenASubir);
+            RespuestaGRPC respuestaGRPC = await Servicios.GameLogAPIGRPC.Servicio.ServicioFotoDePerfil.ActualizarFotoDePerfilJugador(UsuarioSingleton.Instancia.foto!, UsuarioSingleton.Instancia.idJugador, imagenASubir);
             if (Validador.SoloRutas.IsMatch(respuestaGRPC.detalles!))
             {
                 _rutaNuevaFoto = respuestaGRPC.detalles!;
@@ -101,7 +106,7 @@ namespace GameLogEscritorio.Ventanas
             return actualizacionExitosa;
         }
 
-        private async Task<bool> RealizarActualizacionPerfil()
+        private async Task RealizarActualizacionPerfil()
         {
             PutJugadorSolicitud datosSolicitud = new PutJugadorSolicitud()
             {
@@ -133,12 +138,11 @@ namespace GameLogEscritorio.Ventanas
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso(respuestaBase.mensaje!);
                 this.Close();
             }
-            return true;
         }
 
         private async Task<bool> RevertirFotoDePerfil()
         {
-            RespuestaGRPC respuestaGRPC = await Servicios.GameLogAPIGRPC.Servicio.ServicioFotoDePerfil.ActualizarFotoDePerfilJugador(UsuarioSingleton.Instancia.foto!, UsuarioSingleton.Instancia.nombreDeUsuario!, FotoPorDefecto.ObtenerFotoDePerfilPorDefecto());
+            RespuestaGRPC respuestaGRPC = await Servicios.GameLogAPIGRPC.Servicio.ServicioFotoDePerfil.ActualizarFotoDePerfilJugador(UsuarioSingleton.Instancia.foto!, UsuarioSingleton.Instancia.idJugador!, FotoPorDefecto.ObtenerFotoDePerfilPorDefecto());
             return true;
         }
 

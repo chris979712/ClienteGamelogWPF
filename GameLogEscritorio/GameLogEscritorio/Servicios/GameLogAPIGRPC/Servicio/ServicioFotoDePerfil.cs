@@ -11,7 +11,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
     public static class ServicioFotoDePerfil
     {
 
-        public static async Task<RespuestaGRPC> SubirFotoDePerfilUsuario(byte[] fotoDePerfil, string nombreDeUsuario)
+        public static async Task<RespuestaGRPC> SubirFotoDePerfilUsuario(byte[] fotoDePerfil, int idJugador)
         {
             RespuestaGRPC resultadoFotoDePerfil = new RespuestaGRPC();
             var canal = GrpcChannel.ForAddress(Properties.Resources.ApiGrpcUrl, new GrpcChannelOptions
@@ -26,7 +26,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
             {
                 FotoDePerfilDatos datosFotoDePerfil = new FotoDePerfilDatos()
                 {
-                    NombreDeUsuario = nombreDeUsuario,
+                    IdJugador = idJugador.ToString(),
                     Datos = Google.Protobuf.ByteString.CopyFrom(fotoDePerfil)
                 };
                 FotoDePerfilRuta respuesta = cliente.SubirFotoDeUsuario(datosFotoDePerfil);
@@ -88,7 +88,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
             return resultadoFotoDePerfil;
         }
 
-        public static async Task<RespuestaGRPC> ActualizarFotoDePerfilJugador(string rutaAntigua, string nombreDeUsuario, byte[] fotoDePerfil)
+        public static async Task<RespuestaGRPC> ActualizarFotoDePerfilJugador(string rutaAntigua, int idJugador, byte[] fotoDePerfil)
         {
             RespuestaGRPC resultadoFotoDePerfil = new RespuestaGRPC();
             var canal = GrpcChannel.ForAddress(Properties.Resources.ApiGrpcUrl, new GrpcChannelOptions
@@ -103,7 +103,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
             {
                 ActualizacionFotoDePerfil datosActualizacionDeFoto = new ActualizacionFotoDePerfil()
                 {
-                    NombreDeUsuario = nombreDeUsuario,
+                    IdJugador = idJugador.ToString(),
                     RutaImagenAntigua = rutaAntigua,
                     Datos = Google.Protobuf.ByteString.CopyFrom(fotoDePerfil)
                 };

@@ -4,13 +4,13 @@ option csharp_namespace = "Gamelog.Proto";
 
 message FotoDePerfilDatos
 {
-    string nombreDeUsuario = 1;
+    string idJugador = 1;
     bytes datos = 2;
 }
 
 message ActualizacionFotoDePerfil
 {
-    string nombreDeUsuario = 1;
+    string idJugador = 1;
     string rutaImagenAntigua = 2;
     bytes datos = 3;
 }
