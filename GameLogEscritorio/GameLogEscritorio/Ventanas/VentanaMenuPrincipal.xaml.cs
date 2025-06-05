@@ -1,31 +1,25 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
 using GameLogEscritorio.Servicios.APIRawg.Servicio;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using static GameLogEscritorio.Ventanas.VentanaMiReseña;
 
 namespace GameLogEscritorio.Ventanas
 {
+
     public partial class MenuPrincipal : Window
     {
+
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+
         public MenuPrincipal()
         {
             InitializeComponent();
@@ -43,6 +37,7 @@ namespace GameLogEscritorio.Ventanas
             }
             img_FotoDePerfil.Source = ConvertirBytesAImagen(UsuarioSingleton.Instancia.fotoDePerfil!);
             DecorarNombre();
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         public void DecorarNombre()
@@ -80,41 +75,30 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        public async void Salir_Click(object sender, RoutedEventArgs e)
-        {
-            ApiRespuestaBase respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!);
-            UsuarioSingleton.Instancia.CerrarSesion();
-            SesionToken.CerrarSesion();
-            VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, respuesta.estado);
-            VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
-            ventanaInicioDeSesion.Show();
-            this.Close();
-        }
-
         public void IrVentanaEditarPerfil_Click(object sender, RoutedEventArgs e)
         {
             VentanaEditarPerfil ventanaEditarPerfil = new VentanaEditarPerfil();
-            ventanaEditarPerfil.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEditarPerfil);
             this.Close();
         }
 
         public void IrVentanaBuscarJuego_Click(object sender, RoutedEventArgs e)
         {
             VentanaBuscarJuego ventanaBuscarJuego = new VentanaBuscarJuego();
-            ventanaBuscarJuego.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJuego);
             this.Close();
         }
 
         public void IrVentanaBuscarUsuario_Click(object sender, RoutedEventArgs e)
         {
             VentanaBuscarJugador ventanaBuscarJugador = new VentanaBuscarJugador();
-            ventanaBuscarJugador.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJugador);
             this.Close();
         }
 
         public async void IrVentanaMisReseñas_Click(object sender, RoutedEventArgs e)
         {
-            ApiReseñaPersonalRespuesta respuestaReseñasObtenidas = await ServicioReseña.ObtenerReseñasDeUnJugador(UsuarioSingleton.Instancia.idJugador, UsuarioSingleton.Instancia.idJugador);
+            ApiReseñaPersonalRespuesta respuestaReseñasObtenidas = await ServicioReseña.ObtenerReseñasDeUnJugador(UsuarioSingleton.Instancia.idJugador, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReseñasObtenidas);
             if (!esRespuestaCritica)
             { 
@@ -139,7 +123,8 @@ namespace GameLogEscritorio.Ventanas
                 JuegoModelo juegoObtenido = await ServicioBuscarJuego.BuscarJuegoPorID(reseña.idJuego);
                 if(juegoObtenido.id == Constantes.ErrorEnLaOperacion)
                 {
-                    new VentanaEmergente(Constantes.TipoError, juegoObtenido.detail!,Constantes.CodigoErrorServidor).Show();
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, juegoObtenido.detail!,Constantes.CodigoErrorServidor);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                     break;
                 }
                 else
@@ -157,14 +142,15 @@ namespace GameLogEscritorio.Ventanas
                 }
             }
             Estaticas.reseñasJugador = reseñasObtenidas;
-            new VentanaHistorialDeReseñas(reseñasObtenidas).Show();
+            VentanaHistorialDeReseñas ventanaHistorialDeReseñas = new VentanaHistorialDeReseñas(reseñasObtenidas);
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaHistorialDeReseñas);
             this.Close();
         }
 
         public void IrVentanaTendencias_Click(object sender, RoutedEventArgs e)
         {
             VentanaReporteTendencias ventanaReporteTendencias = new VentanaReporteTendencias();
-            ventanaReporteTendencias.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReporteTendencias);
             this.Close();
         }
 
@@ -189,7 +175,7 @@ namespace GameLogEscritorio.Ventanas
                         name = juegoSeleccionado.nombre
                     };
                     VentanaReseñarJuego reseñarJuego = new VentanaReseñarJuego(modeloJuego, "Menu");
-                    reseñarJuego.Show();
+                    AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, reseñarJuego);
                     this.Close();
                 }
             }
@@ -201,4 +187,5 @@ namespace GameLogEscritorio.Ventanas
             this.Close();
         }
     }
+
 }

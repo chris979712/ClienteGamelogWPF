@@ -4,11 +4,9 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
-using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 {
@@ -17,9 +15,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 
         private static readonly string _apiURL = Properties.Resources.ApiUrlAcceso;
 
-        public static async Task<ApiAccesoRespuesta<Perfil>> CrearCuenta(PostAccesoSolicitud datosSolicitud)
+        public static async Task<ApiRespuestaBase> CrearCuenta(PostAccesoSolicitud datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
-            ApiAccesoRespuesta<Perfil> respuesta = new ApiAccesoRespuesta<Perfil>();
+            ApiRespuestaBase respuesta = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
             using (var clienteHttp = new HttpClient(handler))
@@ -33,8 +31,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                         Content = new StringContent(JsonConvert.SerializeObject(datosSolicitud), Encoding.UTF8, "application/json")
                     };
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuesta = JsonConvert.DeserializeObject<ApiAccesoRespuesta<Perfil>>(contenidoJson)!;
+                    respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -44,33 +41,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuesta!;
         }
 
-        public static async Task<ApiAccesoRespuesta<int>> ObtenerIdAccesoPorCorreo(string correo)
-        {
-            ApiAccesoRespuesta<int> respuesta = new ApiAccesoRespuesta<int>();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
-            using (var clienteHttp = new HttpClient(handler))
-            {
-                try
-                {
-                    var mensajeHttp = new HttpRequestMessage()
-                    {
-                        Method = HttpMethod.Get,
-                        RequestUri = new Uri(string.Concat(Properties.Resources.ApiUrlAcceso,$"/{correo}")),
-                    };
-                    HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuesta = JsonConvert.DeserializeObject<ApiAccesoRespuesta<int>>(contenidoJson)!;
-                }
-                catch (Exception excepcion)
-                {
-                    respuesta = ClasificadorExcepcion.DeterminarTipoExcepcionAPIRest<ApiAccesoRespuesta<int>>(excepcion);
-                }
-            }
-            return respuesta;
-        }
-
-        public static async Task<ApiRespuestaBase> EditarCredencialesDeAcceso(PutAccesoSolicitud datosSolicitud, int idAcceso)
+        public static async Task<ApiRespuestaBase> EditarCredencialesDeAcceso(PutAccesoSolicitud datosSolicitud, int idAcceso, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuesta = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -86,8 +57,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                         Content = new StringContent(JsonConvert.SerializeObject(datosSolicitud), Encoding.UTF8, "application/json")
                     };
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuesta = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -97,7 +67,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuesta!;
         }
 
-        public static async Task<ApiRespuestaBase> CambiarEstadoDeAcceso(PatchAccesoSolicitud datosSolicitud, int idAcceso)
+        public static async Task<ApiRespuestaBase> CambiarEstadoDeAcceso(PatchAccesoSolicitud datosSolicitud, int idAcceso, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuesta = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -116,8 +86,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuesta = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {

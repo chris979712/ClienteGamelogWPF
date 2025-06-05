@@ -1,29 +1,20 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Acceso;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Login;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaCodigoDeRecuperacion.xaml
-    /// </summary>
+   
     public partial class VentanaCodigoDeRecuperacion : Window
     {
+
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         private int _idAcceso {  get; set; }
         private string _correo { get; set; }
 
@@ -45,7 +36,7 @@ namespace GameLogEscritorio.Ventanas
                     correo = _correo,
                     tipoDeUsuario = Constantes.tipoJugadorPorDefecto
                 };
-                ApiRespuestaBase resultado = await ServicioLogin.RecuperacionDeCuentaValidacion(datosSolicitud);
+                ApiRespuestaBase resultado = await ServicioLogin.RecuperacionDeCuentaValidacion(datosSolicitud,apiRestCreadorRespuesta);
                 if (resultado.estado == Constantes.CodigoExito)
                 {
                     grd_Codigo.Visibility = Visibility.Collapsed;
@@ -54,6 +45,7 @@ namespace GameLogEscritorio.Ventanas
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, resultado.mensaje!, resultado.estado);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
             }
         }
@@ -94,15 +86,17 @@ namespace GameLogEscritorio.Ventanas
                     correo = _correo,
                     tipoDeUsuario = Constantes.tipoJugadorPorDefecto
                 };
-                ApiRespuestaBase respuesta = await ServicioAcceso.EditarCredencialesDeAcceso(datosSolicitud, _idAcceso);
+                ApiRespuestaBase respuesta = await ServicioAcceso.EditarCredencialesDeAcceso(datosSolicitud, _idAcceso,apiRestCreadorRespuesta);
                 if (respuesta.estado == Constantes.CodigoExito)
                 {
-                    VentanaEmergente ventana = new VentanaEmergente(Constantes.TipoExito, respuesta.mensaje!, respuesta.estado);
-                    Cancelar_Click(sender,e);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuesta.mensaje!, respuesta.estado);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    this.Close();
                 }
                 else
                 {
-                    VentanaEmergente ventana = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, respuesta.estado);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, respuesta.estado);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
             }
         }

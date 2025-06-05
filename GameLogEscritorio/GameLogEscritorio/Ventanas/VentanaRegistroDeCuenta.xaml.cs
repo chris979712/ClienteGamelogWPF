@@ -1,31 +1,23 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Acceso;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaRegistroDeCuenta.xaml
-    /// </summary>
+    
     public partial class VentanaRegistroDeCuenta : Window
     {
+
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+
         public VentanaRegistroDeCuenta()
         {
             InitializeComponent();
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         private async void Registrar_Click(object sender, RoutedEventArgs e)
@@ -34,17 +26,19 @@ namespace GameLogEscritorio.Ventanas
             if(ValidarCampos())
             {
                 PostAccesoSolicitud datosSolicitud = CrearSolicitudAcceso();
-                ApiRespuestaBase respuestaBase = await ServicioAcceso.CrearCuenta(datosSolicitud);
+                ApiRespuestaBase respuestaBase = await ServicioAcceso.CrearCuenta(datosSolicitud,apiRestCreadorRespuesta);
                 if(respuestaBase.estado == Constantes.CodigoExito)
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuestaBase.mensaje!, respuestaBase.estado);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                     VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
-                    ventanaInicioDeSesion.Show();
+                    AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaInicioDeSesion);
                     this.Close();
                 }
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaBase.mensaje!, respuestaBase.estado);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
             }
         }
@@ -129,7 +123,7 @@ namespace GameLogEscritorio.Ventanas
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
-            ventanaInicioDeSesion.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaInicioDeSesion);
             this.Close();
         }
 

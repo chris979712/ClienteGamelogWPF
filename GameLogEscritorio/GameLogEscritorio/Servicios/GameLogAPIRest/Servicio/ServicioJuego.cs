@@ -4,10 +4,8 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using System.Net.Http.Headers;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
-using System;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 {
@@ -16,7 +14,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         private static readonly string _JuegoURL = Properties.Resources.ApiUrlJuego;
 
 
-        public static async Task<ApiRespuestaBase> RegistrarJuego(PostJuegoSolicitud datosSolicitud)
+        public static async Task<ApiRespuestaBase> RegistrarJuego(PostJuegoSolicitud datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -34,8 +32,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaBase = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuestaBase = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -45,7 +42,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaBase;
         }
 
-        public static async Task<ApiRespuestaBase> RegistrarJuegoFavorito(PostJuegoFavorito datosSolicitud)
+        public static async Task<ApiRespuestaBase> RegistrarJuegoFavorito(PostJuegoFavorito datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -63,8 +60,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaBase = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuestaBase = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -74,7 +70,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaBase;
         }
 
-        public static async Task<ApiRespuestaBase> RegistrarJuegoPendiente(PostJuegoPendienteSolicitud datosSolicitud)
+        public static async Task<ApiRespuestaBase> RegistrarJuegoPendiente(PostJuegoPendienteSolicitud datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -92,8 +88,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaBase = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuestaBase = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -103,7 +98,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaBase;
         }
 
-        public static async Task<ApiJuegoRespuesta> BuscarJuegoPorID(int idJuego)
+        public static async Task<ApiJuegoRespuesta> BuscarJuegoPorID(int idJuego, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiJuegoRespuesta respuestaJuego = new ApiJuegoRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -120,8 +115,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaJuego = JsonConvert.DeserializeObject<ApiJuegoRespuesta>(contenidoJson)!;
+                    respuestaJuego = await apiRespuestaFactory.CrearRespuestaHTTP<ApiJuegoRespuesta>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -131,7 +125,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaJuego;
         }
 
-        public static async Task<ApiJuegoRespuesta> BuscarJuegoPorNombre(string nombre)
+        public static async Task<ApiJuegoRespuesta> BuscarJuegoPorNombre(string nombre, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiJuegoRespuesta respuestaJuego = new ApiJuegoRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -148,8 +142,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaJuego = JsonConvert.DeserializeObject<ApiJuegoRespuesta>(contenidoJson)!;
+                    respuestaJuego = await apiRespuestaFactory.CrearRespuestaHTTP<ApiJuegoRespuesta>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -159,7 +152,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaJuego;
         }
 
-        public static async Task<ApiJuegosRespuesta> ObtenerJuegosPendientes(int idJugador)
+        public static async Task<ApiJuegosRespuesta> ObtenerJuegosPendientes(int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiJuegosRespuesta respuestaJuegos = new ApiJuegosRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -176,8 +169,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaJuegos = JsonConvert.DeserializeObject<ApiJuegosRespuesta>(contenidoJson)!;
+                    respuestaJuegos = await apiRespuestaFactory.CrearRespuestaHTTP<ApiJuegosRespuesta>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -187,7 +179,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaJuegos;
         }
 
-        public static async Task<ApiJuegosRespuesta> ObtenerJuegosFavoritos(int idJugador)
+        public static async Task<ApiJuegosRespuesta> ObtenerJuegosFavoritos(int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiJuegosRespuesta respuestaJuegos = new ApiJuegosRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -204,8 +196,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaJuegos = JsonConvert.DeserializeObject<ApiJuegosRespuesta>(contenidoJson)!;
+                    respuestaJuegos = await apiRespuestaFactory.CrearRespuestaHTTP<ApiJuegosRespuesta>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -215,7 +206,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaJuegos;
         }
 
-        public static async Task<ApiRespuestaBase> EliminarJuegoPendiente(int idJuego, int idJugador)
+        public static async Task<ApiRespuestaBase> EliminarJuegoPendiente(int idJuego, int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -232,8 +223,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaBase = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuestaBase = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -243,7 +233,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaBase;
         }
 
-        public static async Task<ApiRespuestaBase> EliminarJuegoFavorito(int idJuego, int idJugador)
+        public static async Task<ApiRespuestaBase> EliminarJuegoFavorito(int idJuego, int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -260,8 +250,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaBase = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuestaBase = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {

@@ -1,23 +1,20 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Likes;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 {
-    public static class ServicioLike
+    public static class ServicioMeGusta
     {
 
-        private static readonly string _ApiURLLike = Properties.Resources.ApiUrlLike;
+        private static readonly string _ApiUrlMeGusta = Properties.Resources.ApiUrlMeGusta;
 
-        public static async Task<ApiRespuestaBase> RegistrarLikeAReseña(PostLikeSolicitud datosSolicitud)
+        public static async Task<ApiRespuestaBase> RegistrarMeGustaAReseña(PostMeGustaSolicitud datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -30,13 +27,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     var mensajeHttp = new HttpRequestMessage()
                     {
                         Method = HttpMethod.Post,
-                        RequestUri = new Uri(_ApiURLLike),
+                        RequestUri = new Uri(_ApiUrlMeGusta),
                         Content = new StringContent(JsonConvert.SerializeObject(datosSolicitud), Encoding.UTF8, "application/json")
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaBase = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuestaBase = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -46,7 +42,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaBase;
         }
 
-        public static async Task<ApiRespuestaBase> EliminarLikeAReseña(int idResena,int idJugador)
+        public static async Task<ApiRespuestaBase> EliminarMeGustaAReseña(int idResena,int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -59,12 +55,11 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     var mensajeHttp = new HttpRequestMessage()
                     {
                         Method = HttpMethod.Delete,
-                        RequestUri = new Uri(string.Concat(_ApiURLLike,$"/{idResena}/{idJugador}"))
+                        RequestUri = new Uri(string.Concat(_ApiUrlMeGusta,$"/{idResena}/{idJugador}"))
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaBase = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuestaBase = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {

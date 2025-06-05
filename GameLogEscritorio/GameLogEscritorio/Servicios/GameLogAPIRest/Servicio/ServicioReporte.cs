@@ -1,13 +1,8 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 {
@@ -16,7 +11,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 
         private static readonly string _ApiURLReporte = Properties.Resources.ApiUrlReporte;
 
-        public static async Task<ApiReportesRespuesta> ObtenerReporteTendencias(string fechaInicioBusqueda, string fechaFinBusqueda)
+        public static async Task<ApiReportesRespuesta> ObtenerReporteTendencias(string fechaInicioBusqueda, string fechaFinBusqueda, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiReportesRespuesta respuestaReportes = new ApiReportesRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -33,8 +28,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaReportes = JsonConvert.DeserializeObject<ApiReportesRespuesta>(contenidoJson)!;
+                    respuestaReportes = await apiRespuestaFactory.CrearRespuestaHTTP<ApiReportesRespuesta>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -44,7 +38,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaReportes;
         }
 
-        public static async Task<ApiReportesRespuesta> ObtenerReporteTendenciasRevivalRetro(string fechaInicioBusqueda, string fechaFinBusqueda)
+        public static async Task<ApiReportesRespuesta> ObtenerReporteTendenciasRevivalRetro(string fechaInicioBusqueda, string fechaFinBusqueda, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiReportesRespuesta respuestaReportes = new ApiReportesRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -61,8 +55,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaReportes = JsonConvert.DeserializeObject<ApiReportesRespuesta>(contenidoJson)!;
+                    respuestaReportes = await apiRespuestaFactory.CrearRespuestaHTTP<ApiReportesRespuesta>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {

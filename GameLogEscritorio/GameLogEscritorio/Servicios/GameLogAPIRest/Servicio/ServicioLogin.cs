@@ -1,10 +1,7 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Login;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
-using System;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using GameLogEscritorio.Utilidades;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
@@ -16,7 +13,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 
         private static readonly string _apiURL = Properties.Resources.ApiUrlLogin;
 
-        public static async Task<ApiLoginRespuesta> IniciarSesion(PostLoginSolicitud datosSolicitud)
+        public static async Task<ApiLoginRespuesta> IniciarSesion(PostLoginSolicitud datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiLoginRespuesta respuesta = new ApiLoginRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -37,8 +34,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                         string tokenAcceso = tokens.FirstOrDefault()!;
                         SesionToken.GuardarToken(tokenAcceso);
                     }
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuesta = JsonConvert.DeserializeObject<ApiLoginRespuesta>(contenidoJson)!;
+                    respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<ApiLoginRespuesta>(mensajeObtenido);
                 }
                 catch(Exception excepcion)
                 {
@@ -48,7 +44,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuesta;
         }
 
-        public static async Task<APIRecuperacionDeCuentaRespuesta> RecuperacionDeCuenta(PostRecuperacionDeCuentaSolicitud datosSolicitud)
+        public static async Task<APIRecuperacionDeCuentaRespuesta> RecuperacionDeCuenta(PostRecuperacionDeCuentaSolicitud datosSolicitud,IApiRestRespuestaFactory apiRespuestaFactory)
         {
             APIRecuperacionDeCuentaRespuesta respuesta = new APIRecuperacionDeCuentaRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -64,8 +60,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                         Content = new StringContent(JsonConvert.SerializeObject(datosSolicitud), Encoding.UTF8, "application/json")
                     };
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuesta = JsonConvert.DeserializeObject<APIRecuperacionDeCuentaRespuesta>(contenidoJson)!;
+                    respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<APIRecuperacionDeCuentaRespuesta>(mensajeObtenido);
                 }
                 catch(Exception excepcion)
                 {
@@ -75,7 +70,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuesta;
         }
 
-        public static async Task<ApiRespuestaBase> RecuperacionDeCuentaValidacion(PostRecuperacionDeCuentaValidacion datosSolicitud)
+        public static async Task<ApiRespuestaBase> RecuperacionDeCuentaValidacion(PostRecuperacionDeCuentaValidacion datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuesta = new ApiLoginRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -91,8 +86,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                         Content = new StringContent(JsonConvert.SerializeObject(datosSolicitud), Encoding.UTF8, "application/json")
                     };
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuesta = JsonConvert.DeserializeObject<ApiLoginRespuesta>(contenidoJson)!;
+                    respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -102,7 +96,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuesta;
         }
 
-        public static async Task<ApiRespuestaBase> CerrarSesion(string correo)
+        public static async Task<ApiRespuestaBase> CerrarSesion(string correo, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuesta = new ApiLoginRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -117,8 +111,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                         RequestUri = new Uri(string.Concat(_apiURL, $"/logout/{correo}")),
                     };
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuesta = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {

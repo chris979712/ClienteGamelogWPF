@@ -132,8 +132,8 @@
   <data name="ApiUrlJugador" xml:space="preserve">
     <value>https://localhost/gamelogapi/gamelog/jugador</value>
   </data>
-  <data name="ApiUrlLike" xml:space="preserve">
-    <value>https://localhost/gamelogapi/gamelog/like</value>
+  <data name="ApiUrlMeGusta" xml:space="preserve">
+    <value>https://localhost/gamelogapi/gamelog/MeGusta</value>
   </data>
   <data name="ApiUrlLogin" xml:space="preserve">
     <value>https://localhost/gamelogapi/gamelog/login</value>
@@ -230,5 +230,8 @@
   </data>
   <data name="DescripcionRevivalRetro" xml:space="preserve">
     <value>El tipo reporte seleccionado muestra los juegos retro, los cuales fueron publicados antes de los años 2000, y que fueron los más reseñados por la comunidad, formando parte de las tendencias revival retro dentro de las fechas seleccionadas.</value>
+  </data>
+  <data name="BadGetAwayMensaje" xml:space="preserve">
+    <value>No se pudo tener contacto con el servidor, inténtelo más tarde. será redirigido al menú principal.</value>
   </data>
 </root>

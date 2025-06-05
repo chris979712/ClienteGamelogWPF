@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Editor Portal" Height="600" Width="800" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
+        Title="Editor Perfil" d:DesignHeight="600" d:DesignWidth="920" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
     <Window.Resources>
         <Style x:Key="RoundedTextBox" TargetType="TextBox">
             <Setter Property="Background" Value="White"/>
@@ -55,101 +55,103 @@
             <Setter Property="BorderBrush" Value="#8E0000"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Imagenes/Editar_Perfil.png" Stretch="UniformToFill"/>
-        </Grid.Background>
+    <Viewbox Stretch="Fill">
+        <Grid Height="600" Width="850">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Imagenes/Editar_Perfil.png" Stretch="Fill"/>
+            </Grid.Background>
 
-        <Grid Margin="30">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="EDITAR PERFIL"
-                       Grid.Column="0" Grid.ColumnSpan="2"
-                       Grid.Row="0"
-                       FontSize="28" FontWeight="Bold"
-                       Foreground="White"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,30"/>
-
-            <Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="6"
-                    Width="200" Height="250"
-                    Margin="0,0,40,0"
-                    CornerRadius="10"
-                    Background="#33333399">
-                <StackPanel VerticalAlignment="Center">
-                    <Image x:Name="img_Perfil" 
-                           Width="150" Height="150" 
-                           Margin="0,0,0,20"
-                           Stretch="Uniform"/>
-                    <Button x:Name="btnSeleccionarImagen"
-                            Content="ELEGIR IMAGEN"
-                            Width="170" Height="40"
-                            Background="#FECA18"
-                            Foreground="#0C3C5C"
-                            FontWeight="Bold" FontSize="14"
-                            HorizontalAlignment="Center"
-                            Click="btnSeleccionarImagen_Click"/>
-                </StackPanel>
-            </Border>
-
-            <Grid Grid.Column="1" Grid.RowSpan="8" Margin="0,67,0,50">
+            <Grid Margin="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Margin="15,0,15,1">
-                    <TextBlock Text="Nombre:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                    <TextBox x:Name="txtb_Nombre" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                             FontSize="13"/>
-                </StackPanel>
-                <StackPanel Grid.Row="1" Margin="15,0,15,1">
-                    <TextBlock Text="Primer apellido:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                    <TextBox x:Name="txtb_PrimerApellido" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                             FontSize="13"/>
-                </StackPanel>
-                <StackPanel Grid.Row="2" Margin="15,0,15,1">
-                    <TextBlock Text="Segundo apellido:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                    <TextBox x:Name="txtb_SegundoApellido" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                             FontSize="13"/>
-                </StackPanel>
-                <StackPanel Grid.Row="3" Margin="15,0,15,1">
-                    <TextBlock Text="Nombre de usuario:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                    <TextBox x:Name="txtb_NombreUsuario" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                             FontSize="13"/>
-                </StackPanel>
-                <StackPanel Grid.Row="4" Margin="15,0,15,15">
-                    <TextBlock Text="Descripción:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                    <TextBox x:Name="txtb_Descripcion" Height="109" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                             FontSize="13"
-                             TextWrapping="Wrap" AcceptsReturn="True"/>
+
+                <TextBlock Text="EDITAR PERFIL"
+                   Grid.Column="1"
+                   Grid.Row="0"
+                   FontSize="28" FontWeight="Bold"
+                   Foreground="White"
+                   HorizontalAlignment="Left"
+                   Margin="14,0,0,30"/>
+
+                <Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="6"
+                Width="200" Height="250"
+                Margin="85,0,40,0"
+                CornerRadius="10"
+                Background="#33333399">
+                    <StackPanel VerticalAlignment="Center">
+                        <Image x:Name="img_Perfil" 
+                       Width="150" Height="150" 
+                       Margin="0,0,0,20"
+                       Stretch="Uniform"/>
+                        <Button x:Name="btnSeleccionarImagen"
+                        Content="ELEGIR IMAGEN"
+                        Width="170" Height="40"
+                        Background="#FECA18"
+                        Foreground="#0C3C5C"
+                        FontWeight="Bold" FontSize="14"
+                        HorizontalAlignment="Center"
+                        Click="btnSeleccionarImagen_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <Grid Grid.Column="1" Grid.RowSpan="8" Margin="0,67,0,50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="15,0,15,1">
+                        <TextBlock Text="Nombre:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBox x:Name="txtb_Nombre" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                         FontSize="13"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Margin="15,0,15,1">
+                        <TextBlock Text="Primer apellido:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBox x:Name="txtb_PrimerApellido" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                         FontSize="13"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Margin="15,0,15,1">
+                        <TextBlock Text="Segundo apellido:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBox x:Name="txtb_SegundoApellido" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                         FontSize="13"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Margin="15,0,15,1">
+                        <TextBlock Text="Nombre de usuario:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBox x:Name="txtb_NombreUsuario" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                         FontSize="13"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Margin="15,0,15,15">
+                        <TextBlock Text="Descripción:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBox x:Name="txtb_Descripcion" Height="109" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                         FontSize="13"
+                         TextWrapping="Wrap" AcceptsReturn="True"/>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Grid.Column="1" Grid.Row="7"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,0">
+                    <Button x:Name="btn_Actualizar" Content="ACTUALIZAR" Style="{StaticResource BotonRegistrar}"
+                    Height="50" Margin="0,0,20,0" Click="Actualizar_Click"/>
+                    <Button x:Name="btn_Cancelar" Content="CANCELAR" Style="{StaticResource BotonCancelar}"
+                    Height="50" Click="Cancelar_Click"/>
                 </StackPanel>
             </Grid>
-            <StackPanel Grid.Column="1" Grid.Row="7"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        Margin="0,0">
-                <Button x:Name="btn_Actualizar" Content="ACTUALIZAR" Style="{StaticResource BotonRegistrar}"
-                        Height="50" Margin="0,0,20,0" Click="Actualizar_Click"/>
-                <Button x:Name="btn_Cancelar" Content="CANCELAR" Style="{StaticResource BotonCancelar}"
-                        Height="50" Click="Cancelar_Click"/>
-            </StackPanel>
         </Grid>
-    </Grid>
+    </Viewbox>
 </Window>

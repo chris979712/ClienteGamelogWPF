@@ -5,39 +5,27 @@ using GameLogEscritorio.Utilidades;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
-using LiveChartsCore.SkiaSharpView.WPF;
 using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaReporteTendencias.xaml
-    /// </summary>
+    
     public partial class VentanaReporteTendencias : Window
     {
-        public ISeries[] Series { get; set; }
-        public Axis[] XAxes { get; set; }
-        public Axis[] YAxes { get; set; }
+
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        public ISeries[]? Series { get; set; }
+        public Axis[]? XAxes { get; set; }
+        public Axis[]? YAxes { get; set; }
 
         public VentanaReporteTendencias()
         {
             InitializeComponent();
             dp_Inicio.SelectedDate = DateTime.Now;
             dp_Fin.SelectedDate = DateTime.Now;
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         private async void BtnRevival_Click(object sender, RoutedEventArgs e)
@@ -49,7 +37,7 @@ namespace GameLogEscritorio.Ventanas
             string? fechaFinBusquedaFormateada = fechaFinBusqueda?.ToString("yyyy-MM-dd");
             if (ValidarDatos(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!))
             {
-                ApiReportesRespuesta respuestaReportesRevivalRetro = await ServicioReporte.ObtenerReporteTendenciasRevivalRetro(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!);
+                ApiReportesRespuesta respuestaReportesRevivalRetro = await ServicioReporte.ObtenerReporteTendenciasRevivalRetro(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!,apiRestCreadorRespuesta);
                 bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReportesRevivalRetro);
                 if (!esRespuestaCritica)
                 {
@@ -67,7 +55,8 @@ namespace GameLogEscritorio.Ventanas
             }
             else
             {
-                new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.FechasInvalidas, Constantes.CodigoErrorServidor);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.FechasInvalidas, Constantes.CodigoErrorServidor);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
             }
         }
 
@@ -80,7 +69,7 @@ namespace GameLogEscritorio.Ventanas
             string? fechaFinBusquedaFormateada = fechaFinBusqueda?.ToString("yyyy-MM-dd");
             if (ValidarDatos(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!))
             {
-                ApiReportesRespuesta respuestaReportesTendencias = await ServicioReporte.ObtenerReporteTendencias(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!);
+                ApiReportesRespuesta respuestaReportesTendencias = await ServicioReporte.ObtenerReporteTendencias(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!,apiRestCreadorRespuesta);
                 bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReportesTendencias);
                 if (!esRespuestaCritica)
                 {
@@ -98,7 +87,8 @@ namespace GameLogEscritorio.Ventanas
             }
             else
             {
-                new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.FechasInvalidas, Constantes.CodigoErrorServidor);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.FechasInvalidas, Constantes.CodigoErrorServidor);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
             }
         }
 
@@ -169,18 +159,13 @@ namespace GameLogEscritorio.Ventanas
             return fechaInicioValida && fechaFinValida && fechaInicioBusqueda <= fechaFinBusqueda;
         }
 
-
-        private void Salir_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         private void BtnRegresar_Click(object sender, RoutedEventArgs e)
         {
             MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
             this.Close();
         }
 
     }
+
 }
