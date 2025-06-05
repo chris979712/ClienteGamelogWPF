@@ -48,11 +48,11 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas
         [JsonProperty("calificacion")]
         public decimal calificacion { get; set; }
 
-        [JsonProperty("totalDeLikes")]
-        public int totalDeLikes { get; set; }
+        [JsonProperty("totalDeMeGusta")]
+        public int totalDeMeGusta { get; set; }
 
-        [JsonProperty("existeLike")]
-        public bool existeLike { get; set; }
+        [JsonProperty("existeMeGusta")]
+        public bool existeMeGusta { get; set; }
 
     }
 
@@ -86,11 +86,11 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas
         [JsonProperty("calificacion")]
         public decimal calificacion { get; set; }
 
-        [JsonProperty("totalDeLikes")]
-        public int totalDeLikes { get; set; }
+        [JsonProperty("totalDeMeGusta")]
+        public int totalDeMeGusta { get; set; }
 
-        [JsonProperty("existeLike")]
-        public bool existeLike { get; set; }
+        [JsonProperty("existeMeGusta")]
+        public bool existeMeGusta { get; set; }
 
     }
 }

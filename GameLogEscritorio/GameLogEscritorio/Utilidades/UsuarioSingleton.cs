@@ -1,10 +1,4 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Login;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLogEscritorio.Utilidades
 {

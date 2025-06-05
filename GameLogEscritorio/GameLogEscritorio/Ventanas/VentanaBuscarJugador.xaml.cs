@@ -1,5 +1,4 @@
-﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
-using GameLogEscritorio.Servicios.APIRawg.Servicio;
+﻿using GameLogEscritorio.Servicios.APIRawg.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
@@ -18,14 +17,16 @@ namespace GameLogEscritorio.Ventanas
 
     public partial class VentanaBuscarJugador : Window
     {
-        private byte[] _fotoDePerfilJugador = new byte[0];
 
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private byte[] _fotoDePerfilJugador = new byte[0];
         private Perfil _PerfilJugador = new Perfil();
 
         public VentanaBuscarJugador()
         {
             InitializeComponent();
             txb_Busqueda.Focus();
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         private void LimpiarCampos()
@@ -46,12 +47,13 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Constantes.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
             }
         }
 
         private async Task BuscarJugador()
         {
-            ApiJugadorRespuesta jugadorRespuesta = await ServicioJugador.ObtenerJugadorPorNombreDeUsuario(txb_Busqueda.Text);
+            ApiJugadorRespuesta jugadorRespuesta = await ServicioJugador.ObtenerJugadorPorNombreDeUsuario(txb_Busqueda.Text,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(jugadorRespuesta);
             if (!esRespuestaCritica)
             {
@@ -73,10 +75,13 @@ namespace GameLogEscritorio.Ventanas
         {
             byte[] fotoEncontrada = FotoPorDefecto.ObtenerFotoDePerfilPorDefecto();
             RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(rutaFotoDePerfil!);
-            ManejadorRespuestas.ManejadorRespuestasGRPC(respuestaGRPC.codigo);
             if (respuestaGRPC.codigo == Constantes.CodigoExito)
             {
                 fotoEncontrada = respuestaGRPC.datosBinario!;
+            }
+            else
+            {
+                ManejadorRespuestas.ManejadorRespuestasGRPC(respuestaGRPC.codigo);
             }
             return fotoEncontrada;
         }
@@ -122,8 +127,8 @@ namespace GameLogEscritorio.Ventanas
 
         private void AvatarJugador_Click(object sender, MouseButtonEventArgs e)
         {
-            var ventana = new VentanaImagen(_fotoDePerfilJugador); 
-            ventana.ShowDialog(); 
+            var ventana = new VentanaImagen(_fotoDePerfilJugador);
+            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventana);
         }
 
         public static BitmapImage BytesAImagen(byte[] imageDatos)
@@ -154,7 +159,7 @@ namespace GameLogEscritorio.Ventanas
         private void Regresar_Click(object sender, RoutedEventArgs e)
         {
             MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
             this.Close();
         }
 
@@ -180,8 +185,8 @@ namespace GameLogEscritorio.Ventanas
                     await ManejadorSesion.CerrarSesionForzadaDeUsuario();
                     this.Close();
                 }
-                new VentanaEmergente(Constantes.TipoError, juegosFavoritos[0].descripcion!, Constantes.CodigoErrorServidor);
-
+                VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, juegosFavoritos[0].descripcion!, Constantes.CodigoErrorServidor);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
             }
             else
             {
@@ -200,7 +205,8 @@ namespace GameLogEscritorio.Ventanas
                     estado = _PerfilJugador.estado
                    
                 };
-                new VentanaPerfilJugador(perfilJugador, juegosFavoritos).Show();
+                VentanaPerfilJugador ventanaPerfilJugador = new VentanaPerfilJugador(perfilJugador, juegosFavoritos);
+                AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaPerfilJugador);
                 this.Close();
             }
         }
@@ -220,7 +226,7 @@ namespace GameLogEscritorio.Ventanas
         private void Salir_Click(object sender, RoutedEventArgs e)
         {
             MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
             this.Close();
         }
     }

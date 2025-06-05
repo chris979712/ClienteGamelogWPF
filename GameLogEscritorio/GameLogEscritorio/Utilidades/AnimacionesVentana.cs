@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -45,6 +46,24 @@ namespace GameLogEscritorio.Utilidades
             animacion.KeyFrames.Add(new EasingDoubleKeyFrame(-4, KeyTime.FromPercent(0.9)));
             animacion.KeyFrames.Add(new EasingDoubleKeyFrame(0, KeyTime.FromPercent(1.0)));
             trans.BeginAnimation(TranslateTransform.YProperty, animacion);
+        }
+
+        public static void IniciarVentanaPosicionActualDeVentana(double top, double left,double width, double height,Window ventana)
+        {
+            ventana.WindowStartupLocation = WindowStartupLocation.Manual;
+            ventana.Left = left;
+            ventana.Top = top;
+            ventana.Width = width;
+            ventana.Height = height;
+            ventana.Show();
+        }
+
+        public static void MostarVentanaEnCentroDePosicionActualDeVentana(double top, double left,double width, double height, Window ventana)
+        {
+            ventana.WindowStartupLocation = WindowStartupLocation.Manual;
+            ventana.Left = left + (width - ventana.Width) / 2;
+            ventana.Top = top + (height - ventana.Height) / 2;
+            ventana.ShowDialog();
         }
 
     }

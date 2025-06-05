@@ -1,13 +1,4 @@
-﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameLogEscritorio.Utilidades
+﻿namespace GameLogEscritorio.Utilidades
 {
     public static class Constantes
     {
@@ -29,6 +20,7 @@ namespace GameLogEscritorio.Utilidades
         public const int CodigoErrorServidor = 500;
         public const int CodigoErrorAcceso = 401;
         public const int CodigoSinResultadosEncontrados = 404;
+        public const int CodigoBadGetaway = 502;
         public const int CodigoEstadoOKGRPC = 0;
         public const int CodigoArgumentosInvalidosGRPC = 3;
         public const int CodigoPermisosDenegadosGRPC = 7;

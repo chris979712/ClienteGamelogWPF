@@ -1,35 +1,22 @@
-﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Acceso;
+﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Acceso;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaPerfilJugador.xaml
-    /// </summary>
+    
     public partial class VentanaPerfilJugador : Window
     {
 
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         private PerfilJugador _perfilJugador = new PerfilJugador();
         private ObservableCollection<JuegoCompleto>? _juegosFavoritos = new ObservableCollection<JuegoCompleto>();
 
@@ -43,6 +30,7 @@ namespace GameLogEscritorio.Ventanas
             CargarBotonesDeSeguimiento();
             CargarDatosUsuario();
             CargarJuegosFavoritos();
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         public void CargarPermisosUsuario()
@@ -131,7 +119,7 @@ namespace GameLogEscritorio.Ventanas
         private void Salir_Click(object sender, RoutedEventArgs e)
         {
             VentanaBuscarJugador ventanaBuscarJugador = new VentanaBuscarJugador();
-            ventanaBuscarJugador.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJugador);
             this.Close();
         }
 
@@ -143,7 +131,7 @@ namespace GameLogEscritorio.Ventanas
                 idJugadorSeguidor = UsuarioSingleton.Instancia.idJugador,
                 idJugadorSeguido = _perfilJugador.idJugador
             };
-            ApiRespuestaBase respuestaBase = await ServicioSeguidor.RegistrarNuevoSeguidor(postSeguidorSolicitud);
+            ApiRespuestaBase respuestaBase = await ServicioSeguidor.RegistrarNuevoSeguidor(postSeguidorSolicitud, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {
@@ -164,7 +152,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 estadoAcceso = "Baneado"
             };
-            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, _perfilJugador.idCuenta);
+            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, _perfilJugador.idCuenta,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {
@@ -184,7 +172,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 estadoAcceso = "Desbaneado"
             };
-            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, _perfilJugador.idCuenta);
+            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, _perfilJugador.idCuenta,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {
@@ -200,7 +188,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void DejarDeSeguir_Click(object sender, RoutedEventArgs e)
         {
-            ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, _perfilJugador.idJugador);
+            ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, _perfilJugador.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {

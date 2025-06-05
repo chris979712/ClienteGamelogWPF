@@ -106,20 +106,20 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/like.
-        /// </summary>
-        public static string ApiUrlLike {
-            get {
-                return ResourceManager.GetString("ApiUrlLike", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/login.
         /// </summary>
         public static string ApiUrlLogin {
             get {
                 return ResourceManager.GetString("ApiUrlLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/MeGusta.
+        /// </summary>
+        public static string ApiUrlMeGusta {
+            get {
+                return ResourceManager.GetString("ApiUrlMeGusta", resourceCulture);
             }
         }
         
@@ -165,6 +165,15 @@ namespace GameLogEscritorio.Properties {
         public static string ArgumentNullExcepcion {
             get {
                 return ResourceManager.GetString("ArgumentNullExcepcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se pudo tener contacto con el servidor, inténtelo más tarde. será redirigido al menú principal..
+        /// </summary>
+        public static string BadGetAwayMensaje {
+            get {
+                return ResourceManager.GetString("BadGetAwayMensaje", resourceCulture);
             }
         }
         

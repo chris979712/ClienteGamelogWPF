@@ -1,36 +1,30 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaDescripcionJuego.xaml
-    /// </summary>
+    
     public partial class VentanaDescripcionJuego : Window
     {
+
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         private JuegoModelo _juegoObtenido = new JuegoModelo();
+
         public VentanaDescripcionJuego(JuegoModelo? juegoObtenido)
         {
             InitializeComponent();
             _juegoObtenido = juegoObtenido!;
             CargarDatosVentana();
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         public void CargarDatosVentana()
@@ -72,7 +66,7 @@ namespace GameLogEscritorio.Ventanas
                 idJugador = UsuarioSingleton.Instancia.idJugador,
                 idJuego = _juegoObtenido.id
             };
-            ApiRespuestaBase respuestaBase = await ServicioJuego.RegistrarJuegoPendiente(datosSolicitud);
+            ApiRespuestaBase respuestaBase = await ServicioJuego.RegistrarJuegoPendiente(datosSolicitud,apiRestCreadorRespuesta);
             bool sinAcceso = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!sinAcceso)
             {
@@ -102,7 +96,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void QuitarListaPendientes_Click(object sender, EventArgs e)
         {
-            ApiRespuestaBase respuestaBase = await ServicioJuego.EliminarJuegoPendiente(_juegoObtenido.id, UsuarioSingleton.Instancia.idJugador);
+            ApiRespuestaBase respuestaBase = await ServicioJuego.EliminarJuegoPendiente(_juegoObtenido.id, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool sinAcceso = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!sinAcceso)
             {
@@ -126,11 +120,12 @@ namespace GameLogEscritorio.Ventanas
 
         private async void ListaAgregarFavoritos_Click(object sender, RoutedEventArgs e)
         {
-            ApiRespuestaBase respuestaBase = await ServicioJuego.RegistrarJuegoFavorito(new PostJuegoFavorito()
+            PostJuegoFavorito solicitud = new PostJuegoFavorito()
             {
                 idJuego = _juegoObtenido.id,
                 idJugador = UsuarioSingleton.Instancia.idJugador
-            });
+            };
+            ApiRespuestaBase respuestaBase = await ServicioJuego.RegistrarJuegoFavorito(solicitud, apiRestCreadorRespuesta);
             bool sinAcceso = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!sinAcceso)
             {
@@ -155,7 +150,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void ListaQuitarFavoritos_Click(object sender, RoutedEventArgs e)
         {
-            ApiRespuestaBase respuestaBase = await ServicioJuego.EliminarJuegoFavorito(_juegoObtenido.id, UsuarioSingleton.Instancia.idJugador);
+            ApiRespuestaBase respuestaBase = await ServicioJuego.EliminarJuegoFavorito(_juegoObtenido.id, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool sinAcceso = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if(!sinAcceso)
             {
@@ -181,28 +176,28 @@ namespace GameLogEscritorio.Ventanas
         private void VerReseñas_Click(object sender, RoutedEventArgs e)
         {
             VentanaReseñasJugadores ventanaReseñasJugadores = new VentanaReseñasJugadores(_juegoObtenido);
-            ventanaReseñasJugadores.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReseñasJugadores);
             this.Close();
         }
 
         private void Reseñar_Click(object sender, RoutedEventArgs e)
         {
             VentanaReseñarJuego ventanaReseñarJuego = new VentanaReseñarJuego(_juegoObtenido,"Descripcion");
-            ventanaReseñarJuego.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReseñarJuego);
             this.Close();
         }
 
         private void Regresar_Click(object sender, RoutedEventArgs e)
         {
             VentanaBuscarJuego ventanaBuscarJuego = new VentanaBuscarJuego();
-            ventanaBuscarJuego.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJuego);
             this.Close();
         }
 
         private void Salir_Click(object sender, RoutedEventArgs e)
         {
             VentanaBuscarJuego ventanaBuscarJuego = new VentanaBuscarJuego();
-            ventanaBuscarJuego.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJuego);
             this.Close();
         }
     }

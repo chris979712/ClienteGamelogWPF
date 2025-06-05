@@ -1,4 +1,5 @@
-﻿using GameLogEscritorio.Utilidades;
+﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
+using GameLogEscritorio.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace GameLogEscritorio
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+
         public MainWindow()
         {
             InitializeComponent();

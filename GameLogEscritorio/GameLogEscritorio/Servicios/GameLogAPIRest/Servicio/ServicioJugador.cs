@@ -3,13 +3,9 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 {
@@ -18,7 +14,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 
         private static readonly string _ApiURLJugador = Properties.Resources.ApiUrlJugador;
 
-        public static async Task<ApiJugadorRespuesta> ObtenerJugadorPorNombreDeUsuario(string nombreDeUsuario)
+        public static async Task<ApiJugadorRespuesta> ObtenerJugadorPorNombreDeUsuario(string nombreDeUsuario, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiJugadorRespuesta respuestaJugador = new ApiJugadorRespuesta();
             HttpClientHandler handler = new HttpClientHandler();
@@ -35,8 +31,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaJugador = JsonConvert.DeserializeObject<ApiJugadorRespuesta>(contenidoJson)!;
+                    respuestaJugador = await apiRespuestaFactory.CrearRespuestaHTTP<ApiJugadorRespuesta>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {
@@ -46,7 +41,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaJugador;
         }
 
-        public static async Task<ApiRespuestaBase> ActualizarDatosDeJugador(PutJugadorSolicitud datosSolicitud, int idJugador)
+        public static async Task<ApiRespuestaBase> ActualizarDatosDeJugador(PutJugadorSolicitud datosSolicitud, int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -64,8 +59,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
-                    respuestaBase = JsonConvert.DeserializeObject<ApiRespuestaBase>(contenidoJson)!;
+                    respuestaBase = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRespuestaBase>(mensajeObtenido);
                 }
                 catch (Exception excepcion)
                 {

@@ -1,32 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
+using GameLogEscritorio.Utilidades;
 using Microsoft.Win32;
 using System.IO;
-using GameLogEscritorio.Utilidades;
-using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaEditarPerfil.xaml
-    /// </summary>
+    
     public partial class VentanaEditarPerfil : Window
     {
 
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         private byte[] imagenASubir = new byte[0];
         private string _rutaNuevaFoto = "";
 
@@ -36,6 +26,7 @@ namespace GameLogEscritorio.Ventanas
             CargarDatosUsuario();
             img_Perfil.Source = ConvertirBytesAImagen(UsuarioSingleton.Instancia.fotoDePerfil!);
             imagenASubir = UsuarioSingleton.Instancia.fotoDePerfil!;
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         public static ImageSource ConvertirBytesAImagen(byte[] imagenBytes)
@@ -81,11 +72,13 @@ namespace GameLogEscritorio.Ventanas
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Constantes.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
             }
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.EdicionSinCambios, Constantes.CodigoErrorSolicitud);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
             }
         }
 
@@ -117,7 +110,7 @@ namespace GameLogEscritorio.Ventanas
                 nombreDeUsuario = txtb_NombreUsuario.Text,
                 foto = _rutaNuevaFoto
             };
-            ApiRespuestaBase respuestaBase = await Servicios.GameLogAPIRest.Servicio.ServicioJugador.ActualizarDatosDeJugador(datosSolicitud, UsuarioSingleton.Instancia.idJugador);
+            ApiRespuestaBase respuestaBase = await Servicios.GameLogAPIRest.Servicio.ServicioJugador.ActualizarDatosDeJugador(datosSolicitud, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if(!esRespuestaCritica)
             {
@@ -125,7 +118,7 @@ namespace GameLogEscritorio.Ventanas
                 {
                     ActualizarSingleton();
                     MenuPrincipal menuPrincipal = new MenuPrincipal();
-                    menuPrincipal.Show();
+                    AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
                     this.Close();
                 }
                 else
@@ -140,10 +133,13 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async Task<bool> RevertirFotoDePerfil()
+        private async Task RevertirFotoDePerfil()
         {
             RespuestaGRPC respuestaGRPC = await Servicios.GameLogAPIGRPC.Servicio.ServicioFotoDePerfil.ActualizarFotoDePerfilJugador(UsuarioSingleton.Instancia.foto!, UsuarioSingleton.Instancia.idJugador!, FotoPorDefecto.ObtenerFotoDePerfilPorDefecto());
-            return true;
+            if (respuestaGRPC.codigo != Constantes.CodigoExito)
+            {
+                ManejadorRespuestas.ManejadorRespuestasGRPC(respuestaGRPC.codigo);
+            }
         }
 
         private void ActualizarSingleton()
@@ -207,14 +203,7 @@ namespace GameLogEscritorio.Ventanas
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.Show();
-            this.Close();
-        }
-
-        private void Salir_Click(object sender, RoutedEventArgs e)
-        {
-            MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
             this.Close();
         }
 
@@ -245,16 +234,19 @@ namespace GameLogEscritorio.Ventanas
                         else
                         {
                             VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.ArchivoNoEsImagen,Constantes.CodigoErrorSolicitud);
+                            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                         }
                     }
                     else
                     {
                         VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.TamañoImagenMayor, Constantes.CodigoErrorSolicitud);
+                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                     }
                 }
                 catch (Exception)
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.ErrorAlLeerImagen, Constantes.CodigoErrorSolicitud);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
             }
         }
