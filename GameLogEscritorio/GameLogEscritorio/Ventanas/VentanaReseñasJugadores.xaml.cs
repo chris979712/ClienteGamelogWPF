@@ -9,19 +9,17 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaReseñasJugadores.xaml
-    /// </summary>
+    
     public partial class VentanaReseñasJugadores : Window
     {
 
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         private JuegoModelo _modeloJuego = new JuegoModelo();
         public ObservableCollection<ReseñaCompleta> Reseñas { get; set; } = new ObservableCollection<ReseñaCompleta>();
         public bool EsAdministrador => UsuarioSingleton.Instancia.tipoDeAcceso == "Administrador";
@@ -31,19 +29,13 @@ namespace GameLogEscritorio.Ventanas
             this._modeloJuego = modeloJuego;
             InitializeComponent();
             this.DataContext = this;
-        }
-
-        private void Salir_Click(object sender, RoutedEventArgs e)
-        {
-            VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuego);
-            ventanaDescripcionJuego.Show();
-            this.Close();
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         private async void MostrarTodos_Click(object sender, RoutedEventArgs e)
         {
             Reseñas.Clear();
-            ApiReseñaJugadoresRespuesta reseñasJugadores = await ServicioReseña.ObtenerReseñasDeUnJuego(_modeloJuego.id, UsuarioSingleton.Instancia.idJugador);
+            ApiReseñaJugadoresRespuesta reseñasJugadores = await ServicioReseña.ObtenerReseñasDeUnJuego(_modeloJuego.id, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(reseñasJugadores);
             if (!esRespuestaCritica)
             {
@@ -62,7 +54,7 @@ namespace GameLogEscritorio.Ventanas
         private async void MostrarSeguidos_Click(object sender, RoutedEventArgs e)
         {
             Reseñas.Clear();
-            ApiReseñaJugadoresRespuesta reseñasJugadores = await ServicioReseña.ObtenerReseñasDeJugadoresSeguidosEnUnJuego(_modeloJuego.id, UsuarioSingleton.Instancia.idJugador);
+            ApiReseñaJugadoresRespuesta reseñasJugadores = await ServicioReseña.ObtenerReseñasDeJugadoresSeguidosEnUnJuego(_modeloJuego.id, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(reseñasJugadores);
             if (!esRespuestaCritica)
             {
@@ -91,13 +83,13 @@ namespace GameLogEscritorio.Ventanas
                     opinion = reseña.opinion,
                     fecha = reseña.fecha,
                     calificacion = reseña.calificacion,
-                    existeLikeReseña = reseña.existeLike,
-                    totalDeLikes = reseña.totalDeLikes,
+                    totalDeMeGustaReseña = reseña.totalDeMeGusta,
+                    existeMeGustaReseña = reseña.existeMeGusta,
                     nombreDeUsuario = reseña.nombreDeUsuario,
                     nombre = reseña.nombre,
                     foto = reseña.foto,
-                    totalDeLikesReseña = reseña.totalDeLikes,
-                    existeLike = reseña.existeLike,
+                    totalDeMeGusta = reseña.totalDeMeGusta,
+                    existeMeGusta = reseña.existeMeGusta,
                     fotoJugador = await CargarFotoDePerfilUsuario(reseña.foto!)
                 };
                 Reseñas.Add(reseñaCompleta);
@@ -121,7 +113,7 @@ namespace GameLogEscritorio.Ventanas
             var reseña = boton?.DataContext as ReseñaCompleta;
             if(reseña != null)
             {
-                ApiRespuestaBase apiRespuestaBase = await ServicioReseña.EliminarReseña(reseña.idResenia);
+                ApiRespuestaBase apiRespuestaBase = await ServicioReseña.EliminarReseña(reseña.idResenia,apiRestCreadorRespuesta);
                 bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(apiRespuestaBase);
                 if(!esRespuestaCritica)
                 {
@@ -158,12 +150,12 @@ namespace GameLogEscritorio.Ventanas
 
         private async void QuitarLike_Click(ReseñaCompleta reseña)
         {
-            ApiRespuestaBase respuestaBase = await ServicioLike.EliminarLikeAReseña(reseña.idResenia,UsuarioSingleton.Instancia.idJugador);
+            ApiRespuestaBase respuestaBase = await ServicioMeGusta.EliminarMeGustaAReseña(reseña.idResenia,UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
             if (!esRespuestaCritica)
             {
-                reseña.existeLikeReseña = false;
-                reseña.totalDeLikesReseña--;
+                reseña.existeMeGustaReseña = false;
+                reseña.totalDeMeGustaReseña--;
             }
             else
             {
@@ -174,17 +166,17 @@ namespace GameLogEscritorio.Ventanas
 
         private async void DarLike_Click(ReseñaCompleta reseña)
         {
-            PostLikeSolicitud datosSolicitud = new PostLikeSolicitud()
+            PostMeGustaSolicitud datosSolicitud = new PostMeGustaSolicitud()
             {
                 idJugador = UsuarioSingleton.Instancia.idJugador,
                 idResena = reseña.idResenia
             };
-            ApiRespuestaBase respuestaBase = await ServicioLike.RegistrarLikeAReseña(datosSolicitud);
+            ApiRespuestaBase respuestaBase = await ServicioMeGusta.RegistrarMeGustaAReseña(datosSolicitud,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
             if (!esRespuestaCritica)
             {
-                reseña.existeLikeReseña = true;
-                reseña.totalDeLikesReseña++;
+                reseña.existeMeGustaReseña = true;
+                reseña.totalDeMeGustaReseña++;
             }
             else
             {
@@ -196,7 +188,7 @@ namespace GameLogEscritorio.Ventanas
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuego);
-            ventanaDescripcionJuego.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
             this.Close();
         }
     }
@@ -204,30 +196,30 @@ namespace GameLogEscritorio.Ventanas
     public class ReseñaCompleta : ReseñaJugadores, INotifyPropertyChanged
     {
         public byte[]? fotoJugador { get; set; }
-        private int _totalDeLikes;
-        public int totalDeLikesReseña
+        private int _totalDeMeGusta;
+        public int totalDeMeGustaReseña
         {
-            get => _totalDeLikes;
+            get => _totalDeMeGusta;
             set
             {
-                if (_totalDeLikes != value)
+                if (_totalDeMeGusta != value)
                 {
-                    _totalDeLikes = value;
-                    OnPropertyChanged(nameof(totalDeLikesReseña));
+                    _totalDeMeGusta = value;
+                    OnPropertyChanged(nameof(totalDeMeGustaReseña));
                 }
             }
         }
 
-        private bool _existeLike;
-        public bool existeLikeReseña
+        private bool _existeMeGusta;
+        public bool existeMeGustaReseña
         {
-            get => _existeLike;
+            get => _existeMeGusta;
             set
             {
-                if (_existeLike != value)
+                if (_existeMeGusta != value)
                 {
-                    _existeLike = value;
-                    OnPropertyChanged(nameof(existeLikeReseña));
+                    _existeMeGusta = value;
+                    OnPropertyChanged(nameof(existeMeGustaReseña));
                 }
             }
         }

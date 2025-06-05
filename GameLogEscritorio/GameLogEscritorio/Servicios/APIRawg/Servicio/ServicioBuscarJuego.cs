@@ -1,21 +1,18 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLogEscritorio.Servicios.APIRawg.Servicio
 {
     public static class ServicioBuscarJuego
     {
+
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         private static readonly string _RawgAPIURL = Properties.Resources.RawAPIGames;
         private static readonly HttpClient clienteHttp = new HttpClient();
 
@@ -96,7 +93,7 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
         public static async Task<ObservableCollection<JuegoCompleto>> ObtenerJuegosPendientesJugador(int idJugador)
         {
             ObservableCollection<JuegoCompleto> juegosPendientes = new ObservableCollection<JuegoCompleto>();
-            var respuesta = await ServicioJuego.ObtenerJuegosPendientes(idJugador);
+            var respuesta = await ServicioJuego.ObtenerJuegosPendientes(idJugador,apiRestCreadorRespuesta);
             if (respuesta.estado == Constantes.CodigoExito)
             {
                 List<Juego> juegosPendietesObtenidos = respuesta.juegos!;
@@ -141,7 +138,7 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
         public static async Task<ObservableCollection<JuegoCompleto>> ObtenerJuegosFavoritosJugador(int idJugador)
         {
             ObservableCollection<JuegoCompleto> juegosFavoritos = new ObservableCollection<JuegoCompleto>();
-            var respuesta = await ServicioJuego.ObtenerJuegosFavoritos(idJugador);
+            var respuesta = await ServicioJuego.ObtenerJuegosFavoritos(idJugador,apiRestCreadorRespuesta);
             if (respuesta.estado == Constantes.CodigoExito)
             {
                 List<Juego> juegosFavoritosObtenidos = respuesta.juegos!;

@@ -1,30 +1,22 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaReseñarJuego.xaml
-    /// </summary>
+    
     public partial class VentanaReseñarJuego : Window
     {
 
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         private JuegoModelo _modeloJuegoAReseñar = new JuegoModelo();
         private string _ventanaPrecedente;
         private Decimal _calificacionSeleccionada = 0;
@@ -34,6 +26,7 @@ namespace GameLogEscritorio.Ventanas
             InitializeComponent();
             this._modeloJuegoAReseñar = juegoAReseñar;
             this._ventanaPrecedente = ventanaPrecedente;
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         private async void Reseniar_Click(object sender, RoutedEventArgs e)
@@ -48,7 +41,7 @@ namespace GameLogEscritorio.Ventanas
                     calificacion = calificacion,
                     opinion = txtb_Opinion.Text
                 };
-                ApiRespuestaBase respuestaApi = await ServicioReseña.RegistrarReseña(datosSolicitud);
+                ApiRespuestaBase respuestaApi = await ServicioReseña.RegistrarReseña(datosSolicitud,apiRestCreadorRespuesta);
                 bool esCritico = ManejadorRespuestas.ManejarRespuestasBase(respuestaApi);
                 if (!esCritico)
                 {
@@ -67,6 +60,7 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Constantes.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
             }
         }
 
@@ -102,7 +96,6 @@ namespace GameLogEscritorio.Ventanas
             return calificacionValida && opinionValida;
         }
 
-
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             DesplegarVentanaCorrespondiente();
@@ -118,12 +111,12 @@ namespace GameLogEscritorio.Ventanas
             if (_ventanaPrecedente == "Menu")
             {
                 MenuPrincipal menuPrincipal = new MenuPrincipal();
-                menuPrincipal.Show();
+                AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
             }
             else if (_ventanaPrecedente == "Descripcion")
             {
                 VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuegoAReseñar);
-                ventanaDescripcionJuego.Show();
+                AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
             }
             this.Close();
         }
@@ -149,8 +142,6 @@ namespace GameLogEscritorio.Ventanas
                 }
             }
         }
-
-
         private Decimal ObtenerCalificacion()
         {
             return _calificacionSeleccionada;

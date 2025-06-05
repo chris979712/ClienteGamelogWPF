@@ -1,46 +1,37 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
 using GameLogEscritorio.Servicios.APIRawg.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
-using System;
-using System.Collections.Generic;
+using HtmlAgilityPack;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HtmlAgilityPack;
 
 namespace GameLogEscritorio.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para VentanaBuscarJuego.xaml
-    /// </summary>
+    
     public partial class VentanaBuscarJuego : Window
     {
 
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         private JuegoModelo _modeloJuegoEncontrado = new JuegoModelo();
         private ObservableCollection<Videojuego>? _juegosEncontrados { get; set; }
 
         public VentanaBuscarJuego()
         {
             InitializeComponent();
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         private void Salir_Click(object sender, RoutedEventArgs e)
         {
             MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
             this.Close();
         }
 
@@ -76,14 +67,17 @@ namespace GameLogEscritorio.Ventanas
                 {
                     string nombreLimpio = _modeloJuegoEncontrado.slug.Replace("-", " ");
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, string.Concat(string.Concat(Properties.Resources.RedireccionamientoSlug," "), nombreLimpio), Constantes.CodigoErrorSolicitud);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
                 else if(!string.IsNullOrEmpty(_modeloJuegoEncontrado.detail))
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, _modeloJuegoEncontrado.detail, Constantes.CodigoErrorSolicitud);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.juegoIngresadoNoEncontrado, Constantes.CodigoErrorSolicitud);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
             }
         }
@@ -111,15 +105,17 @@ namespace GameLogEscritorio.Ventanas
 
         private async void Detalles_Click(object sender, RoutedEventArgs e)
         {
-            ApiRespuestaBase respuesta = await ServicioJuego.RegistrarJuego(new PostJuegoSolicitud()
+            PostJuegoSolicitud solicitud = new PostJuegoSolicitud()
             {
                 idJuego = _modeloJuegoEncontrado.id,
                 nombre = _modeloJuegoEncontrado.name,
                 fechaDeLanzamiento = _modeloJuegoEncontrado.released
-            });
+            };
+            ApiRespuestaBase respuesta = await ServicioJuego.RegistrarJuego(solicitud, apiRestCreadorRespuesta);
             if (respuesta.estado == Constantes.CodigoErrorServidor)
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, Constantes.CodigoErrorServidor);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
             }
             else if(respuesta.estado == Constantes.CodigoErrorAcceso) 
             {
@@ -135,7 +131,7 @@ namespace GameLogEscritorio.Ventanas
                     _modeloJuegoEncontrado.description = documento.DocumentNode.InnerText;
                 }
                 VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuegoEncontrado);
-                ventanaDescripcionJuego.Show();
+                AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
                 this.Close();
             }
         }
@@ -143,7 +139,7 @@ namespace GameLogEscritorio.Ventanas
         private void Regresar_Click(object sender, RoutedEventArgs e)
         {
             MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
             this.Close();
         }
     }

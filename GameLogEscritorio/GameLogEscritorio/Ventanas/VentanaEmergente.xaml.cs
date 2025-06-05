@@ -25,8 +25,7 @@ namespace GameLogEscritorio.Ventanas
                 rutaIcono = "/Imagenes/Iconos/Error.png";
                 Txbl_Titulo.Text = Constantes.TipoError;
             }
-            Img_IconoVentanaEmergente.Source = new System.Windows.Media.Imaging.BitmapImage(new System.Uri(rutaIcono, System.UriKind.Relative));
-            this.ShowDialog();
+            Img_IconoVentanaEmergente.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(rutaIcono, UriKind.Relative));
         }
 
         private void Aceptar_Click(object sender, RoutedEventArgs e)

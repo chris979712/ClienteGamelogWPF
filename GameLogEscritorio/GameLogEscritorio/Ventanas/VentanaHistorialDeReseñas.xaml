@@ -5,131 +5,134 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameLogEscritorio.Ventanas"
         mc:Ignorable="d"
-        Title="Historial De Reseñas" Height="600" Width="920"
+        Title="Historial De Reseñas" d:DesignHeight="600" d:DesignWidth="920"
        Background="Black"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize"
 >
 
-    <Border Background="#0C3C5C">
-        <Grid>
-            <Image Source="/Imagenes/FondoInterfaces.png"
-                   Stretch="Fill"
-                   Panel.ZIndex="-1"/>
+    <Viewbox Stretch="Fill">
+        <Border Background="#0C3C5C">
+            <Grid Height="600" Width="920">
+                <Image Source="/Imagenes/FondoInterfaces.png"
+               Stretch="Fill"
+               Panel.ZIndex="-1"/>
 
-            <Border Grid.Row="0" Background="#23588A" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top" >
-                <Grid>
-                    <TextBlock Text="HISTORIAL DE RESEÑAS" 
+                <Border Grid.Row="0" Background="#23588A" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top" >
+                    <Grid>
+                        <TextBlock Text="HISTORIAL DE RESEÑAS" 
+                           Foreground="White"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           TextAlignment="Right"
+                           FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
+                           VerticalAlignment="Center"
+                           Margin="0,0,15,0"
+                           HorizontalAlignment="Right"/>
+
+                        <Button x:Name="btnClose" Content="Regresar"
+                        Width="80" Height="30"
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Margin="15,0,0,0"
+                        Click="Cancelar_Click"
+                        Cursor="Hand"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Bold">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF5F5F5F"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <Grid Margin="20,40,20,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="/Imagenes/Amarillo/iconoLapizA.png"
+                       Width="137" Height="123"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="0,0,0,10"/>
+
+                        <Border Grid.Column="1"
+                        Background="#FFC000"
+                        CornerRadius="10"
+                        Padding="10"
+                        Height="98"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="10,10,10,10">
+                            <TextBlock Text="Historial de reseñas"
                                Foreground="White"
-                               FontSize="16"
+                               FontSize="36"
                                FontWeight="Bold"
-                               TextAlignment="Right"
-                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
+                               TextAlignment="Center"
                                VerticalAlignment="Center"
-                               Margin="0,0,15,0"
-                               HorizontalAlignment="Right"/>
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"/>
+                        </Border>
+                    </Grid>
 
-                    <Button x:Name="btnClose" Content="Regresar"
-                            Width="80" Height="30"
-                            HorizontalAlignment="Left" VerticalAlignment="Center"
-                            Margin="15,0,0,0"
-                            Click="Cancelar_Click"
-                            Cursor="Hand"
-                            Background="Transparent"
-                            Foreground="White"
-                            FontSize="14"
-                            FontWeight="Bold">
-                        <Button.Template>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="{TemplateBinding Background}" CornerRadius="5">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="Foreground" Value="White"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#FF5F5F5F"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                    <ScrollViewer Grid.Row="1"
+                          Margin="0,20,0,20"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="ic_reseñas">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                        <Image Source="{Binding fotoVideojuego}"
+                                       Width="250"
+                                       Height="250"
+                                       Stretch="Uniform"
+                                       ClipToBounds="True"
+                                       Cursor="Hand"
+                                       MouseDown="VerReseña_Click"
+                                       Margin="0,0"/>
+                                        <TextBlock Text="{Binding nombre}"
+                                       HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Margin="0,0,0,0"
+                                       FontWeight="Bold"
+                                       FontSize="12"
+                                       Foreground="#FECA18"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
                 </Grid>
-            </Border>
-
-            <Grid Margin="20,40,20,20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Image Source="/Imagenes/Amarillo/iconoLapizA.png"
-                           Width="137" Height="123"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Top"
-                           Margin="0,0,0,10"/>
-
-                    <Border Grid.Column="1"
-                            Background="#FFC000"
-                            CornerRadius="10"
-                            Padding="10"
-                            Height="98"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="10,10,10,10">
-                        <TextBlock Text="Historial de reseñas"
-                                   Foreground="White"
-                                   FontSize="36"
-                                   FontWeight="Bold"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"/>
-                    </Border>
-                </Grid>
-
-                <ScrollViewer Grid.Row="1"
-                              Margin="0,20,0,20"
-                              HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Auto">
-                    <ItemsControl x:Name="ic_reseñas">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                                    <Image Source="{Binding fotoVideojuego}"
-                                           Width="250"
-                                           Height="250"
-                                           Stretch="Uniform"
-                                           ClipToBounds="True"
-                                           Cursor="Hand"
-                                           MouseDown="VerReseña_Click"
-                                           Margin="0,0"/>
-                                    <TextBlock Text="{Binding nombre}"
-                                           HorizontalAlignment="Center"
-                                           TextAlignment="Center"
-                                           TextWrapping="Wrap"
-                                           Margin="0,0,0,0"
-                                           FontWeight="Bold"
-                                           FontSize="12"
-                                           Foreground="#FECA18"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
             </Grid>
-        </Grid>
-    </Border>
+        </Border>
+    </Viewbox>
 </Window>

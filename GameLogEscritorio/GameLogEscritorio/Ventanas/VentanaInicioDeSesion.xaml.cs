@@ -1,5 +1,4 @@
-﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
-using GameLogEscritorio.Servicios.APIRawg.Servicio;
+﻿using GameLogEscritorio.Servicios.APIRawg.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
@@ -7,29 +6,21 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Login;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GameLogEscritorio.Ventanas
 {
     public partial class VentanaInicioDeSesion : Window
     {
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         public VentanaInicioDeSesion()
         {
             InitializeComponent();
+            Estaticas.GuardarMedidasUltimaVentana(this);
         }
 
         private async void IniciarSesion_Click(object sender, RoutedEventArgs e)
@@ -45,24 +36,26 @@ namespace GameLogEscritorio.Ventanas
                     contrasenia = contraseniaHasheada,
                     tipoDeUsuario = Properties.Resources.tipoDeUsuarioPorDefecto.ToString()
                 };
-                var respuesta = await ServicioLogin.IniciarSesion(datosSolicitud);
+                var respuesta = await ServicioLogin.IniciarSesion(datosSolicitud,apiRestCreadorRespuesta);
                 if (respuesta.estado == 200)
                 {
                     UsuarioSingleton.Instancia.IniciarSesion(respuesta.cuenta!.FirstOrDefault()!);
                     Estaticas.juegosPendientes = await ServicioBuscarJuego.ObtenerJuegosPendientesJugador(UsuarioSingleton.Instancia.idJugador);
-                    ApiSeguidosRespuesta seguidosRespuesta = await ServicioSeguidor.ObtenerJugadoresSeguidos(UsuarioSingleton.Instancia.idJugador);
-                    ApiJuegosRespuesta juegosFavoritosObtenidos = await ServicioJuego.ObtenerJuegosFavoritos(UsuarioSingleton.Instancia.idJugador);
+                    ApiSeguidosRespuesta seguidosRespuesta = await ServicioSeguidor.ObtenerJugadoresSeguidos(UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
+                    ApiJuegosRespuesta juegosFavoritosObtenidos = await ServicioJuego.ObtenerJuegosFavoritos(UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
                     await CargarFotoDePerfilUsuario();
                     VerificarCargaCorrectaDeElementos(juegosFavoritosObtenidos, seguidosRespuesta, Estaticas.juegosPendientes);
                 }
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, respuesta.estado);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
             }
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Constantes.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
             }
         }
 
@@ -82,7 +75,8 @@ namespace GameLogEscritorio.Ventanas
             {
                 CargarListaJugadoresSeguidos(seguidosObtenidosRespuesta);
                 CargarListaDeJuegos(juegosFavoritosObtenidos);
-                new MenuPrincipal().Show();
+                MenuPrincipal menuPrincipal = new MenuPrincipal();
+                AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left,this.Width,this.Height, menuPrincipal);
                 this.Close();
             }
 
@@ -159,13 +153,13 @@ namespace GameLogEscritorio.Ventanas
         private void IrVentanaRecuperarContraseña(object sender, MouseButtonEventArgs e)
         {
             VentanaRecuperarContrasenia ventanaRecuperarContrasenia = new VentanaRecuperarContrasenia();
-            ventanaRecuperarContrasenia.ShowDialog();
+            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left,this.Width,this.Height, ventanaRecuperarContrasenia);
         }
 
         private void CrearCuenta_Click(object sender, RoutedEventArgs e)
         {
             VentanaRegistroDeCuenta ventanaRegistroDeCuenta = new VentanaRegistroDeCuenta();
-            ventanaRegistroDeCuenta.Show();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left,this.Width,this.Height, ventanaRegistroDeCuenta);
             this.Close();
         }
 
