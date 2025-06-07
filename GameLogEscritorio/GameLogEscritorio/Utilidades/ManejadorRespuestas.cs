@@ -29,7 +29,7 @@ namespace GameLogEscritorio.Utilidades
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, respuestaBase.mensaje!, respuestaBase.estado);
                     break;
                 case Constantes.CodigoErrorServidor:
-                    esEstadoCritico = false;
+                    esEstadoCritico = true;
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaBase.mensaje!, respuestaBase.estado);
                     break;
             }
@@ -62,7 +62,7 @@ namespace GameLogEscritorio.Utilidades
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
                     break;
                 case Constantes.CodigoErrorServidor:
-                    esEstadoCritico = false;
+                    esEstadoCritico = true;
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
                     break;

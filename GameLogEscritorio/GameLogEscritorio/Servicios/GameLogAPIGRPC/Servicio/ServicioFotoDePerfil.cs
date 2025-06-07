@@ -40,7 +40,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
             }
             catch (RpcException excepcionRpc)
             {
-                resultadoFotoDePerfil.detalles = excepcionRpc.Status.Detail;
+                resultadoFotoDePerfil.detalles = Properties.Resources.GRPCExcepcion;
                 resultadoFotoDePerfil.codigo = (int)excepcionRpc.Status.StatusCode;
             }
             finally
@@ -78,7 +78,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
             }
             catch (RpcException excepcionRpc)
             {
-                resultadoFotoDePerfil.detalles = excepcionRpc.Status.Detail;
+                resultadoFotoDePerfil.detalles = Properties.Resources.GRPCExcepcion;
                 resultadoFotoDePerfil.codigo = (int)excepcionRpc.Status.StatusCode;
             }
             finally
@@ -118,7 +118,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
             }
             catch (RpcException excepcionRpc)
             {
-                resultadoFotoDePerfil.detalles = excepcionRpc.Status.Detail;
+                resultadoFotoDePerfil.detalles = Properties.Resources.GRPCExcepcion;
                 resultadoFotoDePerfil.codigo = (int)excepcionRpc.Status.StatusCode;
             }
             finally
