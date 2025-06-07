@@ -16,7 +16,7 @@
             <Border Background="#0C3C5C" Opacity="0.9"/>
             <Border>
                 <Border.Background>
-                    <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="UniformToFill"/>
+                    <ImageBrush ImageSource="/Imagenes/Fondoazul.png" Stretch="UniformToFill"/>
                 </Border.Background>
 
                 <Grid Margin="20">
@@ -29,9 +29,9 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,-16,0,36">
-                        <Image Source="/Imagenes/Amarillo/iconoLapizA.png" Width="100" Height="90" Stretch="Uniform"/>
+                        <Image Source="/Imagenes/Negro/iconoLapizN.png" Width="100" Height="90" Stretch="Uniform"/>
                         <TextBlock Text="REPORTE TENDENCIAS"
-                           Foreground="#FFC000"
+                           Foreground="Black"
                            FontSize="36"
                            FontWeight="Bold"
                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
@@ -39,7 +39,7 @@
                     </StackPanel>
 
                     <TextBlock x:Name="txtDescripcion" Grid.Row="1"
-                       Foreground="White"
+                       Foreground="Black"
                        FontSize="16"
                        FontWeight="Bold"
                        TextWrapping="Wrap"
@@ -50,12 +50,16 @@
                     <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,0,20">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <StackPanel Margin="10" VerticalAlignment="Center">
-                                <TextBlock Text="Fecha inicio periodo consulta" Foreground="White" FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                                <DatePicker x:Name="dp_Inicio" Width="160"/>
+                                <TextBlock Text="Fecha inicio" Foreground="Black" FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                                <DatePicker x:Name="dp_Inicio"
+                        Width="160"
+                        BorderBrush="Black"           BorderThickness="1" />
                             </StackPanel>
                             <StackPanel Margin="10" VerticalAlignment="Center">
-                                <TextBlock Text="Fecha fin periodo consulta" Foreground="White" FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                                <DatePicker x:Name="dp_Fin" Width="160"/>
+                                <TextBlock Text="Fecha fIn" Foreground="Black" FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                                <DatePicker x:Name="dp_Fin"
+                        Width="160"
+                        BorderBrush="Black"           BorderThickness="1" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -63,17 +67,17 @@
                     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
                         <Button Content="Revival Retro" Margin="10,0" Padding="15,5" Click="BtnRevival_Click"
                         FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Cursor="Hand"
-                        Background="#FFC000" Foreground="White"/>
+                        Background="#5DADE2" Foreground="White"/>
                         <Button Content="Juegos Más Reseñados" Margin="10,0" Padding="15,5" Click="BtnMasResenados_Click"
                         FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Cursor="Hand"
-                        Background="#FFC000" Foreground="White"/>
+                        Background="#5DADE2" Foreground="White"/>
                         <Button Content="Regresar" Margin="10,0" Padding="15,5" Click="BtnRegresar_Click"
                         FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Cursor="Hand"
                         Background="Red" Foreground="White"/>
 
                     </StackPanel>
 
-                    <Border Grid.Row="4" Background="#AA222222" CornerRadius="10" Padding="10" Margin="10,27,0,0">
+                    <Border Grid.Row="4" Background="#A9B0B3" CornerRadius="10" Padding="10" Margin="10,27,0,0">
                         <lvc:CartesianChart x:Name="GraficaReporte"
                                     LegendPosition="Right"
                                     Width="700"

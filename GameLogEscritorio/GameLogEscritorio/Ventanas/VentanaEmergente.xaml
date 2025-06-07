@@ -10,7 +10,7 @@
 >
 
     <Grid>
-        <Image Source="/Imagenes/FondoInterfaces.png"
+        <Image Source="/Imagenes/fondoazul.png"
                Stretch="Fill"
                Opacity="2"
                Panel.ZIndex="0"/>
@@ -40,20 +40,20 @@
                     <TextBlock x:Name="Txbl_Titulo"
                                FontSize="22"
                                FontWeight="Bold"
-                               Foreground="White"
+                               Foreground="Black"
                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
                                VerticalAlignment="Center" Width="248"/>
                 </StackPanel>
 
                 <Border Height="2"
-                        Background="Beige"
+                        Background="Black"
                         Margin="0,0,0,10"
                         Grid.Row="1"/>
 
                 <TextBlock x:Name="Txbl_Contenido"
                            Grid.Row="1"
                            FontSize="18"
-                           Foreground="White"
+                           Foreground="Black"
                            TextWrapping="Wrap"
                            TextAlignment="Center"
                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"

@@ -15,7 +15,7 @@
     <Viewbox Stretch="Fill">
         <Border Background="#0C3C5C">
             <Grid Height="600" Width="920">
-                <Image Source="/Imagenes/FondoInterfaces.png"
+                <Image Source="/Imagenes/fondoazul.png"
                Stretch="Fill"
                Panel.ZIndex="-1"/>
 
@@ -78,14 +78,14 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Image Source="/Imagenes/Amarillo/iconoLapizA.png"
+                        <Image Source="/Imagenes/Negro/iconoLapizN.png"
                        Width="137" Height="123"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"
                        Margin="0,0,0,10"/>
 
                         <Border Grid.Column="1"
-                        Background="#FFC000"
+                        Background="#5DADE2"
                         CornerRadius="10"
                         Padding="10"
                         Height="98"
@@ -125,7 +125,7 @@
                                        Margin="0,0,0,0"
                                        FontWeight="Bold"
                                        FontSize="12"
-                                       Foreground="#FECA18"/>
+                                       Foreground="Black"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
