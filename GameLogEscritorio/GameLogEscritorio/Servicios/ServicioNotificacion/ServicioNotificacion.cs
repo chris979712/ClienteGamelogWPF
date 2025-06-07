@@ -40,7 +40,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                     },
                     Transport = TransportProtocol.WebSocket,
                     Reconnection = true,
-                    ReconnectionAttempts = 3,
+                    ReconnectionAttempts = 5,
                     ReconnectionDelay = 1000,
                     EIO = EngineIO.V3,
                     ConnectionTimeout = TimeSpan.FromSeconds(125)

@@ -123,11 +123,11 @@
                                             <TextBlock Text="{Binding nombreDeUsuario}" FontWeight="Bold" Foreground="Black" FontSize="16"/>
 
                                             <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
-                                                <Image Width="20" Height="20" Source="{Binding rating, Converter={StaticResource EstrellaConverter}, ConverterParameter=1}"/>
-                                                <Image Width="20" Height="20" Source="{Binding rating, Converter={StaticResource EstrellaConverter}, ConverterParameter=2}"/>
-                                                <Image Width="20" Height="20" Source="{Binding rating, Converter={StaticResource EstrellaConverter}, ConverterParameter=3}"/>
-                                                <Image Width="20" Height="20" Source="{Binding rating, Converter={StaticResource EstrellaConverter}, ConverterParameter=4}"/>
-                                                <Image Width="20" Height="20" Source="{Binding rating, Converter={StaticResource EstrellaConverter}, ConverterParameter=5}"/>
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=1}"/>
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=2}"/>
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=3}"/>
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=4}"/>
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=5}"/>
                                             </StackPanel>
 
                                             <TextBlock Text="{Binding opinion}" Foreground="Black" TextWrapping="Wrap" FontSize="14" Margin="0,5,0,0"/>
@@ -137,7 +137,7 @@
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="-40,0,0,0">
                                                 <Button x:Name="btn_Eliminar"
                                                     Width="70" Height="50"
-                                                    Background="Red" Cursor=""
+                                                    Background="Transparent" Cursor=""
                                                     ToolTip="Eliminar"
                                                     Click="EliminarReseña_Click"
                                                     Visibility="{Binding DataContext.EsAdministrador, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}">
@@ -146,7 +146,7 @@
 
 
                                                 <ToggleButton Width="24" Height="24"
-                                                IsChecked="{Binding existeLikeReseña, Mode=OneWay}"
+                                                IsChecked="{Binding existeMeGustaReseña, Mode=OneWay}"
                                                 Background="Transparent" BorderThickness="0"
                                                 Cursor="Hand"
                                                 Click="ToggleLike_Click">
@@ -156,7 +156,7 @@
                                                                 <Setter.Value>
                                                                     <ControlTemplate TargetType="ToggleButton">
                                                                         <Image Width="24" Height="24"
-                                                                       Source="{Binding existeLikeReseña, Converter={StaticResource CorazonConverter}}"/>
+                                                                       Source="{Binding existeMeGustaReseña, Converter={StaticResource CorazonConverter}}"/>
                                                                     </ControlTemplate>
                                                                 </Setter.Value>
                                                             </Setter>
@@ -165,7 +165,7 @@
                                                 </ToggleButton>
                                             </StackPanel>
 
-                                            <TextBlock Text="{Binding totalDeLikesReseña}"
+                                            <TextBlock Text="{Binding totalDeMeGustaReseña}"
                                             Foreground="Black" FontSize="14"
                                             HorizontalAlignment="Center"/>
                                         </StackPanel>

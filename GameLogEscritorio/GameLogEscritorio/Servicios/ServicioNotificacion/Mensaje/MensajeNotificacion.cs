@@ -9,6 +9,8 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.Mensaje
 {
     public class MensajeNotificacion
     {
+        [JsonProperty("idResena")]
+        public int idResena {  get; set; }
         [JsonProperty("mensaje")]
         public string? mensaje {  get; set; }
         [JsonProperty("accion")]

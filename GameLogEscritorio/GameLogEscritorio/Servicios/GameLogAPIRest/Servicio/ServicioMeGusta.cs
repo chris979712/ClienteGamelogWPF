@@ -1,5 +1,6 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Likes;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.MeGusta;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
@@ -42,7 +43,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaBase;
         }
 
-        public static async Task<ApiRespuestaBase> EliminarMeGustaAReseña(int idResena,int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
+        public static async Task<ApiRespuestaBase> EliminarMeGustaAReseña(int idJuego,DeleteMeGustaSolicitud solicitud ,IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -55,7 +56,8 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     var mensajeHttp = new HttpRequestMessage()
                     {
                         Method = HttpMethod.Delete,
-                        RequestUri = new Uri(string.Concat(_ApiUrlMeGusta,$"/{idResena}/{idJugador}"))
+                        RequestUri = new Uri(string.Concat(_ApiUrlMeGusta,$"/{idJuego}")),
+                        Content = new StringContent(JsonConvert.SerializeObject(solicitud),Encoding.UTF8,"application/json")
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
