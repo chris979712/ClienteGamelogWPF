@@ -5,6 +5,7 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Login;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
+using GameLogEscritorio.Servicios.ServicioNotificacion;
 using GameLogEscritorio.Utilidades;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -44,7 +45,7 @@ namespace GameLogEscritorio.Ventanas
                     ApiSeguidosRespuesta seguidosRespuesta = await ServicioSeguidor.ObtenerJugadoresSeguidos(UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
                     ApiJuegosRespuesta juegosFavoritosObtenidos = await ServicioJuego.ObtenerJuegosFavoritos(UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
                     await CargarFotoDePerfilUsuario();
-                    VerificarCargaCorrectaDeElementos(juegosFavoritosObtenidos, seguidosRespuesta, Estaticas.juegosPendientes);
+                    await VerificarCargaCorrectaDeElementos(juegosFavoritosObtenidos, seguidosRespuesta, Estaticas.juegosPendientes);
                 }
                 else
                 {
@@ -59,7 +60,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void VerificarCargaCorrectaDeElementos(ApiJuegosRespuesta juegosFavoritosObtenidos,ApiSeguidosRespuesta seguidosObtenidosRespuesta,ObservableCollection<JuegoCompleto> juegosPendientes)
+        private async Task VerificarCargaCorrectaDeElementos(ApiJuegosRespuesta juegosFavoritosObtenidos,ApiSeguidosRespuesta seguidosObtenidosRespuesta,ObservableCollection<JuegoCompleto> juegosPendientes)
         {
             bool errorEnPendientes = Estaticas.juegosPendientes.Count == 1 && Estaticas.juegosPendientes[0].idJuego == Constantes.CodigoErrorSolicitud;
             bool errorEnFavoritos = juegosFavoritosObtenidos.estado == Constantes.CodigoErrorSolicitud || juegosFavoritosObtenidos.estado == Constantes.CodigoErrorServidor;
@@ -75,11 +76,17 @@ namespace GameLogEscritorio.Ventanas
             {
                 CargarListaJugadoresSeguidos(seguidosObtenidosRespuesta);
                 CargarListaDeJuegos(juegosFavoritosObtenidos);
+                _ = IniciarConexionNotificacionesAsync();
                 MenuPrincipal menuPrincipal = new MenuPrincipal();
                 AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left,this.Width,this.Height, menuPrincipal);
                 this.Close();
             }
 
+        }
+
+        private async Task IniciarConexionNotificacionesAsync()
+        {
+            await ServicioNotificacion.Conectar();
         }
 
         private void CargarListaJugadoresSeguidos(ApiSeguidosRespuesta jugadoresSeguidos)

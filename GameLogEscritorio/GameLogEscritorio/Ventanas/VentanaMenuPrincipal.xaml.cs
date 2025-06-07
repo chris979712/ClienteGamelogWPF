@@ -75,7 +75,7 @@ namespace GameLogEscritorio.Ventanas
         public void IrVentanaEditarPerfil_Click(object sender, RoutedEventArgs e)
         {
             VentanaEditarPerfil ventanaEditarPerfil = new VentanaEditarPerfil();
-            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEditarPerfil);
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.ActualWidth, this.ActualHeight, ventanaEditarPerfil);
             this.Close();
         }
 

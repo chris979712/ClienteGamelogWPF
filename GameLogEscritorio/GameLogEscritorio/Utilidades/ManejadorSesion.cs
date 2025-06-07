@@ -2,6 +2,7 @@
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
+using GameLogEscritorio.Servicios.ServicioNotificacion;
 using GameLogEscritorio.Ventanas;
 using System.Collections.ObjectModel;
 
@@ -17,6 +18,7 @@ namespace GameLogEscritorio.Utilidades
         {
             await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRestCreadorRespuesta);
             UsuarioSingleton.Instancia.CerrarSesion();
+            _ = DesconectarServidorNotificaciones();
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
             Estaticas.juegosFavoritos = new List<Juego>();
             Estaticas.idJugadoresSeguido = new List<int>();
@@ -31,7 +33,8 @@ namespace GameLogEscritorio.Utilidades
             SesionToken.CerrarSesion();
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
             Estaticas.juegosFavoritos = new List<Juego>();
-            Estaticas.idJugadoresSeguido = new List<int>(); ;
+            Estaticas.idJugadoresSeguido = new List<int>();
+            _ = DesconectarServidorNotificaciones();
             VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuesta.mensaje!, respuesta.estado);
             AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
             VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
@@ -47,6 +50,7 @@ namespace GameLogEscritorio.Utilidades
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
             Estaticas.juegosFavoritos = new List<Juego>();
             Estaticas.idJugadoresSeguido = new List<int>();
+            _ = DesconectarServidorNotificaciones();
             VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, mensajeSinAcceso, respuesta.estado);
             AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
             VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
@@ -62,9 +66,15 @@ namespace GameLogEscritorio.Utilidades
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
             Estaticas.juegosFavoritos = new List<Juego>();
             Estaticas.idJugadoresSeguido = new List<int>();
+            _ = DesconectarServidorNotificaciones();
             VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaInicioDeSesion);
             return true;
+        }
+
+        private static async Task DesconectarServidorNotificaciones()
+        {
+            await ServicioNotificacion.Desconectar();
         }
     }
 

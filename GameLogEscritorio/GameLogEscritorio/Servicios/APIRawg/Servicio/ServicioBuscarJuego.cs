@@ -31,7 +31,6 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
                     string contenidoJson = await mensajeObtenido.Content.ReadAsStringAsync();
                     juegoModelo = JsonConvert.DeserializeObject<JuegoModelo>(contenidoJson)!;
                 }
-
             }
             catch(HttpRequestException)
             {

@@ -187,6 +187,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a 1fc8c6eda3f833495afb4df53a8fe8d20d0519c8d6d81da605c23c5beca5976801e80333065a31aa05445201fc12456662c2937efb00ebbe2cbd63245fb02956cb686ed5f2331b57c4c2a137c53ff85beb107412f8b370e44cfbaae51e2be23e9c2dd9569cbfaa189f4a26668f9e0d48da3b38e50f09180ec7a9fb9385ed2b086c1db3544985b12905db2f629554e853cad4a02b4694024d66697d90eb3017c8cc1f749104a82d153d05f494e51e636416b64f307a3713dbb29fe29c092f0e858c7ff8435872877b6c15599c5548bc7ba9645cc846544daf89e91d53fafb0ebd4f9610d4d31fd459bd39056193e6723fb2bb0eaa07f633d26b8a8cad489a67e4.
+        /// </summary>
+        public static string ContrasenaServicioNotificacion {
+            get {
+                return ResourceManager.GetString("ContrasenaServicioNotificacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El tipo reporte seleccionado muestra los juegos retro, los cuales fueron publicados antes de los años 2000, y que fueron los más reseñados por la comunidad, formando parte de las tendencias revival retro dentro de las fechas seleccionadas..
         /// </summary>
         public static string DescripcionRevivalRetro {
@@ -241,11 +250,74 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a desuscribir_interaccion_resenas.
+        /// </summary>
+        public static string EventoDesuscribirInteraccionResena {
+            get {
+                return ResourceManager.GetString("EventoDesuscribirInteraccionResena", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a desuscribir_notificacion_jugador.
+        /// </summary>
+        public static string EventoDesuscribirNotificacionJugador {
+            get {
+                return ResourceManager.GetString("EventoDesuscribirNotificacionJugador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a notificacion_jugador.
+        /// </summary>
+        public static string EventoNotificacionJugador {
+            get {
+                return ResourceManager.GetString("EventoNotificacionJugador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a actualizacion_resenas.
+        /// </summary>
+        public static string EventoNotificacionResenas {
+            get {
+                return ResourceManager.GetString("EventoNotificacionResenas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a suscribir_interaccion_resenas.
+        /// </summary>
+        public static string EventoSuscribirInteraccionReseña {
+            get {
+                return ResourceManager.GetString("EventoSuscribirInteraccionReseña", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a suscribir_notificacion_jugador.
+        /// </summary>
+        public static string EventoSuscribirNotificacionJugador {
+            get {
+                return ResourceManager.GetString("EventoSuscribirNotificacionJugador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error inesperado al querer realizar la solicitud.
         /// </summary>
         public static string Excepcion {
             get {
                 return ResourceManager.GetString("Excepcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al intentar comunicarse con el servidor de notificaciones. De momento no es posible recibir actualizaciones en tiempo real..
+        /// </summary>
+        public static string ExcepcionSockets {
+            get {
+                return ResourceManager.GetString("ExcepcionSockets", resourceCulture);
             }
         }
         
@@ -277,7 +349,16 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a No cuenta con permisos para poder conectarse con el servidor multimedia. I.
+        ///   Busca una cadena traducida similar a No fue posible establecer contacto con el servidor multimedia. Los archivos multimedia mostrados son predeterminados..
+        /// </summary>
+        public static string GRPCExcepcion {
+            get {
+                return ResourceManager.GetString("GRPCExcepcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No cuenta con permisos para poder conectarse con el servidor multimedia. .
         /// </summary>
         public static string GRPCPermisosInvalidos {
             get {
@@ -304,7 +385,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Error en la conexión de red o al intentar realizar la solicitud con el servidor.
+        ///   Busca una cadena traducida similar a Error en la conexión de internet al intentar realizar la solicitud con el servidor. Verifique su conexión y vuelva a iniciar sesión..
         /// </summary>
         public static string HttpExcepcion {
             get {
@@ -336,6 +417,15 @@ namespace GameLogEscritorio.Properties {
         public static string juegoIngresadoNoEncontrado {
             get {
                 return ResourceManager.GetString("juegoIngresadoNoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a /gamelognotificaciones/socket.io.
+        /// </summary>
+        public static string PathNotificaciones {
+            get {
+                return ResourceManager.GetString("PathNotificaciones", resourceCulture);
             }
         }
         
@@ -385,6 +475,24 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Ha ocurrido un error de red al intentar comunicarse con el servidor de notificaciones. De momento no es posible recibir actualizaciones en tiempo real..
+        /// </summary>
+        public static string SocketExcepcion {
+            get {
+                return ResourceManager.GetString("SocketExcepcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a http://localhost:80.
+        /// </summary>
+        public static string SocketURL {
+            get {
+                return ResourceManager.GetString("SocketURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El archivo de la imagen a ingresar debe ser menor a 2mb.
         /// </summary>
         public static string TamañoImagenMayor {
@@ -408,6 +516,33 @@ namespace GameLogEscritorio.Properties {
         public static string tipoDeUsuarioPorDefecto {
             get {
                 return ResourceManager.GetString("tipoDeUsuarioPorDefecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al realizar la operacion.
+        /// </summary>
+        public static string TituloExcepcion {
+            get {
+                return ResourceManager.GetString("TituloExcepcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error de conexión .
+        /// </summary>
+        public static string TituloSocketExcepcion {
+            get {
+                return ResourceManager.GetString("TituloSocketExcepcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a CMOLogGameUMVX2683.
+        /// </summary>
+        public static string UsuarioServicioNotificacion {
+            get {
+                return ResourceManager.GetString("UsuarioServicioNotificacion", resourceCulture);
             }
         }
     }
