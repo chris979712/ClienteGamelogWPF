@@ -158,7 +158,15 @@
         </Style>
 
         <Style x:Key="BotonMenuPrincipal" TargetType="Button">
-            <Setter Property="Background" Value="#1C2A3A"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#345685" Offset="0.0"/>
+                        <GradientStop Color="#3465A4" Offset="0.5"/>
+                        <GradientStop Color="#BDCDD1" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="Height" Value="70"/>

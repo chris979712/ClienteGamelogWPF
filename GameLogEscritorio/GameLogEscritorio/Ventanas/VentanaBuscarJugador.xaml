@@ -19,7 +19,7 @@
             <Border Background="#0C3C5C" Opacity="0.9"/>
             <Border>
                 <Border.Background>
-                    <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="UniformToFill"/>
+                    <ImageBrush ImageSource="/Imagenes/fondoazul.png" Stretch="UniformToFill"/>
                 </Border.Background>
 
                 <Grid>
@@ -71,7 +71,7 @@
                             </Button>
                         </Grid>
                     </Border>
-                    <Border Grid.Row="1" Background="#0C3C5C" Opacity="0.8" CornerRadius="0,0,5,5">
+                    <Border Grid.Row="1"  CornerRadius="0,0,5,5">
                         <Grid Margin="20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -80,25 +80,25 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,-16,0,36">
-                                <Image Source="/Imagenes/Amarillo/iconoLapizA.png" Width="100" Height="90" Stretch="Uniform"/>
+                                <Image Source="/Imagenes/Negro/iconoLapizN.png" Width="100" Height="90" Stretch="Uniform"/>
                                 <TextBlock Text="BUSCAR JUGADOR"
-                                   Foreground="#FFC000"
+                                   Foreground="Black"
                                    FontSize="36"
                                    FontWeight="Bold"
                                    FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
                                    VerticalAlignment="Center" Margin="20,0,0,0"/>
                             </StackPanel>
-                            <Border Grid.Row="1" Background="#23588A" CornerRadius="10" Padding="15" Margin="0,0,0,40" BorderBrush="#FECA18" BorderThickness="3">
+                            <Border Grid.Row="1"  CornerRadius="10" Padding="15" Margin="0,0,0,40" BorderBrush="Black" BorderThickness="3">
                                 <StackPanel>
                                     <TextBlock Text="BUSQUEDA DE JUGADOR"
                                        FontWeight="Bold" FontSize="18"
                                        TextAlignment="Center"
-                                       Foreground="#FFC000"
+                                       Foreground="Black"
                                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
 
                                     <TextBlock Text="Ingrese el nombre de usuario del jugador que desea buscar"
                                        FontSize="14"
-                                       Foreground="White"
+                                       Foreground="Black"
                                        TextAlignment="Center"
                                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
                                        Margin="0,5,0,15"/>
@@ -111,11 +111,11 @@
                                          KeyDown="Buscar_Enter"
                                          Background="White"
                                          Foreground="Black"
-                                         BorderBrush="#FFC000"
+                                         BorderBrush="Black"
                                          BorderThickness="1"
                                          IsEnabled="True"
                                          FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
-                                         MaxLength="20">
+                                         MaxLength="20" TextChanged="txb_Busqueda_TextChanged">
                                             <TextBox.Resources>
                                                 <Style TargetType="{x:Type Border}">
                                                     <Setter Property="CornerRadius" Value="3"/>
@@ -166,7 +166,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0" Width="150" Height="150" 
                                 Background="#23588A" CornerRadius="125" 
-                                Margin="40,16,0,47" Padding="5" BorderBrush="#FFC000" BorderThickness="1">
+                                Margin="40,16,0,47" Padding="5" BorderBrush="Black" BorderThickness="1">
                                     <Image x:Name="img_jugador" 
                                    Stretch="UniformToFill"
                                    MouseDown="AvatarJugador_Click">
@@ -179,7 +179,7 @@
                                     <TextBlock x:Name="txb_nombreJugador" 
                                        FontSize="24" 
                                        FontWeight="Bold" 
-                                       Foreground="#FFC000"
+                                       Foreground="Black"
                                        Margin="0,0,0,20"
                                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
 

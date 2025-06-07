@@ -14,7 +14,7 @@
     <Viewbox Stretch="Fill">
         <Grid Height="270" Width="500">
             <Grid.Background>
-                <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="Fill"/>
+                <ImageBrush ImageSource="/Imagenes/fondoazul.png" Stretch="Fill"/>
             </Grid.Background>
 
             <Border Background="#800C3C5C" CornerRadius="0" Padding="20" Margin="10">

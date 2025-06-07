@@ -16,7 +16,7 @@
             <Border Background="#0C3C5C" />
             <Border>
                 <Border.Background>
-                    <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="Fill"/>
+                    <ImageBrush ImageSource="pack://application:,,,/Imagenes/fondoazul.png" Stretch="Fill"/>
                 </Border.Background>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -79,24 +79,31 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Image Source="/Imagenes/Amarillo/iconoLapizA.png" Width="137" Height="123"/>
-                            <Border Background="#FFC000" CornerRadius="10" Padding="10" Margin="20,0">
+                            <Image Source="/Imagenes/Negro/iconoLapizn.png" Width="137" Height="123"/>
+                            <Border Background="#5DADE2" CornerRadius="10" Padding="10" Margin="20,0" Height="71" Width="392">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="5"
+                              Direction="320"
+                              Color="Black"
+                              Opacity="0.9"
+                              BlurRadius="10"/>
+                                </Border.Effect>
                                 <TextBlock Text="Buscar Juego"
-                                   Foreground="White" FontSize="42" FontWeight="Bold"
-                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"/>
+                   Foreground="White" FontSize="42" FontWeight="Bold"
+                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"/>
                             </Border>
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Margin="0,20,0,20" HorizontalAlignment="Center">
                             <TextBlock Text="Nombre del videojuego"
-                               FontWeight="Bold" FontSize="20" Foreground="#F2F2F1"
+                               FontWeight="Bold" FontSize="20" Foreground="Black"
                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
                             <TextBlock Text="Por favor ingrese el nombre del videojuego."
-                               FontWeight="Bold" FontSize="17" Foreground="#F2F2F1"
+                               FontWeight="Bold" FontSize="17" Foreground="Black"
                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
                                Margin="0,0,0,10"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBox x:Name="txb_Busqueda" Width="336" Height="30"/>
+                                <TextBox x:Name="txb_Busqueda" Width="336" Height="30" BorderBrush="Black" BorderThickness="1"/>
                                 <Button x:Name="btn_buscar" Content="Buscar" Width="139" Height="38"
                                 Background="Green" Foreground="White" FontWeight="Bold"
                                 FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
@@ -114,11 +121,11 @@
                             <Image x:Name="img_juego" Grid.Row="0" Width="300" Height="100" Stretch="Uniform"
                        Source="/Imagenes/Amarillo/iconoLapizA.png" ClipToBounds="True" Margin="0,5"/>
 
-                            <TextBlock x:Name="txt_nombreJuego" Grid.Row="1" FontSize="20" FontWeight="Bold" Foreground="Yellow"
+                            <TextBlock x:Name="txt_nombreJuego" Grid.Row="1" FontSize="20" FontWeight="Bold" Foreground="Black"
                         HorizontalAlignment="Center" TextAlignment="Center" Margin="0,5,0,10"/>
 
                             <Button Content="Ver detalles" Grid.Row="2" Width="150" Height="40"
-                        Background="Blue" Foreground="White" FontWeight="Bold"
+                        Background="#2196F3" Foreground="White" FontWeight="Bold"
                         FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                         Click="Detalles_Click" HorizontalAlignment="Center"/>
                         </Grid>

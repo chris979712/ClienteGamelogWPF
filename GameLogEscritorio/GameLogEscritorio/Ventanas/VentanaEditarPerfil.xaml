@@ -8,7 +8,7 @@
     <Window.Resources>
         <Style x:Key="RoundedTextBox" TargetType="TextBox">
             <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#FECA18"/>
+            <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="3"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Template">
@@ -58,7 +58,7 @@
     <Viewbox Stretch="Fill">
         <Grid Height="600" Width="850">
             <Grid.Background>
-                <ImageBrush ImageSource="/Imagenes/Editar_Perfil.png" Stretch="Fill"/>
+                <ImageBrush ImageSource="/Imagenes/fondoazul.png" Stretch="Fill"/>
             </Grid.Background>
 
             <Grid Margin="30">
@@ -81,15 +81,16 @@
                    Grid.Column="1"
                    Grid.Row="0"
                    FontSize="28" FontWeight="Bold"
-                   Foreground="White"
+                   Foreground="Black"
                    HorizontalAlignment="Left"
+                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                    Margin="14,0,0,30"/>
 
                 <Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="6"
                 Width="200" Height="250"
                 Margin="85,0,40,0"
                 CornerRadius="10"
-                Background="#33333399">
+                Background="#AAACDB">
                     <StackPanel VerticalAlignment="Center">
                         <Image x:Name="img_Perfil" 
                        Width="150" Height="150" 
@@ -97,10 +98,10 @@
                        Stretch="Uniform"/>
                         <Button x:Name="btnSeleccionarImagen"
                         Content="ELEGIR IMAGEN"
-                        Width="170" Height="40"
-                        Background="#FECA18"
-                        Foreground="#0C3C5C"
-                        FontWeight="Bold" FontSize="14"
+                        Width="170" Height="40" 
+                        Background="#2196F3"
+                        Foreground="White"
+                        FontWeight="Bold" FontSize="16"
                         HorizontalAlignment="Center"
                         Click="btnSeleccionarImagen_Click"/>
                     </StackPanel>
@@ -116,27 +117,27 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="15,0,15,1">
-                        <TextBlock Text="Nombre:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBlock Text="Nombre*:" FontSize="18" Foreground="Black" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
                         <TextBox x:Name="txtb_Nombre" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                          FontSize="13"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Margin="15,0,15,1">
-                        <TextBlock Text="Primer apellido:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBlock Text="Primer apellido*:" FontSize="18" Foreground="Black" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
                         <TextBox x:Name="txtb_PrimerApellido" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                          FontSize="13"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Margin="15,0,15,1">
-                        <TextBlock Text="Segundo apellido:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBlock Text="Segundo apellido*:" FontSize="18" Foreground="Black" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
                         <TextBox x:Name="txtb_SegundoApellido" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                          FontSize="13"/>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Margin="15,0,15,1">
-                        <TextBlock Text="Nombre de usuario:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBlock Text="Nombre de usuario*:" FontSize="18" Foreground="Black" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
                         <TextBox x:Name="txtb_NombreUsuario" Height="35" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                          FontSize="13"/>
                     </StackPanel>
                     <StackPanel Grid.Row="4" Margin="15,0,15,15">
-                        <TextBlock Text="Descripción:" FontSize="18" Foreground="White" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        <TextBlock Text="Descripción*:" FontSize="18" Foreground="Black" Margin="0,0,0,5" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
                         <TextBox x:Name="txtb_Descripcion" Height="109" Style="{StaticResource RoundedTextBox}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                          FontSize="13"
                          TextWrapping="Wrap" AcceptsReturn="True"/>
@@ -146,9 +147,9 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     Margin="0,0">
-                    <Button x:Name="btn_Actualizar" Content="ACTUALIZAR" Style="{StaticResource BotonRegistrar}"
+                    <Button x:Name="btn_Actualizar" Content="ACTUALIZAR" Style="{StaticResource BotonRegistrar}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" FontSize="18"
                     Height="50" Margin="0,0,20,0" Click="Actualizar_Click"/>
-                    <Button x:Name="btn_Cancelar" Content="CANCELAR" Style="{StaticResource BotonCancelar}"
+                    <Button x:Name="btn_Cancelar" Content="CANCELAR" Style="{StaticResource BotonCancelar}" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" FontSize="18"
                     Height="50" Click="Cancelar_Click"/>
                 </StackPanel>
             </Grid>
