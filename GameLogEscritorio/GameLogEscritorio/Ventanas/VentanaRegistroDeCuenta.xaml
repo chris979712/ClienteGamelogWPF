@@ -15,68 +15,96 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/Imagenes/Crear_Cuenta.png" Stretch="UniformToFill"/>
             </Grid.Background>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-
-
-            <Grid Grid.Row="1" Grid.Column="0" Margin="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition Width="0.6*"/>
-                </Grid.ColumnDefinitions>
+            <!-- Contenedor alineado a la derecha -->
+            <Grid Grid.Row="1" HorizontalAlignment="Right" Width="480" Margin="0,20,40,20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <!-- Nombre + Primer apellido -->
                     <RowDefinition Height="Auto"/>
+                    <!-- Segundo apellido + Usuario -->
                     <RowDefinition Height="Auto"/>
+                    <!-- Correo -->
                     <RowDefinition Height="Auto"/>
+                    <!-- Contraseña -->
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <!-- Descripción -->
                     <RowDefinition Height="*"/>
+                    <!-- Botones -->
                 </Grid.RowDefinitions>
 
-                <Viewbox Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Stretch="Uniform" Margin="10">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Viewbox>
+                <!-- Fila 1 -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                    <StackPanel Width="230">
+                        <TextBlock Text="Nombre*:" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                        <TextBox x:Name="txtb_Nombre" Width="220" MaxLength="80" FontSize="12"
+                             BorderBrush="Black" BorderThickness="1"/>
+                    </StackPanel>
+                    <StackPanel Width="230" Margin="20,0,0,0">
+                        <TextBlock Text="Primer apellido*:" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                        <TextBox x:Name="txtb_PrimerApellido" Width="220" MaxLength="80" FontSize="12"
+                             BorderBrush="Black" BorderThickness="1"/>
+                    </StackPanel>
+                </StackPanel>
 
-                <TextBlock Text="Nombre*:" Grid.Row="1" Grid.Column="1" FontSize="16" FontWeight="Bold" Foreground="Black" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                <TextBox x:Name="txtb_Nombre" Grid.Row="2" Grid.Column="1" Width="180" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5,0,0" MaxWidth="300" MaxLength="80" FontSize="12" BorderBrush="Black" BorderThickness="1"/>
+                <!-- Fila 2 -->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                    <StackPanel Width="230">
+                        <TextBlock Text="Segundo apellido*:" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                        <TextBox x:Name="txtb_SegundoApellido" Width="220" MaxLength="80" FontSize="12"
+                             BorderBrush="Black" BorderThickness="1"/>
+                    </StackPanel>
+                    <StackPanel Width="230" Margin="20,0,0,0">
+                        <TextBlock Text="Nombre de usuario*:" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                        <TextBox x:Name="txtb_NombreUsuario" Width="220" MaxLength="20" FontSize="12"
+                             BorderBrush="Black" BorderThickness="1"/>
+                    </StackPanel>
+                </StackPanel>
 
-                <TextBlock Text="Primer apellido *:" Grid.Row="1" Grid.Column="1" FontSize="16" FontWeight="Bold" Foreground="Black" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,10,0,0" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtb_PrimerApellido" Grid.Row="2" Grid.Column="1" Width="189" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,15,0,0" MaxWidth="300" Grid.RowSpan="4" MaxLength="80" FontSize="12" BorderBrush="Black" BorderThickness="1"/>
+                <!-- Fila 3: Correo -->
+                <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,0,0,10">
+                    <TextBlock Text="Correo*:" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"
+                           FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                    <TextBox x:Name="txtb_Correo" Width="460" MaxLength="255" FontSize="12"
+                         BorderBrush="Black" BorderThickness="1"
+                         ext:TextBoxExtensiones.TextoSugerido="alguien@example.com"/>
+                </StackPanel>
 
-                <TextBlock Text="Segundo apellido*:" Grid.Row="5" Grid.Column="1" FontSize="16" FontWeight="Bold" Foreground="Black" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,0,0"/>
-                <TextBox x:Name="txtb_SegundoApellido" Grid.Row="6" Grid.Column="1" Width="180" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5,0,0" MaxWidth="300" MaxLength="80" FontSize="12" BorderBrush="Black" BorderThickness="1"/>
+                <!-- Fila 4: Contraseña -->
+                <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0,0,0,10">
+                    <TextBlock Text="Contraseña*:" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"
+                           FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                    <PasswordBox x:Name="pb_Contrasenia" Width="460" FontSize="12"
+                             BorderBrush="Black" BorderThickness="1"/>
+                </StackPanel>
 
-                <TextBlock Text="Nombre de usuario*:" Grid.Row="5" Grid.Column="1" FontSize="16" FontWeight="Bold" Foreground="Black" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,10,0,0"/>
-                <TextBox x:Name="txtb_NombreUsuario" Grid.Row="6" Grid.Column="1" Width="189" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,0,0,0" MaxWidth="300" MaxLength="20" FontSize="12" BorderBrush="Black" BorderThickness="1"/>
+                <!-- Fila 5: Descripción -->
+                <StackPanel Grid.Row="4" Orientation="Vertical" Margin="0,0,0,10">
+                    <TextBlock Text="Descripción*:" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"
+                           FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
+                    <TextBox x:Name="txtb_Descripcion" Width="460" Height="100" TextWrapping="Wrap"
+                         AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                         MaxLength="200" FontSize="12" BorderBrush="Black" BorderThickness="1"
+                         ext:TextBoxExtensiones.TextoSugerido="Máximo 300 caracteres."/>
+                </StackPanel>
 
-                <TextBlock Text="Correo*:" Grid.Row="9" Grid.Column="1" FontSize="16" FontWeight="Bold" Foreground="Black" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,0,0"/>
-                <TextBox x:Name="txtb_Correo" Grid.Row="10" Grid.Column="1" Width="180" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5,0,0" MaxWidth="300" MaxLength="255" FontSize="12" BorderBrush="Black" BorderThickness="1" ext:TextBoxExtensiones.TextoSugerido="alguien@example.com"/>
-
-                <TextBlock Text="Contraseña*:" Grid.Row="9" Grid.Column="1" FontSize="16" FontWeight="Bold" Foreground="Black" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="240,0,0,0"/>
-                <PasswordBox x:Name="pb_Contrasenia" Grid.Row="10" Grid.Column="1" Width="189" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="240,0,0,0" MaxWidth="300" FontSize="12" BorderBrush="Black" BorderThickness="1"/>
-
-                <TextBlock Text="Descripción*:" Grid.Row="13" Grid.Column="1" FontSize="16" FontWeight="Bold" Foreground="Black" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-                <TextBox x:Name="txtb_Descripcion" Grid.Row="14" Grid.Column="1" Width="311" Height="131" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" MaxWidth="300" Grid.RowSpan="2" MaxLength="200" FontSize="12" BorderBrush="Black" BorderThickness="1" ext:TextBoxExtensiones.TextoSugerido="Máximo 300 caracteres."/>
-
-                <StackPanel Grid.Row="15" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,210,0,0">
-                    <Button Content="Registrar" Width="120" Background="Green" Foreground="White" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Click="Registrar_Click" Margin="0,0,10,0"/>
-                    <Button Content="Cancelar" Width="120" Background="Red" Foreground="White" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Click="Cancelar_Click"/>
+                <!-- Fila 6: Botones -->
+                <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Content="Registrar" Width="120" Background="Green" Foreground="White" Margin="0,0,10,0"
+                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                        Click="Registrar_Click" Height="42"/>
+                    <Button Content="Cancelar" Width="120" Background="Red" Foreground="White"
+                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                        Click="Cancelar_Click" Height="43"/>
                 </StackPanel>
             </Grid>
         </Grid>
