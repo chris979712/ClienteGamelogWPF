@@ -9,7 +9,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Imagenes\Editar_Perfil.png" />
+    <None Remove="Imagenes\eliminar.png" />
+    <None Remove="Imagenes\estadisticas.png" />
+    <None Remove="Imagenes\fondoazul.png" />
+    <None Remove="Imagenes\icono_lupa.png" />
+    <None Remove="Imagenes\icono_miReseña.png" />
+    <None Remove="Imagenes\icono_usuario.png" />
+    <None Remove="Imagenes\icono_usuarios.png" />
+    <None Remove="Imagenes\icono_videojuego.png" />
+    <None Remove="Imagenes\InicioDeSesion.png" />
+    <None Remove="Imagenes\salida.png" />
     <None Remove="Servicios\GameLogAPIGRPC\Proto\Fotos_De_Perfil.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Imagenes\Editar_Perfil.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\InicioDeSesion.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\salida.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -54,7 +77,6 @@
     <Resource Include="Fuentes\AnchoxSportRegular-Jpm1m.otf" />
     <Resource Include="Fuentes\OCRAStd.otf" />
     <Resource Include="Fuentes\OCRBStd.otf" />
-    <Resource Include="Imagenes\Editar_Perfil.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\Blanco\gameLogGrandeB.png" />
@@ -65,6 +87,28 @@
     <Resource Include="Imagenes\Blanco\logoGrandeB.png" />
     <Resource Include="Imagenes\Blanco\logoLargoB.png" />
     <Resource Include="Imagenes\Blanco\logoMedioB.png" />
+    <Resource Include="Imagenes\eliminar.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\estadisticas.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\fondoazul.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\icono_lupa.png" />
+    <Resource Include="Imagenes\icono_miReseña.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\icono_usuario.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\icono_usuarios.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\icono_videojuego.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\Negro\gameLogGrandeN.png" />
@@ -97,10 +141,14 @@
     <Resource Include="Imagenes\Amarillo\logoMedioA.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\Crear_Cuenta.png" />
+    <Resource Include="Imagenes\Crear_Cuenta.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\InicioSesion.png" />
+    <Resource Include="Imagenes\InicioSesion.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\BG_EditarPerfil.png" />
@@ -122,7 +170,9 @@
     <Resource Include="Imagenes\Iconos\megusta.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\ListaSeguidores.png" />
+    <Resource Include="Imagenes\ListaSeguidores.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Imagenes\lupa.png" />
     <Resource Include="Imagenes\Reseña.png" />
     <Resource Include="Imagenes\Usuario.png" />
