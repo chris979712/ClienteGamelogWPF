@@ -122,7 +122,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuestaReseñasJugadores;
         }
 
-        public static async Task<ApiRespuestaBase> EliminarReseña(int idReseña, IApiRestRespuestaFactory apiRespuestaFactory)
+        public static async Task<ApiRespuestaBase> EliminarReseña(int idJuego,int idReseña, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaReseñasJugadores = new ApiRespuestaBase();
             HttpClientHandler handler = new HttpClientHandler();
@@ -135,7 +135,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     var mensajeHttp = new HttpRequestMessage()
                     {
                         Method = HttpMethod.Delete,
-                        RequestUri = new Uri(string.Concat(_ApiURL, $"/{idReseña}"))
+                        RequestUri = new Uri(string.Concat(_ApiURL, $"/{idJuego}/{idReseña}"))
                     };
                     mensajeHttp.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenUsuario);
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
