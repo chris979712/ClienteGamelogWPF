@@ -17,7 +17,7 @@
     <Viewbox Stretch="Fill">
         <Border CornerRadius="25">
             <Border.Background>
-                <ImageBrush ImageSource="/Imagenes/FondoInterfaces.PNG" 
+                <ImageBrush ImageSource="/Imagenes/fondoazul.PNG" 
                     Stretch="UniformToFill" 
                     Opacity="0.9"/>
             </Border.Background>
@@ -47,13 +47,13 @@
                    FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
                    TextAlignment="Center"
                    FontWeight="DemiBold"
-                   Foreground="#FECA18"/>
+                   Foreground="Black"/>
                         <TextBlock x:Name="txt_Jugador" Text="Bienvenido jugador"
                    TextAlignment="Center"
                    FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
                    FontSize="35"
                    FontWeight="SemiBold"
-                   Foreground="#FECA18"/>
+                   Foreground="Black"/>
                     </StackPanel>
 
                     <Image x:Name="img_FotoDePerfil"
@@ -69,7 +69,7 @@
                     <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
                         <TextBlock x:Name="txtbl_JuegosPendientes"
                FontSize="30"
-               Foreground="#FECA18"
+               Foreground="Black"
                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
                TextAlignment="Center"
                Text="Juegos pendientes por reseñar"
@@ -78,7 +78,7 @@
                             <TextBlock x:Name="txt_SinJuegos"
                        Text="De momento no hay ningún juego registrado como pendiente :("
                        FontSize="25"
-                       Foreground="#FECA18"
+                       Foreground="Black"
                        TextAlignment="Center"
                        HorizontalAlignment="Center"
                        Margin="20"
@@ -94,7 +94,7 @@
                                                     <Grid Background="Transparent">
                                                         <Track Name="PART_Track" IsDirectionReversed="true">
                                                             <Track.Thumb>
-                                                                <Thumb Background="#FECA18" />
+                                                                <Thumb Background="Black" />
                                                             </Track.Thumb>
                                                         </Track>
                                                     </Grid>
@@ -112,7 +112,7 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border BorderThickness="2"
-                                            BorderBrush="#FECA18"
+                                            BorderBrush="Black"
                                             Margin="15"
                                             CornerRadius="15"
                                             Width="200"
@@ -134,7 +134,7 @@
                                                        Margin="5,5,0,5"
                                                        FontSize="12"
                                                        MaxHeight="40"
-                                                       Foreground="#FECA18"
+                                                       Foreground="Black"
                                                        TextTrimming="CharacterEllipsis"/>
                                                 </StackPanel>
                                             </Border>
@@ -147,9 +147,15 @@
                 </Grid>
 
                 <Grid Grid.Row="1" 
-          Background="#0E1621"
-          Width="80"
-          HorizontalAlignment="Left">
+                    Width="80"
+                    HorizontalAlignment="Left">
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#345685" Offset="0.0"/>
+                            <GradientStop Color="#3465A4" Offset="0.5"/>
+                            <GradientStop Color="#BDCDD1" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
                     <Grid.Triggers>
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
@@ -172,7 +178,7 @@
                         </EventTrigger>
                     </Grid.Triggers>
 
-                    <Image Source="/Imagenes/Amarillo/logoGrandeA.png"
+                    <Image Source="/Imagenes/Negro/logoGrandeN.png"
                Width="80"
                Margin="0,20,0,20"
                VerticalAlignment="Top"/>
@@ -183,7 +189,7 @@
                       VerticalScrollBarVisibility="Hidden">
                         <StackPanel>
                             <Button Style="{StaticResource BotonMenuPrincipal}"
-                        Tag="/Imagenes/videojuego.png"
+                        Tag="/Imagenes/icono_videojuego.png"
                         HorizontalContentAlignment="Center"
                         Click="IrVentanaBuscarJuego_Click">
                                 <Button.Content>
@@ -224,7 +230,7 @@
 
                             <Button Style="{StaticResource BotonMenuPrincipal}"
                         HorizontalContentAlignment="Center"
-                        Tag="/Imagenes/lupa.png"
+                        Tag="/Imagenes/icono_lupa.png"
                         Click="IrVentanaBuscarUsuario_Click">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -263,7 +269,7 @@
                             </Button>
 
                             <Button Style="{StaticResource BotonMenuPrincipal}"
-                        Tag="/Imagenes/Usuario.png"
+                        Tag="/Imagenes/icono_usuario.png"
                         HorizontalContentAlignment="Center"
                         Click="IrVentanaEditarPerfil_Click">
                                 <Button.Content>
@@ -303,7 +309,7 @@
                             </Button>
 
                             <Button Style="{StaticResource BotonMenuPrincipal}"
-                        Tag="/Imagenes/MiReseña.png"
+                        Tag="/Imagenes/icono_miReseña.png"
                         HorizontalContentAlignment="Center"
                         Click="IrVentanaMisReseñas_Click">
                                 <Button.Content>
@@ -343,7 +349,7 @@
                             </Button>
 
                             <Button Style="{StaticResource BotonMenuPrincipal}"
-                        Tag="/Imagenes/tendencias.png"
+                        Tag="/Imagenes/estadisticas.png"
                         HorizontalContentAlignment="Center"
                         Click="IrVentanaTendencias_Click">
                                 <Button.Content>
@@ -383,7 +389,7 @@
                             </Button>
 
                             <Button Style="{StaticResource BotonMenuPrincipal}"
-                            Tag="/Imagenes/Usuarios.png"
+                            Tag="/Imagenes/icono_usuarios.png"
                             HorizontalContentAlignment="Center"
                             Click="IrVentanaSeguidores_Click">
                                 <Button.Content>
@@ -423,7 +429,7 @@
                             </Button>
 
                             <Button Style="{StaticResource BotonMenuPrincipal}"
-                            Tag="/Imagenes/salir.png"
+                            Tag="/Imagenes/salida.png"
                             HorizontalContentAlignment="Center"
                             VerticalAlignment="Bottom" Click="CerrarSesion_Click">
                                 <Button.Content>

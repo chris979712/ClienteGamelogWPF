@@ -67,7 +67,7 @@
 
             <Grid Margin="0,30,0,0">
                 <Grid.Background>
-                    <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="Fill"/>
+                    <ImageBrush ImageSource="/Imagenes/fondoazul.png" Stretch="Fill"/>
                 </Grid.Background>
 
                 <Grid.RowDefinitions>
@@ -86,19 +86,19 @@
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Content="Todos"
                                  Width="120" Height="40"
-                                 Background="#FFD700"
+                                 Background="#5DADE2"
                                  FontWeight="Bold" Cursor="Hand"
                                  Click="MostrarTodos_Click"
                                  FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
                         <Button Content="Seguidos"
                                  Width="130" Height="40"
-                                 Background="#00CED1"
+                                 Background="#800080"
                                  FontWeight="Bold" Cursor="Hand"
                                  Click="MostrarSeguidos_Click"
                                  FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
                     </StackPanel>
                     <Image Grid.Column="2"
-                        Source="/Imagenes/Amarillo/iconoLapizA.png"
+                        Source="/Imagenes/Negro/iconoLapizN.png"
                         Width="137" Height="123"
                         HorizontalAlignment="Right"
                         Margin="0,0,20,0"/>
@@ -108,7 +108,7 @@
                     <ItemsControl ItemsSource="{Binding Reseñas}" Width="Auto">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="White" BorderThickness="1" CornerRadius="10" Margin="5" Padding="10" Background="#213E5A">
+                                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Margin="5" Padding="10">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80"/>
@@ -120,7 +120,7 @@
                                        Grid.Column="0" Margin="5" Stretch="Uniform" ClipToBounds="True"/>
 
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,5,10,5">
-                                            <TextBlock Text="{Binding nombreDeUsuario}" FontWeight="Bold" Foreground="White" FontSize="16"/>
+                                            <TextBlock Text="{Binding nombreDeUsuario}" FontWeight="Bold" Foreground="Black" FontSize="16"/>
 
                                             <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
                                                 <Image Width="20" Height="20" Source="{Binding rating, Converter={StaticResource EstrellaConverter}, ConverterParameter=1}"/>
@@ -130,21 +130,20 @@
                                                 <Image Width="20" Height="20" Source="{Binding rating, Converter={StaticResource EstrellaConverter}, ConverterParameter=5}"/>
                                             </StackPanel>
 
-                                            <TextBlock Text="{Binding opinion}" Foreground="White" TextWrapping="Wrap" FontSize="14" Margin="0,5,0,0"/>
+                                            <TextBlock Text="{Binding opinion}" Foreground="Black" TextWrapping="Wrap" FontSize="14" Margin="0,5,0,0"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="-5,0,0,5">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="-40,0,0,0">
                                                 <Button x:Name="btn_Eliminar"
-                                                Content="Eliminar"
-                                                Background="Red" Foreground="White"
-                                                FontWeight="Bold" FontSize="12"
-                                                Width="70" Height="50"
-                                                Margin="0,0,15,0"
-                                                Cursor="Hand"
-                                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                                                Click="EliminarReseña_Click"
-                                                Visibility="{Binding DataContext.EsAdministrador, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}"/>
+                                                    Width="70" Height="50"
+                                                    Background="Red" Cursor=""
+                                                    ToolTip="Eliminar"
+                                                    Click="EliminarReseña_Click"
+                                                    Visibility="{Binding DataContext.EsAdministrador, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}">
+                                                    <Image Source="/Imagenes/eliminar.png" Stretch="Uniform" />
+                                                </Button>
+
 
                                                 <ToggleButton Width="24" Height="24"
                                                 IsChecked="{Binding existeLikeReseña, Mode=OneWay}"
@@ -167,7 +166,7 @@
                                             </StackPanel>
 
                                             <TextBlock Text="{Binding totalDeLikesReseña}"
-                                            Foreground="White" FontSize="14"
+                                            Foreground="Black" FontSize="14"
                                             HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Grid>

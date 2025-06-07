@@ -13,7 +13,7 @@
     <Viewbox Stretch="Fill">
         <Grid Height="620" Width="920">
             <Grid.Background>
-                <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="Fill"/>
+                <ImageBrush ImageSource="/Imagenes/fondoazul.png" Stretch="Fill"/>
             </Grid.Background>
 
             <Border Grid.Row="0" Background="#23588A" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top">
@@ -72,8 +72,8 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
-                    <Image Source="/Imagenes/Amarillo/iconoLapizA.png" Width="120" Height="120" Stretch="UniformToFill" Margin="10"/>
-                    <Border Background="#FFC000" CornerRadius="10" Padding="10" MinWidth="300" Height="100" HorizontalAlignment="Center">
+                    <Image Source="/Imagenes/Negro/iconoLapizN.png" Width="120" Height="120" Stretch="UniformToFill" Margin="10"/>
+                    <Border Background="#5DADE2" CornerRadius="10" Padding="10" MinWidth="300" Height="100" HorizontalAlignment="Center">
                         <Grid>
                             <TextBlock Text="Reseña"
                    Foreground="White"
@@ -92,7 +92,7 @@
                     <Label Content="Calificación"
                    FontWeight="Bold"
                    FontSize="20"
-                   Foreground="#F2F2F1"
+                   Foreground="Black"
                    FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
                     <StackPanel Orientation="Horizontal" x:Name="RatingPanel" Margin="0,5">
                         <Image x:Name="img_EstrellaUno" Width="40" Height="40" Source="/Imagenes/Iconos/estrella_vacia.png" MouseLeftButtonDown="Estrella_Click" Tag="1"/>
@@ -107,7 +107,7 @@
                     <Label Content="Opinión"
                    FontWeight="Bold"
                    FontSize="20"
-                   Foreground="#F2F2F1"
+                   Foreground="Black"
                    FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
                     <TextBox x:Name="txtb_Opinion"
                      Height="155"
@@ -115,7 +115,7 @@
                      AcceptsReturn="True"
                      MaxLength="500"
                      VerticalScrollBarVisibility="Auto"
-                     FontSize="14"/>
+                     FontSize="14" BorderBrush="Black" BorderThickness="1"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">

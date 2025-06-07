@@ -14,10 +14,10 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Imagenes/FondoInterfaces.png" Stretch="Fill"/>
+            <ImageBrush ImageSource="/Imagenes/Fondoazul.png" Stretch="Fill"/>
         </Grid.Background>
 
-        <Border Background="#800C3C5C" CornerRadius="0" Padding="15" Margin="10">
+        <Border  CornerRadius="0" Padding="15" Margin="10">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -31,7 +31,7 @@
                 <TextBlock Text="Recuperación de contraseña"
                            FontSize="21"
                            FontWeight="Bold"
-                           Foreground="#F2F2F1"
+                           Foreground="Black"
                            HorizontalAlignment="Center"
                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
                            Margin="0,0,0,10"/>
@@ -40,7 +40,7 @@
                            Grid.Row="1"
                            FontSize="15"
                            FontWeight="DemiBold"
-                           Foreground="#F2F2F1"
+                           Foreground="Black"
                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
                            Margin="0,0,0,5"/>
 

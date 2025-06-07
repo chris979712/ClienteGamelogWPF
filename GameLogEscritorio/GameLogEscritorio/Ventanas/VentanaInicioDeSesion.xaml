@@ -21,82 +21,78 @@
 
     <Viewbox Stretch="Fill">
         <Grid Width="920" Height="600">
-            <Image Source="/Imagenes/InicioSesion.png" Stretch="Fill" />
+            <Image Source="/Imagenes/InicioDeSesion.png" Stretch="Fill" />
 
-            <Grid Margin="475,283,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#80000000">
-                <StackPanel >
+            <Grid Margin="493,245,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#80000000" Height="242" Width="352">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
                     <TextBox x:Name="txtb_Correo"
-                             extensiones:TextBoxExtensiones.TextoSugerido="Correo"
-                             FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
-                             Width="204" Height="30" FontSize="16" Margin="0,5"/>
+                 extensiones:TextBoxExtensiones.TextoSugerido="Correo*"
+                 FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                 Width="301" Height="30" FontSize="16" Margin="0,15,0,5"/>
+                </StackPanel>
 
-                    <Grid Width="204" Height="34" Margin="0,5">
-                        <TextBlock x:Name="txtb_Sugerencia" Text="Contraseña" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
-                         FontSize="16"
-                         Padding="10,0,40,0"  Margin="6,10,29,2"/>
-                        <PasswordBox x:Name="pb_Contrasenia"
-                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
-                       PasswordChanged="PasswordVisible"
-                       Background="Transparent"
-                        GotFocus="TextoSugeridoGtFocus"
-                        LostFocus="TextoSugeridoLosFocus"
-                        FontSize="16"
-                        Padding="10,0,40,0"
-                        Visibility="Visible" />
+                <Grid Grid.Row="1" Width="301" Height="30" Margin="0,30,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                       
+                    <TextBlock x:Name="txtb_Sugerencia" Text="Contraseña"
+               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+               FontSize="16" Padding="10,0,40,0"
+               Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
+               Foreground="Gray" IsHitTestVisible="False"/>
+                    <PasswordBox x:Name="pb_Contrasenia"
+                 FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                 PasswordChanged="PasswordVisible" Background="Transparent"
+                 GotFocus="TextoSugeridoGtFocus" LostFocus="TextoSugeridoLosFocus"
+                 FontSize="16" Padding="10,0,40,0"
+                 Visibility="Visible" Grid.Column="0"
+                 VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,-5,0" extensiones:PasswordBoxExtensiones.TextoSugerido="Contraseña*"/>
 
-                        <TextBox x:Name="txtb_Contrasenia"
-                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
-                            Background="Transparent"
-                        FontSize="16"
-                        Padding="10,0,40,0"
-                        Visibility="Collapsed" Margin="0,0,35,-3" />
+                    <TextBox x:Name="txtb_Contrasenia"
+             FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+             Background="Transparent"
+             FontSize="16" Padding="10,0,40,0"
+             Visibility="Collapsed" Grid.Column="0"
+             VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
 
-                        <ToggleButton x:Name="tbtn_VisibilidadContrasenia"
-                        Width="30"
-                        Height="30"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        Margin="0,0,5,0"
-                        Checked="CambiarVisibilidadContrasenia"
-                        Unchecked="CambiarVisibilidadContrasenia">
-                            <Image x:Name="img_Visibilidad"
-                            Width="20"
-                            Height="20"
-                            Source="/Imagenes/Iconos/IconoNoVisibleOscuro.png" />
-                            </ToggleButton>
-                    </Grid>
+                    <ToggleButton x:Name="tbtn_VisibilidadContrasenia"
+                  Width="30" Height="30" Background="Transparent" BorderThickness="0"
+                  VerticalAlignment="Center" HorizontalAlignment="Right"
+                  Checked="CambiarVisibilidadContrasenia" Unchecked="CambiarVisibilidadContrasenia"
+                  Grid.Column="1" Margin="0,0,5,0">
+                        <Image x:Name="img_Visibilidad"
+               Width="20" Height="20"
+               Source="/Imagenes/Iconos/IconoNoVisibleOscuro.png" />
+                    </ToggleButton>
+                </Grid>
 
+                <TextBlock Grid.Row="2" Text="Recuperar contraseña"
+               FontSize="13" FontWeight="DemiBold" TextDecorations="Underline"
+               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+               Foreground="#5DADE2" Cursor="Hand"
+               HorizontalAlignment="Center" Margin="0,18,0,70"
+               MouseLeftButtonDown="IrVentanaRecuperarContraseña" Grid.RowSpan="2"/>
 
-                    <TextBlock Text="Recuperar contraseña"
-                               FontSize="13" FontWeight="DemiBold"
-                               TextDecorations="Underline"
-                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
-                               Foreground="#f4d03f"
-                               Cursor="Hand"
-                               HorizontalAlignment="Center" Margin="0,5"
-                               MouseLeftButtonDown="IrVentanaRecuperarContraseña"/>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
-                        <Button Content="Iniciar sesión"
-                                Width="103" Height="34"
-                                FontSize="13"
-                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                                Background="#FFC000"
-                                Foreground="Black"
-                                Click="IniciarSesion_Click" Margin="5,0"/>
-
-                        <Button Content="Crear cuenta"
-                                Width="101" Height="35"
-                                FontSize="13"
-                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                                Background="#F2F2F1"
-                                Foreground="Black"
-                                Click="CrearCuenta_Click" Margin="5,0"/>
-                    </StackPanel>
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,56,0,29">
+                    <Button Content="Iniciar sesión"
+                Width="103" Height="34" FontSize="13"
+                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                Background="#5DADE2" Foreground="Black"
+                Click="IniciarSesion_Click" Margin="5,0"/>
+                    <Button Content="Crear cuenta"
+                Width="101" Height="35" FontSize="13"
+                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                Background="#F2F2F1" Foreground="Black"
+                Click="CrearCuenta_Click" Margin="5,0"/>
                 </StackPanel>
             </Grid>
         </Grid>
