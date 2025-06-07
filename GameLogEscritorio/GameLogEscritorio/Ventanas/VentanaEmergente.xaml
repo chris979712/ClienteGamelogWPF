@@ -35,24 +35,18 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <Image x:Name="Img_IconoVentanaEmergente"
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <Image x:Name="Img_IconoVentanaEmergente"
                            Width="40"
                            Margin="0,0,10,0"/>
-                    <TextBlock x:Name="Txbl_Titulo"
+                        <TextBlock x:Name="Txbl_Titulo"
                                FontSize="22"
                                FontWeight="Bold"
                                Foreground="Black"
                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
                                VerticalAlignment="Center" Width="248"/>
-                </StackPanel>
-
-                <Border Height="2"
-                        Background="Black"
-                        Margin="0,0,0,10"
-                        Grid.Row="1"/>
-
-                <TextBlock x:Name="Txbl_Contenido"
+                    </StackPanel>
+                    <TextBlock x:Name="Txbl_Contenido"
                            Grid.Row="1"
                            FontSize="18"
                            Foreground="Black"
@@ -60,21 +54,6 @@
                            TextAlignment="Center"
                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
                            VerticalAlignment="Center" Width="248"/>
-                    </StackPanel>
-
-                    <Border Height="2"
-                    Background="Beige"
-                    Margin="0,0,0,10"
-                    Grid.Row="1"/>
-
-                    <TextBlock x:Name="Txbl_Contenido"
-                       Grid.Row="1"
-                       FontSize="18"
-                       Foreground="White"
-                       TextWrapping="Wrap"
-                       TextAlignment="Center"
-                       FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
-                       Margin="10"/>
 
                     <Button Content="Aceptar"
                     Grid.Row="1"
