@@ -17,5 +17,8 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Likes
         [JsonProperty("idJugadorAutor")]
         public int idJugadorAutor {  get; set; }
 
+        [JsonProperty("nombreJuego")]
+        public string? nombreJuego { get; set;}
+
     }
 }

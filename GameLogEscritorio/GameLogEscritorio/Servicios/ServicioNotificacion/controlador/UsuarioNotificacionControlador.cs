@@ -1,8 +1,13 @@
-﻿using GameLogEscritorio.Servicios.ServicioNotificacion.Mensaje;
+﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
+using GameLogEscritorio.Servicios.ServicioNotificacion.Mensaje;
 using GameLogEscritorio.Utilidades;
 using GameLogEscritorio.Ventanas;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +17,8 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
 {
     public class UsuarioNotificacionControlador
     {
+        private static readonly IApiRestRespuestaFactory apiRespuestasRestFactory = new FactoryRespuestasAPI();
+
         public UsuarioNotificacionControlador() 
         {
            
@@ -22,7 +29,10 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             switch (notificacion.accion!)
             {
                 case Constantes.AccionSocialDarMeGusta:
-                    MostrarNotificacion(notificacion.mensaje!);
+                    if (!notificacion.mensaje!.Contains(UsuarioSingleton.Instancia.nombreDeUsuario!))
+                    {
+                        MostrarNotificacion(notificacion.mensaje!);
+                    }
                     break;
                 case Constantes.AccionSocialAgregarSeguidor:
                     MostrarNotificacion(notificacion.mensaje!);
@@ -33,7 +43,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     break;
                 case Constantes.AccionSocialBanearUsuario:
                     MostrarAdvertencia(notificacion.mensaje!);
-                    await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                    await CerrarSesionUsuarioBaneado();
                     break;
             }
         }
@@ -56,6 +66,29 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             });
         }
 
+        public async Task CerrarSesionUsuarioBaneado()
+        {
+            var respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRespuestasRestFactory);
+            UsuarioSingleton.Instancia.CerrarSesion();
+            SesionToken.CerrarSesion();
+            Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
+            Estaticas.juegosFavoritos = new List<Juego>();
+            Estaticas.idJugadoresSeguido = new List<int>();
+            await ServicioNotificacion.Desconectar();
+            await Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                var ventanaInicioDeSesion = new VentanaInicioDeSesion();
+                AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaInicioDeSesion);
+                foreach (Window ventana in Application.Current.Windows)
+                {
+                    if (ventana is not VentanaInicioDeSesion)
+                    {
+                        ventana.Close();
+                    }
+                }
+                Application.Current.MainWindow = ventanaInicioDeSesion;
+            });
+        }
 
     }
 }
