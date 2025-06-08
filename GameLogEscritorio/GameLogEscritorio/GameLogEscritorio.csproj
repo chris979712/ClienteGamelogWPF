@@ -9,10 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Imagenes\campana.png" />
     <None Remove="Imagenes\Editar_Perfil.png" />
     <None Remove="Imagenes\eliminar.png" />
     <None Remove="Imagenes\estadisticas.png" />
     <None Remove="Imagenes\fondoazul.png" />
+    <None Remove="Imagenes\FondoGUI.png" />
     <None Remove="Imagenes\icono_lupa.png" />
     <None Remove="Imagenes\icono_miReseña.png" />
     <None Remove="Imagenes\icono_usuario.png" />
@@ -24,7 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Imagenes\campana.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Imagenes\Editar_Perfil.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\FondoGUI.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Imagenes\InicioDeSesion.png">

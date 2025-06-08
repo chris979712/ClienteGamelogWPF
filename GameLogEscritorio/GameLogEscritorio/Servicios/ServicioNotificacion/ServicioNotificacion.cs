@@ -1,19 +1,12 @@
-﻿using GameLogEscritorio.Servicios.ServicioNotificacion.Mensaje;
+﻿using GameLogEscritorio.Servicios.ServicioNotificacion.controlador;
+using GameLogEscritorio.Servicios.ServicioNotificacion.Mensaje;
 using GameLogEscritorio.Utilidades;
 using GameLogEscritorio.Ventanas;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SocketIO.Core;
 using SocketIOClient;
 using SocketIOClient.Transport;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace GameLogEscritorio.Servicios.ServicioNotificacion
@@ -92,12 +85,12 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
 
                 socket.On(Properties.Resources.EventoNotificacionJugador, respuesta =>
                 {
-                    var jArray = JArray.Parse(respuesta.ToString());
-                    var mensaje = jArray.First().ToObject<MensajeNotificacion>();
-                    Application.Current.Dispatcher.Invoke(() =>
+                    Task.Run(async () =>
                     {
-                        VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, mensaje!.mensaje!, Constantes.CodigoExito);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        var jArray = JArray.Parse(respuesta.ToString());
+                        var notificacion = jArray.First().ToObject<MensajeNotificacion>();
+                        UsuarioNotificacionControlador controladorNotificacion = new UsuarioNotificacionControlador();
+                        await controladorNotificacion.DeterminarTipoNotificacion(notificacion!);
                     });
                 });
 
