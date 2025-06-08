@@ -96,7 +96,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
 
                 socket.On(Properties.Resources.EventoNotificacionResenas, respuesta =>
                 {
-
+                    Task.Run(async () =>
+                    {
+                        var jArray = JArray.Parse(respuesta.ToString());
+                        var notificacion = jArray.First().ToObject<MensajeResenaNotificacion>();
+                        ResenaNotificacionControlador resenaNotificacion = new ResenaNotificacionControlador();
+                        await resenaNotificacion.DeterminarTipoNotificacion(notificacion);
+                    });
                 });
 
                 resultadoConexionAEventos = true;

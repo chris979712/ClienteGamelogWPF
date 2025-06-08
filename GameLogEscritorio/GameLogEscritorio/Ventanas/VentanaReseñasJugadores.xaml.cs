@@ -7,6 +7,7 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.MeGusta;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
+using GameLogEscritorio.Servicios.ServicioNotificacion;
 using GameLogEscritorio.Utilidades;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -195,8 +196,9 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        private async void Cancelar_Click(object sender, RoutedEventArgs e)
         {
+            await ServicioNotificacion.DesuscribirseCanalInteraccionReseñasDeJuego(_modeloJuego.id);
             VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuego);
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
             this.Close();

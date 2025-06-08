@@ -37,7 +37,7 @@
         public const string AccionSocialBanearUsuario = "Banear_usuario";
         public const string AccionResenaDarMeGusta = "Dar_MeGusta";
         public const string AccionResenaQuitarMeGusta = "Quitar_MeGusta";
-        public const string AccionEliminarResena = "Eliminar_resena";
-        public const string AccionInsertarResena = "Registar_resena";
+        public const string AccionResenaEliminarResena = "Eliminar_resena";
+        public const string AccionResenaInsertarResena = "Registar_resena";
     }
 }

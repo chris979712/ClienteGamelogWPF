@@ -241,4 +241,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Servicios\ServicioNotificacion\Modelo\" />
+  </ItemGroup>
 </Project>
