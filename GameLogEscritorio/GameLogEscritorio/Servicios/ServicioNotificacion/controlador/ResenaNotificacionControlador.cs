@@ -30,12 +30,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     }
                     break;
                 case Constantes.AccionResenaEliminarResena:
+                 
+                    break;
+                case Constantes.AccionResenaQuitarMeGusta:
                     if (!notificacion.mensaje!.Contains(UsuarioSingleton.Instancia.nombreDeUsuario!))
                     {
                         ActualizarContadorMeGustaReseña(false, notificacion.idResena!);
                     }
-                    break;
-                case Constantes.AccionResenaQuitarMeGusta:
                     break;
                 case Constantes.AccionResenaInsertarResena:
                     break;
@@ -44,24 +45,25 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
 
         private void ActualizarContadorMeGustaReseña(bool asignarLike, int idReseña)
         {
-            var ventana = Application.Current.Windows.OfType<VentanaReseñasJugadores>().FirstOrDefault();
-            if (ventana != null && ventana.IsVisible)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                var reseña = VentanaReseñasJugadores.Reseñas.Where(reseña => reseña.idResenia == idReseña).FirstOrDefault();
-                if (reseña != null)
+                var ventana = Application.Current.Windows.OfType<VentanaReseñasJugadores>().FirstOrDefault(w => w.IsVisible || w.IsLoaded);
+                if (ventana != null && ventana.IsVisible)
                 {
-                    if (asignarLike)
+                    var reseña = VentanaReseñasJugadores.Reseñas.Where(reseña => reseña.idResenia == idReseña).FirstOrDefault();
+                    if (reseña != null)
                     {
-                        reseña.totalDeMeGustaReseña++;
-                        reseña.existeMeGustaReseña = true;
-                    }
-                    else
-                    {
-                        reseña.totalDeMeGustaReseña--;
-                        reseña.existeMeGustaReseña = false;
+                        if (asignarLike)
+                        {
+                            reseña.totalDeMeGustaReseña++;
+                        }
+                        else
+                        {
+                            reseña.totalDeMeGustaReseña--;
+                        }
                     }
                 }
-            }
+            });
         }
 
     }

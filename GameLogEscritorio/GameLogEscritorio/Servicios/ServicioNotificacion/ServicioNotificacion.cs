@@ -101,7 +101,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                         var jArray = JArray.Parse(respuesta.ToString());
                         var notificacion = jArray.First().ToObject<MensajeResenaNotificacion>();
                         ResenaNotificacionControlador resenaNotificacion = new ResenaNotificacionControlador();
-                        await resenaNotificacion.DeterminarTipoNotificacion(notificacion);
+                        await resenaNotificacion.DeterminarTipoNotificacion(notificacion!);
                     });
                 });
 
