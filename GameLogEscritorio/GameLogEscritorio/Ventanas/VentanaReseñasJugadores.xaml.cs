@@ -178,7 +178,8 @@ namespace GameLogEscritorio.Ventanas
                 idJugador = UsuarioSingleton.Instancia.idJugador,
                 idResena = reseña.idResenia,
                 idJuego = reseña.idJuego,
-                idJugadorAutor = reseña.idJugador
+                idJugadorAutor = reseña.idJugador,
+                nombreJuego = reseña.nombre
             };
             ApiRespuestaBase respuestaBase = await ServicioMeGusta.RegistrarMeGustaAReseña(datosSolicitud,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);

@@ -29,7 +29,10 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             switch (notificacion.accion!)
             {
                 case Constantes.AccionSocialDarMeGusta:
-                    MostrarNotificacion(notificacion.mensaje!);
+                    if (!notificacion.mensaje!.Contains(UsuarioSingleton.Instancia.nombreDeUsuario!))
+                    {
+                        MostrarNotificacion(notificacion.mensaje!);
+                    }
                     break;
                 case Constantes.AccionSocialAgregarSeguidor:
                     MostrarNotificacion(notificacion.mensaje!);
@@ -63,9 +66,9 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             });
         }
 
-        private async Task CerrarSesionUsuarioBaneado()
+        public async Task CerrarSesionUsuarioBaneado()
         {
-            var respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!,apiRespuestasRestFactory);
+            var respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRespuestasRestFactory);
             UsuarioSingleton.Instancia.CerrarSesion();
             SesionToken.CerrarSesion();
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
@@ -75,12 +78,17 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 var ventanaInicioDeSesion = new VentanaInicioDeSesion();
-                AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(Estaticas.ultimoTopVentana,Estaticas.ultimoLeftVentana,Estaticas.ultimoWidthVentana,Estaticas.ultimoHeightVentana,ventanaInicioDeSesion);
-                Application.Current.MainWindow?.Close();
+                AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaInicioDeSesion);
+                foreach (Window ventana in Application.Current.Windows)
+                {
+                    if (ventana is not VentanaInicioDeSesion)
+                    {
+                        ventana.Close();
+                    }
+                }
                 Application.Current.MainWindow = ventanaInicioDeSesion;
             });
         }
-
 
     }
 }
