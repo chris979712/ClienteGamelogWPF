@@ -7,7 +7,8 @@
         d:DesignWidth="920" d:DesignHeight="600"
         Title="Buscar Juego"
         WindowStyle="SingleBorderWindow"
-        ResizeMode="CanResize"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         Background="Black">
 

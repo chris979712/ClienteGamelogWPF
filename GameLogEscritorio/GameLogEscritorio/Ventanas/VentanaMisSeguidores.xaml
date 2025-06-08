@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Mis Seguidores" d:DesignHeight="600" d:DesignWidth="920"
-        ResizeMode="CanResize">
+        ResizeMode="NoResize"
+        WindowState="Maximized">
 
     <Viewbox Stretch="Fill">
         <Grid Height="600" Width="920">

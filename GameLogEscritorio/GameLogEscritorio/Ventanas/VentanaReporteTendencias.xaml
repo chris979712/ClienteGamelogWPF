@@ -10,7 +10,8 @@
         Title="VentanaReporteTendencias"
         d:DesignHeight="720" d:DesignWidth="900"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        WindowState="Maximized">
     <Viewbox Stretch="Fill">
         <Grid Height="720" Width="900">
             <Border Background="#0C3C5C" Opacity="0.9"/>

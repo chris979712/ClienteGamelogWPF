@@ -3,6 +3,7 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
+using GameLogEscritorio.Servicios.ServicioNotificacion;
 using GameLogEscritorio.Utilidades;
 using System.Globalization;
 using System.Text;
@@ -173,8 +174,9 @@ namespace GameLogEscritorio.Ventanas
         }
 
 
-        private void VerReseñas_Click(object sender, RoutedEventArgs e)
+        private async void VerReseñas_Click(object sender, RoutedEventArgs e)
         {
+            await ServicioNotificacion.SuscribirseCanalInteraccionReseñasDeJuego(_juegoObtenido.id);
             VentanaReseñasJugadores ventanaReseñasJugadores = new VentanaReseñasJugadores(_juegoObtenido);
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReseñasJugadores);
             this.Close();

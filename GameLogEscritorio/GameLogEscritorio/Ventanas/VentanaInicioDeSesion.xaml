@@ -12,6 +12,8 @@
     Background="Black"
     WindowStyle="SingleBorderWindow"
     WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize"
+    WindowState="Maximized"
 >
 
 

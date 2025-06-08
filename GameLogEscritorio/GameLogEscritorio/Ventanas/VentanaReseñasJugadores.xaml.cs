@@ -3,9 +3,11 @@ using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Likes;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.MeGusta;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
+using GameLogEscritorio.Servicios.ServicioNotificacion;
 using GameLogEscritorio.Utilidades;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -21,7 +23,7 @@ namespace GameLogEscritorio.Ventanas
 
         private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         private JuegoModelo _modeloJuego = new JuegoModelo();
-        public ObservableCollection<ReseñaCompleta> Reseñas { get; set; } = new ObservableCollection<ReseñaCompleta>();
+        public static ObservableCollection<ReseñaCompleta> Reseñas { get; set; } = new ObservableCollection<ReseñaCompleta>();
         public bool EsAdministrador => UsuarioSingleton.Instancia.tipoDeAcceso == "Administrador";
 
         public VentanaReseñasJugadores(JuegoModelo modeloJuego)
@@ -113,7 +115,7 @@ namespace GameLogEscritorio.Ventanas
             var reseña = boton?.DataContext as ReseñaCompleta;
             if(reseña != null)
             {
-                ApiRespuestaBase apiRespuestaBase = await ServicioReseña.EliminarReseña(reseña.idResenia,apiRestCreadorRespuesta);
+                ApiRespuestaBase apiRespuestaBase = await ServicioReseña.EliminarReseña(reseña.idJuego,reseña.idResenia,apiRestCreadorRespuesta);
                 bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(apiRespuestaBase);
                 if(!esRespuestaCritica)
                 {
@@ -150,7 +152,13 @@ namespace GameLogEscritorio.Ventanas
 
         private async void QuitarLike_Click(ReseñaCompleta reseña)
         {
-            ApiRespuestaBase respuestaBase = await ServicioMeGusta.EliminarMeGustaAReseña(reseña.idResenia,UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
+            DeleteMeGustaSolicitud deleteMeGustaSolicitud = new DeleteMeGustaSolicitud()
+            {
+                idJugador = UsuarioSingleton.Instancia.idJugador,
+                idJugadorAutor = reseña.idJugador,
+                idResena = reseña.idResenia
+            };
+            ApiRespuestaBase respuestaBase = await ServicioMeGusta.EliminarMeGustaAReseña(reseña.idJuego,deleteMeGustaSolicitud,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
             if (!esRespuestaCritica)
             {
@@ -169,7 +177,10 @@ namespace GameLogEscritorio.Ventanas
             PostMeGustaSolicitud datosSolicitud = new PostMeGustaSolicitud()
             {
                 idJugador = UsuarioSingleton.Instancia.idJugador,
-                idResena = reseña.idResenia
+                idResena = reseña.idResenia,
+                idJuego = reseña.idJuego,
+                idJugadorAutor = reseña.idJugador,
+                nombreJuego = reseña.nombre
             };
             ApiRespuestaBase respuestaBase = await ServicioMeGusta.RegistrarMeGustaAReseña(datosSolicitud,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
@@ -185,8 +196,9 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        private async void Cancelar_Click(object sender, RoutedEventArgs e)
         {
+            await ServicioNotificacion.DesuscribirseCanalInteraccionReseñasDeJuego(_modeloJuego.id);
             VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuego);
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
             this.Close();
@@ -195,6 +207,17 @@ namespace GameLogEscritorio.Ventanas
 
     public class ReseñaCompleta : ReseñaJugadores, INotifyPropertyChanged
     {
+        public string FechaFormateada
+        {
+            get
+            {
+                if (DateTime.TryParse(fecha, out var fechaConvertida))
+                {
+                    fecha = fechaConvertida.ToString("dd/MM/yyyy");
+                }
+                return fecha!;
+            }
+        }
         public byte[]? fotoJugador { get; set; }
         private int _totalDeMeGusta;
         public int totalDeMeGustaReseña
