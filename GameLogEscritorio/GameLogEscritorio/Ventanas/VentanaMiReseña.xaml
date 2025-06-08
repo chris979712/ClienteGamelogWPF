@@ -9,6 +9,8 @@
         Title="Mi Reseña" d:DesignHeight="600" d:DesignWidth="920" Background="Black"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
 >
     <Window.Resources>
         <util:EstrellaConverter x:Key="EstrellaConverter"/>

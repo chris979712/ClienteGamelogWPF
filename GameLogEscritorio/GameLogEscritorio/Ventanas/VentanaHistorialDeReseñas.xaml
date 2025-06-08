@@ -9,7 +9,8 @@
        Background="Black"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
-        ResizeMode="CanResize"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
 >
 
     <Viewbox Stretch="Fill">

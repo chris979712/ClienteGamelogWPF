@@ -31,5 +31,13 @@
         public const string tipoJugadorPorDefecto = "Jugador";
         public const string TipoDeEstadoPorDefecto = "Desbaneado";
         public const string JuegoNoEncontradoRawg = "Not found.";
+        public const string AccionSocialDarMeGusta = "Interactuar_resena";
+        public const string AccionSocialAgregarSeguidor = "Agregar_seguidor";
+        public const string AccionSocialEliminarSeguidor = "Eliminar_seguidor";
+        public const string AccionSocialBanearUsuario = "Banear_usuario";
+        public const string AccionResenaDarMeGusta = "Dar_MeGusta";
+        public const string AccionResenaQuitarMeGusta = "Quitar_MeGusta";
+        public const string AccionEliminarResena = "Eliminar_resena";
+        public const string AccionInsertarResena = "Registar_resena";
     }
 }

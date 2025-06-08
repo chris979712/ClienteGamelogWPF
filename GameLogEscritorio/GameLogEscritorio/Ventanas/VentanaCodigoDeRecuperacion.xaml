@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Recuperación de contraseña"
         d:DesignHeight="270" d:DesignWidth="500"
-        ResizeMode="CanResize"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
 >

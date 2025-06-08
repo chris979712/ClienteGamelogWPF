@@ -204,6 +204,17 @@ namespace GameLogEscritorio.Ventanas
 
     public class ReseñaCompleta : ReseñaJugadores, INotifyPropertyChanged
     {
+        public string FechaFormateada
+        {
+            get
+            {
+                if (DateTime.TryParse(fecha, out var fechaConvertida))
+                {
+                    fecha = fechaConvertida.ToString("dd/MM/yyyy");
+                }
+                return fecha!;
+            }
+        }
         public byte[]? fotoJugador { get; set; }
         private int _totalDeMeGusta;
         public int totalDeMeGustaReseña

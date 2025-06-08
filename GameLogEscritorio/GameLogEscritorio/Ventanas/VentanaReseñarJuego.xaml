@@ -9,6 +9,8 @@
         Background="Black"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
 >
     <Viewbox Stretch="Fill">
         <Grid Height="620" Width="920">
