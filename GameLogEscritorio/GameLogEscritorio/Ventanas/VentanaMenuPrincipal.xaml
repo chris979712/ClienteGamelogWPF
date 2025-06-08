@@ -189,7 +189,7 @@
                       VerticalScrollBarVisibility="Hidden">
                         <StackPanel>
                             <Button Style="{StaticResource BotonMenuPrincipal}"
-                        Tag="/Imagenes/icono_videojuego.png"
+                        Tag="/Imagenes/i_videojuego.png"
                         HorizontalContentAlignment="Center"
                         Click="IrVentanaBuscarJuego_Click">
                                 <Button.Content>
@@ -230,7 +230,7 @@
 
                             <Button Style="{StaticResource BotonMenuPrincipal}"
                         HorizontalContentAlignment="Center"
-                        Tag="/Imagenes/icono_lupa.png"
+                        Tag="/Imagenes/i_lupa.png"
                         Click="IrVentanaBuscarUsuario_Click">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -269,7 +269,7 @@
                             </Button>
 
                             <Button Style="{StaticResource BotonMenuPrincipal}"
-                        Tag="/Imagenes/icono_usuario.png"
+                        Tag="/Imagenes/jugador.png"
                         HorizontalContentAlignment="Center"
                         Click="IrVentanaEditarPerfil_Click">
                                 <Button.Content>
