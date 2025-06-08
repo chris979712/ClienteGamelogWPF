@@ -9,6 +9,8 @@
         Title="Registro De Cuenta" d:DesignHeight="600" d:DesignWidth="920" Background="Black"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
 >
     <Viewbox Stretch="Fill">
         <Grid Height="600" Width="920">
