@@ -115,6 +115,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                             nombre = jugador.nombreDeUsuario,
                             foto = foto
                         });
+                        ventana.itemsControlSeguidores.ItemsSource = VentanaSocial.Seguidores;
                     });
                 }
             }
