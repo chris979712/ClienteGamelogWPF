@@ -12,14 +12,14 @@ using System.Windows.Controls;
 namespace GameLogEscritorio.Ventanas
 {
     
-    public partial class VentanaMisSeguidores : Window
+    public partial class VentanaSocial : Window
     {
 
         private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         public static ObservableCollection<JugadorDetalle> Seguidos { get; set; } = new ObservableCollection<JugadorDetalle>();
         public static ObservableCollection<JugadorDetalle> Seguidores { get; set; } = new ObservableCollection<JugadorDetalle>();
 
-        public VentanaMisSeguidores()
+        public VentanaSocial()
         {
             InitializeComponent();
             Estaticas.GuardarMedidasUltimaVentana(this);

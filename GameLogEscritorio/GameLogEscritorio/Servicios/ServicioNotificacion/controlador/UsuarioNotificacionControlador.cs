@@ -1,16 +1,14 @@
-﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+﻿using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
+using GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Servicios.ServicioNotificacion.Mensaje;
 using GameLogEscritorio.Utilidades;
 using GameLogEscritorio.Ventanas;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
@@ -36,7 +34,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     break;
                 case Constantes.AccionSocialAgregarSeguidor:
                     MostrarNotificacion(notificacion.mensaje!);
-                    //TODO
+                    ActualizarVentanaSeguidores(notificacion);
                     break;
                 case Constantes.AccionSocialEliminarSeguidor:
                     ActualizarEliminacionListaDeSeguidosSeguidores(notificacion);
@@ -53,28 +51,87 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                var ventana = Application.Current.Windows.OfType<VentanaMisSeguidores>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
+                var ventana = Application.Current.Windows.OfType<VentanaSocial>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
                 if (ventana != null)
                 {
                     if (notificacion.idJugadorSeguido == UsuarioSingleton.Instancia.idJugador)
                     {
-                        var informacionJugador = VentanaMisSeguidores.Seguidores.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguidor).FirstOrDefault();
+                        var informacionJugador = VentanaSocial.Seguidores.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguidor).FirstOrDefault();
                         if (informacionJugador != null)
                         {
-                            VentanaMisSeguidores.Seguidores.Remove(informacionJugador);
+                            VentanaSocial.Seguidores.Remove(informacionJugador);
                         }
                     }
                     else if (notificacion.idJugadorSeguidor == UsuarioSingleton.Instancia.idJugador)
                     {
-                        var informacionJugador = VentanaMisSeguidores.Seguidos.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguido).FirstOrDefault();
+                        var informacionJugador = VentanaSocial.Seguidos.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguido).FirstOrDefault();
                         if (informacionJugador != null)
                         {
-                            VentanaMisSeguidores.Seguidos.Remove(informacionJugador);
+                            VentanaSocial.Seguidos.Remove(informacionJugador);
                         }
                     }
                 }
             });
         }
+
+        private void ActualizarVentanaSeguidores(MensajeNotificacion notificacion)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var ventana = Application.Current.Windows.OfType<VentanaSocial>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
+                if(ventana != null)
+                {
+                    Task.Run(async () =>
+                    {
+                        ApiSeguidoresRespuesta jugadoresSeguidoresRespuesta = await ServicioSeguidor.ObtenerJugadoresSeguidores(UsuarioSingleton.Instancia.idJugador, apiRespuestasRestFactory);
+                        bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(jugadoresSeguidoresRespuesta);
+                        if (!esRespuestaCritica)
+                        {
+                            if (jugadoresSeguidoresRespuesta.estado == Constantes.CodigoExito)
+                            {
+                                await CargarJugadoresSeguidores(jugadoresSeguidoresRespuesta.jugadoresSeguidores!,ventana);
+                            }
+                        }
+                        else
+                        {
+                            await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                            ventana.Close();
+                        }
+                    });
+                }
+            });
+        }
+
+        public async Task CargarJugadoresSeguidores(List<Seguidor> jugadoresSeguidores,VentanaSocial ventana)
+        {
+            VentanaSocial.Seguidores.Clear();
+            foreach (var jugador in jugadoresSeguidores)
+            {
+                bool yaExiste = VentanaSocial.Seguidores.Any(jugadorEncontrado => jugadorEncontrado.idUsuario == jugador.idJugador);
+                if (!yaExiste)
+                {
+                    JugadorDetalle informacionJugador = new JugadorDetalle()
+                    {
+                        idUsuario = jugador.idJugador,
+                        nombre = jugador.nombreDeUsuario,
+                        foto = await CargarFotoDePerfilUsuario(jugador.foto!)
+                    };
+                    VentanaSocial.Seguidores.Add(informacionJugador);
+                }
+            }
+        }
+
+        private async Task<byte[]> CargarFotoDePerfilUsuario(string rutaFoto)
+        {
+            byte[] fotoEncontrada = FotoPorDefecto.ObtenerFotoDePerfilPorDefecto();
+            RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(rutaFoto);
+            if (respuestaGRPC.codigo == Constantes.CodigoExito)
+            {
+                fotoEncontrada = respuestaGRPC.datosBinario!;
+            }
+            return fotoEncontrada;
+        }
+
 
         private void ActualizarVentanaDescripcionPerfil(MensajeNotificacion notificacion)
         {
