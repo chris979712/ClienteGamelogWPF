@@ -282,4 +282,13 @@
   <data name="EventoMensajesServidor" xml:space="preserve">
     <value>broadcast_mensajes_servidor</value>
   </data>
+  <data name="JugadoresSeguidos" xml:space="preserve">
+    <value>Jugadores que sigo</value>
+  </data>
+  <data name="JugadoresSeguidores" xml:space="preserve">
+    <value>Jugadores que me siguen</value>
+  </data>
+  <data name="SeguidorEliminado" xml:space="preserve">
+    <value>El seguidor ha sido eliminado de manera exitosa.</value>
+  </data>
 </root>

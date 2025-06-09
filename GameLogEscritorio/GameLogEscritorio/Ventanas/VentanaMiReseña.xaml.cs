@@ -1,5 +1,6 @@
 ﻿using GameLogEscritorio.Utilidades;
 using System.Windows;
+using System.Windows.Media;
 
 namespace GameLogEscritorio.Ventanas
 {
@@ -13,6 +14,11 @@ namespace GameLogEscritorio.Ventanas
         {
             InitializeComponent();
             _reseñaJugador = reseña;
+            if(string.IsNullOrEmpty(reseña.opinion))
+            {
+                reseña.opinion = Constantes.SinOpinionAsignada;
+                txb_Opinion.Foreground = Brushes.Gray;
+            }
             this.DataContext = _reseñaJugador;
             Estaticas.GuardarMedidasUltimaVentana(this);
         }
@@ -32,6 +38,7 @@ namespace GameLogEscritorio.Ventanas
             public decimal calificacion {  get; set; }
             public string? fecha { get; set; }
             public string? opinion { get; set; }
+
         }
 
     }

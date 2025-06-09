@@ -430,6 +430,24 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Jugadores que me siguen.
+        /// </summary>
+        public static string JugadoresSeguidores {
+            get {
+                return ResourceManager.GetString("JugadoresSeguidores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Jugadores que sigo.
+        /// </summary>
+        public static string JugadoresSeguidos {
+            get {
+                return ResourceManager.GetString("JugadoresSeguidos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a /gamelognotificaciones/socket.io.
         /// </summary>
         public static string PathNotificaciones {
@@ -471,6 +489,15 @@ namespace GameLogEscritorio.Properties {
         public static string RutaFotoPorDefecto {
             get {
                 return ResourceManager.GetString("RutaFotoPorDefecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El seguidor ha sido eliminado de manera exitosa..
+        /// </summary>
+        public static string SeguidorEliminado {
+            get {
+                return ResourceManager.GetString("SeguidorEliminado", resourceCulture);
             }
         }
         

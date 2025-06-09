@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor
+namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social
 {
-    public class Seguidores
+    public class Seguidor
     {
 
         [JsonProperty("nombre")]
@@ -20,8 +20,8 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor
         [JsonProperty("descripcion")]
         public string? descripcion { get; set; }
 
-        [JsonProperty("foro")]
-        public string? foro { get; set; }
+        [JsonProperty("foto")]
+        public string? foto { get; set; }
 
         [JsonProperty("idJugador")]
         public int idJugador { get; set; }
@@ -46,8 +46,8 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor
         [JsonProperty("descripcion")]
         public string? descripcion { get; set; }
 
-        [JsonProperty("foro")]
-        public string? foro { get; set; }
+        [JsonProperty("foto")]
+        public string? foto { get; set; }
 
         [JsonProperty("idJugador")]
         public int idJugador { get; set; }

@@ -39,13 +39,57 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     //TODO
                     break;
                 case Constantes.AccionSocialEliminarSeguidor:
-                    //TODO
+                    ActualizarEliminacionListaDeSeguidosSeguidores(notificacion);
+                    ActualizarVentanaDescripcionPerfil(notificacion);
                     break;
                 case Constantes.AccionSocialBanearUsuario:
                     MostrarAdvertencia(notificacion.mensaje!);
                     await CerrarSesionUsuarioBaneado();
                     break;
             }
+        }
+
+        private void ActualizarEliminacionListaDeSeguidosSeguidores(MensajeNotificacion notificacion)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var ventana = Application.Current.Windows.OfType<VentanaMisSeguidores>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
+                if (ventana != null)
+                {
+                    if (notificacion.idJugadorSeguido == UsuarioSingleton.Instancia.idJugador)
+                    {
+                        var informacionJugador = VentanaMisSeguidores.Seguidores.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguidor).FirstOrDefault();
+                        if (informacionJugador != null)
+                        {
+                            VentanaMisSeguidores.Seguidores.Remove(informacionJugador);
+                        }
+                    }
+                    else if (notificacion.idJugadorSeguidor == UsuarioSingleton.Instancia.idJugador)
+                    {
+                        var informacionJugador = VentanaMisSeguidores.Seguidos.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguido).FirstOrDefault();
+                        if (informacionJugador != null)
+                        {
+                            VentanaMisSeguidores.Seguidos.Remove(informacionJugador);
+                        }
+                    }
+                }
+            });
+        }
+
+        private void ActualizarVentanaDescripcionPerfil(MensajeNotificacion notificacion)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var ventana = Application.Current.Windows.OfType<VentanaPerfilJugador>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
+                if(ventana != null)
+                {
+                    if(ventana.perfilJugador.idJugador == notificacion.idJugadorSeguido)
+                    {
+                        ventana.btn_Seguir.Visibility = Visibility.Visible;
+                        ventana.btn_DejarDeSeguir.Visibility=Visibility.Collapsed;
+                    }
+                }
+            });
         }
 
         private void MostrarNotificacion(string mensaje)

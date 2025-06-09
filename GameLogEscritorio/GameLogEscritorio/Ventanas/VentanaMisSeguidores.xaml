@@ -25,7 +25,7 @@
 
                     <Border Grid.Row="0" Background="#23588A" CornerRadius="5,5,0,0">
                         <Grid>
-                            <TextBlock Text="MIS SEGUIDORES" 
+                            <TextBlock Text="SOCIAL" 
                                Foreground="White"
                                FontSize="16"
                                FontWeight="Bold"
@@ -33,7 +33,7 @@
                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
                                VerticalAlignment="Center" Margin="15,0"/>
 
-                            <Button Content="Regresar" Width="80" Height="30"
+                            <Button Content="Regresar" Width="80" Height="40"
                             HorizontalAlignment="Left" VerticalAlignment="Center"
                             Margin="15,0,0,0" Click="Salir_Click"
                             Background="Transparent" Foreground="White"
@@ -44,9 +44,14 @@
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
+                        <TextBlock x:Name="txb_VistaActual" Grid.Row="1" Text="Social" VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" Margin="0,-5,10,25"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                                   FontSize="40"/>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -54,56 +59,116 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,28,0,20">
-                                <Button Content="Todos"
-                                Width="120" Height="40"
-                                Background="#5DADE2"
-                                FontWeight="Bold" Cursor="Hand"
-                                Click="Btn_MostrarTodos_Click"
-                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
                                 <Button Content="Seguidos"
-                                Width="130" Height="40"
-                                Background="#800080"
-                                FontWeight="Bold" Cursor="Hand"
-                                Click="Btn_MostrarSeguidos_Click"
-                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                                        Width="130" Height="40"
+                                        Background="#800080"
+                                        FontWeight="Bold" Cursor="Hand"
+                                        Click="Btn_MostrarSeguidos_Click"
+                                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                                <Button Content="Seguidores"
+                                        Width="120" Height="40"
+                                        Background="#5DADE2"
+                                        FontWeight="Bold" Cursor="Hand"
+                                        Click="Btn_MostrarSeguidores_Click"
+                                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
                             </StackPanel>
 
                             <Image Grid.Column="2"
                            Source="/Imagenes/Negro/iconoLapizN.png"
                            Width="137" Height="123"
                            HorizontalAlignment="Right"
-                           Margin="0,-2,44,0"/>
+                           Margin="0,-6,44,0"/>
                         </Grid>
+                        <Grid Grid.Row="2" Margin="60,-5,60,20">
+                            <ScrollViewer Grid.Row="1" Margin="60,-5,60,20" VerticalScrollBarVisibility="Auto" Visibility="Visible">
+                                <StackPanel>
+                                    <ItemsControl x:Name="itemsControlSeguidos" Visibility="Collapsed">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Margin="8" Padding="10" Background="White" BorderBrush="DarkBlue" BorderThickness="2" CornerRadius="12" Effect="{DynamicResource DropShadowEffect}">
+                                                    <Grid VerticalAlignment="Center">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Image Source="{Binding foto}" Width="60" Height="60" Margin="0,0,10,0"
+                                                               Stretch="UniformToFill" ClipToBounds="True"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <Image.Clip>
+                                                                <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                                                            </Image.Clip>
+                                                        </Image>
+                                                        <TextBlock Grid.Column="1" Text="{Binding nombre}"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="20" Foreground="#333" FontWeight="SemiBold"
+                                                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                                                        <Button Grid.Column="2" Content="Eliminar"
+                                                                Padding="12,6"
+                                                                Margin="10,0,0,0"
+                                                                Background="#D9534F"
+                                                                Foreground="White"
+                                                                FontSize="13"
+                                                                FontWeight="Bold"
+                                                                BorderThickness="0"
+                                                                Cursor="Hand"
+                                                                HorizontalAlignment="Right"
+                                                                VerticalAlignment="Center"
+                                                                Command="{Binding DataContext.EliminarSeguidorCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                CommandParameter="{Binding}"
+                                                                Click="btn_eliminarSeguido"/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
 
-                        <Grid Grid.Row="1" Margin="20,10,20,20">
-                            <ItemsControl x:Name="itemsControlTodos" ItemsSource="{Binding Seguidores}" Visibility="Collapsed">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="5">
-                                            <Image Source="/Imagenes/PerfilEjemplo.png" Width="40" Height="40" Margin="5"/>
-                                            <TextBlock Text="{Binding Nombre}" Foreground="Black" FontSize="14" Margin="5"/>
-                                            <Button Content="Eliminar" Margin="5" Padding="4,2"
-                                            Command="{Binding DataContext.EliminarSeguidorCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                            CommandParameter="{Binding}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                    <ItemsControl x:Name="itemsControlSeguidores" Visibility="Collapsed">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Margin="8" Padding="10" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="12" Effect="{DynamicResource DropShadowEffect}">
+                                                    <Grid VerticalAlignment="Center">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
 
-                            <ItemsControl x:Name="itemsControlSeguidos" ItemsSource="{Binding Seguidos}" Visibility="Collapsed">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="5">
-                                            <Image Source="/Imagenes/PerfilEjemplo.png" Width="40" Height="40" Margin="5"/>
-                                            <TextBlock Text="{Binding Nombre}" Foreground="Black" FontSize="14" Margin="5"/>
-                                            <Button Content="Eliminar" Margin="5" Padding="4,2"
-                                            Command="{Binding DataContext.EliminarSeguidorCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                            CommandParameter="{Binding}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                                        <Image Source="{Binding foto}" Width="60" Height="60" Margin="0,0,10,0"
+                                                               Stretch="UniformToFill" ClipToBounds="True"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <Image.Clip>
+                                                                <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                                                            </Image.Clip>
+                                                        </Image>
+
+                                                        <TextBlock Grid.Column="1" Text="{Binding nombre}"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="20" Foreground="#333" FontWeight="SemiBold"
+                                                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+
+                                                        <Button Grid.Column="2" Content="Eliminar"
+                                                                Padding="12,6"
+                                                                Margin="10,0,0,0"
+                                                                Background="#D9534F"
+                                                                Foreground="White"
+                                                                FontSize="13"
+                                                                FontWeight="Bold"
+                                                                BorderThickness="0"
+                                                                Cursor="Hand"
+                                                                HorizontalAlignment="Right"
+                                                                VerticalAlignment="Center"
+                                                                Command="{Binding DataContext.EliminarSeguidorCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                CommandParameter="{Binding}"
+                                                                Click="btn_eliminarSeguidor"/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
                         </Grid>
                     </Grid>
                 </Grid>

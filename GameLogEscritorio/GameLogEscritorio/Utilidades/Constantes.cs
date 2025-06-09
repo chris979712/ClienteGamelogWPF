@@ -28,6 +28,7 @@
         public const int CodigoServidorNoEncontradoGRPC = 12;
         public const int CodigoErrorInternoGRPC = 13;
         public const int CodigoServidorNoDisponibleGRPC = 14;
+        public const string SinOpinionAsignada = "No se asignó ninguna opinión en la reseña.";
         public const string tipoJugadorPorDefecto = "Jugador";
         public const string TipoDeEstadoPorDefecto = "Desbaneado";
         public const string JuegoNoEncontradoRawg = "Not found.";
@@ -38,6 +39,6 @@
         public const string AccionResenaDarMeGusta = "Dar_MeGusta";
         public const string AccionResenaQuitarMeGusta = "Quitar_MeGusta";
         public const string AccionResenaEliminarResena = "Eliminar_resena";
-        public const string AccionResenaInsertarResena = "Registar_resena";
+        public const string AccionResenaInsertarResena = "Registrar_resena";
     }
 }
