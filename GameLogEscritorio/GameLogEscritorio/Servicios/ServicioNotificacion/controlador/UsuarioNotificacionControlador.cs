@@ -104,7 +104,6 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
 
         public async Task CargarJugadoresSeguidores(List<Seguidor> jugadoresSeguidores,VentanaSocial ventana)
         {
-            VentanaSocial.Seguidores.Clear();
             foreach (var jugador in jugadoresSeguidores)
             {
                 bool yaExiste = VentanaSocial.Seguidores.Any(jugadorEncontrado => jugadorEncontrado.idUsuario == jugador.idJugador);
