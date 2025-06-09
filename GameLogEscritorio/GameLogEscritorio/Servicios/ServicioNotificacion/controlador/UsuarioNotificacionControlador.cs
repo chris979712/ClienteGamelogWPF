@@ -76,55 +76,48 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
 
         private void ActualizarVentanaSeguidores(MensajeNotificacion notificacion)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke(async () =>
             {
                 var ventana = Application.Current.Windows.OfType<VentanaSocial>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
-                if(ventana != null)
+                if (ventana != null)
                 {
-                    Task.Run(async () =>
+                    ApiSeguidoresRespuesta respuesta = await ServicioSeguidor.ObtenerJugadoresSeguidores(UsuarioSingleton.Instancia.idJugador, apiRespuestasRestFactory);
+                    bool esCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuesta);
+                    if (!esCritica)
                     {
-                        ApiSeguidoresRespuesta jugadoresSeguidoresRespuesta = await ServicioSeguidor.ObtenerJugadoresSeguidores(UsuarioSingleton.Instancia.idJugador, apiRespuestasRestFactory);
-                        bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(jugadoresSeguidoresRespuesta);
-                        if (!esRespuestaCritica)
+                        if (respuesta.estado == Constantes.CodigoExito)
                         {
-                            if (jugadoresSeguidoresRespuesta.estado == Constantes.CodigoExito)
-                            {
-                                CargarJugadoresSeguidores(jugadoresSeguidoresRespuesta.jugadoresSeguidores!,ventana);
-                            }
+                            await CargarJugadoresSeguidores(respuesta.jugadoresSeguidores!, ventana);
                         }
-                        else
-                        {
-                            await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
-                            ventana.Close();
-                        }
-                    });
+                    }
+                    else
+                    {
+                        await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                        ventana.Close();
+                    }
                 }
             });
         }
 
-        public void CargarJugadoresSeguidores(List<Seguidor> jugadoresSeguidores,VentanaSocial ventana)
+        public async Task CargarJugadoresSeguidores(List<Seguidor> jugadoresSeguidores,VentanaSocial ventana)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            foreach (var jugador in jugadoresSeguidores)
             {
-                Task.Run(async () =>
+                bool yaExiste = VentanaSocial.Seguidores.Any(jugadorEncontrado => jugadorEncontrado.idUsuario == jugador.idJugador);
+                if (!yaExiste)
                 {
-                    foreach (var jugador in jugadoresSeguidores)
+                    var foto = await CargarFotoDePerfilUsuario(jugador.foto!);
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        bool yaExiste = VentanaSocial.Seguidores.Any(jugadorEncontrado => jugadorEncontrado.idUsuario == jugador.idJugador);
-                        if (!yaExiste)
+                        VentanaSocial.Seguidores.Add(new JugadorDetalle
                         {
-                            JugadorDetalle informacionJugador = new JugadorDetalle()
-                            {
-                                idUsuario = jugador.idJugador,
-                                nombre = jugador.nombreDeUsuario,
-                                foto = await CargarFotoDePerfilUsuario(jugador.foto!)
-                            };
-                            VentanaSocial.Seguidores.Add(informacionJugador);
-                        }
-                        ventana.itemsControlSeguidores.ItemsSource = VentanaSocial.Seguidores;
-                    }
-                });
-            });
+                            idUsuario = jugador.idJugador,
+                            nombre = jugador.nombreDeUsuario,
+                            foto = foto
+                        });
+                    });
+                }
+            }
         }
 
         private async Task<byte[]> CargarFotoDePerfilUsuario(string rutaFoto)
