@@ -142,7 +142,6 @@ namespace GameLogEscritorio.Ventanas
 
         public async Task CargarJugadoresSeguidos(List<Seguido> jugadoresSeguidos)
         {
-            Seguidos.Clear();
             foreach(var jugador in jugadoresSeguidos)
             {
                 bool esSeguidoRepetido = Seguidos.Any(jugadorSeguidoNuevo => jugadorSeguidoNuevo.idUsuario == jugador.idJugador);
