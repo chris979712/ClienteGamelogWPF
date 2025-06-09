@@ -117,6 +117,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     };
                     VentanaSocial.Seguidores.Add(informacionJugador);
                 }
+                ventana.itemsControlSeguidores.ItemsSource = VentanaSocial.Seguidores;
             }
         }
 

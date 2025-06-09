@@ -146,7 +146,7 @@ namespace GameLogEscritorio.Ventanas
             foreach(var jugador in jugadoresSeguidos)
             {
                 bool esSeguidoRepetido = Seguidos.Any(jugadorSeguidoNuevo => jugadorSeguidoNuevo.idUsuario == jugador.idJugador);
-                if (esSeguidoRepetido)
+                if (!esSeguidoRepetido)
                 {
                     JugadorDetalle informacionJugador = new JugadorDetalle()
                     {
@@ -165,7 +165,7 @@ namespace GameLogEscritorio.Ventanas
             foreach(var jugador in jugadoresSeguidores)
             {
                 bool esSeguidorRepetido = Seguidores.Any(jugadorEncontrado => jugadorEncontrado.idUsuario == jugador.idJugador);
-                if (esSeguidorRepetido)
+                if (!esSeguidorRepetido)
                 {
                     JugadorDetalle informacionJugador = new JugadorDetalle()
                     {
