@@ -1,6 +1,6 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
 using System.Net.Http;

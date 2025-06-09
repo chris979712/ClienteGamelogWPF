@@ -145,7 +145,7 @@
                        FontSize="16"
                        Foreground="Black"
                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
-                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Padding="5" Width="507">
+                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Padding="5" Width="507" Margin="0,0,0,0">
                         <TextBlock x:Name="txt_Descripcion"
                            Text="{Binding Descripcion}"
                            FontSize="14"

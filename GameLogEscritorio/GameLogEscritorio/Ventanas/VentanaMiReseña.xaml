@@ -111,7 +111,7 @@
                    Grid.Row="1"
                    Grid.RowSpan="3"
                    Grid.Column="0"
-                   Margin="50,20,0,0"
+                   Margin="44,20,0,0"
                    Stretch="Uniform"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top" />
@@ -119,15 +119,15 @@
                     <TextBlock Text="{Binding nombre}"
                        FontSize="40"
                        FontWeight="Bold"
-                       Foreground="White"
+                       Foreground="Black"
+                       VerticalAlignment="Center"
                        Grid.Row="0"
                        Grid.Column="1"
-                       Margin="20,30,20,0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       TextWrapping="Wrap"/>
+                       Margin="0,79,0,0"
+                       HorizontalAlignment="Center"
+                       TextWrapping="Wrap" Width="636"/>
                     <Label Content="Detalles de la reseña" FontSize="40" FontWeight="Bold" Foreground="Black"
-                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" Margin="25,61,20,63" Grid.Column="1"/>
+                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" Margin="25,19,20,105" Grid.Column="1"/>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Grid.Row="1" Grid.Column="1">
                         <Label Content="Calificación:" FontSize="18" FontWeight="Bold" Foreground="Black"
@@ -170,27 +170,28 @@
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top" />
 
-                    <TextBox Text="{Binding opinion}"
+                    <TextBox x:Name="txb_Opinion" Text="{Binding opinion}"
                      Width="Auto"
                      Height="Auto"
                      Grid.Row="3"
                      Grid.Column="1"
-                     Margin="20,43,20,27"
+                     Margin="20,43,20,84"
                      FontSize="14"
                      IsReadOnly="True"
                      TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Auto" Grid.RowSpan="4" BorderBrush="Black" BorderThickness="1"/>
+                     VerticalScrollBarVisibility="Auto" Grid.RowSpan="4" BorderBrush="Black" BorderThickness="1"
+                     FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
 
                     <Button Content="Regresar"
                     Width="150"
                     Background="Red"
                     Foreground="White"
                     FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                    Grid.Row="7"
+                    Grid.Row="6"
                     Grid.Column="1"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Margin="160,0,0,0"
+                    VerticalAlignment="Top"
+                    Margin="160,107,0,0"
                     Click="Cancelar_Click" />
                 </Grid>
             </Border>

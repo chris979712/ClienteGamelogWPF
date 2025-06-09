@@ -111,9 +111,9 @@ namespace GameLogEscritorio.Ventanas
                 LinearGradientBrush purpuraLiderazgo = new LinearGradientBrush();
                 purpuraLiderazgo.StartPoint = new Point(0, 0);
                 purpuraLiderazgo.EndPoint = new Point(1, 0);
-                purpuraLiderazgo.GradientStops.Add(new GradientStop(Color.FromRgb(75, 0, 130), 0.0)); 
-                purpuraLiderazgo.GradientStops.Add(new GradientStop(Color.FromRgb(148, 0, 211), 0.5)); 
-                purpuraLiderazgo.GradientStops.Add(new GradientStop(Color.FromRgb(255, 0, 255), 1.0)); 
+                purpuraLiderazgo.GradientStops.Add(new GradientStop(Color.FromRgb(75, 0, 130), 0.0));
+                purpuraLiderazgo.GradientStops.Add(new GradientStop(Color.FromRgb(148, 0, 211), 0.5));
+                purpuraLiderazgo.GradientStops.Add(new GradientStop(Color.FromRgb(255, 0, 255), 1.0));
                 txb_nombreJugador.Foreground = purpuraLiderazgo;
             }
             else

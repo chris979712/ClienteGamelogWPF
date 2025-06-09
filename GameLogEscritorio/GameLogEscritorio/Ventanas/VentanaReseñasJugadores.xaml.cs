@@ -199,6 +199,7 @@ namespace GameLogEscritorio.Ventanas
         private async void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             await ServicioNotificacion.DesuscribirseCanalInteraccionReseñasDeJuego(_modeloJuego.id);
+            Reseñas.Clear();
             VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuego);
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
             this.Close();

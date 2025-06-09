@@ -153,7 +153,9 @@ namespace GameLogEscritorio.Ventanas
 
         public void IrVentanaSeguidores_Click(object sender,RoutedEventArgs e)
         {
-
+            VentanaMisSeguidores ventanaMisSeguidores = new VentanaMisSeguidores();
+            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaMisSeguidores);
+            this.Close();
         }
 
         public void IrAVentanaeseñarJuego_Click(object sender, RoutedEventArgs e)

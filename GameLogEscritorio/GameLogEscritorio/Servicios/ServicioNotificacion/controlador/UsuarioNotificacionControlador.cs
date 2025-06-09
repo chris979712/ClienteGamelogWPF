@@ -39,12 +39,32 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     //TODO
                     break;
                 case Constantes.AccionSocialEliminarSeguidor:
-                    //TODO
+                    ActualizarEliminacionListaDeSeguidosSeguidores(notificacion);
                     break;
                 case Constantes.AccionSocialBanearUsuario:
                     MostrarAdvertencia(notificacion.mensaje!);
                     await CerrarSesionUsuarioBaneado();
                     break;
+            }
+        }
+
+        private void ActualizarEliminacionListaDeSeguidosSeguidores(MensajeNotificacion notificacion)
+        {
+            if(notificacion.idJugadorSeguido == UsuarioSingleton.Instancia.idJugador)
+            {
+                var informacionJugador = VentanaMisSeguidores.Seguidores.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguidor).FirstOrDefault();
+                if(informacionJugador != null)
+                {
+                    VentanaMisSeguidores.Seguidores.Remove(informacionJugador);
+                }
+            }
+            else if(notificacion.idJugadorSeguidor == UsuarioSingleton.Instancia.idJugador)
+            {
+                var informacionJugador = VentanaMisSeguidores.Seguidos.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguido).FirstOrDefault();
+                if (informacionJugador != null)
+                {
+                    VentanaMisSeguidores.Seguidos.Remove(informacionJugador);
+                }
             }
         }
 

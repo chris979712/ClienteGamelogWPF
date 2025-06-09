@@ -60,7 +60,7 @@
 
                     <Image x:Name="img_FotoDePerfil"
                Grid.Column="1"
-               Margin="6,38,0,0"
+               Margin="2,38,5,0"
                Width="120"
                Height="120"
                HorizontalAlignment="Left"
@@ -74,27 +74,27 @@
                Foreground="Black"
                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
                TextAlignment="Center"
-               Text="Juegos pendientes por reseñar"
-               Margin="35,20"/>
+               Margin="35,20"><Run Text="Juegos"/><Run Language="es-mx" Text=" "/><Run Text="por reseñar"/><Run Language="es-mx" Text=" más tarde"/></TextBlock>
                         <StackPanel>
                             <TextBlock x:Name="txt_SinJuegos"
-                       Text="De momento no hay ningún juego registrado como pendiente :("
+                       Text="No se ha agregado ningún juego para reseñar más tarde :("
                        FontSize="25"
                        Foreground="Black"
                        TextAlignment="Center"
                        HorizontalAlignment="Center"
+                       TextWrapping="Wrap"
                        Margin="20"
                        Visibility="Collapsed"/>
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="107">
                                 <ScrollViewer.Resources>
-                                    <Style TargetType="ScrollBar">
+                                    <Style TargetType="{x:Type ScrollBar}">
                                         <Setter Property="Foreground" Value="Transparent"/>
                                         <Setter Property="Background" Value="Transparent"/>
                                         <Setter Property="Template">
                                             <Setter.Value>
-                                                <ControlTemplate TargetType="ScrollBar">
+                                                <ControlTemplate TargetType="{x:Type ScrollBar}">
                                                     <Grid Background="Transparent">
-                                                        <Track Name="PART_Track" IsDirectionReversed="true">
+                                                        <Track x:Name="PART_Track" IsDirectionReversed="true">
                                                             <Track.Thumb>
                                                                 <Thumb Background="Black" />
                                                             </Track.Thumb>

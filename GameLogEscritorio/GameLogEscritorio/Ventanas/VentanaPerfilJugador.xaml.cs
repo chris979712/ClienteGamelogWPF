@@ -1,7 +1,7 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Acceso;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
 using System.Collections.ObjectModel;
@@ -208,15 +208,13 @@ namespace GameLogEscritorio.Ventanas
             if (!_perfilJugador.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
             {
                 LinearGradientBrush arcoiris = new LinearGradientBrush();
-                arcoiris.StartPoint = new Point(0, 0);
-                arcoiris.EndPoint = new Point(1, 0);
-                arcoiris.GradientStops.Add(new GradientStop(Colors.Red, 0.0));
-                arcoiris.GradientStops.Add(new GradientStop(Colors.Orange, 0.2));
-                arcoiris.GradientStops.Add(new GradientStop(Colors.Yellow, 0.4));
-                arcoiris.GradientStops.Add(new GradientStop(Colors.Green, 0.6));
-                arcoiris.GradientStops.Add(new GradientStop(Colors.Blue, 0.8));
-                arcoiris.GradientStops.Add(new GradientStop(Colors.Purple, 1.0));
-                txt_NombreUsuario.Foreground = arcoiris;
+                LinearGradientBrush purpuraLiderazgo = new LinearGradientBrush();
+                purpuraLiderazgo.StartPoint = new Point(0, 0);
+                purpuraLiderazgo.EndPoint = new Point(1, 0);
+                purpuraLiderazgo.GradientStops.Add(new GradientStop(Color.FromRgb(75, 0, 130), 0.0));
+                purpuraLiderazgo.GradientStops.Add(new GradientStop(Color.FromRgb(148, 0, 211), 0.5));
+                purpuraLiderazgo.GradientStops.Add(new GradientStop(Color.FromRgb(255, 0, 255), 1.0));
+                txt_NombreUsuario.Foreground = purpuraLiderazgo;
             }
             else
             {
