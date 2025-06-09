@@ -21,8 +21,17 @@
     <None Remove="Imagenes\icono_usuarios.png" />
     <None Remove="Imagenes\icono_videojuego.png" />
     <None Remove="Imagenes\InicioDeSesion.png" />
+    <None Remove="Imagenes\i_lupa.png" />
+    <None Remove="Imagenes\i_videojuego.png" />
+    <None Remove="Imagenes\jugador.png" />
     <None Remove="Imagenes\salida.png" />
     <None Remove="Servicios\GameLogAPIGRPC\Proto\Fotos_De_Perfil.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Imagenes\i_lupa.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +45,12 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Imagenes\InicioDeSesion.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\i_videojuego.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\jugador.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Imagenes\salida.png">

@@ -279,4 +279,7 @@
   <data name="EventoNotificacionJugador" xml:space="preserve">
     <value>notificacion_jugador</value>
   </data>
+  <data name="EventoMensajesServidor" xml:space="preserve">
+    <value>broadcast_mensajes_servidor</value>
+  </data>
 </root>

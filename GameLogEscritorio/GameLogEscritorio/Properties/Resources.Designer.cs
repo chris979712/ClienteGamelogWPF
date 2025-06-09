@@ -268,6 +268,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a broadcast_mensajes_servidor.
+        /// </summary>
+        public static string EventoMensajesServidor {
+            get {
+                return ResourceManager.GetString("EventoMensajesServidor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a notificacion_jugador.
         /// </summary>
         public static string EventoNotificacionJugador {
