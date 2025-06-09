@@ -17,13 +17,13 @@ namespace GameLogEscritorio.Ventanas
     {
 
         private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
-        private PerfilJugador _perfilJugador = new PerfilJugador();
+        public PerfilJugador perfilJugador = new PerfilJugador();
         private ObservableCollection<JuegoCompleto>? _juegosFavoritos = new ObservableCollection<JuegoCompleto>();
 
         public VentanaPerfilJugador(PerfilJugador perfil, ObservableCollection<JuegoCompleto> juegosFavoritos)
         {
             InitializeComponent();
-            this._perfilJugador = perfil;
+            this.perfilJugador = perfil;
             this._juegosFavoritos = juegosFavoritos;
             DecorarNombre();
             CargarPermisosUsuario();
@@ -42,12 +42,12 @@ namespace GameLogEscritorio.Ventanas
             }
             else
             {
-                if (!_perfilJugador.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
+                if (!perfilJugador.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
                 {
                     btn_Banear.Visibility = Visibility.Collapsed;
                     btn_Desbanear.Visibility = Visibility.Collapsed;
                 }
-                else if (_perfilJugador.estado!.Equals(Constantes.TipoDeEstadoPorDefecto))
+                else if (perfilJugador.estado!.Equals(Constantes.TipoDeEstadoPorDefecto))
                 {
                     btn_Banear.Visibility = Visibility.Visible;
                     btn_Desbanear.Visibility= Visibility.Collapsed;
@@ -62,12 +62,12 @@ namespace GameLogEscritorio.Ventanas
 
         public void CargarBotonesDeSeguimiento()
         {
-            if(_perfilJugador.idJugador == UsuarioSingleton.Instancia.idJugador)
+            if(perfilJugador.idJugador == UsuarioSingleton.Instancia.idJugador)
             {
                 btn_DejarDeSeguir.Visibility = Visibility.Collapsed;
                 btn_Seguir.Visibility = Visibility.Collapsed;
             }
-            else if (Estaticas.idJugadoresSeguido.Contains(_perfilJugador.idJugador))
+            else if (Estaticas.idJugadoresSeguido.Contains(perfilJugador.idJugador))
             {
                 btn_DejarDeSeguir.Visibility = Visibility.Visible;
                 btn_Seguir.Visibility = Visibility.Collapsed;
@@ -95,10 +95,10 @@ namespace GameLogEscritorio.Ventanas
 
         public void CargarDatosUsuario()
         {
-            txt_Descripcion.Text = _perfilJugador.descripcion;
-            txt_NombreCompleto.Text = _perfilJugador.nombreCompleto;
-            txt_NombreUsuario.Text = _perfilJugador.nombreDeUsuario;
-            img_FotoPerfil.Source = ConvertirBytesAImagen(_perfilJugador.fotoDePerfil!);
+            txt_Descripcion.Text = perfilJugador.descripcion;
+            txt_NombreCompleto.Text = perfilJugador.nombreCompleto;
+            txt_NombreUsuario.Text = perfilJugador.nombreDeUsuario;
+            img_FotoPerfil.Source = ConvertirBytesAImagen(perfilJugador.fotoDePerfil!);
         }
 
         public static ImageSource ConvertirBytesAImagen(byte[] imagenBytes)
@@ -129,7 +129,7 @@ namespace GameLogEscritorio.Ventanas
             PostSeguidorSolicitud postSeguidorSolicitud = new PostSeguidorSolicitud()
             {
                 idJugadorSeguidor = UsuarioSingleton.Instancia.idJugador,
-                idJugadorSeguido = _perfilJugador.idJugador
+                idJugadorSeguido = perfilJugador.idJugador
             };
             ApiRespuestaBase respuestaBase = await ServicioSeguidor.RegistrarNuevoSeguidor(postSeguidorSolicitud, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
@@ -137,7 +137,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 btn_Seguir.Visibility = Visibility.Collapsed;
                 btn_DejarDeSeguir.Visibility = Visibility.Visible;
-                Estaticas.idJugadoresSeguido.Add(_perfilJugador.idJugador);
+                Estaticas.idJugadoresSeguido.Add(perfilJugador.idJugador);
             }
             else
             {
@@ -152,7 +152,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 estadoAcceso = "Baneado"
             };
-            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, _perfilJugador.idCuenta,apiRestCreadorRespuesta);
+            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, perfilJugador.idCuenta,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {
@@ -172,7 +172,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 estadoAcceso = "Desbaneado"
             };
-            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, _perfilJugador.idCuenta,apiRestCreadorRespuesta);
+            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, perfilJugador.idCuenta,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {
@@ -188,13 +188,13 @@ namespace GameLogEscritorio.Ventanas
 
         private async void DejarDeSeguir_Click(object sender, RoutedEventArgs e)
         {
-            ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, _perfilJugador.idJugador,apiRestCreadorRespuesta);
+            ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, perfilJugador.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {
                 btn_Seguir.Visibility = Visibility.Visible;
                 btn_DejarDeSeguir.Visibility = Visibility.Collapsed;
-                Estaticas.idJugadoresSeguido.Remove(_perfilJugador.idJugador);
+                Estaticas.idJugadoresSeguido.Remove(perfilJugador.idJugador);
             }
             else
             {
@@ -205,7 +205,7 @@ namespace GameLogEscritorio.Ventanas
 
         public void DecorarNombre()
         {
-            if (!_perfilJugador.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
+            if (!perfilJugador.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
             {
                 LinearGradientBrush arcoiris = new LinearGradientBrush();
                 LinearGradientBrush purpuraLiderazgo = new LinearGradientBrush();
