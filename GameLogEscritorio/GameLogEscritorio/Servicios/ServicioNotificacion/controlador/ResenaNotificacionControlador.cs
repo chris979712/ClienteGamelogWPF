@@ -19,7 +19,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
 
         }
 
-        public async Task DeterminarTipoNotificacion(MensajeResenaNotificacion notificacion)
+        public void DeterminarTipoNotificacion(MensajeResenaNotificacion notificacion)
         {
             switch (notificacion.accion!)
             {
@@ -30,7 +30,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     }
                     break;
                 case Constantes.AccionResenaEliminarResena:
-                 
+                    ActualizarVentanaEliminarReseña(notificacion.idResena!);
                     break;
                 case Constantes.AccionResenaQuitarMeGusta:
                     if (!notificacion.mensaje!.Contains(UsuarioSingleton.Instancia.nombreDeUsuario!))
@@ -39,6 +39,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     }
                     break;
                 case Constantes.AccionResenaInsertarResena:
+                    MostrarNotificacion(notificacion.mensaje!);
                     break;
             }
         }
@@ -47,7 +48,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                var ventana = Application.Current.Windows.OfType<VentanaReseñasJugadores>().FirstOrDefault(w => w.IsVisible || w.IsLoaded);
+                var ventana = Application.Current.Windows.OfType<VentanaReseñasJugadores>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
                 if (ventana != null && ventana.IsVisible)
                 {
                     var reseña = VentanaReseñasJugadores.Reseñas.Where(reseña => reseña.idResenia == idReseña).FirstOrDefault();
@@ -63,6 +64,31 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                         }
                     }
                 }
+            });
+        }
+
+        private void ActualizarVentanaEliminarReseña(int idReseña)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var ventana = Application.Current.Windows.OfType<VentanaReseñasJugadores>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
+                if(ventana != null && ventana.IsVisible)
+                {
+                    var reseña = VentanaReseñasJugadores.Reseñas.Where(reseña => reseña.idResenia == idReseña).FirstOrDefault();
+                    if(reseña != null)
+                    {
+                        VentanaReseñasJugadores.Reseñas.Remove(reseña);
+                    }
+                }
+            });
+        }
+
+        private void MostrarNotificacion(string mensaje)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                VentanaEmergenteNotificacion ventanaEmergenteNotificacion = new VentanaEmergenteNotificacion(mensaje);
+                ventanaEmergenteNotificacion.Show();
             });
         }
 

@@ -33,7 +33,7 @@ namespace GameLogEscritorio.Ventanas
                 Top = ventanaPrincipal.Top + 20; 
                 this.Topmost = true;
                 this.Activate();
-                Task.Delay(3000).ContinueWith(_ =>
+                Task.Delay(5000).ContinueWith(_ =>
                 {
                     Dispatcher.Invoke(Close);
                 });
