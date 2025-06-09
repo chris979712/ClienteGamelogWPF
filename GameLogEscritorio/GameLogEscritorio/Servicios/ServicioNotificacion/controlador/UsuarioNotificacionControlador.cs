@@ -1,6 +1,5 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social;
@@ -69,6 +68,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                         {
                             VentanaSocial.Seguidos.Remove(informacionJugador);
                         }
+                        Estaticas.idJugadoresSeguido.Remove(informacionJugador!.idUsuario);
                     }
                 }
             });
@@ -92,7 +92,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     }
                     else
                     {
-                        await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                        await ManejadorSesion.RegresarInicioDeSesionDesdeDespachador();
                         ventana.Close();
                     }
                 }

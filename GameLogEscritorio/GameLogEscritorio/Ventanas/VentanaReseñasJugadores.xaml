@@ -13,17 +13,17 @@
             WindowState="Maximized"
 >
 
-        <Window.Resources>
-            <util:CorazonConverter x:Key="CorazonConverter"/>
-            <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
-            <util:EstrellaConverter x:Key="EstrellaConverter"/>
-        </Window.Resources>
+    <Window.Resources>
+        <util:CorazonConverter x:Key="CorazonConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <util:EstrellaConverter x:Key="EstrellaConverter"/>
+    </Window.Resources>
 
     <Viewbox Stretch="Fill">
         <Grid Background="#0C3C5C" Height="600" Width="920">
             <Border Grid.Row="0" Background="#23588A" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top">
                 <Grid>
-                    <TextBlock Text="RESEÑAS DE JUGADORES" 
+                    <TextBlock x:Name="txb_NombreVentana" Text="RESEÑAS DE JUGADORES" 
                            Foreground="White"
                            FontSize="16"
                            FontWeight="Bold"
@@ -85,25 +85,26 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Content="Todos"
+                    <TextBlock x:Name="txb_TipoDeReseñas" Grid.Column="1" Text="Reseñas" Foreground="Black" FontSize="35" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" TextAlignment="Center" TextWrapping="Wrap" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
+                        <Button  x:Name="btn_Todos" Content="Todos"
                                  Width="120" Height="40"
                                  Background="#5DADE2"
                                  FontWeight="Bold" Cursor="Hand"
                                  Click="MostrarTodos_Click"
                                  FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                        <Button Content="Seguidos"
+                        <Button  x:Name="btn_Seguidos" Content="Seguidos"
                                  Width="130" Height="40"
                                  Background="#800080"
                                  FontWeight="Bold" Cursor="Hand"
                                  Click="MostrarSeguidos_Click"
                                  FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
                     </StackPanel>
-                    <Image Grid.Column="2"
+                    <Image Grid.Column="1"
                         Source="/Imagenes/Negro/iconoLapizN.png"
                         Width="137" Height="123"
-                        HorizontalAlignment="Right"
-                        Margin="0,0,20,0"/>
+                        HorizontalAlignment="Left"
+                        Margin="451,0,0,0" Grid.ColumnSpan="2"/>
                 </Grid>
 
                 <ScrollViewer Grid.Row="2" Margin="50,10" VerticalScrollBarVisibility="Auto">

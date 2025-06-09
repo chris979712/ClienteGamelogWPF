@@ -128,7 +128,7 @@ namespace GameLogEscritorio.Ventanas
             }
             else
             {
-                await ManejadorSesion.RegresarInicioDeSesionSinAcceso(respuestaBase.mensaje!);
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
                 this.Close();
             }
         }
