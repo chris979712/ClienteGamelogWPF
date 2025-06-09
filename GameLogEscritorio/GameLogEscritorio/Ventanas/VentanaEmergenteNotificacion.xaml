@@ -23,7 +23,7 @@
                         From="0" To="1" 
                         Duration="0:0:0.5"/>
                     <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                        BeginTime="0:0:2.5"
+                        BeginTime="0:0:4.5"
                         From="1" To="0" 
                         Duration="0:0:0.5"/>
                 </Storyboard>
