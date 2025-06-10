@@ -8,7 +8,7 @@
     <Compile Update="Ventanas\VentanaImagen.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Ventanas\VentanaMisSeguidores.xaml.cs">
+    <Compile Update="Ventanas\VentanaSocial.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Ventanas\VentanaReporteTendencias.xaml.cs">
@@ -16,7 +16,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Ventanas\VentanaMisSeguidores.xaml">
+    <Page Update="Ventanas\VentanaSocial.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Ventanas\VentanaReporteTendencias.xaml">

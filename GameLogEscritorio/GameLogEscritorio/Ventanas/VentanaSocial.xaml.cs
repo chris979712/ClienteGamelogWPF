@@ -12,14 +12,14 @@ using System.Windows.Controls;
 namespace GameLogEscritorio.Ventanas
 {
     
-    public partial class VentanaMisSeguidores : Window
+    public partial class VentanaSocial : Window
     {
 
         private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
         public static ObservableCollection<JugadorDetalle> Seguidos { get; set; } = new ObservableCollection<JugadorDetalle>();
         public static ObservableCollection<JugadorDetalle> Seguidores { get; set; } = new ObservableCollection<JugadorDetalle>();
 
-        public VentanaMisSeguidores()
+        public VentanaSocial()
         {
             InitializeComponent();
             Estaticas.GuardarMedidasUltimaVentana(this);
@@ -142,32 +142,38 @@ namespace GameLogEscritorio.Ventanas
 
         public async Task CargarJugadoresSeguidos(List<Seguido> jugadoresSeguidos)
         {
-            Seguidos.Clear();
             foreach(var jugador in jugadoresSeguidos)
             {
-                JugadorDetalle informacionJugador = new JugadorDetalle()
+                bool esSeguidoRepetido = Seguidos.Any(jugadorSeguidoNuevo => jugadorSeguidoNuevo.idUsuario == jugador.idJugador);
+                if (!esSeguidoRepetido)
                 {
-                    idUsuario = jugador.idJugador,
-                    nombre = jugador.nombreDeUsuario,
-                    foto = await CargarFotoDePerfilUsuario(jugador.foto!)
-                };
-                Seguidos.Add(informacionJugador);
+                    JugadorDetalle informacionJugador = new JugadorDetalle()
+                    {
+                        idUsuario = jugador.idJugador,
+                        nombre = jugador.nombreDeUsuario,
+                        foto = await CargarFotoDePerfilUsuario(jugador.foto!)
+                    };
+                    Seguidos.Add(informacionJugador);
+                }
             }
             itemsControlSeguidos.ItemsSource = Seguidos;
         }
 
         public async Task CargarJugadoresSeguidores(List<Seguidor> jugadoresSeguidores)
         {
-            Seguidores.Clear();
             foreach(var jugador in jugadoresSeguidores)
             {
-                JugadorDetalle informacionJugador = new JugadorDetalle()
+                bool esSeguidorRepetido = Seguidores.Any(jugadorEncontrado => jugadorEncontrado.idUsuario == jugador.idJugador);
+                if (!esSeguidorRepetido)
                 {
-                    idUsuario = jugador.idJugador,
-                    nombre = jugador.nombreDeUsuario,
-                    foto = await CargarFotoDePerfilUsuario(jugador.foto!)
-                };
-                Seguidores.Add(informacionJugador);
+                    JugadorDetalle informacionJugador = new JugadorDetalle()
+                    {
+                        idUsuario = jugador.idJugador,
+                        nombre = jugador.nombreDeUsuario,
+                        foto = await CargarFotoDePerfilUsuario(jugador.foto!)
+                    };
+                    Seguidores.Add(informacionJugador);
+                }
             }
             itemsControlSeguidores.ItemsSource = Seguidores;
         }

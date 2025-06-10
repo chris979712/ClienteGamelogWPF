@@ -291,4 +291,16 @@
   <data name="SeguidorEliminado" xml:space="preserve">
     <value>El seguidor ha sido eliminado de manera exitosa.</value>
   </data>
+  <data name="ReseñasGlobales" xml:space="preserve">
+    <value>Reseñas globales</value>
+  </data>
+  <data name="ReseñasSeguido" xml:space="preserve">
+    <value>Reseñas jugadores seguidos</value>
+  </data>
+  <data name="NombreVentanaReseña" xml:space="preserve">
+    <value>Ventana reseñas de </value>
+  </data>
+  <data name="ApiURLNotificacion" xml:space="preserve">
+    <value>https://localhost/gamelogapi/gamelog/notificacion</value>
+  </data>
 </root>

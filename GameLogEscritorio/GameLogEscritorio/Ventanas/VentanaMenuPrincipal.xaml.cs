@@ -1,14 +1,19 @@
 ﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
 using GameLogEscritorio.Servicios.APIRawg.Servicio;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Notificacion;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
+using GameLogEscritorio.Servicios.ServicioNotificacion;
 using GameLogEscritorio.Utilidades;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using static GameLogEscritorio.Ventanas.VentanaMiReseña;
 
@@ -19,6 +24,8 @@ namespace GameLogEscritorio.Ventanas
     {
 
         private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private bool notificacionesVisible = false;
+
 
         public MenuPrincipal()
         {
@@ -38,6 +45,7 @@ namespace GameLogEscritorio.Ventanas
             img_FotoDePerfil.Source = ConvertirBytesAImagen(UsuarioSingleton.Instancia.fotoDePerfil!);
             DecorarNombre();
             Estaticas.GuardarMedidasUltimaVentana(this);
+            pnl_Notificaciones.Margin = new Thickness(0, 0, -350, 0);
         }
 
         public void DecorarNombre()
@@ -153,7 +161,7 @@ namespace GameLogEscritorio.Ventanas
 
         public void IrVentanaSeguidores_Click(object sender,RoutedEventArgs e)
         {
-            VentanaMisSeguidores ventanaMisSeguidores = new VentanaMisSeguidores();
+            VentanaSocial ventanaMisSeguidores = new VentanaSocial();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaMisSeguidores);
             this.Close();
         }
@@ -180,11 +188,143 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
+        private void VerNotificaciones_Click(object sender, RoutedEventArgs e)
+        {
+            if (notificacionesVisible)
+            {
+                CerrarPanelNotificaciones();
+            }
+            else
+            {
+                AbrirPanelNotificaciones();
+            }
+        }
+
+        private void AbrirPanelNotificaciones()
+        {
+            var showAnimation = new ThicknessAnimation
+            {
+                To = new Thickness(0, 0, 0, 0), 
+                Duration = TimeSpan.FromSeconds(0.3),
+                AccelerationRatio = 0.2
+            };
+            pnl_Notificaciones.BeginAnimation(FrameworkElement.MarginProperty, showAnimation);
+            notificacionesVisible = true;
+            ObtenerNotificaciones();
+        }
+
+        private void CerrarPanelNotificaciones()
+        {
+            var hideAnimation = new ThicknessAnimation
+            {
+                To = new Thickness(0, 0, -350, 0),
+                Duration = TimeSpan.FromSeconds(0.3),
+                AccelerationRatio = 0.2
+            };
+            pnl_Notificaciones.BeginAnimation(FrameworkElement.MarginProperty, hideAnimation);
+            notificacionesVisible = false;
+        }
+
+        private void CerrarNotificaciones_Click(object sender, RoutedEventArgs e)
+        {
+            CerrarPanelNotificaciones();
+        }
+
+        private async void ObtenerNotificaciones()
+        {
+            ApiNotificacionRespuesta apiNotificacionRespuesta = await ServicioNotificaciones.ObtenerNotificacionesDeJugador(UsuarioSingleton.Instancia.idJugador, apiRestCreadorRespuesta);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(apiNotificacionRespuesta);
+            if (!esRespuestaCritica)
+            {
+                if (apiNotificacionRespuesta.estado == Constantes.CodigoExito)
+                {
+                    CargarNotificaciones(apiNotificacionRespuesta.notificaciones!);
+                }
+                else if(apiNotificacionRespuesta.estado == Constantes.CodigoSinResultadosEncontrados)
+                {
+                    CerrarPanelNotificaciones();
+                    notificacionesVisible = false;
+                }
+            }
+            else
+            {
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
+            }
+        }
+
+
+        private void CargarNotificaciones(List<Notificaciones> notificacionesObtenidas)
+        {
+            foreach(var notificacion in notificacionesObtenidas)
+            {
+                bool existeNotificacion = Estaticas.notificaciones.Any(notificacionGuardada => notificacionGuardada.Id == notificacion.idNotificacion);
+                if (!existeNotificacion)
+                {
+                    NotificacionCompleta notificacionCompleta = new NotificacionCompleta()
+                    {
+                        Id = notificacion.idNotificacion,
+                        Mensaje = notificacion.mensajeNotificacion,
+                        fecha = notificacion.fechaNotificacion
+                    };
+                    Estaticas.notificaciones.Insert(0,notificacionCompleta);
+                }
+            }
+            ic_Notificaciones.ItemsSource = Estaticas.notificaciones;
+        }
+
+        private async void EliminarNotificacion_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is NotificacionCompleta notificacionObtenida)
+            {
+                if(button != null)
+                {
+                    ApiRespuestaBase apiRespuestaBase = await ServicioNotificaciones.EliminarNotificacion(notificacionObtenida.Id, apiRestCreadorRespuesta);
+                    bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(apiRespuestaBase);
+                    if (!esRespuestaCritica)
+                    {
+                        if(apiRespuestaBase.estado == Constantes.CodigoExito)
+                        {
+                            NotificacionCompleta? notificacionAEliminar = Estaticas.notificaciones.Where(notificacion => notificacion.Id == notificacionObtenida.Id || notificacion.Mensaje == notificacionObtenida.Mensaje).FirstOrDefault();
+                            if(notificacionAEliminar!= null)
+                            {
+                                Estaticas.notificaciones.Remove(notificacionAEliminar);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                        this.Close();
+                    }
+                }
+            }
+        }
+
+
         public async void CerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             await ManejadorSesion.RegresarInicioDeSesionUsuario();
             this.Close();
         }
+    }
+
+    public class NotificacionCompleta 
+    {
+        public string FechaFormateada
+        {
+            get
+            {
+                if (DateTime.TryParse(fecha, out var fechaConvertida))
+                {
+                    fecha = fechaConvertida.ToString("dd/MM/yyyy");
+                }
+                return fecha!;
+            }
+        }
+        public int Id { get; set; }
+        public string? Mensaje { get; set; }
+        public string? fecha { get; set; }
     }
 
 }

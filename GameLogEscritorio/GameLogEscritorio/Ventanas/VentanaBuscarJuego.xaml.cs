@@ -119,7 +119,7 @@ namespace GameLogEscritorio.Ventanas
             }
             else if(respuesta.estado == Constantes.CodigoErrorAcceso) 
             {
-                await ManejadorSesion.RegresarInicioDeSesionSinAcceso(respuesta.mensaje!);
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
                 this.Close();
             }
             else

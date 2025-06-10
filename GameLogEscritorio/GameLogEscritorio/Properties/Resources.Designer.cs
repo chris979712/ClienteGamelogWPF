@@ -124,6 +124,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/notificacion.
+        /// </summary>
+        public static string ApiURLNotificacion {
+            get {
+                return ResourceManager.GetString("ApiURLNotificacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/reporte.
         /// </summary>
         public static string ApiUrlReporte {
@@ -448,6 +457,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Ventana reseñas de .
+        /// </summary>
+        public static string NombreVentanaReseña {
+            get {
+                return ResourceManager.GetString("NombreVentanaReseña", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a /gamelognotificaciones/socket.io.
         /// </summary>
         public static string PathNotificaciones {
@@ -480,6 +498,24 @@ namespace GameLogEscritorio.Properties {
         public static string RedireccionamientoSlug {
             get {
                 return ResourceManager.GetString("RedireccionamientoSlug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reseñas globales.
+        /// </summary>
+        public static string ReseñasGlobales {
+            get {
+                return ResourceManager.GetString("ReseñasGlobales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reseñas jugadores seguidos.
+        /// </summary>
+        public static string ReseñasSeguido {
+            get {
+                return ResourceManager.GetString("ReseñasSeguido", resourceCulture);
             }
         }
         
