@@ -60,6 +60,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                 if(notificacionRespuesta.estado == Constantes.CodigoExito)
                 {
                     FiltrarNuevasReseñas(notificacionRespuesta.notificaciones!);
+                    ActualizarVentanaNotificaciones();
                 }
             }
             else
@@ -114,6 +115,18 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                 Estaticas.notificaciones.Remove(notificacion);
             }
             return Estaticas.notificaciones;
+        }
+
+        private void ActualizarVentanaNotificaciones()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var ventana = Application.Current.Windows.OfType<MenuPrincipal>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
+                if (ventana != null)
+                {
+                    ventana.ic_Notificaciones.ItemsSource = Estaticas.notificaciones;
+                }
+            });
         }
 
         private void ActualizarEliminacionListaDeSeguidosSeguidores(MensajeNotificacion notificacion)
