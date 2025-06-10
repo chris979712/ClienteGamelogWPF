@@ -54,14 +54,12 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
         private async Task ActualizarNuevasNotificaciones()
         {
             ApiNotificacionRespuesta notificacionRespuesta = await ServicioNotificaciones.ObtenerNotificacionesDeJugador(UsuarioSingleton.Instancia.idJugador, apiRespuestasRestFactory);
-            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(notificacionRespuesta);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasNotificacionDespachador(notificacionRespuesta);
             if (!esRespuestaCritica)
             {
-                if(notificacionRespuesta.estado == Constantes.CodigoExito)
-                {
-                    FiltrarNuevasReseñas(notificacionRespuesta.notificaciones!);
-                    ActualizarVentanaNotificaciones();
-                }
+                List<Notificaciones> notificaciones = notificacionRespuesta.notificaciones ?? new List<Notificaciones>();
+                FiltrarNuevasReseñas(notificaciones);
+                ActualizarVentanaNotificaciones();
             }
             else
             {
@@ -85,13 +83,16 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                 bool existeNotificacion = Estaticas.notificaciones.Any(notificacion => notificacion.Id == notificacionNueva.idNotificacion);
                 if (!existeNotificacion)
                 {
-                    NotificacionCompleta nuevaNotificacion = new NotificacionCompleta()
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        Id = notificacionNueva.idNotificacion,
-                        Mensaje = notificacionNueva.mensajeNotificacion,
-                        fecha = notificacionNueva.fechaNotificacion
-                    };
-                    Estaticas.notificaciones.Insert(0,nuevaNotificacion);
+                        NotificacionCompleta nuevaNotificacion = new NotificacionCompleta()
+                        {
+                            Id = notificacionNueva.idNotificacion,
+                            Mensaje = notificacionNueva.mensajeNotificacion,
+                            fecha = notificacionNueva.fechaNotificacion
+                        };
+                        Estaticas.notificaciones.Insert(0, nuevaNotificacion);
+                    });
                 }
             }
         }
@@ -103,17 +104,20 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             {
                 if (notificacion.Id != 0)
                 {
-                    bool existe = notificaciones.Any(notificacionAChecar => notificacionAChecar.idNotificacion == notificacion.Id);
+                    bool existe = notificaciones?.Any(notificacionAChecar => notificacionAChecar.idNotificacion == notificacion.Id) ?? false;
                     if (!existe)
                     {
                         notificacionesAEliminar.Add(notificacion);
                     }
                 }
             }
-            foreach (var notificacion in notificacionesAEliminar)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                Estaticas.notificaciones.Remove(notificacion);
-            }
+                foreach (var notificacion in notificacionesAEliminar)
+                {
+                    Estaticas.notificaciones.Remove(notificacion);
+                }
+            });
             return Estaticas.notificaciones;
         }
 
@@ -165,7 +169,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                 if (ventana != null)
                 {
                     ApiSeguidoresRespuesta respuesta = await ServicioSeguidor.ObtenerJugadoresSeguidores(UsuarioSingleton.Instancia.idJugador, apiRespuestasRestFactory);
-                    bool esCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuesta);
+                    bool esCritica = ManejadorRespuestas.ManejarRespuestasNotificacionDespachador(respuesta);
                     if (!esCritica)
                     {
                         if (respuesta.estado == Constantes.CodigoExito)

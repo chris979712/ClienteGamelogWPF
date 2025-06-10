@@ -1,5 +1,6 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Ventanas;
+using System.Windows;
 
 namespace GameLogEscritorio.Utilidades
 {
@@ -68,6 +69,74 @@ namespace GameLogEscritorio.Utilidades
                     break;
             }
             return esEstadoCritico;
+        }
+
+        public static bool ManejarRespuestasNotificacionDespachador(ApiRespuestaBase respuestaApi)
+        {
+            VentanaEmergente ventanaEmergente;
+            bool esEstadoCritico = false;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                switch (respuestaApi.estado)
+                {
+                    case Constantes.CodigoExito:
+                        esEstadoCritico = false;
+                        break;
+                    case Constantes.CodigoErrorSolicitud:
+                        ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
+                        ventanaEmergente.Show();
+                        esEstadoCritico = false;
+                        break;
+                    case Constantes.CodigoErrorAcceso:
+                        esEstadoCritico = true;
+                        ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
+                        ventanaEmergente.Show();
+                        break;
+                    case Constantes.CodigoSinResultadosEncontrados:
+                        esEstadoCritico = false;
+                        break;
+                    case Constantes.CodigoErrorServidor:
+                        esEstadoCritico = true;
+                        ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
+                        ventanaEmergente.Show();
+                        break;
+                }
+            });
+            return esEstadoCritico;
+        }
+
+        public static void ManejarRespuestasGRPCDespachador(int codigoDeRespuesta)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                VentanaEmergente ventanaEmergente;
+                switch (codigoDeRespuesta)
+                {
+                    case Constantes.CodigoArgumentosInvalidosGRPC:
+                        ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.GRPCArgumentosInvalidos, Constantes.CodigoErrorSolicitud);
+                        ventanaEmergente.Show();
+                        break;
+                    case Constantes.CodigoPermisosDenegadosGRPC:
+                        ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.GRPCPermisosInvalidos, Constantes.CodigoErrorServidor);
+                        break;
+                    case Constantes.CodigoElementoNoEncontradoGRPC:
+                        ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.GRPElementosNoEncontrado, Constantes.CodigoErrorSolicitud);
+                        ventanaEmergente.Show();
+                        break;
+                    case Constantes.CodigoErrorInternoGRPC:
+                        ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.GRPCErrorInterno, Constantes.CodigoErrorServidor);
+                        ventanaEmergente.Show();
+                        break;
+                    case Constantes.CodigoServidorNoDisponibleGRPC:
+                        ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.GRPCServidorNoDisponible, Constantes.CodigoErrorSolicitud);
+                        ventanaEmergente.Show();
+                        break;
+                    case Constantes.CodigoServidorNoEncontradoGRPC:
+                        ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.ServidorGRPCNoEncontrado, Constantes.CodigoErrorSolicitud);
+                        ventanaEmergente.Show();
+                        break;
+                }
+            });
         }
 
         public static void ManejadorRespuestasGRPC(int codigoDeRespuesta)

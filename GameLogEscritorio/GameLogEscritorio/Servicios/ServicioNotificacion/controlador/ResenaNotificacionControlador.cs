@@ -100,7 +100,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                 {
                     int idJuegoABuscar = ventana._modeloJuego.id;
                     ApiReseñaJugadoresRespuesta respuestaReseñas = await ServicioReseña.ObtenerReseñasDeUnJuego(idJuegoABuscar, UsuarioSingleton.Instancia.idJugador, apiRespuestasRestFactory);
-                    bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReseñas);
+                    bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasNotificacionDespachador(respuestaReseñas);
                     if (!esRespuestaCritica)
                     {
                         if(respuestaReseñas.estado == Constantes.CodigoExito)
