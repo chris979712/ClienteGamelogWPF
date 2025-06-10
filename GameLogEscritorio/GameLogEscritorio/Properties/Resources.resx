@@ -300,4 +300,7 @@
   <data name="NombreVentanaReseña" xml:space="preserve">
     <value>Ventana reseñas de </value>
   </data>
+  <data name="ApiURLNotificacion" xml:space="preserve">
+    <value>https://localhost/gamelogapi/gamelog/notificacion</value>
+  </data>
 </root>

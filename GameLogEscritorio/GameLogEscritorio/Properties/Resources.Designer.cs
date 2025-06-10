@@ -124,6 +124,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/notificacion.
+        /// </summary>
+        public static string ApiURLNotificacion {
+            get {
+                return ResourceManager.GetString("ApiURLNotificacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/reporte.
         /// </summary>
         public static string ApiUrlReporte {

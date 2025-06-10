@@ -38,7 +38,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void MostrarTodos_Click(object sender, RoutedEventArgs e)
         {
-            visualizacionDeTodasLasReseñas = false;
+            visualizacionDeTodasLasReseñas = true;
             Reseñas.Clear();
             txb_TipoDeReseñas.Text = Properties.Resources.ReseñasGlobales;
             CambiarColorBotonAlSeleccionarTodos();

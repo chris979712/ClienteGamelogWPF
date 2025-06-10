@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Imagenes\campana.png" />
+    <None Remove="Imagenes\cerrar.png" />
     <None Remove="Imagenes\Editar_Perfil.png" />
     <None Remove="Imagenes\eliminar.png" />
     <None Remove="Imagenes\estadisticas.png" />
@@ -24,11 +25,15 @@
     <None Remove="Imagenes\i_lupa.png" />
     <None Remove="Imagenes\i_videojuego.png" />
     <None Remove="Imagenes\jugador.png" />
+    <None Remove="Imagenes\NotificacionNoNueva.png" />
     <None Remove="Imagenes\salida.png" />
     <None Remove="Servicios\GameLogAPIGRPC\Proto\Fotos_De_Perfil.proto" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Imagenes\cerrar.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Imagenes\i_lupa.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -51,6 +56,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Imagenes\jugador.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imagenes\NotificacionNoNueva.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Imagenes\salida.png">

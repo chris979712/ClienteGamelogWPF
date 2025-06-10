@@ -79,33 +79,48 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="1" Margin="0,10">
+                <Grid Grid.Row="1" Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="txb_TipoDeReseñas" Grid.Column="1" Text="Reseñas" Foreground="Black" FontSize="35" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std" TextAlignment="Center" TextWrapping="Wrap" />
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
-                        <Button  x:Name="btn_Todos" Content="Todos"
-                                 Width="120" Height="40"
-                                 Background="#5DADE2"
-                                 FontWeight="Bold" Cursor="Hand"
-                                 Click="MostrarTodos_Click"
-                                 FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
-                        <Button  x:Name="btn_Seguidos" Content="Seguidos"
-                                 Width="130" Height="40"
-                                 Background="#800080"
-                                 FontWeight="Bold" Cursor="Hand"
-                                 Click="MostrarSeguidos_Click"
-                                 FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="50,00,0,0">
+                        <TextBlock x:Name="txb_TipoDeReseñas"
+                                   Text="Reseñas"
+                                   Foreground="Black"
+                                   FontSize="35"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   HorizontalAlignment="Center" Margin="50,0,0,0" />
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="70,10,0,0">
+                            <Button x:Name="btn_Todos" Content="Todos"
+                                    Width="120" Height="40"
+                                    Background="#5DADE2"
+                                    FontWeight="Bold" Cursor="Hand"
+                                    Click="MostrarTodos_Click"
+                                    FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/> 
+
+                            <Button x:Name="btn_Seguidos" Content="Seguidos"
+                                Width="130" Height="40"
+                                Background="#800080"
+                                FontWeight="Bold" Cursor="Hand"
+                                Click="MostrarSeguidos_Click"
+                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        </StackPanel>
                     </StackPanel>
-                    <Image Grid.Column="1"
-                        Source="/Imagenes/Negro/iconoLapizN.png"
-                        Width="137" Height="123"
-                        HorizontalAlignment="Left"
-                        Margin="451,0,0,0" Grid.ColumnSpan="2"/>
+                    <Image Grid.Column="2"
+                           Source="/Imagenes/Negro/iconoLapizN.png"
+                           Width="137" Height="123"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="20,0,0,0"/>
                 </Grid>
+
 
                 <ScrollViewer Grid.Row="2" Margin="50,10" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Reseñas}" Width="Auto">

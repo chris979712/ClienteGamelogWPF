@@ -1,6 +1,7 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Notificacion;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
@@ -23,19 +24,23 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
 
         public async Task DeterminarTipoNotificacion(MensajeNotificacion notificacion)
         {
+
             switch (notificacion.accion!)
             {
                 case Constantes.AccionSocialDarMeGusta:
+                    await ActualizarNuevasNotificaciones();
                     if (!notificacion.mensaje!.Contains(UsuarioSingleton.Instancia.nombreDeUsuario!))
                     {
                         MostrarNotificacion(notificacion.mensaje!);
                     }
                     break;
                 case Constantes.AccionSocialAgregarSeguidor:
+                    await ActualizarNuevasNotificaciones();
                     MostrarNotificacion(notificacion.mensaje!);
                     ActualizarVentanaSeguidores(notificacion);
                     break;
                 case Constantes.AccionSocialEliminarSeguidor:
+                    await ActualizarNuevasNotificaciones();
                     ActualizarEliminacionListaDeSeguidosSeguidores(notificacion);
                     ActualizarVentanaDescripcionPerfil(notificacion);
                     break;
@@ -44,6 +49,71 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     await CerrarSesionUsuarioBaneado();
                     break;
             }
+        }
+
+        private async Task ActualizarNuevasNotificaciones()
+        {
+            ApiNotificacionRespuesta notificacionRespuesta = await ServicioNotificaciones.ObtenerNotificacionesDeJugador(UsuarioSingleton.Instancia.idJugador, apiRespuestasRestFactory);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(notificacionRespuesta);
+            if (!esRespuestaCritica)
+            {
+                if(notificacionRespuesta.estado == Constantes.CodigoExito)
+                {
+                    FiltrarNuevasReseñas(notificacionRespuesta.notificaciones!);
+                }
+            }
+            else
+            {
+                await Application.Current.Dispatcher.InvokeAsync(async () =>
+                {
+                    var ventana = Application.Current.Windows.OfType<Window>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
+                    if (ventana != null)
+                    {
+                        await ManejadorSesion.RegresarInicioDeSesionDesdeDespachador();
+                        ventana.Close();
+                    }
+                });
+            }
+        }
+
+        private void FiltrarNuevasReseñas(List<Notificaciones> notificaciones)
+        {
+            Estaticas.notificaciones = EliminarNotificacionesAntiguas(notificaciones);   
+            foreach(var notificacionNueva in notificaciones)
+            {
+                bool existeNotificacion = Estaticas.notificaciones.Any(notificacion => notificacion.Id == notificacionNueva.idNotificacion);
+                if (!existeNotificacion)
+                {
+                    NotificacionCompleta nuevaNotificacion = new NotificacionCompleta()
+                    {
+                        Id = notificacionNueva.idNotificacion,
+                        Mensaje = notificacionNueva.mensajeNotificacion,
+                        fecha = notificacionNueva.fechaNotificacion
+                    };
+                    Estaticas.notificaciones.Insert(0,nuevaNotificacion);
+                }
+            }
+        }
+
+        private ObservableCollection<NotificacionCompleta> EliminarNotificacionesAntiguas(List<Notificaciones> notificaciones)
+        {
+            var notificacionesAEliminar = new List<NotificacionCompleta>();
+            foreach (var notificacion in Estaticas.notificaciones)
+            {
+                if (notificacion.Id != 0)
+                {
+                    bool existe = notificaciones.Any(notificacionAChecar => notificacionAChecar.idNotificacion == notificacion.Id);
+                    if (!existe)
+                    {
+                        notificacionesAEliminar.Add(notificacion);
+                    }
+                }
+            }
+            foreach (var notificacion in notificacionesAEliminar)
+            {
+                Estaticas.notificaciones.Remove(notificacion);
+            }
+            return Estaticas.notificaciones;
         }
 
         private void ActualizarEliminacionListaDeSeguidosSeguidores(MensajeNotificacion notificacion)
@@ -68,9 +138,9 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                         {
                             VentanaSocial.Seguidos.Remove(informacionJugador);
                         }
-                        Estaticas.idJugadoresSeguido.Remove(informacionJugador!.idUsuario);
                     }
                 }
+                Estaticas.idJugadoresSeguido.Remove(notificacion!.idJugadorSeguido);
             });
         }
 
