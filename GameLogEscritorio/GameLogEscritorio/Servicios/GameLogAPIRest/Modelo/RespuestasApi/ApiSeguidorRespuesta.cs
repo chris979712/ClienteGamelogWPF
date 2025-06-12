@@ -1,5 +1,5 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social;
 using Newtonsoft.Json;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi
@@ -7,7 +7,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi
     public class ApiSeguidoresRespuesta : ApiRespuestaBase
     {
         [JsonProperty("seguidores")]
-        public List<Seguidores>? jugadoresSeguidores {  get; set; }
+        public List<Seguidor>? jugadoresSeguidores {  get; set; }
     }
 
     public class ApiSeguidosRespuesta : ApiRespuestaBase

@@ -124,6 +124,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/notificacion.
+        /// </summary>
+        public static string ApiURLNotificacion {
+            get {
+                return ResourceManager.GetString("ApiURLNotificacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/reporte.
         /// </summary>
         public static string ApiUrlReporte {
@@ -264,6 +273,15 @@ namespace GameLogEscritorio.Properties {
         public static string EventoDesuscribirNotificacionJugador {
             get {
                 return ResourceManager.GetString("EventoDesuscribirNotificacionJugador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a broadcast_mensajes_servidor.
+        /// </summary>
+        public static string EventoMensajesServidor {
+            get {
+                return ResourceManager.GetString("EventoMensajesServidor", resourceCulture);
             }
         }
         
@@ -421,6 +439,33 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Jugadores que me siguen.
+        /// </summary>
+        public static string JugadoresSeguidores {
+            get {
+                return ResourceManager.GetString("JugadoresSeguidores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Jugadores que sigo.
+        /// </summary>
+        public static string JugadoresSeguidos {
+            get {
+                return ResourceManager.GetString("JugadoresSeguidos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ventana reseñas de .
+        /// </summary>
+        public static string NombreVentanaReseña {
+            get {
+                return ResourceManager.GetString("NombreVentanaReseña", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a /gamelognotificaciones/socket.io.
         /// </summary>
         public static string PathNotificaciones {
@@ -457,11 +502,38 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Reseñas globales.
+        /// </summary>
+        public static string ReseñasGlobales {
+            get {
+                return ResourceManager.GetString("ReseñasGlobales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reseñas jugadores seguidos.
+        /// </summary>
+        public static string ReseñasSeguido {
+            get {
+                return ResourceManager.GetString("ReseñasSeguido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a /home/app/fotos/imagendeperfildefaultgamelog.png.
         /// </summary>
         public static string RutaFotoPorDefecto {
             get {
                 return ResourceManager.GetString("RutaFotoPorDefecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El seguidor ha sido eliminado de manera exitosa..
+        /// </summary>
+        public static string SeguidorEliminado {
+            get {
+                return ResourceManager.GetString("SeguidorEliminado", resourceCulture);
             }
         }
         

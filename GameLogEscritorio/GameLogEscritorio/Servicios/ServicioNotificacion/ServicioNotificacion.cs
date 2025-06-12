@@ -33,7 +33,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                     },
                     Transport = TransportProtocol.WebSocket,
                     Reconnection = true,
-                    ReconnectionAttempts = 5,
+                    ReconnectionAttempts = 3,
                     ReconnectionDelay = 1000,
                     EIO = EngineIO.V3,
                     ConnectionTimeout = TimeSpan.FromSeconds(125)
@@ -63,6 +63,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             {
                 socket.OnConnected += async (sender, e) => {
                     await _socket!.EmitAsync(Properties.Resources.EventoSuscribirNotificacionJugador, UsuarioSingleton.Instancia.idJugador);
+                    await _socket!.EmitAsync(Properties.Resources.EventoMensajesServidor);
                 };
 
                 socket.OnError += (sender, e) =>
@@ -83,6 +84,17 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                     });
                 };
 
+                socket.On(Properties.Resources.EventoMensajesServidor, respuesta =>
+                {
+                    var jArray = JArray.Parse(respuesta.ToString());
+                    var notificacion = jArray.First().ToObject<MensajeNotificacion>();
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        VentanaEmergenteNotificacion ventanaEmergenteNotificacion = new VentanaEmergenteNotificacion(notificacion.mensaje!);
+                        ventanaEmergenteNotificacion.Show();
+                    });
+                });
+
                 socket.On(Properties.Resources.EventoNotificacionJugador, respuesta =>
                 {
                     Task.Run(async () =>
@@ -101,7 +113,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                         var jArray = JArray.Parse(respuesta.ToString());
                         var notificacion = jArray.First().ToObject<MensajeResenaNotificacion>();
                         ResenaNotificacionControlador resenaNotificacion = new ResenaNotificacionControlador();
-                        await resenaNotificacion.DeterminarTipoNotificacion(notificacion!);
+                        resenaNotificacion.DeterminarTipoNotificacion(notificacion!);
                     });
                 });
 

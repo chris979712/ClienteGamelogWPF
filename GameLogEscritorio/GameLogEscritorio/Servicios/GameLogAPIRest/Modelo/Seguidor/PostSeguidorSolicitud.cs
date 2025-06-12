@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor
+namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social
 {
     public class PostSeguidorSolicitud
     {

@@ -74,7 +74,6 @@
             <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
 
-        <!-- Estilo para Button -->
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -108,7 +107,6 @@
             </Setter>
         </Style>
 
-        <!-- Botón de menú animado -->
         <Style x:Key="BotonMenu" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
@@ -185,7 +183,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#FAF3E0"/>
-                                <Setter Property="Foreground" Value="#FECA18"/>
+                                <Setter Property="Foreground" Value="Black"/>
                                 <Setter Property="FontFamily" Value="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"></Setter>
                                 <Setter TargetName="IconoBoton" Property="Opacity" Value="0"/>
                                 <Setter TargetName="IconoOscuroBoton" Property="Opacity" Value="1"/>

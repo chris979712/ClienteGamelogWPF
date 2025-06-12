@@ -53,7 +53,7 @@
                            TextWrapping="Wrap"
                            TextAlignment="Center"
                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
-                           VerticalAlignment="Center" Width="248"/>
+                           VerticalAlignment="Center" Height="97" Margin="10,0,10,0"/>
 
                     <Button Content="Aceptar"
                     Grid.Row="1"
@@ -64,7 +64,7 @@
                     Height="40"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
-                    Margin="0,141,0,0"
+                    Margin="0,150,0,0"
                     FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                     Click="Aceptar_Click"/>
                 </Grid>

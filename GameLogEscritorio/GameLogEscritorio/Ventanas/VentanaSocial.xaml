@@ -1,0 +1,178 @@
+﻿<Window x:Class="GameLogEscritorio.Ventanas.VentanaSocial"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Mis Seguidores" d:DesignHeight="600" d:DesignWidth="920"
+        ResizeMode="NoResize"
+        WindowState="Maximized">
+
+    <Viewbox Stretch="Fill">
+        <Grid Height="600" Width="920">
+            <Border Background="#0C3C5C" Opacity="0.9"/>
+
+            <Border Margin="0,20,0,-20">
+                <Border.Background>
+                    <ImageBrush ImageSource="/Imagenes/fondoazul.png" Stretch="UniformToFill"/>
+                </Border.Background>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#23588A" CornerRadius="5,5,0,0">
+                        <Grid>
+                            <TextBlock Text="SOCIAL" 
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               TextAlignment="Right"
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
+                               VerticalAlignment="Center" Margin="15,0"/>
+
+                            <Button Content="Regresar" Width="80" Height="40"
+                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Margin="15,0,0,0" Click="Salir_Click"
+                            Background="Transparent" Foreground="White"
+                            FontSize="14" FontWeight="Bold" Cursor="Hand"/>
+                        </Grid>
+                    </Border>
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="txb_VistaActual" Grid.Row="1" Text="Social" VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" Margin="0,-5,10,25"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                                   FontSize="40"/>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
+                                <Button Content="Seguidos"
+                                        Width="130" Height="40"
+                                        Background="#800080"
+                                        FontWeight="Bold" Cursor="Hand"
+                                        Click="Btn_MostrarSeguidos_Click"
+                                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                                <Button Content="Seguidores"
+                                        Width="120" Height="40"
+                                        Background="#5DADE2"
+                                        FontWeight="Bold" Cursor="Hand"
+                                        Click="Btn_MostrarSeguidores_Click"
+                                        FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                            </StackPanel>
+
+                            <Image Grid.Column="2"
+                           Source="/Imagenes/Negro/iconoLapizN.png"
+                           Width="137" Height="123"
+                           HorizontalAlignment="Right"
+                           Margin="0,-6,44,0"/>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="60,-5,60,20">
+                            <ScrollViewer Grid.Row="1" Margin="60,-5,60,20" VerticalScrollBarVisibility="Auto" Visibility="Visible">
+                                <StackPanel>
+                                    <ItemsControl x:Name="itemsControlSeguidos" Visibility="Collapsed">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Margin="8" Padding="10" Background="White" BorderBrush="DarkBlue" BorderThickness="2" CornerRadius="12" Effect="{DynamicResource DropShadowEffect}">
+                                                    <Grid VerticalAlignment="Center">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Image Source="{Binding foto}" Width="60" Height="60" Margin="0,0,10,0"
+                                                               Stretch="UniformToFill" ClipToBounds="True"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <Image.Clip>
+                                                                <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                                                            </Image.Clip>
+                                                        </Image>
+                                                        <TextBlock Grid.Column="1" Text="{Binding nombre}"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="20" Foreground="#333" FontWeight="SemiBold"
+                                                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                                                        <Button Grid.Column="2" Content="Eliminar"
+                                                                Padding="12,6"
+                                                                Margin="10,0,0,0"
+                                                                Background="#D9534F"
+                                                                Foreground="White"
+                                                                FontSize="13"
+                                                                FontWeight="Bold"
+                                                                BorderThickness="0"
+                                                                Cursor="Hand"
+                                                                HorizontalAlignment="Right"
+                                                                VerticalAlignment="Center"
+                                                                Command="{Binding DataContext.EliminarSeguidorCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                CommandParameter="{Binding}"
+                                                                Click="btn_eliminarSeguido"/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <ItemsControl x:Name="itemsControlSeguidores" Visibility="Collapsed">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Margin="8" Padding="10" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="12" Effect="{DynamicResource DropShadowEffect}">
+                                                    <Grid VerticalAlignment="Center">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Image Source="{Binding foto}" Width="60" Height="60" Margin="0,0,10,0"
+                                                               Stretch="UniformToFill" ClipToBounds="True"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <Image.Clip>
+                                                                <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                                                            </Image.Clip>
+                                                        </Image>
+
+                                                        <TextBlock Grid.Column="1" Text="{Binding nombre}"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="20" Foreground="#333" FontWeight="SemiBold"
+                                                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+
+                                                        <Button Grid.Column="2" Content="Eliminar"
+                                                                Padding="12,6"
+                                                                Margin="10,0,0,0"
+                                                                Background="#D9534F"
+                                                                Foreground="White"
+                                                                FontSize="13"
+                                                                FontWeight="Bold"
+                                                                BorderThickness="0"
+                                                                Cursor="Hand"
+                                                                HorizontalAlignment="Right"
+                                                                VerticalAlignment="Center"
+                                                                Command="{Binding DataContext.EliminarSeguidorCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                CommandParameter="{Binding}"
+                                                                Click="btn_eliminarSeguidor"/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Viewbox>
+</Window>

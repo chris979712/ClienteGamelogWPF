@@ -19,5 +19,12 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.Mensaje
         [JsonProperty("fecha")]
         public DateTime fecha {  get; set; }
 
+        [JsonProperty("idJugadorSeguido")]
+        public int idJugadorSeguido { get; set; }
+
+        [JsonProperty("idJugadorSeguidor")]
+        public int idJugadorSeguidor { get; set; }
+
     }
+
 }

@@ -2,7 +2,8 @@
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Jugador;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Seguidor;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social;
+using GameLogEscritorio.Ventanas;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,7 @@ namespace GameLogEscritorio.Utilidades
     {
         public static ObservableCollection<JuegoCompleto> juegosPendientes = new ObservableCollection<JuegoCompleto>();
         public static ObservableCollection<ReseñaJugador> reseñasJugador = new ObservableCollection<ReseñaJugador>();
+        public static ObservableCollection<NotificacionCompleta> notificaciones = new ObservableCollection<NotificacionCompleta>();
         public static List<Juego> juegosFavoritos = new List<Juego>();
         public static List<int> idJugadoresSeguido = new List<int>();
         public static double ultimoTopVentana = 0;

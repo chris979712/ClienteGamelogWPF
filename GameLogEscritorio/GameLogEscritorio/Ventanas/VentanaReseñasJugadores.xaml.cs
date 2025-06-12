@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace GameLogEscritorio.Ventanas
 {
@@ -22,9 +23,10 @@ namespace GameLogEscritorio.Ventanas
     {
 
         private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
-        private JuegoModelo _modeloJuego = new JuegoModelo();
+        public JuegoModelo _modeloJuego = new JuegoModelo();
         public static ObservableCollection<ReseñaCompleta> Reseñas { get; set; } = new ObservableCollection<ReseñaCompleta>();
-        public bool EsAdministrador => UsuarioSingleton.Instancia.tipoDeAcceso == "Administrador";
+        public bool EsAdministrador => UsuarioSingleton.Instancia.tipoDeAcceso != Constantes.tipoJugadorPorDefecto;
+        public static bool visualizacionDeTodasLasReseñas = false;
 
         public VentanaReseñasJugadores(JuegoModelo modeloJuego)
         {
@@ -36,7 +38,10 @@ namespace GameLogEscritorio.Ventanas
 
         private async void MostrarTodos_Click(object sender, RoutedEventArgs e)
         {
+            visualizacionDeTodasLasReseñas = true;
             Reseñas.Clear();
+            txb_TipoDeReseñas.Text = Properties.Resources.ReseñasGlobales;
+            CambiarColorBotonAlSeleccionarTodos();
             ApiReseñaJugadoresRespuesta reseñasJugadores = await ServicioReseña.ObtenerReseñasDeUnJuego(_modeloJuego.id, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(reseñasJugadores);
             if (!esRespuestaCritica)
@@ -55,7 +60,10 @@ namespace GameLogEscritorio.Ventanas
 
         private async void MostrarSeguidos_Click(object sender, RoutedEventArgs e)
         {
+            visualizacionDeTodasLasReseñas = false;
             Reseñas.Clear();
+            txb_TipoDeReseñas.Text = Properties.Resources.ReseñasSeguido;
+            CambiarColorBotonAlSeleccionarSeguidos();
             ApiReseñaJugadoresRespuesta reseñasJugadores = await ServicioReseña.ObtenerReseñasDeJugadoresSeguidosEnUnJuego(_modeloJuego.id, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(reseñasJugadores);
             if (!esRespuestaCritica)
@@ -70,6 +78,20 @@ namespace GameLogEscritorio.Ventanas
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
                 this.Close();
             }
+        }
+
+        private void CambiarColorBotonAlSeleccionarTodos()
+        {
+            BrushConverter brushConverter = new BrushConverter();
+            btn_Todos.Background = Brushes.Gray;
+            btn_Seguidos.Background = (Brush)brushConverter.ConvertFromString("#5DADE2")!;
+        }
+
+        private void CambiarColorBotonAlSeleccionarSeguidos()
+        {
+            BrushConverter brushConverter = new BrushConverter();
+            btn_Todos.Background = (Brush)brushConverter.ConvertFromString("#800080")!;
+            btn_Seguidos.Background = Brushes.Gray; 
         }
 
         private async Task CargarReseñasObtenidas(List<ReseñaJugadores> reseñasObtenidas)
@@ -199,6 +221,7 @@ namespace GameLogEscritorio.Ventanas
         private async void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             await ServicioNotificacion.DesuscribirseCanalInteraccionReseñasDeJuego(_modeloJuego.id);
+            Reseñas.Clear();
             VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuego);
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
             this.Close();
