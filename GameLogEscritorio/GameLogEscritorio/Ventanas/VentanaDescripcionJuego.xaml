@@ -101,16 +101,16 @@
                     <Button Content="Ver reseñas" Width="140" Height="40" Background="Green" Foreground="White" FontWeight="Bold"
                     FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Margin="5"
                     Click="VerReseñas_Click"/>
-                    <Button Content="Reseñar" Width="120" Height="40" Background="Green" Foreground="White" FontWeight="Bold"
+                    <Button x:Name="btn_Reseñar" Content="Reseñar" Width="120" Height="40" Background="Green" Foreground="White" FontWeight="Bold"
                     FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Margin="5"
                     Click="Reseñar_Click"/>
                     <Button Content="Regresar" Width="130" Height="40" Background="Red" Foreground="White" FontWeight="Bold"
                     FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Margin="5"
                     Click="Regresar_Click"/>
-                    <Button x:Name="btn_AñadirAPendientes" Content="Añadir pendientes" Width="189" Height="45" Background="#2196F3" Foreground="#F2F2F1"
+                    <Button x:Name="btn_AñadirAPendientes" Content="Reseñar más tarde" Width="189" Height="45" Background="#2196F3" Foreground="#F2F2F1"
                     FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Margin="5"
                     Click="ListaPendientes_Click"/>
-                    <Button x:Name="btn_QuitarPendientes" Content="Quitdar de lista de pendientes" Width="220" Height="45" Background="#2196F3" Foreground="#F2F2F1"
+                    <Button x:Name="btn_QuitarPendientes" Content="Quitar de reseñar más tarde" Width="260" Height="45" Background="#2196F3" Foreground="#F2F2F1" 
                     FontWeight="Bold" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport" Margin="5"
                     Click="QuitarListaPendientes_Click" Visibility="Collapsed"/>
                 </StackPanel>

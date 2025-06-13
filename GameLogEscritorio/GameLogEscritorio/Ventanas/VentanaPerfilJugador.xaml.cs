@@ -146,13 +146,23 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async void Banear_Click(object sender, RoutedEventArgs e)
+        private void Banear_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaDeConfirmacion ventanaDeConfirmacion = new VentanaDeConfirmacion(Properties.Resources.ConfirmacionBanearUsuario, this);
+            bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
+            if (resultadoConfirmacion == true)
+            {
+                PonerEnListaNegraUsuarioSeleccionado();
+            }
+        }
+
+        private async void PonerEnListaNegraUsuarioSeleccionado()
         {
             PatchAccesoSolicitud datosSolicitud = new PatchAccesoSolicitud()
             {
                 estadoAcceso = "Baneado"
             };
-            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, perfilJugador.idCuenta,apiRestCreadorRespuesta);
+            ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, perfilJugador.idCuenta, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {
@@ -186,9 +196,19 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async void DejarDeSeguir_Click(object sender, RoutedEventArgs e)
+        private void DejarDeSeguir_Click(object sender, RoutedEventArgs e)
         {
-            ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, perfilJugador.idJugador,apiRestCreadorRespuesta);
+            VentanaDeConfirmacion ventanaDeConfirmacion = new VentanaDeConfirmacion(Properties.Resources.ConfirmaciónEliminacionSeguido, this);
+            bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
+            if (resultadoConfirmacion == true)
+            {
+                DejarDeSeguirUsuario();
+            }
+        }
+
+        private async void DejarDeSeguirUsuario()
+        {
+            ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, perfilJugador.idJugador, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {

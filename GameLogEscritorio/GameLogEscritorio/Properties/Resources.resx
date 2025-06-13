@@ -166,7 +166,7 @@
     <value>La imagen de perfil no fue encontrada.</value>
   </data>
   <data name="JsonExcepcion" xml:space="preserve">
-    <value>Error al procesar la respuesta del Json</value>
+    <value>Error al procesar la respuesta obtenida por el servidor</value>
   </data>
   <data name="juegoIngresadoNoEncontrado" xml:space="preserve">
     <value>El juego a buscar no se encuentra registrado.</value>
@@ -202,7 +202,7 @@
     <value>La(s) foto(s) de perfil a obtener no han sido encontradas.</value>
   </data>
   <data name="GRPCServidorNoDisponible" xml:space="preserve">
-    <value>Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia , inténtelo más tarde.</value>
+    <value>Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia, se mostrarán imagenes predeterminadas.</value>
   </data>
   <data name="ArchivoNoEsImagen" xml:space="preserve">
     <value>El archivo que desea ingresar no es una imagen</value>
@@ -232,7 +232,7 @@
     <value>El tipo reporte seleccionado muestra los juegos retro, los cuales fueron publicados antes de los años 2000, y que fueron los más reseñados por la comunidad, formando parte de las tendencias revival retro dentro de las fechas seleccionadas.</value>
   </data>
   <data name="BadGetAwayMensaje" xml:space="preserve">
-    <value>No se pudo tener contacto con el servidor, inténtelo más tarde. será redirigido al menú principal.</value>
+    <value>No se pudo establecer comunicación con el servidor. Por favor, inténtelo más tarde.</value>
   </data>
   <data name="GRPCExcepcion" xml:space="preserve">
     <value>No fue posible establecer contacto con el servidor multimedia. Los archivos multimedia mostrados son predeterminados.</value>
@@ -247,7 +247,7 @@
     <value>1fc8c6eda3f833495afb4df53a8fe8d20d0519c8d6d81da605c23c5beca5976801e80333065a31aa05445201fc12456662c2937efb00ebbe2cbd63245fb02956cb686ed5f2331b57c4c2a137c53ff85beb107412f8b370e44cfbaae51e2be23e9c2dd9569cbfaa189f4a26668f9e0d48da3b38e50f09180ec7a9fb9385ed2b086c1db3544985b12905db2f629554e853cad4a02b4694024d66697d90eb3017c8cc1f749104a82d153d05f494e51e636416b64f307a3713dbb29fe29c092f0e858c7ff8435872877b6c15599c5548bc7ba9645cc846544daf89e91d53fafb0ebd4f9610d4d31fd459bd39056193e6723fb2bb0eaa07f633d26b8a8cad489a67e4</value>
   </data>
   <data name="SocketExcepcion" xml:space="preserve">
-    <value>Ha ocurrido un error de red al intentar comunicarse con el servidor de notificaciones. De momento no es posible recibir actualizaciones en tiempo real.</value>
+    <value>Ha ocurrido un error al conectarse con el servidor de notificaciones. De momento no es posible recibir actualizaciones y notificaciones en tiempo real.</value>
   </data>
   <data name="ExcepcionSockets" xml:space="preserve">
     <value>Error al intentar comunicarse con el servidor de notificaciones. De momento no es posible recibir actualizaciones en tiempo real.</value>
@@ -302,5 +302,17 @@
   </data>
   <data name="ApiURLNotificacion" xml:space="preserve">
     <value>https://localhost/gamelogapi/gamelog/notificacion</value>
+  </data>
+  <data name="ConfirmacionEliminacionReseña" xml:space="preserve">
+    <value>¿Está seguro de querer eliminar la reseña seleccionada?</value>
+  </data>
+  <data name="ConfirmacionEliminarSeguidor" xml:space="preserve">
+    <value>¿Está seguro de querer eliminar de seguidor al usuario seleccionado?</value>
+  </data>
+  <data name="ConfirmaciónEliminacionSeguido" xml:space="preserve">
+    <value>¿Está seguro de eliminar al jugador seleccionado de su lista de seguidos?</value>
+  </data>
+  <data name="ConfirmacionBanearUsuario" xml:space="preserve">
+    <value>¿Está seguro de poner en lista negra al usuario seleccionado?</value>
   </data>
 </root>

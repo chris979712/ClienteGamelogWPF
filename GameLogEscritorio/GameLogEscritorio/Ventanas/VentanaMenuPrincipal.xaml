@@ -37,55 +37,55 @@
                     </Grid.ColumnDefinitions>
 
                     <Image Source="/Imagenes/FondoInterfaces.png" 
-               Stretch="UniformToFill"
-               Opacity="0"
-               Grid.ColumnSpan="2"/>
+                           Stretch="UniformToFill"
+                           Opacity="0"
+                           Grid.ColumnSpan="2"/>
 
                     <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Grid.Column="0">
+                                VerticalAlignment="Center"
+                                Grid.Column="0">
                         <TextBlock Text="Game Log"
-                   FontSize="40"
-                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
-                   TextAlignment="Center"
-                   FontWeight="DemiBold"
-                   Foreground="Black"/>
+                                   FontSize="40"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                                   TextAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Foreground="Black"/>
                         <TextBlock x:Name="txt_Jugador" Text="Bienvenido jugador"
-                   TextAlignment="Center"
-                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
-                   FontSize="35"
-                   FontWeight="SemiBold"
-                   Foreground="Black"/>
+                                   TextAlignment="Center"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                                   FontSize="35"
+                                   FontWeight="SemiBold"
+                                   Foreground="Black"/>
                     </StackPanel>
 
                     <Image x:Name="img_FotoDePerfil"
-               Grid.Column="1"
-               Margin="2,38,5,0"
-               Width="120"
-               Height="120"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               ClipToBounds="True"
-               Stretch="UniformToFill"/>
+                           Grid.Column="1"
+                           Margin="2,38,5,0"
+                           Width="120"
+                           Height="120"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           ClipToBounds="True"
+                           Stretch="UniformToFill"/>
 
                     <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
                         <TextBlock x:Name="txtbl_JuegosPendientes"
-               FontSize="30"
-               Foreground="Black"
-               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
-               TextAlignment="Center"
-               Margin="35,20"><Run Text="Juegos"/><Run Language="es-mx" Text=" "/><Run Text="por reseñar"/><Run Language="es-mx" Text=" más tarde"/></TextBlock>
+                                   FontSize="30"
+                                   Foreground="Black"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                                   TextAlignment="Center"
+                                   Margin="35,20"><Run Text="Juegos"/><Run Language="es-mx" Text=" "/><Run Text="por reseñar"/><Run Language="es-mx" Text=" más tarde"/></TextBlock>
                         <StackPanel>
                             <TextBlock x:Name="txt_SinJuegos"
-                       Text="No se ha agregado ningún juego para reseñar más tarde :("
-                       FontSize="25"
-                       Foreground="Black"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Center"
-                       TextWrapping="Wrap"
-                       Margin="20"
-                       Visibility="Collapsed"/>
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="107">
+                                       Text="No se ha agregado ningún juego para reseñar más tarde :("
+                                       FontSize="25"
+                                       Foreground="Black"
+                                       TextAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Margin="20"
+                                       Visibility="Collapsed"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="375">
                                 <ScrollViewer.Resources>
                                     <Style TargetType="{x:Type ScrollBar}">
                                         <Setter Property="Foreground" Value="Transparent"/>
@@ -310,7 +310,7 @@
                                 </Button.Triggers>
                             </Button>
 
-                            <Button Style="{StaticResource BotonMenuPrincipal}"
+                            <Button x:Name="btn_MisReseñas" Style="{StaticResource BotonMenuPrincipal}"
                                     Tag="/Imagenes/icono_miReseña.png"
                                     HorizontalContentAlignment="Center"
                                     Click="IrVentanaMisReseñas_Click">
@@ -393,7 +393,7 @@
                             <Button Style="{StaticResource BotonMenuPrincipal}"
                             Tag="/Imagenes/icono_usuarios.png"
                             HorizontalContentAlignment="Center"
-                            Click="IrVentanaSeguidores_Click">
+                            Click="IrVentanaSocial_Click">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <TextBlock x:Name="txb_Social"
@@ -410,7 +410,7 @@
                                             <Storyboard>
                                                 <StringAnimationUsingKeyFrames Storyboard.TargetName="txb_Social"
                                            Storyboard.TargetProperty="Text">
-                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Seguidores"/>
+                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Social"/>
                                                 </StringAnimationUsingKeyFrames>
                                                 <DoubleAnimation Storyboard.TargetName="txb_Social"
                                                                  Storyboard.TargetProperty="Opacity"
