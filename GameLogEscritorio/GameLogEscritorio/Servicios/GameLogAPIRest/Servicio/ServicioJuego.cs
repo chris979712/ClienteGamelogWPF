@@ -1,10 +1,11 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
-using System.Net.Http.Headers;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
@@ -17,8 +18,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> RegistrarJuego(PostJuegoSolicitud datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -45,8 +50,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> RegistrarJuegoFavorito(PostJuegoFavorito datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -73,8 +82,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> RegistrarJuegoPendiente(PostJuegoPendienteSolicitud datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -101,8 +114,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiJuegoRespuesta> BuscarJuegoPorID(int idJuego, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiJuegoRespuesta respuestaJuego = new ApiJuegoRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -128,8 +145,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiJuegoRespuesta> BuscarJuegoPorNombre(string nombre, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiJuegoRespuesta respuestaJuego = new ApiJuegoRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -155,8 +176,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiJuegosRespuesta> ObtenerJuegosPendientes(int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiJuegosRespuesta respuestaJuegos = new ApiJuegosRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -182,8 +207,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiJuegosRespuesta> ObtenerJuegosFavoritos(int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiJuegosRespuesta respuestaJuegos = new ApiJuegosRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -209,8 +238,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> EliminarJuegoPendiente(int idJuego, int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -236,8 +269,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> EliminarJuegoFavorito(int idJuego, int idJugador, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();

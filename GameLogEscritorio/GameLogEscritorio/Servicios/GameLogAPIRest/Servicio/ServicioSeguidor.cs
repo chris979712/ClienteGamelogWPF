@@ -3,6 +3,7 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Social;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -17,8 +18,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> RegistrarNuevoSeguidor(PostSeguidorSolicitud datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -45,8 +50,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiSeguidoresRespuesta> ObtenerJugadoresSeguidores(int idJugadorSeguido, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiSeguidoresRespuesta respuestaSeguidores = new ApiSeguidoresRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -72,8 +81,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiSeguidosRespuesta> ObtenerJugadoresSeguidos(int idJugadorSeguidor, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiSeguidosRespuesta respuestaSeguidos = new ApiSeguidosRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -101,8 +114,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> EliminarJugadorSeguido(int idJugadorSeguidor, int idJugadorSeguido, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuestaBase = new ApiRespuestaBase();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();

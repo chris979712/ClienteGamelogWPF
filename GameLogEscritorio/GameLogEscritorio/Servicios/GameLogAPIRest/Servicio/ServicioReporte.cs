@@ -1,6 +1,7 @@
 ﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -14,8 +15,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiReportesRespuesta> ObtenerReporteTendencias(string fechaInicioBusqueda, string fechaFinBusqueda, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiReportesRespuesta respuestaReportes = new ApiReportesRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
@@ -41,8 +46,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiReportesRespuesta> ObtenerReporteTendenciasRevivalRetro(string fechaInicioBusqueda, string fechaFinBusqueda, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiReportesRespuesta respuestaReportes = new ApiReportesRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 string tokenUsuario = SesionToken.LeerToken();
