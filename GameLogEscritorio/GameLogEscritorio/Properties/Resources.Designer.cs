@@ -178,7 +178,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a No se pudo tener contacto con el servidor, inténtelo más tarde. será redirigido al menú principal..
+        ///   Busca una cadena traducida similar a No se pudo establecer comunicación con el servidor. Por favor, inténtelo más tarde..
         /// </summary>
         public static string BadGetAwayMensaje {
             get {
@@ -192,6 +192,42 @@ namespace GameLogEscritorio.Properties {
         public static string ConfiguracionCanalGRPC {
             get {
                 return ResourceManager.GetString("ConfiguracionCanalGRPC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Está seguro de poner en lista negra al usuario seleccionado?.
+        /// </summary>
+        public static string ConfirmacionBanearUsuario {
+            get {
+                return ResourceManager.GetString("ConfirmacionBanearUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Está seguro de querer eliminar la reseña seleccionada?.
+        /// </summary>
+        public static string ConfirmacionEliminacionReseña {
+            get {
+                return ResourceManager.GetString("ConfirmacionEliminacionReseña", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Está seguro de eliminar al jugador seleccionado de su lista de seguidos?.
+        /// </summary>
+        public static string ConfirmaciónEliminacionSeguido {
+            get {
+                return ResourceManager.GetString("ConfirmaciónEliminacionSeguido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Está seguro de querer eliminar de seguidor al usuario seleccionado?.
+        /// </summary>
+        public static string ConfirmacionEliminarSeguidor {
+            get {
+                return ResourceManager.GetString("ConfirmacionEliminarSeguidor", resourceCulture);
             }
         }
         
@@ -385,7 +421,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia , inténtelo más tarde..
+        ///   Busca una cadena traducida similar a Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia, se mostrarán imagenes predeterminadas..
         /// </summary>
         public static string GRPCServidorNoDisponible {
             get {
@@ -421,7 +457,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Error al procesar la respuesta del Json.
+        ///   Busca una cadena traducida similar a Error al procesar la respuesta obtenida por el servidor.
         /// </summary>
         public static string JsonExcepcion {
             get {
@@ -547,7 +583,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Ha ocurrido un error de red al intentar comunicarse con el servidor de notificaciones. De momento no es posible recibir actualizaciones en tiempo real..
+        ///   Busca una cadena traducida similar a Ha ocurrido un error al conectarse con el servidor de notificaciones. De momento no es posible recibir actualizaciones y notificaciones en tiempo real..
         /// </summary>
         public static string SocketExcepcion {
             get {

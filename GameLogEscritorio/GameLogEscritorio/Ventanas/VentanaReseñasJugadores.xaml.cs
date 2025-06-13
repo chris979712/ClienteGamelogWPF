@@ -131,26 +131,36 @@ namespace GameLogEscritorio.Ventanas
             return fotoEncontrada;
         }
 
-        private async void EliminarReseña_Click(object sender, RoutedEventArgs e)
+        private void EliminarReseña_Click(object sender, RoutedEventArgs e)
         {
             var boton = sender as Button;
             var reseña = boton?.DataContext as ReseñaCompleta;
             if(reseña != null)
             {
-                ApiRespuestaBase apiRespuestaBase = await ServicioReseña.EliminarReseña(reseña.idJuego,reseña.idResenia,apiRestCreadorRespuesta);
-                bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(apiRespuestaBase);
-                if(!esRespuestaCritica)
+                VentanaDeConfirmacion ventanaDeConfirmacion = new VentanaDeConfirmacion(Properties.Resources.ConfirmacionEliminacionReseña, this);
+                bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
+                if (resultadoConfirmacion == true)
                 {
-                    if(apiRespuestaBase.estado == Constantes.CodigoExito)
-                    {
-                        Reseñas.Remove(reseña);
-                    }
+                   EliminarReseña(reseña);
                 }
-                else
+            }
+        }
+
+        private async void EliminarReseña(ReseñaCompleta reseña)
+        {
+            ApiRespuestaBase apiRespuestaBase = await ServicioReseña.EliminarReseña(reseña.idJuego, reseña.idResenia, apiRestCreadorRespuesta);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(apiRespuestaBase);
+            if (!esRespuestaCritica)
+            {
+                if (apiRespuestaBase.estado == Constantes.CodigoExito)
                 {
-                    await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
-                    this.Close();
+                    Reseñas.Remove(reseña);
                 }
+            }
+            else
+            {
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
             }
         }
 

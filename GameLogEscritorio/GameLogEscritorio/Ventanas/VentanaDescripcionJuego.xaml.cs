@@ -26,7 +26,19 @@ namespace GameLogEscritorio.Ventanas
             _juegoObtenido = juegoObtenido!;
             CargarDatosVentana();
             Estaticas.GuardarMedidasUltimaVentana(this);
+            CargarBotonesCorrespondientes();
         }
+
+        private void CargarBotonesCorrespondientes()
+        {
+            if(UsuarioSingleton.Instancia.tipoDeAcceso != Constantes.tipoJugadorPorDefecto)
+            {
+                btn_AñadirAPendientes.Visibility = Visibility.Collapsed;
+                btn_QuitarPendientes.Visibility = Visibility.Collapsed;
+                btn_Reseñar.Visibility = Visibility.Collapsed;
+            }
+        }
+
 
         public void CargarDatosVentana()
         {

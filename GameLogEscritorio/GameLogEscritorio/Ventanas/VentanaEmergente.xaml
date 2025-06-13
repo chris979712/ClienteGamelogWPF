@@ -47,13 +47,12 @@
                                VerticalAlignment="Center" Width="248"/>
                     </StackPanel>
                     <TextBlock x:Name="Txbl_Contenido"
-                           Grid.Row="1"
                            FontSize="18"
                            Foreground="Black"
                            TextWrapping="Wrap"
-                           TextAlignment="Center"
+                           TextAlignment="Justify"
                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
-                           VerticalAlignment="Center" Height="97" Margin="10,0,10,0"/>
+                           VerticalAlignment="Top" Height="134" Margin="10,12,10,0" RenderTransformOrigin="0.509,0.368" Grid.Row="1"/>
 
                     <Button Content="Aceptar"
                     Grid.Row="1"
@@ -64,7 +63,7 @@
                     Height="40"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
-                    Margin="0,150,0,0"
+                    Margin="0,144,0,0"
                     FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                     Click="Aceptar_Click"/>
                 </Grid>
