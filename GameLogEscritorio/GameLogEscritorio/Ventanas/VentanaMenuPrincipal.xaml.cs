@@ -49,9 +49,12 @@ namespace GameLogEscritorio.Ventanas
 
         private void CargarBotonesCorrespondientes()
         {
-            btn_MisReseñas.Visibility = Visibility.Collapsed;
-            txt_SinJuegos.Visibility = Visibility.Collapsed;
-            txtbl_JuegosPendientes.Visibility = Visibility.Collapsed;
+            if(UsuarioSingleton.Instancia.tipoDeAcceso != Constantes.tipoJugadorPorDefecto)
+            {
+                btn_MisReseñas.Visibility = Visibility.Collapsed;
+                txt_SinJuegos.Visibility = Visibility.Collapsed;
+                txtbl_JuegosPendientes.Visibility = Visibility.Collapsed;
+            }
         }
 
         public void DecorarNombre()
