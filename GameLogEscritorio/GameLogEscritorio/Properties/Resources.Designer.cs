@@ -61,7 +61,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost:443.
+        ///   Busca una cadena traducida similar a https://192.168.208.96:443.
         /// </summary>
         public static string ApiGrpcUrl {
             get {
@@ -70,7 +70,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/acceso.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog/acceso.
         /// </summary>
         public static string ApiUrlAcceso {
             get {
@@ -79,7 +79,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog.
         /// </summary>
         public static string ApiUrlBase {
             get {
@@ -88,7 +88,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/juego.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog/juego.
         /// </summary>
         public static string ApiUrlJuego {
             get {
@@ -97,7 +97,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/jugador.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog/jugador.
         /// </summary>
         public static string ApiUrlJugador {
             get {
@@ -106,7 +106,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/login.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog/login.
         /// </summary>
         public static string ApiUrlLogin {
             get {
@@ -115,7 +115,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/MeGusta.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog/MeGusta.
         /// </summary>
         public static string ApiUrlMeGusta {
             get {
@@ -124,7 +124,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/notificacion.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog/notificacion.
         /// </summary>
         public static string ApiURLNotificacion {
             get {
@@ -133,7 +133,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/reporte.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog/reporte.
         /// </summary>
         public static string ApiUrlReporte {
             get {
@@ -142,7 +142,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/resena.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog/resena.
         /// </summary>
         public static string ApiUrlResena {
             get {
@@ -151,7 +151,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost/gamelogapi/gamelog/seguidor.
+        ///   Busca una cadena traducida similar a https://192.168.208.96/gamelogapi/gamelog/seguidor.
         /// </summary>
         public static string ApiUrlSeguidor {
             get {
@@ -178,11 +178,20 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a No se pudo tener contacto con el servidor, inténtelo más tarde. será redirigido al menú principal..
+        ///   Busca una cadena traducida similar a No se pudo establecer comunicación con el servidor. Por favor, inténtelo más tarde..
         /// </summary>
         public static string BadGetAwayMensaje {
             get {
                 return ResourceManager.GetString("BadGetAwayMensaje", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Bienvenido .
+        /// </summary>
+        public static string Bienvenido {
+            get {
+                return ResourceManager.GetString("Bienvenido", resourceCulture);
             }
         }
         
@@ -192,6 +201,42 @@ namespace GameLogEscritorio.Properties {
         public static string ConfiguracionCanalGRPC {
             get {
                 return ResourceManager.GetString("ConfiguracionCanalGRPC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Está seguro de poner en lista negra al usuario seleccionado?.
+        /// </summary>
+        public static string ConfirmacionBanearUsuario {
+            get {
+                return ResourceManager.GetString("ConfirmacionBanearUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Está seguro de querer eliminar la reseña seleccionada?.
+        /// </summary>
+        public static string ConfirmacionEliminacionReseña {
+            get {
+                return ResourceManager.GetString("ConfirmacionEliminacionReseña", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Está seguro de eliminar al jugador seleccionado de su lista de seguidos?.
+        /// </summary>
+        public static string ConfirmaciónEliminacionSeguido {
+            get {
+                return ResourceManager.GetString("ConfirmaciónEliminacionSeguido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Está seguro de querer eliminar de seguidor al usuario seleccionado?.
+        /// </summary>
+        public static string ConfirmacionEliminarSeguidor {
+            get {
+                return ResourceManager.GetString("ConfirmacionEliminarSeguidor", resourceCulture);
             }
         }
         
@@ -385,7 +430,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia , inténtelo más tarde..
+        ///   Busca una cadena traducida similar a Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia, se mostrarán imagenes predeterminadas..
         /// </summary>
         public static string GRPCServidorNoDisponible {
             get {
@@ -421,7 +466,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Error al procesar la respuesta del Json.
+        ///   Busca una cadena traducida similar a Error al procesar la respuesta obtenida por el servidor.
         /// </summary>
         public static string JsonExcepcion {
             get {
@@ -547,7 +592,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Ha ocurrido un error de red al intentar comunicarse con el servidor de notificaciones. De momento no es posible recibir actualizaciones en tiempo real..
+        ///   Busca una cadena traducida similar a Ha ocurrido un error al conectarse con el servidor de notificaciones. De momento no es posible recibir actualizaciones y notificaciones en tiempo real..
         /// </summary>
         public static string SocketExcepcion {
             get {
@@ -556,7 +601,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://localhost:80.
+        ///   Busca una cadena traducida similar a http://192.168.208.96:80.
         /// </summary>
         public static string SocketURL {
             get {

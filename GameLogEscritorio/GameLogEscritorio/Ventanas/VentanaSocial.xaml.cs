@@ -33,23 +33,33 @@ namespace GameLogEscritorio.Ventanas
             this.Close();
         }
 
-        private async void btn_eliminarSeguidor(object sender, RoutedEventArgs e)
+        private void btn_eliminarSeguidor(object sender, RoutedEventArgs e)
         {
             var boton = sender as Button;
             var informacionJugador = boton?.DataContext as JugadorDetalle;
             if (informacionJugador != null)
             {
-                ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(informacionJugador.idUsuario, UsuarioSingleton.Instancia.idJugador, apiRestCreadorRespuesta);
-                bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
-                if (!esRespuestaCritica)
+                VentanaDeConfirmacion ventanaDeConfirmacion = new VentanaDeConfirmacion(Properties.Resources.ConfirmacionEliminarSeguidor, this);
+                bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
+                if (resultadoConfirmacion == true)
                 {
-                    ActualizarListaDeSeguidores(respuestaBase, informacionJugador.idUsuario);
+                    EliminarSeguidor(informacionJugador);
                 }
-                else
-                {
-                    await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
-                    this.Close();
-                }
+            }
+        }
+
+        private async void EliminarSeguidor(JugadorDetalle informacionJugador)
+        {
+            ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(informacionJugador.idUsuario, UsuarioSingleton.Instancia.idJugador, apiRestCreadorRespuesta);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
+            if (!esRespuestaCritica)
+            {
+                ActualizarListaDeSeguidores(respuestaBase, informacionJugador.idUsuario);
+            }
+            else
+            {
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
             }
         }
 
@@ -65,25 +75,36 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async void btn_eliminarSeguido(object sender, RoutedEventArgs e)
+        private void btn_eliminarSeguido(object sender, RoutedEventArgs e)
         {
             var boton = sender as Button;
             var informacionJugador = boton?.DataContext as JugadorDetalle;
             if (informacionJugador != null)
             {
-                ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador,informacionJugador.idUsuario, apiRestCreadorRespuesta);
-                bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
-                if (!esRespuestaCritica)
+                VentanaDeConfirmacion ventanaDeConfirmacion = new VentanaDeConfirmacion(Properties.Resources.ConfirmaciónEliminacionSeguido, this);
+                bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
+                if (resultadoConfirmacion == true)
                 {
-                    ActualizarListaDeSeguidos(respuestaBase, informacionJugador.idUsuario);
-                }
-                else
-                {
-                    await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
-                    this.Close();
+                    EliminarSeguido(informacionJugador);
                 }
             }
         }
+
+        private async void EliminarSeguido(JugadorDetalle informacionJugador)
+        {
+            ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, informacionJugador.idUsuario, apiRestCreadorRespuesta);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
+            if (!esRespuestaCritica)
+            {
+                ActualizarListaDeSeguidos(respuestaBase, informacionJugador.idUsuario);
+            }
+            else
+            {
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
+            }
+        }
+
 
         private void ActualizarListaDeSeguidos(ApiRespuestaBase apiRespuestaBase, int idUsuario)
         {

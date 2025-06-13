@@ -5,11 +5,9 @@ using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Notificacion;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Reseñas;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
-using GameLogEscritorio.Servicios.ServicioNotificacion;
 using GameLogEscritorio.Utilidades;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -30,7 +28,7 @@ namespace GameLogEscritorio.Ventanas
         public MenuPrincipal()
         {
             InitializeComponent();
-            txt_Jugador.Text = "Bienvenido " + UsuarioSingleton.Instancia.nombreDeUsuario!.ToString();
+            txt_Jugador.Text = Properties.Resources.Bienvenido + UsuarioSingleton.Instancia.nombreDeUsuario!.ToString();
             if (Estaticas.juegosPendientes.Count >= 1)
             {
                 ic_JuegosPendientes.ItemsSource = Estaticas.juegosPendientes;
@@ -46,6 +44,14 @@ namespace GameLogEscritorio.Ventanas
             DecorarNombre();
             Estaticas.GuardarMedidasUltimaVentana(this);
             pnl_Notificaciones.Margin = new Thickness(0, 0, -350, 0);
+            CargarBotonesCorrespondientes();
+        }
+
+        private void CargarBotonesCorrespondientes()
+        {
+            btn_MisReseñas.Visibility = Visibility.Collapsed;
+            txt_SinJuegos.Visibility = Visibility.Collapsed;
+            txtbl_JuegosPendientes.Visibility = Visibility.Collapsed;
         }
 
         public void DecorarNombre()
@@ -159,7 +165,7 @@ namespace GameLogEscritorio.Ventanas
             this.Close();
         }
 
-        public void IrVentanaSeguidores_Click(object sender,RoutedEventArgs e)
+        public void IrVentanaSocial_Click(object sender,RoutedEventArgs e)
         {
             VentanaSocial ventanaMisSeguidores = new VentanaSocial();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaMisSeguidores);
