@@ -315,4 +315,7 @@
   <data name="ConfirmacionBanearUsuario" xml:space="preserve">
     <value>¿Está seguro de poner en lista negra al usuario seleccionado?</value>
   </data>
+  <data name="Bienvenido" xml:space="preserve">
+    <value>Bienvenido </value>
+  </data>
 </root>

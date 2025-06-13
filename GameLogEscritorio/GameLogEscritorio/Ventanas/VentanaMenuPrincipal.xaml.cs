@@ -28,7 +28,7 @@ namespace GameLogEscritorio.Ventanas
         public MenuPrincipal()
         {
             InitializeComponent();
-            txt_Jugador.Text = "Bienvenido " + UsuarioSingleton.Instancia.nombreDeUsuario!.ToString();
+            txt_Jugador.Text = Properties.Resources.Bienvenido + UsuarioSingleton.Instancia.nombreDeUsuario!.ToString();
             if (Estaticas.juegosPendientes.Count >= 1)
             {
                 ic_JuegosPendientes.ItemsSource = Estaticas.juegosPendientes;

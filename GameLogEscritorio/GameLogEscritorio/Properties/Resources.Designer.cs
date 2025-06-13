@@ -187,6 +187,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Bienvenido .
+        /// </summary>
+        public static string Bienvenido {
+            get {
+                return ResourceManager.GetString("Bienvenido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport.
         /// </summary>
         public static string ConfiguracionCanalGRPC {
