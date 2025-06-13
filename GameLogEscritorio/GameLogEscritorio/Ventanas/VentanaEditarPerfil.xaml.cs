@@ -59,9 +59,13 @@ namespace GameLogEscritorio.Ventanas
                 if (ValidarDatos())
                 {
 
-                    if (imagenASubir.Length!=UsuarioSingleton.Instancia.fotoDePerfil!.Length && await RealizarActualizacionFotoDePerfil())
+                    if (imagenASubir.Length!=UsuarioSingleton.Instancia.fotoDePerfil!.Length)
                     {
-                        await RealizarActualizacionPerfil();
+                        bool resultadoActualizacionPerfil = await RealizarActualizacionFotoDePerfil();
+                        if (resultadoActualizacionPerfil)
+                        {
+                            await RealizarActualizacionPerfil();
+                        } 
                     }
                     else
                     {

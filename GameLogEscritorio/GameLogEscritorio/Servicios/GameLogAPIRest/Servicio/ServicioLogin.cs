@@ -1,10 +1,11 @@
-﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Login;
+﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Login;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
+using GameLogEscritorio.Utilidades;
+using Newtonsoft.Json;
+using System.Net;
 using System.Net.Http;
 using System.Text;
-using Newtonsoft.Json;
-using GameLogEscritorio.Utilidades;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.ApiResponse;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
 {
@@ -16,8 +17,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiLoginRespuesta> IniciarSesion(PostLoginSolicitud datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiLoginRespuesta respuesta = new ApiLoginRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 try
@@ -36,6 +41,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                     }
                     respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<ApiLoginRespuesta>(mensajeObtenido);
                 }
+                
                 catch(Exception excepcion)
                 {
                     respuesta = ClasificadorExcepcion.DeterminarTipoExcepcionAPIRest<ApiLoginRespuesta>(excepcion);
@@ -47,8 +53,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<APIRecuperacionDeCuentaRespuesta> RecuperacionDeCuenta(PostRecuperacionDeCuentaSolicitud datosSolicitud,IApiRestRespuestaFactory apiRespuestaFactory)
         {
             APIRecuperacionDeCuentaRespuesta respuesta = new APIRecuperacionDeCuentaRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 try
@@ -73,8 +83,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> RecuperacionDeCuentaValidacion(PostRecuperacionDeCuentaValidacion datosSolicitud, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuesta = new ApiLoginRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 try
@@ -99,8 +113,12 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
         public static async Task<ApiRespuestaBase> CerrarSesion(string correo, IApiRestRespuestaFactory apiRespuestaFactory)
         {
             ApiRespuestaBase respuesta = new ApiLoginRespuesta();
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             using (var clienteHttp = new HttpClient(handler))
             {
                 try
