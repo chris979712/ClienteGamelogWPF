@@ -112,6 +112,7 @@ namespace GameLogEscritorio.Ventanas
 
         public async void IrVentanaMisReseñas_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiReseñaPersonalRespuesta respuestaReseñasObtenidas = await ServicioReseña.ObtenerReseñasDeUnJugador(UsuarioSingleton.Instancia.idJugador, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReseñasObtenidas);
             if (!esRespuestaCritica)
@@ -120,10 +121,12 @@ namespace GameLogEscritorio.Ventanas
                 {
                     List<ReseñaPersonal> reseñasObtenidas = respuestaReseñasObtenidas.reseñasPersonales!;
                     BuscarJuegosReseñadosPorUsuarioUsuario(reseñasObtenidas);
-                }  
+                }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
                 this.Close();
             }
@@ -199,6 +202,7 @@ namespace GameLogEscritorio.Ventanas
 
         private void VerNotificaciones_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             if (notificacionesVisible)
             {
                 CerrarPanelNotificaciones();
@@ -207,6 +211,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 AbrirPanelNotificaciones();
             }
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
         }
 
         private void AbrirPanelNotificaciones()
@@ -288,6 +293,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 if(button != null)
                 {
+                    grd_OverlayCarga.Visibility = Visibility.Visible;
                     ApiRespuestaBase apiRespuestaBase = await ServicioNotificaciones.EliminarNotificacion(notificacionObtenida.Id, apiRestCreadorRespuesta);
                     bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(apiRespuestaBase);
                     if (!esRespuestaCritica)
@@ -300,9 +306,11 @@ namespace GameLogEscritorio.Ventanas
                                 Estaticas.notificaciones.Remove(notificacionAEliminar);
                             }
                         }
+                        grd_OverlayCarga.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
+                        grd_OverlayCarga.Visibility = Visibility.Collapsed;
                         await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
                         this.Close();
                     }
@@ -313,7 +321,9 @@ namespace GameLogEscritorio.Ventanas
 
         public async void CerrarSesion_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             await ManejadorSesion.RegresarInicioDeSesionUsuario();
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }

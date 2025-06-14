@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameLogEscritorio.Ventanas"
         xmlns:ext="clr-namespace:GameLogEscritorio.Extensiones"
+        xmlns:wpfGif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
         Title="Buscar Jugador" d:DesignHeight="600" d:DesignWidth="920" Background="Black"
         WindowStartupLocation="CenterScreen"
@@ -224,6 +225,17 @@
                     </Border>
                 </Grid>
             </Border>
+            <Grid x:Name="grd_OverlayCarga"
+                  Background="Transparent"
+                  Visibility="Collapsed"
+                  IsHitTestVisible="True"
+                  Panel.ZIndex="999">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image Width="80" Height="80" wpfGif:ImageBehavior.AnimatedSource="/Imagenes/carga.gif" />
+                    <TextBlock Text="Cargando..." Foreground="Black" FontSize="14" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                    HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Viewbox>
 </Window>

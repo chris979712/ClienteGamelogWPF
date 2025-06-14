@@ -26,10 +26,12 @@ namespace GameLogEscritorio.Ventanas
             CambiarColorCampos();
             if(ValidarCampos())
             {
+                grd_OverlayCarga.Visibility = Visibility.Visible; 
                 PostAccesoSolicitud datosSolicitud = CrearSolicitudAcceso();
                 ApiRespuestaBase respuestaBase = await ServicioAcceso.CrearCuenta(datosSolicitud,apiRestCreadorRespuesta);
                 if(respuestaBase.estado == Constantes.CodigoExito)
                 {
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuestaBase.mensaje!, respuestaBase.estado);
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                     VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
@@ -38,6 +40,7 @@ namespace GameLogEscritorio.Ventanas
                 }
                 else
                 {
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaBase.mensaje!, respuestaBase.estado);
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }

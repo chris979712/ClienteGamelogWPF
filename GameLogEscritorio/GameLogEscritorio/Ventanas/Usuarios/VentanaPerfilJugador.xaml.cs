@@ -126,6 +126,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void Seguir_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             PostSeguidorSolicitud postSeguidorSolicitud = new PostSeguidorSolicitud()
             {
                 idJugadorSeguidor = UsuarioSingleton.Instancia.idJugador,
@@ -137,11 +138,13 @@ namespace GameLogEscritorio.Ventanas
             {
                 btn_Seguir.Visibility = Visibility.Collapsed;
                 btn_DejarDeSeguir.Visibility = Visibility.Visible;
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 Estaticas.idJugadoresSeguido.Add(perfilJugador.idJugador);
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -158,6 +161,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void PonerEnListaNegraUsuarioSeleccionado()
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             PatchAccesoSolicitud datosSolicitud = new PatchAccesoSolicitud()
             {
                 estadoAcceso = "Baneado"
@@ -168,16 +172,19 @@ namespace GameLogEscritorio.Ventanas
             {
                 btn_Banear.Visibility = Visibility.Collapsed;
                 btn_Desbanear.Visibility = Visibility.Visible;
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
 
         private async void Desbanear_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             PatchAccesoSolicitud datosSolicitud = new PatchAccesoSolicitud()
             {
                 estadoAcceso = "Desbaneado"
@@ -188,10 +195,12 @@ namespace GameLogEscritorio.Ventanas
             {
                 btn_Banear.Visibility = Visibility.Visible;
                 btn_Desbanear.Visibility = Visibility.Collapsed;
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -208,17 +217,20 @@ namespace GameLogEscritorio.Ventanas
 
         private async void DejarDeSeguirUsuario()
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, perfilJugador.idJugador, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!esRespuestaCritica)
             {
                 btn_Seguir.Visibility = Visibility.Visible;
                 btn_DejarDeSeguir.Visibility = Visibility.Collapsed;
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 Estaticas.idJugadoresSeguido.Remove(perfilJugador.idJugador);
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
