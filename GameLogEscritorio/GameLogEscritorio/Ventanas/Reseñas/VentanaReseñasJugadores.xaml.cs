@@ -38,6 +38,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void MostrarTodos_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             visualizacionDeTodasLasReseñas = true;
             Reseñas.Clear();
             txbl_TipoDeReseñas.Text = Properties.Resources.ReseñasGlobales;
@@ -50,16 +51,19 @@ namespace GameLogEscritorio.Ventanas
                 {
                     await CargarReseñasObtenidas(reseñasJugadores.reseñaJugadores!);
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
 
         private async void MostrarSeguidos_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             visualizacionDeTodasLasReseñas = false;
             Reseñas.Clear();
             txbl_TipoDeReseñas.Text = Properties.Resources.ReseñasSeguido;
@@ -72,10 +76,12 @@ namespace GameLogEscritorio.Ventanas
                 {
                     await CargarReseñasObtenidas(reseñasJugadores.reseñaJugadores!);
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -148,6 +154,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void EliminarReseña(ReseñaCompleta reseña)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase apiRespuestaBase = await ServicioReseña.EliminarReseña(reseña.idJuego, reseña.idResenia, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(apiRespuestaBase);
             if (!esRespuestaCritica)
@@ -156,10 +163,12 @@ namespace GameLogEscritorio.Ventanas
                 {
                     Reseñas.Remove(reseña);
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -190,16 +199,19 @@ namespace GameLogEscritorio.Ventanas
                 idResena = reseña.idResenia,
                 nombreJuego = _modeloJuego.name
             };
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioMeGusta.EliminarMeGustaAReseña(reseña.idJuego,deleteMeGustaSolicitud,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
             if (!esRespuestaCritica)
             {
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 reseña.existeMeGustaReseña = false;
                 reseña.totalDeMeGustaReseña--;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -214,26 +226,31 @@ namespace GameLogEscritorio.Ventanas
                 idJugadorAutor = reseña.idJugador,
                 nombreJuego = reseña.nombre
             };
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioMeGusta.RegistrarMeGustaAReseña(datosSolicitud,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
             if (!esRespuestaCritica)
             {
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 reseña.existeMeGustaReseña = true;
                 reseña.totalDeMeGustaReseña++;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
 
         private async void Regresar_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             await ServicioNotificacion.DesuscribirseCanalInteraccionReseñasDeJuego(_modeloJuego.id);
             Reseñas.Clear();
             VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuego);
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             this.Close();
         }
     }

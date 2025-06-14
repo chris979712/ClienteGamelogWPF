@@ -22,8 +22,10 @@ namespace GameLogEscritorio.Ventanas
             {
                 if (reseña != null)
                 {
+                    grd_OverlayCarga.Visibility = Visibility.Visible;
                     VentanaMiReseña ventanaReseña = new VentanaMiReseña(reseña);
                     AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReseña);
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                     this.Close();
                 }
             }
@@ -31,8 +33,10 @@ namespace GameLogEscritorio.Ventanas
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             MenuPrincipal menuPrincipal = new MenuPrincipal();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }

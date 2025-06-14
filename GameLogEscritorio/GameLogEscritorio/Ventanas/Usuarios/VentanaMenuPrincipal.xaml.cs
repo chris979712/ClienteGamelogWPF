@@ -22,6 +22,7 @@ namespace GameLogEscritorio.Ventanas
     {
 
         private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+
         private bool notificacionesVisible = false;
 
 
@@ -91,22 +92,28 @@ namespace GameLogEscritorio.Ventanas
 
         public void IrVentanaEditarPerfil_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaEditarPerfil ventanaEditarPerfil = new VentanaEditarPerfil();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.ActualWidth, this.ActualHeight, ventanaEditarPerfil);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
         public void IrVentanaBuscarJuego_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaBuscarJuego ventanaBuscarJuego = new VentanaBuscarJuego();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJuego);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
         public void IrVentanaBuscarUsuario_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaBuscarJugador ventanaBuscarJugador = new VentanaBuscarJugador();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJugador);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
@@ -166,15 +173,19 @@ namespace GameLogEscritorio.Ventanas
 
         public void IrVentanaTendencias_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaReporteTendencias ventanaReporteTendencias = new VentanaReporteTendencias();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReporteTendencias);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
         public void IrVentanaSocial_Click(object sender,RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaSocial ventanaMisSeguidores = new VentanaSocial();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaMisSeguidores);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 

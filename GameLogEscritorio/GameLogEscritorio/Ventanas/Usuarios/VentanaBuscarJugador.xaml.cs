@@ -94,7 +94,7 @@ namespace GameLogEscritorio.Ventanas
             grd_resultadoJugador.Visibility = Visibility.Visible;
             if (jugadorObtenido.nombreDeUsuario!.Equals(UsuarioSingleton.Instancia.nombreDeUsuario))
             {
-                txbl_nombreJugador.Text = jugadorObtenido.nombreDeUsuario + " (TÚ)";
+                txbl_nombreJugador.Text = jugadorObtenido.nombreDeUsuario + Properties.Resources.Tu;
                 CargarNombreEstetico(jugadorObtenido);
             }
             else
@@ -110,7 +110,7 @@ namespace GameLogEscritorio.Ventanas
             string nombreDeUsuario = txbl_nombreJugador.Text;
             if (!jugadorObtenido.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
             {
-                txbl_nombreJugador.Text = nombreDeUsuario + " ADMIN";
+                txbl_nombreJugador.Text = nombreDeUsuario +Properties.Resources.Admin;
                 LinearGradientBrush purpuraLiderazgo = new LinearGradientBrush();
                 purpuraLiderazgo.StartPoint = new Point(0, 0);
                 purpuraLiderazgo.EndPoint = new Point(1, 0);

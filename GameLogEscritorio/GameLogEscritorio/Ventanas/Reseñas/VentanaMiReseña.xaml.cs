@@ -25,8 +25,10 @@ namespace GameLogEscritorio.Ventanas
 
         private void Regresar_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaHistorialDeReseñas ventanaHistorialDeReseñas = new VentanaHistorialDeReseñas(Estaticas.reseñasJugador);
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaHistorialDeReseñas);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 

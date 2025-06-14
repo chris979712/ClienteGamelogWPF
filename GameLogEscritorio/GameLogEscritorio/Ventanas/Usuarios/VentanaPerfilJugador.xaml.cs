@@ -164,7 +164,7 @@ namespace GameLogEscritorio.Ventanas
             grd_OverlayCarga.Visibility = Visibility.Visible;
             PatchAccesoSolicitud datosSolicitud = new PatchAccesoSolicitud()
             {
-                estadoAcceso = "Baneado"
+                estadoAcceso = Constantes.Baneado
             };
             ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, perfilJugador.idCuenta, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
@@ -187,7 +187,7 @@ namespace GameLogEscritorio.Ventanas
             grd_OverlayCarga.Visibility = Visibility.Visible;
             PatchAccesoSolicitud datosSolicitud = new PatchAccesoSolicitud()
             {
-                estadoAcceso = "Desbaneado"
+                estadoAcceso = Constantes.Desbaneado
             };
             ApiRespuestaBase respuestaBase = await ServicioAcceso.CambiarEstadoDeAcceso(datosSolicitud, perfilJugador.idCuenta,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
@@ -259,6 +259,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class PerfilJugador
     {
         public int idCuenta { get; set; }
+
         public int idJugador { get; set; }
 
         public string? nombre { get; set; }

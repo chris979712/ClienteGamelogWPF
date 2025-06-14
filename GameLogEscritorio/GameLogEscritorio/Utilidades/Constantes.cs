@@ -35,5 +35,9 @@
         public const string AccionResenaQuitarMeGusta = "Quitar_MeGusta";
         public const string AccionResenaEliminarResena = "Eliminar_resena";
         public const string AccionResenaInsertarResena = "Registrar_resena";
+        public const string Menu = "Menu";
+        public const string Descripcion = "Descripcion";
+        public const string Baneado = "Baneado";
+        public const string Desbaneado = "Desbaneado";
     }
 }

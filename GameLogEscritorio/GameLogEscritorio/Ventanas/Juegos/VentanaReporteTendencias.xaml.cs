@@ -37,6 +37,7 @@ namespace GameLogEscritorio.Ventanas
             string? fechaFinBusquedaFormateada = fechaFinBusqueda?.ToString("yyyy-MM-dd");
             if (ValidarDatos(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!))
             {
+                grd_OverlayCarga.Visibility = Visibility.Visible;
                 ApiReportesRespuesta respuestaReportesRevivalRetro = await ServicioReporte.ObtenerReporteTendenciasRevivalRetro(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!,apiRestCreadorRespuesta);
                 bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReportesRevivalRetro);
                 if (!esRespuestaCritica)
@@ -46,10 +47,12 @@ namespace GameLogEscritorio.Ventanas
                         List<ReporteJuegos> reportesObtenidos = respuestaReportesRevivalRetro.juegos!;
                         ActualizarDatosGraficaReseñas(reportesObtenidos, Properties.Resources.DescripcionRevivalRetro,"Reseña revival retro");
                     }
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                     this.Close();
                 }
             }
@@ -69,6 +72,7 @@ namespace GameLogEscritorio.Ventanas
             string? fechaFinBusquedaFormateada = fechaFinBusqueda?.ToString("yyyy-MM-dd");
             if (ValidarDatos(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!))
             {
+                grd_OverlayCarga.Visibility = Visibility.Visible;
                 ApiReportesRespuesta respuestaReportesTendencias = await ServicioReporte.ObtenerReporteTendencias(fechaInicioBusquedaFormateada!, fechaFinBusquedaFormateada!,apiRestCreadorRespuesta);
                 bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaReportesTendencias);
                 if (!esRespuestaCritica)
@@ -78,10 +82,12 @@ namespace GameLogEscritorio.Ventanas
                         List<ReporteJuegos> reportesObtenidosTendencias = respuestaReportesTendencias.juegos!;
                         ActualizarDatosGraficaReseñas(reportesObtenidosTendencias, Properties.Resources.DescripcionTendencias,"Reseña tendencias");
                     }
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                     this.Close();
                 }
             }
@@ -161,8 +167,10 @@ namespace GameLogEscritorio.Ventanas
 
         private void BtnRegresar_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             MenuPrincipal menuPrincipal = new MenuPrincipal();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 

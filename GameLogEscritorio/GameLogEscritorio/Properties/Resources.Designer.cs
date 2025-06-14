@@ -61,6 +61,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a ADMIN.
+        /// </summary>
+        public static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a https://192.168.208.245:443.
         /// </summary>
         public static string ApiGrpcUrl {
@@ -318,6 +327,24 @@ namespace GameLogEscritorio.Properties {
         public static string ErrorEnLaCargaDatosUsuario {
             get {
                 return ResourceManager.GetString("ErrorEnLaCargaDatosUsuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a  /Imagenes/Iconos/estrella_llena.png.
+        /// </summary>
+        public static string EstrellaLlena {
+            get {
+                return ResourceManager.GetString("EstrellaLlena", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a /Imagenes/Iconos/estrella_vacia.png.
+        /// </summary>
+        public static string EstrellaVacia {
+            get {
+                return ResourceManager.GetString("EstrellaVacia", resourceCulture);
             }
         }
         
@@ -669,6 +696,15 @@ namespace GameLogEscritorio.Properties {
         public static string TituloSocketExcepcion {
             get {
                 return ResourceManager.GetString("TituloSocketExcepcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a  (Tú).
+        /// </summary>
+        public static string Tu {
+            get {
+                return ResourceManager.GetString("Tu", resourceCulture);
             }
         }
         

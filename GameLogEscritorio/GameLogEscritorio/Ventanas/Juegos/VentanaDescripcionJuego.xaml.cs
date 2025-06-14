@@ -79,6 +79,7 @@ namespace GameLogEscritorio.Ventanas
                 idJugador = UsuarioSingleton.Instancia.idJugador,
                 idJuego = _juegoObtenido.id
             };
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioJuego.RegistrarJuegoPendiente(datosSolicitud,apiRestCreadorRespuesta);
             bool sinAcceso = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!sinAcceso)
@@ -98,10 +99,12 @@ namespace GameLogEscritorio.Ventanas
                         rating = _juegoObtenido.rating
                     });
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
             
@@ -109,6 +112,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void QuitarListaPendientes_Click(object sender, EventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioJuego.EliminarJuegoPendiente(_juegoObtenido.id, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool sinAcceso = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!sinAcceso)
@@ -123,10 +127,12 @@ namespace GameLogEscritorio.Ventanas
                         Estaticas.juegosPendientes.Remove(juegoAEliminar);
                     }
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -138,6 +144,7 @@ namespace GameLogEscritorio.Ventanas
                 idJuego = _juegoObtenido.id,
                 idJugador = UsuarioSingleton.Instancia.idJugador
             };
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioJuego.RegistrarJuegoFavorito(solicitud, apiRestCreadorRespuesta);
             bool sinAcceso = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if (!sinAcceso)
@@ -153,16 +160,19 @@ namespace GameLogEscritorio.Ventanas
                         fechaDeLanzamiento = _juegoObtenido.released
                     });
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }  
         }
 
         private async void ListaQuitarFavoritos_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioJuego.EliminarJuegoFavorito(_juegoObtenido.id, UsuarioSingleton.Instancia.idJugador,apiRestCreadorRespuesta);
             bool sinAcceso = ManejadorRespuestas.ManejarRespuestasBase(respuestaBase);
             if(!sinAcceso)
@@ -177,10 +187,12 @@ namespace GameLogEscritorio.Ventanas
                         Estaticas.juegosFavoritos.Remove(juegoAEliminar);
                     }
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -188,30 +200,38 @@ namespace GameLogEscritorio.Ventanas
 
         private async void VerReseñas_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             await ServicioNotificacion.SuscribirseCanalInteraccionReseñasDeJuego(_juegoObtenido.id);
             VentanaReseñasJugadores ventanaReseñasJugadores = new VentanaReseñasJugadores(_juegoObtenido);
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReseñasJugadores);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
         private void Reseñar_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaReseñarJuego ventanaReseñarJuego = new VentanaReseñarJuego(_juegoObtenido,"Descripcion");
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReseñarJuego);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
         private void Regresar_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaBuscarJuego ventanaBuscarJuego = new VentanaBuscarJuego();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJuego);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
         private void Salir_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaBuscarJuego ventanaBuscarJuego = new VentanaBuscarJuego();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJuego);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }
