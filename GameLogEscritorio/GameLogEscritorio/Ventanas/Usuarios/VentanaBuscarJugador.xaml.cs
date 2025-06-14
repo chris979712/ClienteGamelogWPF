@@ -53,6 +53,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async Task BuscarJugador()
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiJugadorRespuesta jugadorRespuesta = await ServicioJugador.ObtenerJugadorPorNombreDeUsuario(txb_Busqueda.Text,apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(jugadorRespuesta);
             if (!esRespuestaCritica)
@@ -63,10 +64,12 @@ namespace GameLogEscritorio.Ventanas
                     _fotoDePerfilJugador = await ObtenerFotoDePerfilJugador(_PerfilJugador.foto!);
                     CargarDatosJugador(_PerfilJugador);
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -155,8 +158,10 @@ namespace GameLogEscritorio.Ventanas
 
         private void Regresar_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             MenuPrincipal menuPrincipal = new MenuPrincipal();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
@@ -170,12 +175,12 @@ namespace GameLogEscritorio.Ventanas
 
         private async void Detalles_Click(object sender, RoutedEventArgs e)
         {
-            BloquearBotones();
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ObservableCollection<JuegoCompleto> juegosFavoritos = await ServicioBuscarJuego.ObtenerJuegosFavoritosJugador(_PerfilJugador.idJugador);
             bool errorAlObtenerJuegos = juegosFavoritos.Count >= 1 && (juegosFavoritos[0].idJuego == Constantes.CodigoErrorSolicitud || 
                                         juegosFavoritos[0].idJuego == Constantes.CodigoErrorServidor || juegosFavoritos[0].idJuego == Constantes.ErrorEnLaOperacion ||
                                         juegosFavoritos[0].idJuego == Constantes.CodigoErrorAcceso);
-            DesbloquearBotones();
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             if (errorAlObtenerJuegos)
             {
                 if(juegosFavoritos[0].idJuego == Constantes.CodigoErrorAcceso){
@@ -206,18 +211,6 @@ namespace GameLogEscritorio.Ventanas
                 AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaPerfilJugador);
                 this.Close();
             }
-        }
-
-        public void BloquearBotones()
-        {
-            btn_Buscar.IsEnabled = false;
-            btn_VerPerfil.IsEnabled = false;
-        }
-
-        public void DesbloquearBotones()
-        {
-            btn_Buscar.IsEnabled = true;
-            btn_VerPerfil.IsEnabled = true;
         }
 
         private void Salir_Click(object sender, RoutedEventArgs e)

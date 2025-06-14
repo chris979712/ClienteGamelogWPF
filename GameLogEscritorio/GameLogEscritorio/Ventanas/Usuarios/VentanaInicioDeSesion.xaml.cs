@@ -38,6 +38,7 @@ namespace GameLogEscritorio.Ventanas
                     contrasenia = contraseniaHasheada,
                     tipoDeUsuario = Properties.Resources.tipoDeUsuarioPorDefecto.ToString()
                 };
+                grd_OverlayCarga.Visibility = Visibility.Visible;
                 var respuesta = await ServicioLogin.IniciarSesion(datosSolicitud,apiRestCreadorRespuesta);
                 if (respuesta.estado == 200)
                 {
@@ -53,6 +54,7 @@ namespace GameLogEscritorio.Ventanas
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, respuesta.estado);
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {

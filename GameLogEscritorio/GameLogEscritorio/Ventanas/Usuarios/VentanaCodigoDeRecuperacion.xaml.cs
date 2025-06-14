@@ -31,6 +31,7 @@ namespace GameLogEscritorio.Ventanas
             CambiarColorCampos();
             if (ValidarCodigoIngresado())
             {
+                grd_OverlayCarga.Visibility = Visibility.Visible;
                 PostRecuperacionDeCuentaValidacion datosSolicitud = new PostRecuperacionDeCuentaValidacion()
                 {
                     codigo = int.Parse(txb_Codigo.Text),
@@ -38,6 +39,7 @@ namespace GameLogEscritorio.Ventanas
                     tipoDeUsuario = Constantes.tipoJugadorPorDefecto
                 };
                 ApiRespuestaBase resultado = await ServicioLogin.RecuperacionDeCuentaValidacion(datosSolicitud,apiRestCreadorRespuesta);
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 if (resultado.estado == Constantes.CodigoExito)
                 {
                     grd_Codigo.Visibility = Visibility.Collapsed;
@@ -80,6 +82,7 @@ namespace GameLogEscritorio.Ventanas
             CambiarColorCampos();
             if (ValidarContraseniaIngresada())
             {
+                grd_OverlayCarga.Visibility = Visibility.Visible;
                 string contraseniaNuevaHasheada = Encriptador.hasheoA256(pb_NuevaContrasenia.Password);
                 PutAccesoSolicitud datosSolicitud = new PutAccesoSolicitud()
                 {
@@ -88,6 +91,7 @@ namespace GameLogEscritorio.Ventanas
                     tipoDeUsuario = Constantes.tipoJugadorPorDefecto
                 };
                 ApiRespuestaBase respuesta = await ServicioAcceso.EditarCredencialesDeAcceso(datosSolicitud, _idAcceso,apiRestCreadorRespuesta);
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 if (respuesta.estado == Constantes.CodigoExito)
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuesta.mensaje!, respuesta.estado);

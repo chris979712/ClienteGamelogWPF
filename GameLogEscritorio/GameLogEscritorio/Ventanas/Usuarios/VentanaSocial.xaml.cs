@@ -28,8 +28,10 @@ namespace GameLogEscritorio.Ventanas
 
         private void Salir_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             MenuPrincipal menuPrincipal = new MenuPrincipal();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
@@ -50,6 +52,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void EliminarSeguidor(JugadorDetalle informacionJugador)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(informacionJugador.idUsuario, UsuarioSingleton.Instancia.idJugador, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
             if (!esRespuestaCritica)
@@ -59,6 +62,7 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -73,6 +77,7 @@ namespace GameLogEscritorio.Ventanas
                     Seguidores.Remove(informacionJugador);
                 }
             }
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
         }
 
         private void btn_eliminarSeguido(object sender, RoutedEventArgs e)
@@ -92,6 +97,7 @@ namespace GameLogEscritorio.Ventanas
 
         private async void EliminarSeguido(JugadorDetalle informacionJugador)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, informacionJugador.idUsuario, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(respuestaBase);
             if (!esRespuestaCritica)
@@ -101,6 +107,7 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -116,12 +123,14 @@ namespace GameLogEscritorio.Ventanas
                     Seguidos.Remove(informacionJugador);
                 }
             }
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
         }
 
         private async void Btn_MostrarSeguidores_Click(object sender, RoutedEventArgs e)
         {
             ic_Seguidores.Visibility = Visibility.Visible;
             ic_Seguidos.Visibility = Visibility.Collapsed;
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiSeguidoresRespuesta jugadoresSeguidoresRespuesta = await ServicioSeguidor.ObtenerJugadoresSeguidores(UsuarioSingleton.Instancia.idJugador, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(jugadoresSeguidoresRespuesta);
             if(!esRespuestaCritica)
@@ -131,10 +140,12 @@ namespace GameLogEscritorio.Ventanas
                     await CargarJugadoresSeguidores(jugadoresSeguidoresRespuesta.jugadoresSeguidores!);
                 }
                 txbl_VistaActual.Text = Properties.Resources.JugadoresSeguidores;
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }
@@ -143,6 +154,7 @@ namespace GameLogEscritorio.Ventanas
         {
             ic_Seguidores.Visibility = Visibility.Collapsed;
             ic_Seguidos.Visibility = Visibility.Visible;
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiSeguidosRespuesta jugadoresSeguidosRespuesta = await ServicioSeguidor.ObtenerJugadoresSeguidos(UsuarioSingleton.Instancia.idJugador, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(jugadoresSeguidosRespuesta);
             if (!esRespuestaCritica)
@@ -152,10 +164,12 @@ namespace GameLogEscritorio.Ventanas
                     await CargarJugadoresSeguidos(jugadoresSeguidosRespuesta.jugadoresSeguidos!);
                 }
                 txbl_VistaActual.Text = Properties.Resources.JugadoresSeguidos;
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
         }

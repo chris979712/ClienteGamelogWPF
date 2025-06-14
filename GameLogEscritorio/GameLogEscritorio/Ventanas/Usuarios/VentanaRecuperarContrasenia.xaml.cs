@@ -22,13 +22,15 @@ namespace GameLogEscritorio.Ventanas
             CambiarColorCampos();
             if (ValidarDatos())
             {
+                grd_OverlayCarga.Visibility = Visibility.Visible;
                 PostRecuperacionDeCuentaSolicitud solicitud = new PostRecuperacionDeCuentaSolicitud()
                 {
                     correo = txtb_Correo.Text,
                     tipoDeUsuario = Constantes.tipoJugadorPorDefecto
                 };
                 APIRecuperacionDeCuentaRespuesta resultado = await ServicioLogin.RecuperacionDeCuenta(solicitud,apiRestCreadorRespuesta);
-                if(resultado.estado == 200)
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
+                if (resultado.estado == 200)
                 {
                     this.Close();
                     VentanaCodigoDeRecuperacion ventanaCodigoDeRecuperacion = new VentanaCodigoDeRecuperacion(resultado.idAcceso,txtb_Correo.Text);
@@ -37,6 +39,7 @@ namespace GameLogEscritorio.Ventanas
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError,resultado.mensaje!,resultado.estado);
+                    ventanaEmergente.ShowDialog();
                 }
             }
         }

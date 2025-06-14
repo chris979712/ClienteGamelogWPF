@@ -58,7 +58,7 @@ namespace GameLogEscritorio.Ventanas
             {
                 if (ValidarDatos())
                 {
-
+                    grd_OverlayCarga.Visibility = Visibility.Visible;
                     if (imagenASubir.Length!=UsuarioSingleton.Instancia.fotoDePerfil!.Length)
                     {
                         bool resultadoActualizacionPerfil = await RealizarActualizacionFotoDePerfil();
@@ -72,6 +72,7 @@ namespace GameLogEscritorio.Ventanas
                         _rutaNuevaFoto = UsuarioSingleton.Instancia.foto!;
                         await RealizarActualizacionPerfil();
                     }
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
@@ -206,8 +207,10 @@ namespace GameLogEscritorio.Ventanas
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             MenuPrincipal menuPrincipal = new MenuPrincipal();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
