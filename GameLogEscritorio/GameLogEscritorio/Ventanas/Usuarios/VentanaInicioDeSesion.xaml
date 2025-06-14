@@ -1,0 +1,105 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:GameLogEscritorio.Ventanas"
+    xmlns:extensiones="clr-namespace:GameLogEscritorio.Extensiones"
+    x:Class="GameLogEscritorio.Ventanas.VentanaInicioDeSesion"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    d:DesignWidth="920" d:DesignHeight="600"
+    Title="VentanaInicioDeSesion"
+    Background="Black"
+    WindowStyle="SingleBorderWindow"
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize"
+    WindowState="Maximized"
+>
+
+
+    <Window.Resources>
+        <FontFamily x:Key="FuenteOCR">pack://application:,,,/GameLogEscritorio;component/Fuentes/Anchox Sport</FontFamily>
+    </Window.Resources>
+
+    <Viewbox Stretch="Fill">
+        <Grid Width="920" Height="600">
+            <Image Source="/Imagenes/InicioDeSesion.png" Stretch="Fill" />
+
+            <Grid Margin="493,245,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#80000000" Height="242" Width="352">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBox x:Name="txb_Correo"
+                             extensiones:TextBoxExtensiones.TextoSugerido="Correo*"
+                             FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                             Width="301" Height="30" FontSize="12" Margin="0,15,0,5"/>
+                </StackPanel>
+
+                <Grid Grid.Row="1" Width="301" Height="30" Margin="0,30,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="txbl_Sugerencia" Text="Contraseña"
+                               FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                               FontSize="12" Padding="10,0,40,0"
+                               Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                               Foreground="Gray" IsHitTestVisible="False" Panel.ZIndex="1"/>
+                    <PasswordBox x:Name="pb_Contrasenia"
+                                 FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                                 PasswordChanged="PasswordVisible" Background="Transparent"
+                                 GotFocus="TextoSugeridoGtFocus" LostFocus="TextoSugeridoLosFocus"
+                                 FontSize="12" Padding="10,0,40,0" Panel.ZIndex="0"
+                                 Visibility="Visible" Grid.Column="0"
+                                 VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,-5,0"/>
+
+                    <TextBox x:Name="txb_Contrasenia"
+                             FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                             Background="Transparent"
+                             FontSize="12" Padding="10,0,40,0"
+                             Visibility="Collapsed" Grid.Column="0"
+                             VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                             GotFocus="TextoSugeridoGtFocus"
+                             LostFocus="TextoSugeridoLosFocus"
+                             TextChanged="TextoVisibleChanged"/>
+
+                    <ToggleButton x:Name="tbtn_VisibilidadContrasenia"
+                                  Width="30" Height="30" Background="Transparent" BorderThickness="0"
+                                  VerticalAlignment="Center" HorizontalAlignment="Right"
+                                  Checked="CambiarVisibilidadContrasenia" Unchecked="CambiarVisibilidadContrasenia"
+                                  Grid.Column="1" Margin="0,0,0,0">
+                        <Image x:Name="img_Visibilidad"
+                               Width="20" Height="20"
+                               Source="/Imagenes/Iconos/IconoNoVisibleOscuro.png" />
+                    </ToggleButton>
+                </Grid>
+
+                <TextBlock Grid.Row="2" Text="Recuperar contraseña"
+                           FontSize="13" FontWeight="DemiBold" TextDecorations="Underline"
+                           FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                           Foreground="#5DADE2" Cursor="Hand"
+                           HorizontalAlignment="Center" Margin="0,18,0,70"
+                           MouseLeftButtonDown="IrVentanaRecuperarContraseña" Grid.RowSpan="2"/>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,56,0,29">
+                    <Button x:Name="btn_IniciarSesion" Content="Iniciar sesión"
+                            Width="103" Height="34" FontSize="13"
+                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                            Background="#5DADE2" Foreground="Black"
+                            Click="IniciarSesion_Click" Margin="5,0"/>
+                    <Button x:Name="btn_CrearCuenta" Content="Crear cuenta"
+                            Width="101" Height="35" FontSize="13"
+                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                            Background="#F2F2F1" Foreground="Black"
+                            Click="CrearCuenta_Click" Margin="5,0"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

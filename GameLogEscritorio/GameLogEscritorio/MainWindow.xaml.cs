@@ -1,25 +1,14 @@
-﻿using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
+﻿using GameLogEscritorio.Log4net;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Utilidades;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace GameLogEscritorio
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
+    
     public partial class MainWindow : Window
     {
         private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
@@ -28,6 +17,13 @@ namespace GameLogEscritorio
         {
             InitializeComponent();
             this.Closing += CerrarSesionForzadaDeUsuario;
+            string logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            if (!Directory.Exists(logDirectory))
+            {
+                Directory.CreateDirectory(logDirectory);
+            }
+            log4net.Config.XmlConfigurator.Configure();
+            LoggerManejador.Informacion(Properties.Resources.AplicacionIniciada);
         }
 
         private async void CerrarSesionForzadaDeUsuario(object? sender, System.ComponentModel.CancelEventArgs e)

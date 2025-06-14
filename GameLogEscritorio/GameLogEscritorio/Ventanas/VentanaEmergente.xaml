@@ -14,13 +14,13 @@
     <Viewbox Stretch="Fill">
         <Grid Height="330" Width="630">
             <Image Source="/Imagenes/fondoazul.png"
-           Stretch="Fill"
-           Opacity="2"
-           Panel.ZIndex="0"/>
+                   Stretch="Fill"
+                   Opacity="2"
+                   Panel.ZIndex="0"/>
             <Border CornerRadius="20"
-            Margin="20"
-            Panel.ZIndex="1"
-            Background="Transparent">
+                    Margin="20"
+                    Panel.ZIndex="1"
+                    Background="Transparent">
                 <Border.Effect>
                     <DropShadowEffect Color="Black"
                               BlurRadius="15"
@@ -46,7 +46,7 @@
                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
                                VerticalAlignment="Center" Width="248"/>
                     </StackPanel>
-                    <TextBlock x:Name="Txbl_Contenido"
+                    <TextBlock x:Name="txbl_Contenido"
                            FontSize="18"
                            Foreground="Black"
                            TextWrapping="Wrap"
@@ -55,17 +55,17 @@
                            VerticalAlignment="Top" Height="134" Margin="10,12,10,0" RenderTransformOrigin="0.509,0.368" Grid.Row="1"/>
 
                     <Button Content="Aceptar"
-                    Grid.Row="1"
-                    Background="#FF4CAF50"
-                    Foreground="White"
-                    FontWeight="Bold"
-                    Width="150"
-                    Height="40"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Margin="0,144,0,0"
-                    FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
-                    Click="Aceptar_Click"/>
+                            Grid.Row="1"
+                            Background="#FF4CAF50"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            Width="150"
+                            Height="40"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Margin="0,144,0,0"
+                            FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                            Click="Aceptar_Click"/>
                 </Grid>
             </Border>
         </Grid>

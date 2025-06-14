@@ -160,6 +160,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Se ha inicado la aplicación.
+        /// </summary>
+        public static string AplicacionIniciada {
+            get {
+                return ResourceManager.GetString("AplicacionIniciada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El archivo que desea ingresar no es una imagen.
         /// </summary>
         public static string ArchivoNoEsImagen {
@@ -237,6 +246,15 @@ namespace GameLogEscritorio.Properties {
         public static string ConfirmacionEliminarSeguidor {
             get {
                 return ResourceManager.GetString("ConfirmacionEliminarSeguidor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El formato de los datos ingresados no es válido. Por favor verifíquelos e intente de nuevo..
+        /// </summary>
+        public static string ContenidoDatosInvalidos {
+            get {
+                return ResourceManager.GetString("ContenidoDatosInvalidos", resourceCulture);
             }
         }
         

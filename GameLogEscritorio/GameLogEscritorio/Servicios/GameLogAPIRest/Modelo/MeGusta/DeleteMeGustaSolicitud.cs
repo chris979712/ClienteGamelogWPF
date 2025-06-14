@@ -19,5 +19,8 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.MeGusta
         [JsonProperty("idJugador")]
         public int idJugador {  get; set; }
 
+        [JsonProperty("nombreJuego")]
+        public string? nombreJuego { get; set; }
+
     }
 }

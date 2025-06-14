@@ -1,8 +1,10 @@
 ﻿using Gamelog.Proto;
+using GameLogEscritorio.Log4net;
 using GameLogEscritorio.Servicios.GameLogAPIGRPC.Respuesta;
 using GameLogEscritorio.Utilidades;
 using Grpc.Core;
 using Grpc.Net.Client;
+using System;
 using System.Net;
 using System.Net.Http;
 
@@ -38,13 +40,15 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
                 resultadoFotoDePerfil.codigo = Constantes.CodigoExito;
                 resultadoFotoDePerfil.detalles = respuesta.RutaArchivo.ToString();
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 resultadoFotoDePerfil.detalles = Properties.Resources.HttpExcepcion;
                 resultadoFotoDePerfil.codigo = Constantes.CodigoErrorServidor;
             }
             catch (RpcException excepcionRpc)
             {
+                LoggerManejador.Error(excepcionRpc.Message);
                 resultadoFotoDePerfil.detalles = Properties.Resources.GRPCExcepcion;
                 resultadoFotoDePerfil.codigo = (int)excepcionRpc.Status.StatusCode;
             }
@@ -80,13 +84,15 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
                 resultadoFotoDePerfil.codigo = Constantes.CodigoExito;
                 resultadoFotoDePerfil.datosBinario = datosObtenidos.Datos.ToByteArray();
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 resultadoFotoDePerfil.detalles = Properties.Resources.HttpExcepcion;
                 resultadoFotoDePerfil.codigo = Constantes.CodigoErrorServidor;
             }
             catch (RpcException excepcionRpc)
             {
+                LoggerManejador.Error(excepcionRpc.Message);
                 resultadoFotoDePerfil.detalles = Properties.Resources.GRPCExcepcion;
                 resultadoFotoDePerfil.codigo = (int)excepcionRpc.Status.StatusCode;
             }
@@ -124,13 +130,15 @@ namespace GameLogEscritorio.Servicios.GameLogAPIGRPC.Servicio
                 resultadoFotoDePerfil.codigo = Constantes.CodigoExito;
                 resultadoFotoDePerfil.detalles = datosObtenidos.RutaArchivo;
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 resultadoFotoDePerfil.detalles = Properties.Resources.HttpExcepcion;
                 resultadoFotoDePerfil.codigo = Constantes.CodigoErrorServidor;
             }
             catch (RpcException excepcionRpc)
             {
+                LoggerManejador.Error(excepcionRpc.Message);
                 resultadoFotoDePerfil.detalles = Properties.Resources.GRPCExcepcion;
                 resultadoFotoDePerfil.codigo = (int)excepcionRpc.Status.StatusCode;
             }

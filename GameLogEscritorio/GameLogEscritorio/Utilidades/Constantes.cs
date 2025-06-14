@@ -10,11 +10,6 @@
         public const int ErrorEnLaOperacion = -1;
         public const int OperacionExitosa = 1;
         public const int ValorPorDefecto = 0;
-        public const string TituloExcepcionServidor = "Error de servidor";
-        public const string ContenidoDatosInvalidos = "Los datos ingresados son inválidos, por favor verifique los campos marcados.";
-        public const string ContenidoExcepcionServidor = "El servidor esta inactivo. Por favor inténtelo más tarde.";
-        public const string TituloExcepcionBD = "Error de base de datos";
-        public const string ContenidoExcepcionBD = "No hay conexión con la base de datos. Por favor, inténtelo más tarde.";
         public const int CodigoExito = 200;
         public const int CodigoErrorSolicitud = 400;
         public const int CodigoErrorServidor = 500;

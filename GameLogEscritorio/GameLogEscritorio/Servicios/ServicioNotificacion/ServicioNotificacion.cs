@@ -1,4 +1,5 @@
-﻿using GameLogEscritorio.Servicios.ServicioNotificacion.controlador;
+﻿using GameLogEscritorio.Log4net;
+using GameLogEscritorio.Servicios.ServicioNotificacion.controlador;
 using GameLogEscritorio.Servicios.ServicioNotificacion.Mensaje;
 using GameLogEscritorio.Utilidades;
 using GameLogEscritorio.Ventanas;
@@ -46,11 +47,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             }
             catch(HttpRequestException excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion,Properties.Resources.SocketExcepcion,Constantes.CodigoErrorServidor);
                 AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
             }
             catch(Exception excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
                 AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
             }
@@ -90,7 +93,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                     var notificacion = jArray.First().ToObject<MensajeNotificacion>();
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        VentanaEmergenteNotificacion ventanaEmergenteNotificacion = new VentanaEmergenteNotificacion(notificacion.mensaje!);
+                        VentanaEmergenteNotificacion ventanaEmergenteNotificacion = new VentanaEmergenteNotificacion(notificacion?.mensaje!);
                         ventanaEmergenteNotificacion.Show();
                     });
                 });
@@ -108,8 +111,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
 
                 socket.On(Properties.Resources.EventoNotificacionResenas, respuesta =>
                 {
-                    Task.Run(async () =>
-                    {
+                    Application.Current.Dispatcher.Invoke(() => {
                         var jArray = JArray.Parse(respuesta.ToString());
                         var notificacion = jArray.First().ToObject<MensajeResenaNotificacion>();
                         ResenaNotificacionControlador resenaNotificacion = new ResenaNotificacionControlador();
@@ -121,11 +123,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             }
             catch (HttpRequestException excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
                 AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
             }
             catch (Exception excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
                 AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
             }
@@ -142,11 +146,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                 }
                 catch (HttpRequestException excepcion)
                 {
+                    LoggerManejador.Error(excepcion.Message);
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
                 }
                 catch (Exception excepcion)
                 {
+                    LoggerManejador.Error(excepcion.Message);  
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
                 }
@@ -163,11 +169,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                 }
                 catch (HttpRequestException excepcion)
                 {
+                    LoggerManejador.Error(excepcion.Message);
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
                 }
                 catch (Exception excepcion)
                 {
+                    LoggerManejador.Error(excepcion.Message);
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
                 }
@@ -188,11 +196,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             }
             catch (HttpRequestException excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
                 AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
             }
-            catch (Exception)
+            catch (Exception excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
                 AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
             }

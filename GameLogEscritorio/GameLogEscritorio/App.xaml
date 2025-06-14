@@ -5,7 +5,7 @@
              xmlns:extensiones="clr-namespace:GameLogEscritorio.Extensiones"
              xmlns:utilidades="clr-namespace:GameLogEscritorio.Utilidades"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             StartupUri="Ventanas/VentanaInicioDeSesion.xaml">
+             StartupUri="Ventanas/Usuarios/VentanaInicioDeSesion.xaml">
     <Application.Resources>
         <utilidades:CadenaVisibilidadConverter x:Key="CadenaVisibilidadConverter"/>
         <utilidades:CursorSobreImagenConverter x:Key="CursorSobreImagenConverter"/>

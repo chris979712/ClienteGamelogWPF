@@ -7,6 +7,6 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi
     public class ApiAccesoRespuesta<T> : ApiRespuestaBase
     {
         [JsonProperty("id")]
-        public Cuenta datos {  get; set; }
+        public Cuenta? datos {  get; set; }
     }
 }

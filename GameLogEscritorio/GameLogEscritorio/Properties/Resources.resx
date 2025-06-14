@@ -318,4 +318,10 @@
   <data name="Bienvenido" xml:space="preserve">
     <value>Bienvenido </value>
   </data>
+  <data name="AplicacionIniciada" xml:space="preserve">
+    <value>Se ha inicado la aplicación</value>
+  </data>
+  <data name="ContenidoDatosInvalidos" xml:space="preserve">
+    <value>El formato de los datos ingresados no es válido. Por favor verifíquelos e intente de nuevo.</value>
+  </data>
 </root>

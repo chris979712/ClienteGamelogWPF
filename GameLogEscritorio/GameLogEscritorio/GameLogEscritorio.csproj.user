@@ -11,18 +11,18 @@
     <Compile Update="Ventanas\VentanaImagen.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Ventanas\VentanaSocial.xaml.cs">
+    <Compile Update="Ventanas\Usuarios\VentanaSocial.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Ventanas\VentanaReporteTendencias.xaml.cs">
+    <Compile Update="Ventanas\Juegos\VentanaReporteTendencias.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Ventanas\VentanaSocial.xaml">
+    <Page Update="Ventanas\Usuarios\VentanaSocial.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Ventanas\VentanaReporteTendencias.xaml">
+    <Page Update="Ventanas\Juegos\VentanaReporteTendencias.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
