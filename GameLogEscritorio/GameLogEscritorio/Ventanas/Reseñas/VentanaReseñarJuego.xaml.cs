@@ -41,6 +41,7 @@ namespace GameLogEscritorio.Ventanas
                     calificacion = calificacion,
                     opinion = txb_Opinion.Text
                 };
+                grd_OverlayCarga.Visibility = Visibility.Visible;
                 ApiRespuestaBase respuestaApi = await ServicioReseña.RegistrarReseña(datosSolicitud,apiRestCreadorRespuesta);
                 bool esCritico = ManejadorRespuestas.ManejarRespuestasBase(respuestaApi);
                 if (!esCritico)
@@ -50,10 +51,12 @@ namespace GameLogEscritorio.Ventanas
                         EliminarJuegoPendiente();
                         DesplegarVentanaCorrespondiente();
                     }
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
                     this.Close();
                 }
             }
@@ -77,9 +80,7 @@ namespace GameLogEscritorio.Ventanas
         {
             Decimal calificacion = ObtenerCalificacion();
             bool calificacionValida = calificacion > 0 && calificacion <= 5; 
-
             bool opinionValida = Validador.ValidarOpinion(txb_Opinion.Text);
-
             if (!calificacionValida)
             {
                 AnimacionesVentana.RebotarImagen(img_EstrellaUno);
@@ -103,16 +104,18 @@ namespace GameLogEscritorio.Ventanas
 
         private void DesplegarVentanaCorrespondiente()
         {
-            if (_ventanaPrecedente == "Menu")
+            grd_OverlayCarga.Visibility = Visibility.Visible;
+            if (_ventanaPrecedente == Constantes.Menu)
             {
                 MenuPrincipal menuPrincipal = new MenuPrincipal();
                 AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
             }
-            else if (_ventanaPrecedente == "Descripcion")
+            else if (_ventanaPrecedente == Constantes.Descripcion)
             {
                 VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuegoAReseñar);
                 AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
             }
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
@@ -123,20 +126,19 @@ namespace GameLogEscritorio.Ventanas
                 if (Decimal.TryParse(estrella.Tag?.ToString(), out decimal seleccion))
                 {
                     _calificacionSeleccionada = seleccion;
-                    System.Diagnostics.Debug.WriteLine($"Calificación seleccionada: {_calificacionSeleccionada}");
-
                     for (int i = 0; i < RatingPanel.Children.Count; i++)
                     {
                         if (RatingPanel.Children[i] is Image img)
                         {
                             img.Source = new BitmapImage(new Uri(
-                                i < seleccion ? "/Imagenes/Iconos/estrella_llena.png" : "/Imagenes/Iconos/estrella_vacia.png",
+                                i < seleccion ? Properties.Resources.EstrellaLlena.ToString() : Properties.Resources.EstrellaVacia.ToString(),
                                 UriKind.Relative));
                         }
                     }
                 }
             }
         }
+
         private Decimal ObtenerCalificacion()
         {
             return _calificacionSeleccionada;

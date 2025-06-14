@@ -324,4 +324,16 @@
   <data name="ContenidoDatosInvalidos" xml:space="preserve">
     <value>El formato de los datos ingresados no es válido. Por favor verifíquelos e intente de nuevo.</value>
   </data>
+  <data name="EstrellaLlena" xml:space="preserve">
+    <value> /Imagenes/Iconos/estrella_llena.png</value>
+  </data>
+  <data name="EstrellaVacia" xml:space="preserve">
+    <value>/Imagenes/Iconos/estrella_vacia.png</value>
+  </data>
+  <data name="Tu" xml:space="preserve">
+    <value> (Tú)</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>ADMIN</value>
+  </data>
 </root>

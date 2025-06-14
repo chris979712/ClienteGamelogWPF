@@ -161,8 +161,10 @@ namespace GameLogEscritorio.Ventanas
 
         private void CrearCuenta_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             VentanaRegistroDeCuenta ventanaRegistroDeCuenta = new VentanaRegistroDeCuenta();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left,this.Width,this.Height, ventanaRegistroDeCuenta);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 

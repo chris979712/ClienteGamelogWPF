@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ext="clr-namespace:GameLogEscritorio.Extensiones"
+        xmlns:wpfGif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
         Title="Reseñar Juego"
         d:DesignHeight="620" d:DesignWidth="920"
@@ -138,6 +139,17 @@
                             Foreground="White"
                             FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
                             Click="Regresar_Click"/>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="grd_OverlayCarga"
+                   Background="Transparent"
+                   Visibility="Collapsed"
+                   IsHitTestVisible="True"
+                   Panel.ZIndex="999" Grid.RowSpan="2">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image Width="80" Height="80" wpfGif:ImageBehavior.AnimatedSource="/Imagenes/carga.gif" />
+                    <TextBlock Text="Cargando..." Foreground="Black" FontSize="14" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"
+                                HorizontalAlignment="Center" Margin="0,10,0,0"/>
                 </StackPanel>
             </Grid>
         </Grid>

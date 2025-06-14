@@ -30,8 +30,10 @@ namespace GameLogEscritorio.Ventanas
 
         private void Salir_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             MenuPrincipal menuPrincipal = new MenuPrincipal();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
 
@@ -54,11 +56,8 @@ namespace GameLogEscritorio.Ventanas
                 string nombreNormal = txb_Busqueda.Text;
                 string soloLetrasYNumeros = Regex.Replace(nombreNormal, @"[^a-zA-Z0-9\s]", "");
                 string nombreSlugJuego = Regex.Replace(soloLetrasYNumeros.Trim(), @"\s+", "-").ToLower();
-                btn_Buscar.Background = Brushes.Gray;
-                btn_Buscar.IsEnabled = false;
+                grd_OverlayCarga.Visibility = Visibility.Visible;
                 _modeloJuegoEncontrado =  await ServicioBuscarJuego.BuscarJuegoPorSlug(nombreSlugJuego);
-                btn_Buscar.Background = Brushes.Green;
-                btn_Buscar.IsEnabled = true;
                 if (!string.IsNullOrEmpty(_modeloJuegoEncontrado.name))
                 {
                     CargarDatosVideojuego();
@@ -79,27 +78,19 @@ namespace GameLogEscritorio.Ventanas
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.juegoIngresadoNoEncontrado, Constantes.CodigoErrorSolicitud);
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
                 }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
         }
 
         public void CargarDatosVideojuego()
         {
             grd_resultado.Visibility = Visibility.Visible;
-
             txbl_NombreJuego.Text = _modeloJuegoEncontrado.name;
-
-            try
-            {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(_modeloJuegoEncontrado.backgroundImage!);
-                bitmap.EndInit();
-                img_juego.Source = bitmap;
-            }
-            catch
-            {
-                img_juego.Source = null;
-            }
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(_modeloJuegoEncontrado.backgroundImage!);
+            bitmap.EndInit();
+            img_juego.Source = bitmap;
         }
 
 
@@ -111,6 +102,7 @@ namespace GameLogEscritorio.Ventanas
                 nombre = _modeloJuegoEncontrado.name,
                 fechaDeLanzamiento = _modeloJuegoEncontrado.released
             };
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuesta = await ServicioJuego.RegistrarJuego(solicitud, apiRestCreadorRespuesta);
             if (respuesta.estado == Constantes.CodigoErrorServidor)
             {
@@ -120,6 +112,7 @@ namespace GameLogEscritorio.Ventanas
             else if(respuesta.estado == Constantes.CodigoErrorAcceso) 
             {
                 await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
             else
@@ -132,14 +125,18 @@ namespace GameLogEscritorio.Ventanas
                 }
                 VentanaDescripcionJuego ventanaDescripcionJuego = new VentanaDescripcionJuego(_modeloJuegoEncontrado);
                 AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaDescripcionJuego);
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 this.Close();
             }
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
         }
 
         private void Regresar_Click(object sender, RoutedEventArgs e)
         {
+            grd_OverlayCarga.Visibility = Visibility.Visible;
             MenuPrincipal menuPrincipal = new MenuPrincipal();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
+            grd_OverlayCarga.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }
