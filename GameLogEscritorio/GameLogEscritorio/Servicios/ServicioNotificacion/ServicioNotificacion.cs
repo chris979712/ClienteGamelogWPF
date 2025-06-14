@@ -49,13 +49,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             {
                 LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion,Properties.Resources.SocketExcepcion,Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
             }
             catch(Exception excepcion)
             {
                 LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
             }
         }
 
@@ -71,20 +71,14 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
 
                 socket.OnError += (sender, e) =>
                 {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
-                    });
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
+                    AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                 };
 
                 socket.OnReconnectFailed += (sender, e) =>
                 {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
-                    });
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
+                    AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                 };
 
                 socket.On(Properties.Resources.EventoMensajesServidor, respuesta =>
@@ -125,13 +119,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             {
                 LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
             }
             catch (Exception excepcion)
             {
                 LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
             }
             return resultadoConexionAEventos;
         }
@@ -148,13 +142,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                 {
                     LoggerManejador.Error(excepcion.Message);
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                 }
                 catch (Exception excepcion)
                 {
                     LoggerManejador.Error(excepcion.Message);  
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                 }
             }
         }
@@ -171,13 +165,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                 {
                     LoggerManejador.Error(excepcion.Message);
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                 }
                 catch (Exception excepcion)
                 {
                     LoggerManejador.Error(excepcion.Message);
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                 }
             }
         }
@@ -198,13 +192,13 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             {
                 LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloSocketExcepcion, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
             }
             catch (Exception excepcion)
             {
                 LoggerManejador.Error(excepcion.Message);
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
             }
 
         }

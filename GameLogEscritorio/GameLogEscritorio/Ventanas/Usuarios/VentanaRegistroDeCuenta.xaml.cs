@@ -33,7 +33,7 @@ namespace GameLogEscritorio.Ventanas
                 {
                     grd_OverlayCarga.Visibility = Visibility.Collapsed;
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuestaBase.mensaje!, respuestaBase.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
                     AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaInicioDeSesion);
                     this.Close();
@@ -42,7 +42,7 @@ namespace GameLogEscritorio.Ventanas
                 {
                     grd_OverlayCarga.Visibility = Visibility.Collapsed;
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaBase.mensaje!, respuestaBase.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
             }
         }

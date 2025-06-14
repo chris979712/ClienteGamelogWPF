@@ -48,7 +48,7 @@ namespace GameLogEscritorio.Ventanas
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, resultado.mensaje!, resultado.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
             }
         }
@@ -95,13 +95,13 @@ namespace GameLogEscritorio.Ventanas
                 if (respuesta.estado == Constantes.CodigoExito)
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuesta.mensaje!, respuesta.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     this.Close();
                 }
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, respuesta.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
             }
         }

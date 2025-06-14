@@ -66,17 +66,17 @@ namespace GameLogEscritorio.Ventanas
                 {
                     string nombreLimpio = _modeloJuegoEncontrado.slug.Replace("-", " ");
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, string.Concat(string.Concat(Properties.Resources.RedireccionamientoSlug," "), nombreLimpio), Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
                 else if(!string.IsNullOrEmpty(_modeloJuegoEncontrado.detail))
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, _modeloJuegoEncontrado.detail, Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.juegoIngresadoNoEncontrado, Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
                 grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
@@ -107,7 +107,7 @@ namespace GameLogEscritorio.Ventanas
             if (respuesta.estado == Constantes.CodigoErrorServidor)
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
             else if(respuesta.estado == Constantes.CodigoErrorAcceso) 
             {

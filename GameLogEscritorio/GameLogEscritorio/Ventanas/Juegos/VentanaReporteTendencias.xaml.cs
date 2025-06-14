@@ -59,7 +59,7 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.FechasInvalidas, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
         }
 
@@ -94,7 +94,7 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.FechasInvalidas, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
         }
 

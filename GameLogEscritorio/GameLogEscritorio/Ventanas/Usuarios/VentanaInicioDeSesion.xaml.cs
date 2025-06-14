@@ -52,14 +52,14 @@ namespace GameLogEscritorio.Ventanas
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, respuesta.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
                 grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
         }
 
@@ -156,7 +156,7 @@ namespace GameLogEscritorio.Ventanas
         private void IrVentanaRecuperarContraseña(object sender, MouseButtonEventArgs e)
         {
             VentanaRecuperarContrasenia ventanaRecuperarContrasenia = new VentanaRecuperarContrasenia();
-            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left,this.Width,this.Height, ventanaRecuperarContrasenia);
+            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaRecuperarContrasenia);
         }
 
         private void CrearCuenta_Click(object sender, RoutedEventArgs e)

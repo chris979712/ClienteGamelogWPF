@@ -36,10 +36,10 @@ namespace GameLogEscritorio.Utilidades
                 case Constantes.CodigoBadGetaway:
                     esEstadoCritico = false;
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaBase.mensaje!, respuestaBase.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
             }
-            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             return esEstadoCritico;
         }
 
@@ -54,28 +54,28 @@ namespace GameLogEscritorio.Utilidades
                     break;
                 case Constantes.CodigoErrorSolicitud:
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, respuestaApi.mensaje!, respuestaApi.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     esEstadoCritico = false;
                     break;
                 case Constantes.CodigoErrorAcceso:
                     esEstadoCritico = true;
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 case Constantes.CodigoSinResultadosEncontrados:
                     esEstadoCritico = false;
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, respuestaApi.mensaje!, respuestaApi.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 case Constantes.CodigoErrorServidor:
                     esEstadoCritico = false;
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 case Constantes.CodigoBadGetaway:
                     esEstadoCritico = false;
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
             }
             return esEstadoCritico;
@@ -94,13 +94,13 @@ namespace GameLogEscritorio.Utilidades
                         break;
                     case Constantes.CodigoErrorSolicitud:
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         esEstadoCritico = false;
                         break;
                     case Constantes.CodigoErrorAcceso:
                         esEstadoCritico = true;
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         break;
                     case Constantes.CodigoSinResultadosEncontrados:
                         esEstadoCritico = false;
@@ -108,12 +108,12 @@ namespace GameLogEscritorio.Utilidades
                     case Constantes.CodigoErrorServidor:
                         esEstadoCritico = false;
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         break;
                     case Constantes.CodigoBadGetaway:
                         esEstadoCritico = false;
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         break;
                 }
             });
@@ -129,27 +129,27 @@ namespace GameLogEscritorio.Utilidades
                 {
                     case Constantes.CodigoArgumentosInvalidosGRPC:
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.GRPCArgumentosInvalidos, Constantes.CodigoErrorSolicitud);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         break;
                     case Constantes.CodigoPermisosDenegadosGRPC:
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.GRPCPermisosInvalidos, Constantes.CodigoErrorServidor);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         break;
                     case Constantes.CodigoElementoNoEncontradoGRPC:
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.GRPElementosNoEncontrado, Constantes.CodigoErrorSolicitud);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         break;
                     case Constantes.CodigoErrorInternoGRPC:
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.GRPCErrorInterno, Constantes.CodigoErrorServidor);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         break;
                     case Constantes.CodigoServidorNoDisponibleGRPC:
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.GRPCServidorNoDisponible, Constantes.CodigoErrorSolicitud);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         break;
                     case Constantes.CodigoServidorNoEncontradoGRPC:
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.ServidorGRPCNoEncontrado, Constantes.CodigoErrorSolicitud);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
                         break;
                 }
             });
@@ -162,32 +162,32 @@ namespace GameLogEscritorio.Utilidades
             {
                 case Constantes.CodigoArgumentosInvalidosGRPC:
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion,Properties.Resources.GRPCArgumentosInvalidos,Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 case Constantes.CodigoPermisosDenegadosGRPC:
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoError,Properties.Resources.GRPCPermisosInvalidos, Constantes.CodigoErrorServidor);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 case Constantes.CodigoElementoNoEncontradoGRPC:
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion,Properties.Resources.GRPElementosNoEncontrado, Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 case Constantes.CodigoErrorInternoGRPC:
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.GRPCErrorInterno, Constantes.CodigoErrorServidor);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 case Constantes.CodigoServidorNoDisponibleGRPC:
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion,Properties.Resources.GRPCServidorNoDisponible, Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 case Constantes.CodigoServidorNoEncontradoGRPC:
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.ServidorGRPCNoEncontrado, Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
             }
             if(codigoDeRespuesta == Constantes.CodigoExito)
             {
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
         }
 

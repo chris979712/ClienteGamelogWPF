@@ -15,6 +15,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
 {
     public class UsuarioNotificacionControlador
     {
+
         private static readonly IApiRestRespuestaFactory apiRespuestasRestFactory = new FactoryRespuestasAPI();
 
         public UsuarioNotificacionControlador() 
@@ -250,7 +251,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             Application.Current.Dispatcher.Invoke(() =>
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, mensaje, Constantes.CodigoErrorAcceso);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+                AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
             });
         }
 

@@ -148,7 +148,7 @@ namespace GameLogEscritorio.Ventanas
                 if(juegoObtenido.id == Constantes.ErrorEnLaOperacion)
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, juegoObtenido.detail!,Constantes.CodigoErrorServidor);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 }
                 else

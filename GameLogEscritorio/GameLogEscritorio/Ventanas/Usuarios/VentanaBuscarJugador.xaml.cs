@@ -47,7 +47,7 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
         }
 
@@ -128,7 +128,7 @@ namespace GameLogEscritorio.Ventanas
         private void AvatarJugador_Click(object sender, MouseButtonEventArgs e)
         {
             var ventana = new VentanaImagen(_fotoDePerfilJugador);
-            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventana);
+            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventana);
         }
 
         public static BitmapImage BytesAImagen(byte[] imageDatos)
@@ -188,7 +188,7 @@ namespace GameLogEscritorio.Ventanas
                     this.Close();
                 }
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, juegosFavoritos[0].descripcion!, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
             else
             {
