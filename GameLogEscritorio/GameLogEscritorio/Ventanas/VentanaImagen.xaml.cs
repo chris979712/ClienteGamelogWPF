@@ -23,7 +23,7 @@ namespace GameLogEscritorio.Ventanas
         public VentanaImagen(byte[] imagen)
         {
             InitializeComponent();
-            imgVista.Source = BytesAImagen(imagen);
+            img_Vista.Source = BytesAImagen(imagen);
         }
 
         public static BitmapImage BytesAImagen(byte[] imageDatos)

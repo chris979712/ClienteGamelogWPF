@@ -1,9 +1,11 @@
-﻿using GameLogEscritorio.Servicios.APIRawg.Modelo;
+﻿using GameLogEscritorio.Log4net;
+using GameLogEscritorio.Servicios.APIRawg.Modelo;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Juegos;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Servicios.GameLogAPIRest.Servicio;
 using GameLogEscritorio.Utilidades;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 
@@ -32,18 +34,21 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
                     juegoModelo = JsonConvert.DeserializeObject<JuegoModelo>(contenidoJson)!;
                 }
             }
-            catch(HttpRequestException)
+            catch(HttpRequestException excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 juegoModelo.id = Constantes.ErrorEnLaOperacion;
                 juegoModelo.detail = Properties.Resources.HttpExcepcion;
             }
-            catch(JsonException)
+            catch(JsonException excepcion)
             {
+                LoggerManejador.Informacion(excepcion.Message);
                 juegoModelo.id = Constantes.ErrorEnLaOperacion;
                 juegoModelo.detail = Properties.Resources.JsonExcepcion;
             }
-            catch(Exception)
+            catch(Exception excepcion)
             {
+                LoggerManejador.Error(excepcion.Message);
                 juegoModelo.id = Constantes.ErrorEnLaOperacion;
                 juegoModelo.detail = Properties.Resources.Excepcion;
             }
@@ -70,18 +75,21 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
                         juegoModelo = JsonConvert.DeserializeObject<JuegoModelo>(contenidoJson)!;
                     }
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException excepcion)
                 {
+                    LoggerManejador.Error(excepcion.Message);
                     juegoModelo.id = Constantes.ErrorEnLaOperacion;
                     juegoModelo.detail = Properties.Resources.HttpExcepcion;
                 }
-                catch (JsonException)
+                catch (JsonException excepcion)
                 {
+                    LoggerManejador.Informacion(excepcion.Message);
                     juegoModelo.id = Constantes.ErrorEnLaOperacion;
                     juegoModelo.detail = Properties.Resources.JsonExcepcion;
                 }
-                catch (Exception)
+                catch (Exception excepcion)
                 {
+                    LoggerManejador.Error(excepcion.Message);
                     juegoModelo.id = Constantes.ErrorEnLaOperacion;
                     juegoModelo.detail = Properties.Resources.Excepcion;
                 }

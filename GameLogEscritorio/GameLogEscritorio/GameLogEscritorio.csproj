@@ -27,7 +27,14 @@
     <None Remove="Imagenes\jugador.png" />
     <None Remove="Imagenes\NotificacionNoNueva.png" />
     <None Remove="Imagenes\salida.png" />
+    <None Remove="Log4net\log4net.config" />
     <None Remove="Servicios\GameLogAPIGRPC\Proto\Fotos_De_Perfil.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -77,10 +84,17 @@
     </PackageReference>
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc5.4" />
     <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
+    <PackageReference Include="log4net" Version="3.1.0" />
+    <PackageReference Include="log4net.AspNetCore" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="SocketIOClient" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Protobuf Include="Servicios\GameLogAPIGRPC\Proto\Fotos_De_Perfil.proto" />
   </ItemGroup>

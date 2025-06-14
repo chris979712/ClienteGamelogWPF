@@ -9,7 +9,7 @@ namespace GameLogEscritorio.Ventanas
         {
             InitializeComponent();
             Txbl_Titulo.Text = titulo;
-            Txbl_Contenido.Text = contenido;
+            txbl_Contenido.Text = contenido;
             string rutaIcono="/Imagenes/Iconos/Error.png";
             if(codigo == 200)
             {

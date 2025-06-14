@@ -1,0 +1,596 @@
+﻿<Window x:Class="GameLogEscritorio.Ventanas.MenuPrincipal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:extensiones="clr-namespace:GameLogEscritorio.Extensiones"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    d:DesignWidth="920" d:DesignHeight="600"
+    Title="GAMELOG" 
+    Background="Black"
+    WindowStyle="SingleBorderWindow"
+    ResizeMode="NoResize"
+    WindowState="Maximized">
+
+    <Window.Resources>
+        <FontFamily x:Key="FuenteOCR">pack://application:,,,/GameLogEscritorio;component/Fuentes/Anchox Sport</FontFamily>
+    </Window.Resources>
+
+    <Viewbox Stretch="Fill">
+        <Border CornerRadius="25">
+            <Border.Background>
+                <ImageBrush ImageSource="/Imagenes/fondoazul.PNG" 
+                    Stretch="UniformToFill" 
+                    Opacity="0.9"/>
+            </Border.Background>
+            <Grid>
+
+
+                <Grid Grid.Row="1" Margin="80,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="/Imagenes/FondoInterfaces.png" 
+                           Stretch="UniformToFill"
+                           Opacity="0"
+                           Grid.ColumnSpan="2"/>
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Grid.Column="0">
+                        <TextBlock Text="Game Log"
+                                   FontSize="40"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                                   TextAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Foreground="Black"/>
+                        <TextBlock x:Name="txbl_Jugador" Text="Bienvenido jugador"
+                                   TextAlignment="Center"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                                   FontSize="35"
+                                   FontWeight="SemiBold"
+                                   Foreground="Black"/>
+                    </StackPanel>
+
+                    <Image x:Name="img_FotoDePerfil"
+                           Grid.Column="1"
+                           Margin="2,38,5,0"
+                           Width="120"
+                           Height="120"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           ClipToBounds="True"
+                           Stretch="UniformToFill"/>
+
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
+                        <TextBlock x:Name="txbl_JuegosPendientes"
+                                   FontSize="30"
+                                   Foreground="Black"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"
+                                   TextAlignment="Center"
+                                   Margin="35,20"><Run Text="Juegos"/><Run Language="es-mx" Text=" "/><Run Text="por reseñar"/><Run Language="es-mx" Text=" más tarde"/></TextBlock>
+                        <StackPanel>
+                            <TextBlock x:Name="txbl_SinJuegos"
+                                       Text="No se ha agregado ningún juego para reseñar más tarde :("
+                                       FontSize="25"
+                                       Foreground="Black"
+                                       TextAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Margin="20"
+                                       Visibility="Collapsed"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="375">
+                                <ScrollViewer.Resources>
+                                    <Style TargetType="{x:Type ScrollBar}">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                                    <Grid Background="Transparent">
+                                                        <Track x:Name="PART_Track" IsDirectionReversed="true">
+                                                            <Track.Thumb>
+                                                                <Thumb Background="Black" />
+                                                            </Track.Thumb>
+                                                        </Track>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ScrollViewer.Resources>
+                                <ItemsControl x:Name="ic_JuegosPendientes" Margin="20">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border BorderThickness="2"
+                                                    BorderBrush="Black"
+                                                    Margin="15"
+                                                    CornerRadius="15"
+                                                    Width="200"
+                                                    Height="200">
+                                                <StackPanel>
+                                                    <Image Source="{Binding imagenFondo}"
+                                                           Stretch="Uniform"
+                                                           Width="190"
+                                                           Height="150"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Top"
+                                                           Cursor="Hand"
+                                                           MouseDown="IrAVentanaeseñarJuego_Click"
+                                                           Margin="10"/>
+                                                    <TextBlock Text="{Binding nombre}"
+                                                               TextWrapping="Wrap"
+                                                               TextAlignment="Center"
+                                                               FontWeight="Bold"
+                                                               Margin="5,5,0,5"
+                                                               FontSize="12"
+                                                               MaxHeight="40"
+                                                               Foreground="Black"
+                                                               TextTrimming="CharacterEllipsis"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" 
+                    Width="80"
+                    HorizontalAlignment="Left">
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#345685" Offset="0.0"/>
+                            <GradientStop Color="#3465A4" Offset="0.5"/>
+                            <GradientStop Color="#BDCDD1" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Width"
+                                         To="250" Duration="0:0:0.3"
+                                         AccelerationRatio="0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Width"
+                                         To="80" Duration="0:0:0.3"
+                                         AccelerationRatio="0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+
+                    <Image Source="/Imagenes/Negro/logoGrandeN.png"
+                           Width="80"
+                           Margin="0,20,0,20"
+                           VerticalAlignment="Top"/>
+
+                    <ScrollViewer
+                          Margin="0,120,0,0"
+                          VerticalAlignment="Stretch"
+                          VerticalScrollBarVisibility="Hidden">
+                        <StackPanel>
+                            <Button x:Name="btn_BuscarJuego" Style="{StaticResource BotonMenuPrincipal}"
+                                    Tag="/Imagenes/i_videojuego.png"
+                                    HorizontalContentAlignment="Center"
+                                    Click="IrVentanaBuscarJuego_Click">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock x:Name="txbl_BuscarJuego"
+                                                   Text=""
+                                                   VerticalAlignment="Center"
+                                                   Opacity="0"/>
+                                        <TextBlock Text="" Width="70"/>
+                                    </StackPanel>
+                                </Button.Content>
+
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <StringAnimationUsingKeyFrames Storyboard.TargetName="txbl_BuscarJuego"
+                                                                   Storyboard.TargetProperty="Text">
+                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Buscar&#x0a;juego"/>
+                                                </StringAnimationUsingKeyFrames>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_BuscarJuego"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_BuscarJuego"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+
+                            <Button x:Name="btn_BuscarUsuario" Style="{StaticResource BotonMenuPrincipal}"
+                                    HorizontalContentAlignment="Center"
+                                    Tag="/Imagenes/i_lupa.png"
+                                    Click="IrVentanaBuscarUsuario_Click">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock x:Name="txbl_BuscarUsuario"
+                                                   Text=""
+                                                   VerticalAlignment="Center"
+                                                   Opacity="0"/>
+                                        <TextBlock Text="" Width="70"/>
+                                    </StackPanel>
+                                </Button.Content>
+
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <StringAnimationUsingKeyFrames Storyboard.TargetName="txbl_BuscarUsuario"
+                                                                   Storyboard.TargetProperty="Text">
+                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Buscar&#x0a;usuario"/>
+                                                </StringAnimationUsingKeyFrames>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_BuscarUsuario"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_BuscarUsuario"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+
+                            <Button x:Name="btn_EditarPerfil" Style="{StaticResource BotonMenuPrincipal}"
+                                    Tag="/Imagenes/jugador.png"
+                                    HorizontalContentAlignment="Center"
+                                    Click="IrVentanaEditarPerfil_Click">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock x:Name="txbl_EditarPerfil"
+                                       Text=""
+                                       VerticalAlignment="Center"
+                                       Opacity="0"/>
+                                        <TextBlock Text="" Width="70"/>
+                                    </StackPanel>
+                                </Button.Content>
+
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <StringAnimationUsingKeyFrames Storyboard.TargetName="txbl_EditarPerfil"
+                                                                   Storyboard.TargetProperty="Text">
+                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Editar&#x0a;perfil"/>
+                                                </StringAnimationUsingKeyFrames>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_EditarPerfil"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_EditarPerfil"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+
+                            <Button x:Name="btn_MisReseñas" Style="{StaticResource BotonMenuPrincipal}"
+                                    Tag="/Imagenes/icono_miReseña.png"
+                                    HorizontalContentAlignment="Center"
+                                    Click="IrVentanaMisReseñas_Click">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock x:Name="txbl_MisReseñas"
+                                       Text=""
+                                       VerticalAlignment="Center"
+                                       Opacity="0"/>
+                                        <TextBlock Text="" Width="70"/>
+                                    </StackPanel>
+                                </Button.Content>
+
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <StringAnimationUsingKeyFrames Storyboard.TargetName="txbl_MisReseñas"
+                                                                   Storyboard.TargetProperty="Text">
+                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Mis&#x0a;reseñas"/>
+                                                </StringAnimationUsingKeyFrames>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_MisReseñas"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_MisReseñas"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+
+                            <Button x:Name="btn_ReporteTendencias" Style="{StaticResource BotonMenuPrincipal}"
+                                    Tag="/Imagenes/estadisticas.png"
+                                    HorizontalContentAlignment="Center"
+                                    Click="IrVentanaTendencias_Click">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock x:Name="txbl_Tendencias"
+                                       Text=""
+                                       VerticalAlignment="Center"
+                                       Opacity="0"/>
+                                        <TextBlock Text="" Width="70"/>
+                                    </StackPanel>
+                                </Button.Content>
+
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <StringAnimationUsingKeyFrames Storyboard.TargetName="txbl_Tendencias"
+                                                                   Storyboard.TargetProperty="Text">
+                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Tendencias"/>
+                                                </StringAnimationUsingKeyFrames>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_Tendencias"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_Tendencias"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="0" Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+
+                            <Button x:Name="btn_VentanaSocial" Style="{StaticResource BotonMenuPrincipal}"
+                                    Tag="/Imagenes/icono_usuarios.png"
+                                    HorizontalContentAlignment="Center"
+                                    Click="IrVentanaSocial_Click">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock x:Name="txbl_Social"
+                                           Text=""
+                                           VerticalAlignment="Center"
+                                           Opacity="0"/>
+                                        <TextBlock Text="" Width="70"/>
+                                    </StackPanel>
+                                </Button.Content>
+
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <StringAnimationUsingKeyFrames Storyboard.TargetName="txbl_Social"
+                                           Storyboard.TargetProperty="Text">
+                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Social"/>
+                                                </StringAnimationUsingKeyFrames>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_Social"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_Social"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="0" Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+
+                            <Button Style="{StaticResource BotonMenuPrincipal}"
+                                    Tag="/Imagenes/NotificacionNoNueva.png"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalAlignment="Bottom" Click="VerNotificaciones_Click"
+                                    x:Name="btn_Notificaciones">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock x:Name="txbl_Notificaciones"
+                                                   Text=""
+                                                   VerticalAlignment="Center"
+                                                   Opacity="0"/>
+                                        <TextBlock Text="" Width="70"/>
+                                    </StackPanel>
+                                </Button.Content>
+
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <StringAnimationUsingKeyFrames Storyboard.TargetName="txbl_Notificaciones"
+                                                   Storyboard.TargetProperty="Text">
+                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Notificaciones"/>
+                                                </StringAnimationUsingKeyFrames>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_Notificaciones"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_Notificaciones"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="0" Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+
+                            <Button x:Name="btn_Salir" Style="{StaticResource BotonMenuPrincipal}"
+                                    Tag="/Imagenes/salida.png"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalAlignment="Bottom" Click="CerrarSesion_Click">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock x:Name="txbl_CerrarSesion"
+                                                   Text=""
+                                                   VerticalAlignment="Center"
+                                                   Opacity="0"/>
+                                        <TextBlock Text="" Width="70"/>
+                                    </StackPanel>
+                                </Button.Content>
+
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <StringAnimationUsingKeyFrames Storyboard.TargetName="txbl_CerrarSesion"
+                                                                       Storyboard.TargetProperty="Text">
+                                                    <DiscreteStringKeyFrame KeyTime="0:0:0" Value="Cerrar Sesión"/>
+                                                </StringAnimationUsingKeyFrames>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_CerrarSesion"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="txbl_CerrarSesion"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0" Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                <Grid x:Name="grd_Notificaciones" 
+                      Width="350" 
+                      HorizontalAlignment="Right" 
+                      Margin="0,0,-350,0" 
+                      Background="#345685"
+                      Panel.ZIndex="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#3465A4" Padding="10">
+                        <Grid>
+                            <TextBlock Text="Notificaciones" 
+                                       FontFamily="{StaticResource FuenteOCR}"
+                                       FontSize="20"
+                                       Foreground="White"
+                                       FontWeight="Bold"
+                                       HorizontalAlignment="Center"/>
+
+                            <Button x:Name="btn_CerrarNotificaciones" 
+                                    HorizontalAlignment="Right"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="CerrarNotificaciones_Click">
+                                <Image Source="/Imagenes/cerrar.png" Width="20" Height="20"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="ic_Notificaciones" Margin="5">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="0,0,0,1" 
+                                            BorderBrush="#BDCDD1" 
+                                            Padding="8"
+                                            Margin="0,0,0,5">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0"
+                                                   Source="/Imagenes/campana.png"
+                                                   Width="24"
+                                                   Height="24"
+                                                   Margin="0,0,10,0"
+                                                   VerticalAlignment="Top"/>
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="{Binding Mensaje}" 
+                                                           TextWrapping="Wrap"
+                                                           Foreground="White"
+                                                           FontSize="14"/>
+                                                <TextBlock Text="{Binding FechaFormateada, StringFormat=' - {0}'}"
+                                                           Foreground="#BDCDD1"
+                                                           FontSize="11"
+                                                           Margin="0,5,0,0"/>
+                                            </StackPanel>
+                                            <Button Grid.Column="2"
+                                                    Background="Transparent"
+                                                    BorderThickness="0"
+                                                    Click="EliminarNotificacion_Click"
+                                                    Tag="{Binding Id}"
+                                                    ToolTip="Eliminar notificación"
+                                                    Margin="5,0,0,0">
+                                                <Image Source="/Imagenes/eliminar.png" 
+                                                       Width="16"
+                                                       Height="16"/>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Border>
+    </Viewbox>
+</Window>

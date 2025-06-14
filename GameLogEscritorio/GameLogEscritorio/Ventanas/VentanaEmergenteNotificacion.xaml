@@ -39,7 +39,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="/Imagenes/campana.png" Width="45" Height="45" VerticalAlignment="Center"/>
-                    <TextBlock x:Name="txtb_Notificacion" Grid.Column="1" Text="Notificación" 
+                    <TextBlock x:Name="txbl_Notificacion" Grid.Column="1" Text="Notificación" 
                                VerticalAlignment="Center" Margin="10,0,0,0" 
                                TextWrapping="Wrap" Foreground="White" Height="94" FontSize="14" TextAlignment="Justify"
                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR A Std"/>

@@ -6,7 +6,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaDeConfirmacion : Window
     {
 
-        public VentanaDeConfirmacion(string contenido, Window ownerWindow = null)
+        public VentanaDeConfirmacion(string contenido, Window ownerWindow)
         {
             InitializeComponent();
             Txbl_Contenido.Text = contenido;

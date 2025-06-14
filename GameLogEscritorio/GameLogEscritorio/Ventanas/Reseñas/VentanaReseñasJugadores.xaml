@@ -1,0 +1,207 @@
+﻿<Window x:Class="GameLogEscritorio.Ventanas.VentanaReseñasJugadores"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:local="clr-namespace:GameLogEscritorio.Ventanas"
+            xmlns:util="clr-namespace:GameLogEscritorio.Utilidades"
+            mc:Ignorable="d"
+            Title="Reseñas de Jugadores" d:DesignHeight="600" d:DesignWidth="920" Background="Black"
+            WindowStartupLocation="CenterScreen"
+            WindowStyle="SingleBorderWindow"
+            ResizeMode="NoResize"
+            WindowState="Maximized"
+>
+
+    <Window.Resources>
+        <util:CorazonConverter x:Key="CorazonConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <util:EstrellaConverter x:Key="EstrellaConverter"/>
+    </Window.Resources>
+
+    <Viewbox Stretch="Fill">
+        <Grid Background="#0C3C5C" Height="600" Width="920">
+            <Border Grid.Row="0" Background="#23588A" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top">
+                <Grid>
+                    <TextBlock x:Name="txbl_NombreVentana" Text="RESEÑAS DE JUGADORES" 
+                           Foreground="White"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           TextAlignment="Right"
+                           FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
+                           VerticalAlignment="Center"
+                           Margin="0,0,15,0"
+                           HorizontalAlignment="Right"/>
+
+                    <Button x:Name="btn_Regresar" Content="Regresar"
+                        Width="80" Height="30"
+                        HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Margin="15,0,0,0"
+                        Click="Regresar_Click"
+                        Cursor="Hand"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Bold">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF5F5F5F"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Grid Margin="0,30,0,0">
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Imagenes/fondoazul.png" Stretch="Fill"/>
+                </Grid.Background>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1" Margin="0,30,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="50,00,0,0">
+                        <TextBlock x:Name="txbl_TipoDeReseñas"
+                                   Text="Reseñas"
+                                   Foreground="Black"
+                                   FontSize="35"
+                                   FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   HorizontalAlignment="Center" Margin="50,0,0,0" />
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="70,10,0,0">
+                            <Button x:Name="btn_Todos" Content="Todos"
+                                    Width="120" Height="40"
+                                    Background="#5DADE2"
+                                    FontWeight="Bold" Cursor="Hand"
+                                    Click="MostrarTodos_Click"
+                                    FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/> 
+
+                            <Button x:Name="btn_Seguidos" Content="Seguidos"
+                                Width="130" Height="40"
+                                Background="#800080"
+                                FontWeight="Bold" Cursor="Hand"
+                                Click="MostrarSeguidos_Click"
+                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#Anchox Sport"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Image Grid.Column="2"
+                           Source="/Imagenes/Negro/iconoLapizN.png"
+                           Width="137" Height="123"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="20,0,0,0"/>
+                </Grid>
+
+
+                <ScrollViewer Grid.Row="2" Margin="50,10" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Reseñas}" Width="Auto">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Margin="5" Padding="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding fotoJugador}" Width="60" Height="60"
+                                               Grid.Column="0" Margin="5" Stretch="Uniform" ClipToBounds="True"/>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,5,10,5">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding nombreDeUsuario}" FontWeight="Bold" Foreground="Black" FontSize="16"/>
+                                                <TextBlock Text="{Binding FechaFormateada, StringFormat='Publicado el: {0}'}"
+                                                           Foreground="Black" FontSize="11" Margin="5,0,0,0"
+                                                           VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=1}"/>
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=2}"/>
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=3}"/>
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=4}"/>
+                                                <Image Width="20" Height="20" Source="{Binding calificacion, Converter={StaticResource EstrellaConverter}, ConverterParameter=5}"/>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding opinion}" Foreground="Black" TextWrapping="Wrap" FontSize="14" Margin="0,5,0,0"/>
+                                        </StackPanel>
+                                        <Button x:Name="btn_Eliminar"
+                                                Grid.Column="3"
+                                                Width="50" 
+                                                Height="50"
+                                                Background="Transparent"
+                                                BorderBrush="#FF9999"
+                                                BorderThickness="1"
+                                                ToolTip="Eliminar"
+                                                Click="EliminarReseña_Click"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top"
+                                                Margin="5,0,5,0"
+                                                Visibility="{Binding DataContext.EsAdministrador, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}">
+                                            <Image Source="/Imagenes/eliminar.png" 
+                                                   Stretch="Fill"
+                                                   Width="25"
+                                                   Height="25"/>
+                                        </Button>
+                                        <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <ToggleButton Width="24" Height="24"
+                                                        IsChecked="{Binding existeMeGustaReseña, Mode=OneWay}"
+                                                        Background="Transparent" BorderThickness="0"
+                                                        Cursor="Hand"
+                                                        Click="ToggleLike_Click"
+                                                        HorizontalAlignment="Center">
+                                                <ToggleButton.Style>
+                                                    <Style TargetType="ToggleButton">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="ToggleButton">
+                                                                    <Image Width="24" Height="24"
+                                                                           Source="{Binding existeMeGustaReseña, Converter={StaticResource CorazonConverter}}"/>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ToggleButton.Style>
+                                            </ToggleButton>
+                                            <TextBlock Text="{Binding totalDeMeGustaReseña}"
+                                                      Foreground="Black" FontSize="14"
+                                                      HorizontalAlignment="Center"
+                                                      Margin="0,5,0,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>
