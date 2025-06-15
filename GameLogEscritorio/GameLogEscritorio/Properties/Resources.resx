@@ -202,7 +202,7 @@
     <value>La(s) foto(s) de perfil a obtener no han sido encontradas.</value>
   </data>
   <data name="GRPCServidorNoDisponible" xml:space="preserve">
-    <value>Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia, se mostrarán imagenes predeterminadas.</value>
+    <value>No es posible comunicarse con el servidor de archivos múltimedia. No se pueden publicar archivos múltimedia. Las imagenes mostradas en la aplicación serán predeterminadas.</value>
   </data>
   <data name="ArchivoNoEsImagen" xml:space="preserve">
     <value>El archivo que desea ingresar no es una imagen</value>

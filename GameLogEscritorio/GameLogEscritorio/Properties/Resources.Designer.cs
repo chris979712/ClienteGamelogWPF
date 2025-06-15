@@ -484,7 +484,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Actualmente no es posible comunicarse con el servidor para obtener archivos multimedia, se mostrarán imagenes predeterminadas..
+        ///   Busca una cadena traducida similar a No es posible comunicarse con el servidor de archivos múltimedia. No se pueden publicar archivos múltimedia. Las imagenes mostradas en la aplicación serán predeterminadas..
         /// </summary>
         public static string GRPCServidorNoDisponible {
             get {
