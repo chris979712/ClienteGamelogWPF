@@ -336,4 +336,7 @@
   <data name="Admin" xml:space="preserve">
     <value>ADMIN</value>
   </data>
+  <data name="EstrellaMedia" xml:space="preserve">
+    <value>/Imagenes/Iconos/estrella_media.png</value>
+  </data>
 </root>

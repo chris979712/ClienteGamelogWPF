@@ -16,7 +16,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaEditarPerfil : Window
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         private byte[] imagenASubir = new byte[0];
         private string _rutaNuevaFoto = "";
 
@@ -77,13 +77,13 @@ namespace GameLogEscritorio.Ventanas
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
             }
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.EdicionSinCambios, Constantes.CodigoErrorSolicitud);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
         }
 
@@ -138,7 +138,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async Task RevertirFotoDePerfil()
+        private static async Task RevertirFotoDePerfil()
         {
             RespuestaGRPC respuestaGRPC = await Servicios.GameLogAPIGRPC.Servicio.ServicioFotoDePerfil.ActualizarFotoDePerfilJugador(UsuarioSingleton.Instancia.foto!, UsuarioSingleton.Instancia.idJugador!, FotoPorDefecto.ObtenerFotoDePerfilPorDefecto());
             if (respuestaGRPC.codigo != Constantes.CodigoExito)
@@ -241,24 +241,24 @@ namespace GameLogEscritorio.Ventanas
                         else
                         {
                             VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.ArchivoNoEsImagen,Constantes.CodigoErrorSolicitud);
-                            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                         }
                     }
                     else
                     {
                         VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.TamañoImagenMayor, Constantes.CodigoErrorSolicitud);
-                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                        AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     }
                 }
                 catch (Exception)
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.ErrorAlLeerImagen, Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
             }
         }
 
-        private bool EsImagenValida(string rutaArchivo)
+        private static bool EsImagenValida(string rutaArchivo)
         {
             bool esImagenValida = false;
             try

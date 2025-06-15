@@ -18,7 +18,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaBuscarJuego : Window
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
 
         private JuegoModelo _modeloJuegoEncontrado = new JuegoModelo();
 
@@ -26,15 +26,6 @@ namespace GameLogEscritorio.Ventanas
         {
             InitializeComponent();
             Estaticas.GuardarMedidasUltimaVentana(this);
-        }
-
-        private void Salir_Click(object sender, RoutedEventArgs e)
-        {
-            grd_OverlayCarga.Visibility = Visibility.Visible;
-            MenuPrincipal menuPrincipal = new MenuPrincipal();
-            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
-            grd_OverlayCarga.Visibility = Visibility.Collapsed;
-            this.Close();
         }
 
         public bool ValidarDatos()
@@ -66,17 +57,17 @@ namespace GameLogEscritorio.Ventanas
                 {
                     string nombreLimpio = _modeloJuegoEncontrado.slug.Replace("-", " ");
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, string.Concat(string.Concat(Properties.Resources.RedireccionamientoSlug," "), nombreLimpio), Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
                 else if(!string.IsNullOrEmpty(_modeloJuegoEncontrado.detail))
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, _modeloJuegoEncontrado.detail, Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.juegoIngresadoNoEncontrado, Constantes.CodigoErrorSolicitud);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                 }
                 grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
@@ -107,7 +98,7 @@ namespace GameLogEscritorio.Ventanas
             if (respuesta.estado == Constantes.CodigoErrorServidor)
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuesta.mensaje!, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
             else if(respuesta.estado == Constantes.CodigoErrorAcceso) 
             {

@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace GameLogEscritorio.Utilidades
 {
@@ -58,7 +59,7 @@ namespace GameLogEscritorio.Utilidades
             ventana.Show();
         }
 
-        public static void MostarVentanaEnCentroDePosicionActualDeVentana(double top, double left,double width, double height, Window ventanaHija)
+        public static void MostarVentanaEnCentroDePosicionActualDeVentana(Window ventanaHija)
         {
             Window ventanaPadre = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)!;
             double porcentajeTamaño = 0.5;
@@ -79,6 +80,32 @@ namespace GameLogEscritorio.Utilidades
                 ventanaHija.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
             ventanaHija.ShowDialog();
+        }
+
+        public static void MostrarVentanaEnCentroDeVentanaActualDespachador(Window ventanaHija)
+        {
+            Application.Current.Dispatcher.BeginInvoke(() =>
+            {
+                Window ventanaPadre = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)!;
+                double porcentajeTamaño = 0.5;
+                if (ventanaPadre != null)
+                {
+                    double anchoProporcional = ventanaPadre.ActualWidth * porcentajeTamaño;
+                    double altoProporcional = ventanaPadre.ActualHeight * porcentajeTamaño;
+                    ventanaHija.Width = Math.Max(300, Math.Min(anchoProporcional, 1200));
+                    ventanaHija.Height = Math.Max(300, Math.Min(altoProporcional, 800));
+                    ventanaHija.WindowStartupLocation = WindowStartupLocation.Manual;
+                    ventanaHija.Left = ventanaPadre.Left + (ventanaPadre.ActualWidth - ventanaHija.Width) / 2;
+                    ventanaHija.Top = ventanaPadre.Top + (ventanaPadre.ActualHeight - ventanaHija.Height) / 2;
+                }
+                else
+                {
+                    ventanaHija.Width = 600 * porcentajeTamaño;
+                    ventanaHija.Height = 400 * porcentajeTamaño;
+                    ventanaHija.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                }
+                ventanaHija.Show();
+            });
         }
 
     }

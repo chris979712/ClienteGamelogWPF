@@ -16,7 +16,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaReseñarJuego : Window
     {
 
-        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         private JuegoModelo _modeloJuegoAReseñar = new JuegoModelo();
         private string _ventanaPrecedente;
         private Decimal _calificacionSeleccionada = 0;
@@ -63,7 +63,7 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
         }
 
@@ -121,22 +121,19 @@ namespace GameLogEscritorio.Ventanas
 
         private void Estrella_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Image estrella)
+            if (sender is Image estrella && Decimal.TryParse(estrella.Tag?.ToString(), out decimal seleccion))
             {
-                if (Decimal.TryParse(estrella.Tag?.ToString(), out decimal seleccion))
+                _calificacionSeleccionada = seleccion;
+                for (int i = 0; i < RatingPanel.Children.Count; i++)
                 {
-                    _calificacionSeleccionada = seleccion;
-                    for (int i = 0; i < RatingPanel.Children.Count; i++)
+                    if (RatingPanel.Children[i] is Image img)
                     {
-                        if (RatingPanel.Children[i] is Image img)
-                        {
-                            img.Source = new BitmapImage(new Uri(
-                                i < seleccion ? Properties.Resources.EstrellaLlena.ToString() : Properties.Resources.EstrellaVacia.ToString(),
-                                UriKind.Relative));
-                        }
+                        img.Source = new BitmapImage(new Uri(
+                            i < seleccion ? Properties.Resources.EstrellaLlena.ToString() : Properties.Resources.EstrellaVacia.ToString(),
+                            UriKind.Relative));
                     }
                 }
-            }
+        }
         }
 
         private Decimal ObtenerCalificacion()

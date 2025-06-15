@@ -18,21 +18,21 @@ namespace GameLogEscritorio.Utilidades
             switch (excepcion)
             {
                 case HttpRequestException httpExcepcion:
-                    LoggerManejador.Error(excepcion.Message);
+                    LoggerManejador.Error(httpExcepcion.Message);
                     apiRespuestaBase.mensaje = Properties.Resources.HttpExcepcion;
                     break;
                 case TaskCanceledException cancelExcepcion:
-                    LoggerManejador.Error(excepcion.Message);
+                    LoggerManejador.Error(cancelExcepcion.Message);
                     apiRespuestaBase.mensaje = Properties.Resources.TaskCanceledExcepcion;
                     break;
 
                 case JsonException jsonExcepcion:
-                    LoggerManejador.Informacion(excepcion.Message);
+                    LoggerManejador.Informacion(jsonExcepcion.Message);
                     apiRespuestaBase.mensaje = Properties.Resources.JsonExcepcion;
                     break;
 
                 case ArgumentNullException argExcepcion:
-                    LoggerManejador.Error(excepcion.Message);
+                    LoggerManejador.Error(argExcepcion.Message);
                     apiRespuestaBase.mensaje = Properties.Resources.ArgumentNullExcepcion;
                     break;
 

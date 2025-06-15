@@ -15,7 +15,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaSocial : Window
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         public static ObservableCollection<JugadorDetalle> Seguidos { get; set; } = new ObservableCollection<JugadorDetalle>();
         public static ObservableCollection<JugadorDetalle> Seguidores { get; set; } = new ObservableCollection<JugadorDetalle>();
 
@@ -35,7 +35,7 @@ namespace GameLogEscritorio.Ventanas
             this.Close();
         }
 
-        private void btn_eliminarSeguidor(object sender, RoutedEventArgs e)
+        private static async void btn_eliminarSeguidor(object sender, RoutedEventArgs e)
         {
             var boton = sender as Button;
             var informacionJugador = boton?.DataContext as JugadorDetalle;
@@ -45,12 +45,12 @@ namespace GameLogEscritorio.Ventanas
                 bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
                 if (resultadoConfirmacion == true)
                 {
-                    EliminarSeguidor(informacionJugador);
+                    await EliminarSeguidor(informacionJugador);
                 }
             }
         }
 
-        private async void EliminarSeguidor(JugadorDetalle informacionJugador)
+        private async Task EliminarSeguidor(JugadorDetalle informacionJugador)
         {
             grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(informacionJugador.idUsuario, UsuarioSingleton.Instancia.idJugador, apiRestCreadorRespuesta);
@@ -71,7 +71,7 @@ namespace GameLogEscritorio.Ventanas
         {
             if (apiRespuestaBase.estado == Constantes.CodigoExito)
             {
-                var informacionJugador = Seguidores.Where(seguidor => seguidor.idUsuario == idUsuario).FirstOrDefault();
+                var informacionJugador = Seguidores.FirstOrDefault(seguidor => seguidor.idUsuario == idUsuario);
                 if (informacionJugador != null)
                 {
                     Seguidores.Remove(informacionJugador);
@@ -80,7 +80,7 @@ namespace GameLogEscritorio.Ventanas
             grd_OverlayCarga.Visibility = Visibility.Collapsed;
         }
 
-        private void btn_eliminarSeguido(object sender, RoutedEventArgs e)
+        private async void btn_eliminarSeguido(object sender, RoutedEventArgs e)
         {
             var boton = sender as Button;
             var informacionJugador = boton?.DataContext as JugadorDetalle;
@@ -90,12 +90,12 @@ namespace GameLogEscritorio.Ventanas
                 bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
                 if (resultadoConfirmacion == true)
                 {
-                    EliminarSeguido(informacionJugador);
+                    await EliminarSeguido(informacionJugador);
                 }
             }
         }
 
-        private async void EliminarSeguido(JugadorDetalle informacionJugador)
+        private async Task EliminarSeguido(JugadorDetalle informacionJugador)
         {
             grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, informacionJugador.idUsuario, apiRestCreadorRespuesta);
@@ -117,7 +117,7 @@ namespace GameLogEscritorio.Ventanas
         {
             if (apiRespuestaBase.estado == Constantes.CodigoExito)
             {
-                var informacionJugador = Seguidos.Where(seguidor => seguidor.idUsuario == idUsuario).FirstOrDefault();
+                var informacionJugador = Seguidos.FirstOrDefault(seguidor => seguidor.idUsuario == idUsuario);
                 if (informacionJugador != null)
                 {
                     Seguidos.Remove(informacionJugador);

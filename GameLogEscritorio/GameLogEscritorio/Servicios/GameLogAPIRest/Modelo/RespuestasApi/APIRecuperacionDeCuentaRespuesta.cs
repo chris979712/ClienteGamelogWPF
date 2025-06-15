@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi
 {
-    public class APIRecuperacionDeCuentaRespuesta : ApiRespuestaBase
+    public class ApiRecuperacionDeCuentaRespuesta : ApiRespuestaBase
     {
         [JsonProperty("idAcceso")]
         public int idAcceso { get; set; }

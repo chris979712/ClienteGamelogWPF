@@ -19,7 +19,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
     public class ResenaNotificacionControlador
     {
 
-        private static readonly IApiRestRespuestaFactory apiRespuestasRestFactory = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRespuestasRestFactory = new FactoryRespuestasApi();
 
         public ResenaNotificacionControlador() 
         {
@@ -52,14 +52,14 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             }
         }
 
-        private void ActualizarContadorMeGustaReseña(bool asignarLike, int idReseña)
+        private static void ActualizarContadorMeGustaReseña(bool asignarLike, int idReseña)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
                 var ventana = Application.Current.Windows.OfType<VentanaReseñasJugadores>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
                 if (ventana != null && ventana.IsVisible)
                 {
-                    var reseña = VentanaReseñasJugadores.Reseñas.Where(reseña => reseña.idResenia == idReseña).FirstOrDefault();
+                    var reseña = VentanaReseñasJugadores.Reseñas.FirstOrDefault(reseña => reseña.idResenia == idReseña);
                     if (reseña != null)
                     {
                         if (asignarLike)
@@ -75,14 +75,14 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             });
         }
 
-        private void ActualizarVentanaEliminarReseña(int idReseña)
+        private static void ActualizarVentanaEliminarReseña(int idReseña)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
                 var ventana = Application.Current.Windows.OfType<VentanaReseñasJugadores>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
                 if(ventana != null && ventana.IsVisible)
                 {
-                    var reseña = VentanaReseñasJugadores.Reseñas.Where(reseña => reseña.idResenia == idReseña).FirstOrDefault();
+                    var reseña = VentanaReseñasJugadores.Reseñas.FirstOrDefault(reseña => reseña.idResenia == idReseña);
                     if(reseña != null)
                     {
                         VentanaReseñasJugadores.Reseñas.Remove(reseña);
@@ -105,7 +105,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     {
                         if(respuestaReseñas.estado == Constantes.CodigoExito)
                         {
-                            MostrarReseñasCorrespondientes(ventana, respuestaReseñas.reseñaJugadores!);
+                            await MostrarReseñasCorrespondientes(ventana, respuestaReseñas.reseñaJugadores!);
                         }
                     }
                     else
@@ -117,20 +117,20 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             });
         }
 
-        private async void MostrarReseñasCorrespondientes(VentanaReseñasJugadores ventanaReseñas, List<ReseñaJugadores> reseñasObtenidas)
+        private async Task MostrarReseñasCorrespondientes(VentanaReseñasJugadores ventanaReseñas, List<ReseñaJugadores> reseñasObtenidas)
         {
             bool seVisualizanReseñasGlobales = VentanaReseñasJugadores.visualizacionDeTodasLasReseñas;
             if (seVisualizanReseñasGlobales)
             {
-                await MostrarReseñasGlobales(ventanaReseñas, reseñasObtenidas);
+                await MostrarReseñasGlobales(reseñasObtenidas);
             }
             else
             {
-                await MostrarReseñasSeguidos(ventanaReseñas, reseñasObtenidas);
+                await MostrarReseñasSeguidos(reseñasObtenidas);
             }
         }
 
-        private async Task MostrarReseñasGlobales(VentanaReseñasJugadores ventana, List<ReseñaJugadores> reseñasObtenidas)
+        private async Task MostrarReseñasGlobales(List<ReseñaJugadores> reseñasObtenidas)
         {
             foreach(var reseña in reseñasObtenidas)
             {
@@ -147,7 +147,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             }
         }
 
-        private async Task MostrarReseñasSeguidos(VentanaReseñasJugadores ventana, List<ReseñaJugadores> reseñasObtenidas)
+        private async Task MostrarReseñasSeguidos(List<ReseñaJugadores> reseñasObtenidas)
         {
             foreach(var reseña in reseñasObtenidas)
             {
@@ -168,7 +168,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             }
         }
 
-        private ReseñaCompleta CrearReseñaCompleta(byte[] fotoUsuarioReseña, ReseñaJugadores reseña)
+        private static ReseñaCompleta CrearReseñaCompleta(byte[] fotoUsuarioReseña, ReseñaJugadores reseña)
         {
             return new ReseñaCompleta
             {
@@ -189,7 +189,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             };
         }
 
-        private async Task<byte[]> CargarFotoDePerfilUsuario(string rutaFoto)
+        private static async Task<byte[]> CargarFotoDePerfilUsuario(string rutaFoto)
         {
             byte[] fotoEncontrada = FotoPorDefecto.ObtenerFotoDePerfilPorDefecto();
             RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(rutaFoto);
@@ -200,7 +200,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             return fotoEncontrada;
         }
 
-        private void MostrarNotificacion(string mensaje)
+        private static void MostrarNotificacion(string mensaje)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {

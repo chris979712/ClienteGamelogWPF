@@ -1,4 +1,5 @@
-﻿using GameLogEscritorio.Ventanas;
+﻿using GameLogEscritorio.Log4net;
+using GameLogEscritorio.Ventanas;
 using System.IO;
 
 
@@ -16,9 +17,9 @@ namespace GameLogEscritorio.Utilidades
                 string rutaImagen = Path.Combine(rutaBase, "../../../Imagenes/imagendeperfildefaultgamelog.png");
                 imagenPorDefectoBytes  = File.ReadAllBytes(rutaImagen);
             }
-            catch(FileNotFoundException)
+            catch(FileNotFoundException excepcion)
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, "No se ha podido obtener la foto de perfil por defecto", Constantes.CodigoErrorSolicitud);
+                LoggerManejador.Error(excepcion.Message);
             }
             return imagenPorDefectoBytes;
         }

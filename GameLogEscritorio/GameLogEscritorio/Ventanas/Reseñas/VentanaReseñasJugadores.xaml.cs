@@ -22,10 +22,14 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaReseñasJugadores : Window
     {
 
-        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
+
         public JuegoModelo _modeloJuego = new JuegoModelo();
+
         public static ObservableCollection<ReseñaCompleta> Reseñas { get; set; } = new ObservableCollection<ReseñaCompleta>();
+
         public bool EsAdministrador => UsuarioSingleton.Instancia.tipoDeAcceso != Constantes.tipoJugadorPorDefecto;
+
         public static bool visualizacionDeTodasLasReseñas = false;
 
         public VentanaReseñasJugadores(JuegoModelo modeloJuego)
@@ -126,7 +130,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async Task<byte[]> CargarFotoDePerfilUsuario(string rutaFoto)
+        private static async Task<byte[]> CargarFotoDePerfilUsuario(string rutaFoto)
         {
             byte[] fotoEncontrada = FotoPorDefecto.ObtenerFotoDePerfilPorDefecto();
             RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(rutaFoto);
@@ -137,7 +141,7 @@ namespace GameLogEscritorio.Ventanas
             return fotoEncontrada;
         }
 
-        private void EliminarReseña_Click(object sender, RoutedEventArgs e)
+        private async void EliminarReseña_Click(object sender, RoutedEventArgs e)
         {
             var boton = sender as Button;
             var reseña = boton?.DataContext as ReseñaCompleta;
@@ -147,12 +151,12 @@ namespace GameLogEscritorio.Ventanas
                 bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
                 if (resultadoConfirmacion == true)
                 {
-                   EliminarReseña(reseña);
+                   await EliminarReseña(reseña);
                 }
             }
         }
 
-        private async void EliminarReseña(ReseñaCompleta reseña)
+        private async Task EliminarReseña(ReseñaCompleta reseña)
         {
             grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase apiRespuestaBase = await ServicioReseña.EliminarReseña(reseña.idJuego, reseña.idResenia, apiRestCreadorRespuesta);
@@ -173,7 +177,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void ToggleLike_Click(object sender, RoutedEventArgs e)
+        private async void ToggleLike_Click(object sender, RoutedEventArgs e)
         {
             var boton = sender as ToggleButton;
             var reseña = boton?.DataContext as ReseñaCompleta;
@@ -181,16 +185,16 @@ namespace GameLogEscritorio.Ventanas
             {
                 if (boton?.IsChecked == true)
                 {
-                    DarLike_Click(reseña);
+                    await DarLike_Click(reseña);
                 }
                 else
                 {
-                    QuitarLike_Click(reseña);
+                    await QuitarLike_Click(reseña);
                 }
             }
         }
 
-        private async void QuitarLike_Click(ReseñaCompleta reseña)
+        private async Task QuitarLike_Click(ReseñaCompleta reseña)
         {
             DeleteMeGustaSolicitud deleteMeGustaSolicitud = new DeleteMeGustaSolicitud()
             {
@@ -216,7 +220,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async void DarLike_Click(ReseñaCompleta reseña)
+        private async Task DarLike_Click(ReseñaCompleta reseña)
         {
             PostMeGustaSolicitud datosSolicitud = new PostMeGustaSolicitud()
             {

@@ -18,7 +18,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaBuscarJugador : Window
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         private byte[] _fotoDePerfilJugador = new byte[0];
         private Perfil _PerfilJugador = new Perfil();
 
@@ -47,7 +47,7 @@ namespace GameLogEscritorio.Ventanas
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoInformacion, Properties.Resources.ContenidoDatosInvalidos, Constantes.CodigoErrorSolicitud);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
         }
 
@@ -74,7 +74,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async Task<byte[]> ObtenerFotoDePerfilJugador(string rutaFotoDePerfil)
+        private static async Task<byte[]> ObtenerFotoDePerfilJugador(string rutaFotoDePerfil)
         {
             byte[] fotoEncontrada = FotoPorDefecto.ObtenerFotoDePerfilPorDefecto();
             RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(rutaFotoDePerfil!);
@@ -128,7 +128,7 @@ namespace GameLogEscritorio.Ventanas
         private void AvatarJugador_Click(object sender, MouseButtonEventArgs e)
         {
             var ventana = new VentanaImagen(_fotoDePerfilJugador);
-            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventana);
+            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventana);
         }
 
         public static BitmapImage BytesAImagen(byte[] imageDatos)
@@ -188,7 +188,7 @@ namespace GameLogEscritorio.Ventanas
                     this.Close();
                 }
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, juegosFavoritos[0].descripcion!, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaEmergente);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
             else
             {

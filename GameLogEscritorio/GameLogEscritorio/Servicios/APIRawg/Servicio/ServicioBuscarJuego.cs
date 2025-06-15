@@ -14,7 +14,7 @@ namespace GameLogEscritorio.Servicios.APIRawg.Servicio
     public static class ServicioBuscarJuego
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         private static readonly string _RawgAPIURL = Properties.Resources.RawAPIGames;
         private static readonly HttpClient clienteHttp = new HttpClient();
 

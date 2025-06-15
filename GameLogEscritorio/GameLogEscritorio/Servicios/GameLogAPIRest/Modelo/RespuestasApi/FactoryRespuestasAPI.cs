@@ -10,7 +10,7 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi
         Task<TRespuesta> CrearRespuestaHTTP<TRespuesta>(HttpResponseMessage mensaje) where TRespuesta : ApiRespuestaBase, new();
     }
 
-    public class FactoryRespuestasAPI : IApiRestRespuestaFactory
+    public class FactoryRespuestasApi : IApiRestRespuestaFactory
     {
         public async Task<TRespuesta> CrearRespuestaHTTP<TRespuesta>(HttpResponseMessage mensaje)
             where TRespuesta : ApiRespuestaBase, new()

@@ -13,7 +13,7 @@ namespace GameLogEscritorio.Utilidades
     public static class ManejadorSesion
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
 
         public static async Task CerrarSesionForzadaDeUsuario()
         {
@@ -36,14 +36,14 @@ namespace GameLogEscritorio.Utilidades
             Estaticas.idJugadoresSeguido = new List<int>();
             await ServicioNotificacion.Desconectar();
             VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoExito, respuesta.mensaje!, respuesta.estado);
-            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaEmergente);
+            AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             VentanaInicioDeSesion ventanaInicioDeSesion = new VentanaInicioDeSesion();
             AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(Estaticas.ultimoTopVentana, Estaticas.ultimoLeftVentana, Estaticas.ultimoWidthVentana, Estaticas.ultimoHeightVentana, ventanaInicioDeSesion);
         }
 
         public static async Task RegresarInicioDeSesionDesdeDespachador()
         {
-            ApiRespuestaBase respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRestCreadorRespuesta);
+            await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRestCreadorRespuesta);
             UsuarioSingleton.Instancia.CerrarSesion();
             SesionToken.CerrarSesion();
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
@@ -59,7 +59,7 @@ namespace GameLogEscritorio.Utilidades
 
         public static async Task RegresarInicioDeSesionSinAcceso()
         {
-            ApiRespuestaBase respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRestCreadorRespuesta);
+            await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRestCreadorRespuesta);
             UsuarioSingleton.Instancia.CerrarSesion();
             SesionToken.CerrarSesion();
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
