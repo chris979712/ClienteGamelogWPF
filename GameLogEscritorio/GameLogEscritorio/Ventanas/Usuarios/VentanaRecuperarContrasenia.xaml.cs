@@ -11,7 +11,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaRecuperarContrasenia : Window
     {
 
-        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         public VentanaRecuperarContrasenia()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace GameLogEscritorio.Ventanas
                     correo = txtb_Correo.Text,
                     tipoDeUsuario = Constantes.tipoJugadorPorDefecto
                 };
-                APIRecuperacionDeCuentaRespuesta resultado = await ServicioLogin.RecuperacionDeCuenta(solicitud,apiRestCreadorRespuesta);
+                ApiRecuperacionDeCuentaRespuesta resultado = await ServicioLogin.RecuperacionDeCuenta(solicitud,apiRestCreadorRespuesta);
                 grd_OverlayCarga.Visibility = Visibility.Collapsed;
                 if (resultado.estado == 200)
                 {

@@ -10,7 +10,7 @@ namespace GameLogEscritorio.Utilidades
         private static Regex _fechaRegex = new Regex(@"^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$", RegexOptions.None, TimeSpan.FromMilliseconds(1000));
         private static Regex _codigoVerificacionRegex = new Regex(@"^[0-9]{6}$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
         private static Regex _soloLetrasYNumeros = new Regex(@"^[a-zA-Z0-9]{2,20}$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
-        private static readonly Regex _soloLetrasNumerosCaracteres = new Regex(@"^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s!&*()_+=\[\]{};:'"",.¿?`\\-]*$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
+        private static readonly Regex _soloLetrasNumerosCaracteres = new Regex(@"^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ0-9\s\n\r!¡&*()_+=\[\]{};:'""’,.¿?`^\\/@#%-]*$",RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.Singleline,TimeSpan.FromMilliseconds(300));
         private static readonly Regex _soloDecimalesPositivos = new Regex(@"^\d{1,2}\.\d{1}$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
         public static readonly Regex SoloRutas = new Regex(@"^(\/?[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.[a-zA-Z0-9]{2,255}$", RegexOptions.None, TimeSpan.FromMilliseconds(300));
 

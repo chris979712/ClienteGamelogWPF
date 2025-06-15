@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace GameLogEscritorio.Utilidades
 {
-    public class ManejadorRespuestas
+    public static class ManejadorRespuestas
     {
 
         public static bool ManejarRespuestasBase(ApiRespuestaBase respuestaBase)
@@ -68,10 +68,6 @@ namespace GameLogEscritorio.Utilidades
                     AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
                     break;
                 case Constantes.CodigoErrorServidor:
-                    esEstadoCritico = false;
-                    ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
-                    AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
-                    break;
                 case Constantes.CodigoBadGetaway:
                     esEstadoCritico = false;
                     ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
@@ -106,10 +102,6 @@ namespace GameLogEscritorio.Utilidades
                         esEstadoCritico = false;
                         break;
                     case Constantes.CodigoErrorServidor:
-                        esEstadoCritico = false;
-                        ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);
-                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
-                        break;
                     case Constantes.CodigoBadGetaway:
                         esEstadoCritico = false;
                         ventanaEmergente = new VentanaEmergente(Constantes.TipoError, respuestaApi.mensaje!, respuestaApi.estado);

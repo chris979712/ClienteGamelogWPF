@@ -17,7 +17,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaDescripcionJuego : Window
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         private JuegoModelo _juegoObtenido = new JuegoModelo();
 
         public VentanaDescripcionJuego(JuegoModelo? juegoObtenido)
@@ -226,14 +226,6 @@ namespace GameLogEscritorio.Ventanas
             this.Close();
         }
 
-        private void Salir_Click(object sender, RoutedEventArgs e)
-        {
-            grd_OverlayCarga.Visibility = Visibility.Visible;
-            VentanaBuscarJuego ventanaBuscarJuego = new VentanaBuscarJuego();
-            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaBuscarJuego);
-            grd_OverlayCarga.Visibility = Visibility.Collapsed;
-            this.Close();
-        }
     }
 
     public class EstrellaConverter : IValueConverter
@@ -245,15 +237,15 @@ namespace GameLogEscritorio.Ventanas
                 if (!int.TryParse(parameter.ToString(), out int estrellaNumero))
                     return null!;
 
-                string imagen = "/Imagenes/Iconos/estrella_vacia.png";
+                string imagen = Properties.Resources.EstrellaVacia.ToString();
 
                 if (rating >= estrellaNumero)
                 {
-                    imagen = "/Imagenes/Iconos/estrella_llena.png";
+                    imagen = Properties.Resources.EstrellaLlena.ToString();
                 }
                 else if (rating >= estrellaNumero - 0.5f)
                 {
-                    imagen = "/Imagenes/Iconos/estrella_media.png";
+                    imagen = Properties.Resources.EstrellaMedia.ToString();
                 }
 
                 return new BitmapImage(new Uri(imagen, UriKind.Relative));

@@ -50,9 +50,9 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
             return respuesta;
         }
 
-        public static async Task<APIRecuperacionDeCuentaRespuesta> RecuperacionDeCuenta(PostRecuperacionDeCuentaSolicitud datosSolicitud,IApiRestRespuestaFactory apiRespuestaFactory)
+        public static async Task<ApiRecuperacionDeCuentaRespuesta> RecuperacionDeCuenta(PostRecuperacionDeCuentaSolicitud datosSolicitud,IApiRestRespuestaFactory apiRespuestaFactory)
         {
-            APIRecuperacionDeCuentaRespuesta respuesta = new APIRecuperacionDeCuentaRespuesta();
+            ApiRecuperacionDeCuentaRespuesta respuesta = new ApiRecuperacionDeCuentaRespuesta();
             HttpClientHandler handler = new HttpClientHandler()
             {
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
@@ -70,11 +70,11 @@ namespace GameLogEscritorio.Servicios.GameLogAPIRest.Servicio
                         Content = new StringContent(JsonConvert.SerializeObject(datosSolicitud), Encoding.UTF8, "application/json")
                     };
                     HttpResponseMessage mensajeObtenido = await clienteHttp.SendAsync(mensajeHttp);
-                    respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<APIRecuperacionDeCuentaRespuesta>(mensajeObtenido);
+                    respuesta = await apiRespuestaFactory.CrearRespuestaHTTP<ApiRecuperacionDeCuentaRespuesta>(mensajeObtenido);
                 }
                 catch(Exception excepcion)
                 {
-                    respuesta = ClasificadorExcepcion.DeterminarTipoExcepcionAPIRest<APIRecuperacionDeCuentaRespuesta>(excepcion);
+                    respuesta = ClasificadorExcepcion.DeterminarTipoExcepcionAPIRest<ApiRecuperacionDeCuentaRespuesta>(excepcion);
                 }
             }
             return respuesta;

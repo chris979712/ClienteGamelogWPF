@@ -1,7 +1,5 @@
 ﻿using GameLogEscritorio.Log4net;
-using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.RespuestasApi;
 using GameLogEscritorio.Utilidades;
-using System;
 using System.IO;
 using System.Windows;
 
@@ -11,7 +9,6 @@ namespace GameLogEscritorio
     
     public partial class MainWindow : Window
     {
-        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
 
         public MainWindow()
         {
@@ -30,5 +27,6 @@ namespace GameLogEscritorio
         {
             await ManejadorSesion.CerrarSesionForzadaDeUsuario();
         }
+
     }
 }

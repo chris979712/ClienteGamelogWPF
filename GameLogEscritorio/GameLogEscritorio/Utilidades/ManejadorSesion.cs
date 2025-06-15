@@ -13,7 +13,7 @@ namespace GameLogEscritorio.Utilidades
     public static class ManejadorSesion
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
 
         public static async Task CerrarSesionForzadaDeUsuario()
         {
@@ -43,7 +43,7 @@ namespace GameLogEscritorio.Utilidades
 
         public static async Task RegresarInicioDeSesionDesdeDespachador()
         {
-            ApiRespuestaBase respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRestCreadorRespuesta);
+            await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRestCreadorRespuesta);
             UsuarioSingleton.Instancia.CerrarSesion();
             SesionToken.CerrarSesion();
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();
@@ -59,7 +59,7 @@ namespace GameLogEscritorio.Utilidades
 
         public static async Task RegresarInicioDeSesionSinAcceso()
         {
-            ApiRespuestaBase respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRestCreadorRespuesta);
+            await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRestCreadorRespuesta);
             UsuarioSingleton.Instancia.CerrarSesion();
             SesionToken.CerrarSesion();
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();

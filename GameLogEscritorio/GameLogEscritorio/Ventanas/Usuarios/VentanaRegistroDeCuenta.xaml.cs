@@ -13,7 +13,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaRegistroDeCuenta : Window
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
 
         public VentanaRegistroDeCuenta()
         {

@@ -18,7 +18,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaBuscarJugador : Window
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         private byte[] _fotoDePerfilJugador = new byte[0];
         private Perfil _PerfilJugador = new Perfil();
 
@@ -74,7 +74,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async Task<byte[]> ObtenerFotoDePerfilJugador(string rutaFotoDePerfil)
+        private static async Task<byte[]> ObtenerFotoDePerfilJugador(string rutaFotoDePerfil)
         {
             byte[] fotoEncontrada = FotoPorDefecto.ObtenerFotoDePerfilPorDefecto();
             RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(rutaFotoDePerfil!);

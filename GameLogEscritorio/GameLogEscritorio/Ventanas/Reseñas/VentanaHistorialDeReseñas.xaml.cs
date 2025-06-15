@@ -18,16 +18,13 @@ namespace GameLogEscritorio.Ventanas
 
         private void VerReseña_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Image imagen && imagen.DataContext is ReseñaJugador reseña)
+            if (sender is Image imagen && imagen.DataContext is ReseñaJugador reseña && reseña != null)
             {
-                if (reseña != null)
-                {
-                    grd_OverlayCarga.Visibility = Visibility.Visible;
-                    VentanaMiReseña ventanaReseña = new VentanaMiReseña(reseña);
-                    AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReseña);
-                    grd_OverlayCarga.Visibility = Visibility.Collapsed;
-                    this.Close();
-                }
+                grd_OverlayCarga.Visibility = Visibility.Visible;
+                VentanaMiReseña ventanaReseña = new VentanaMiReseña(reseña);
+                AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, ventanaReseña);
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
+                this.Close();
             }
         }
 

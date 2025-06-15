@@ -16,8 +16,10 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaPerfilJugador : Window
     {
 
-        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
+
         public PerfilJugador perfilJugador = new PerfilJugador();
+
         private ObservableCollection<JuegoCompleto>? _juegosFavoritos = new ObservableCollection<JuegoCompleto>();
 
         public VentanaPerfilJugador(PerfilJugador perfil, ObservableCollection<JuegoCompleto> juegosFavoritos)
@@ -149,17 +151,17 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void Banear_Click(object sender, RoutedEventArgs e)
+        private async void Banear_Click(object sender, RoutedEventArgs e)
         {
             VentanaDeConfirmacion ventanaDeConfirmacion = new VentanaDeConfirmacion(Properties.Resources.ConfirmacionBanearUsuario, this);
             bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
             if (resultadoConfirmacion == true)
             {
-                PonerEnListaNegraUsuarioSeleccionado();
+                await PonerEnListaNegraUsuarioSeleccionado();
             }
         }
 
-        private async void PonerEnListaNegraUsuarioSeleccionado()
+        private async Task PonerEnListaNegraUsuarioSeleccionado()
         {
             grd_OverlayCarga.Visibility = Visibility.Visible;
             PatchAccesoSolicitud datosSolicitud = new PatchAccesoSolicitud()
@@ -205,17 +207,17 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void DejarDeSeguir_Click(object sender, RoutedEventArgs e)
+        private async void DejarDeSeguir_Click(object sender, RoutedEventArgs e)
         {
             VentanaDeConfirmacion ventanaDeConfirmacion = new VentanaDeConfirmacion(Properties.Resources.ConfirmaciónEliminacionSeguido, this);
             bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
             if (resultadoConfirmacion == true)
             {
-                DejarDeSeguirUsuario();
+                await DejarDeSeguirUsuario();
             }
         }
 
-        private async void DejarDeSeguirUsuario()
+        private async Task DejarDeSeguirUsuario()
         {
             grd_OverlayCarga.Visibility = Visibility.Visible;
             ApiRespuestaBase respuestaBase = await ServicioSeguidor.EliminarJugadorSeguido(UsuarioSingleton.Instancia.idJugador, perfilJugador.idJugador, apiRestCreadorRespuesta);
@@ -239,7 +241,6 @@ namespace GameLogEscritorio.Ventanas
         {
             if (!perfilJugador.tipoDeAcceso!.Equals(Constantes.tipoJugadorPorDefecto))
             {
-                LinearGradientBrush arcoiris = new LinearGradientBrush();
                 LinearGradientBrush purpuraLiderazgo = new LinearGradientBrush();
                 purpuraLiderazgo.StartPoint = new Point(0, 0);
                 purpuraLiderazgo.EndPoint = new Point(1, 0);

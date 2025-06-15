@@ -21,7 +21,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class MenuPrincipal : Window
     {
 
-        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
 
         private bool notificacionesVisible = false;
 
@@ -127,7 +127,7 @@ namespace GameLogEscritorio.Ventanas
                 if(respuestaReseñasObtenidas.estado == Constantes.CodigoExito)
                 {
                     List<ReseñaPersonal> reseñasObtenidas = respuestaReseñasObtenidas.reseñasPersonales!;
-                    BuscarJuegosReseñadosPorUsuarioUsuario(reseñasObtenidas);
+                    await BuscarJuegosReseñadosPorUsuarioUsuario(reseñasObtenidas);
                 }
                 grd_OverlayCarga.Visibility = Visibility.Collapsed;
             }
@@ -139,7 +139,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async void BuscarJuegosReseñadosPorUsuarioUsuario(List<ReseñaPersonal> reseñasJugador) 
+        private async Task BuscarJuegosReseñadosPorUsuarioUsuario(List<ReseñaPersonal> reseñasJugador) 
         {
             ObservableCollection<ReseñaJugador> reseñasObtenidas = new ObservableCollection<ReseñaJugador>();
             foreach (var reseña in reseñasJugador)
@@ -211,7 +211,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private void VerNotificaciones_Click(object sender, RoutedEventArgs e)
+        private async void VerNotificaciones_Click(object sender, RoutedEventArgs e)
         {
             grd_OverlayCarga.Visibility = Visibility.Visible;
             if (notificacionesVisible)
@@ -220,12 +220,12 @@ namespace GameLogEscritorio.Ventanas
             }
             else
             {
-                AbrirPanelNotificaciones();
+                await AbrirPanelNotificaciones();
             }
             grd_OverlayCarga.Visibility = Visibility.Collapsed;
         }
 
-        private void AbrirPanelNotificaciones()
+        private async Task AbrirPanelNotificaciones()
         {
             var showAnimation = new ThicknessAnimation
             {
@@ -235,7 +235,7 @@ namespace GameLogEscritorio.Ventanas
             };
             grd_Notificaciones.BeginAnimation(FrameworkElement.MarginProperty, showAnimation);
             notificacionesVisible = true;
-            ObtenerNotificaciones();
+            await ObtenerNotificaciones();
         }
 
         private void CerrarPanelNotificaciones()
@@ -255,7 +255,7 @@ namespace GameLogEscritorio.Ventanas
             CerrarPanelNotificaciones();
         }
 
-        private async void ObtenerNotificaciones()
+        private async Task ObtenerNotificaciones()
         {
             ApiNotificacionRespuesta apiNotificacionRespuesta = await ServicioNotificaciones.ObtenerNotificacionesDeJugador(UsuarioSingleton.Instancia.idJugador, apiRestCreadorRespuesta);
             bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(apiNotificacionRespuesta);
@@ -300,35 +300,36 @@ namespace GameLogEscritorio.Ventanas
 
         private async void EliminarNotificacion_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.DataContext is NotificacionCompleta notificacionObtenida)
+            if (sender is Button button && button.DataContext is NotificacionCompleta notificacionObtenida && button != null)
             {
-                if(button != null)
-                {
-                    grd_OverlayCarga.Visibility = Visibility.Visible;
-                    ApiRespuestaBase apiRespuestaBase = await ServicioNotificaciones.EliminarNotificacion(notificacionObtenida.Id, apiRestCreadorRespuesta);
-                    bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(apiRespuestaBase);
-                    if (!esRespuestaCritica)
-                    {
-                        if(apiRespuestaBase.estado == Constantes.CodigoExito)
-                        {
-                            NotificacionCompleta? notificacionAEliminar = Estaticas.notificaciones.Where(notificacion => notificacion.Id == notificacionObtenida.Id || notificacion.Mensaje == notificacionObtenida.Mensaje).FirstOrDefault();
-                            if(notificacionAEliminar!= null)
-                            {
-                                Estaticas.notificaciones.Remove(notificacionAEliminar);
-                            }
-                        }
-                        grd_OverlayCarga.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        grd_OverlayCarga.Visibility = Visibility.Collapsed;
-                        await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
-                        this.Close();
-                    }
-                }
+                grd_OverlayCarga.Visibility = Visibility.Visible;
+                await EliminarNotificacion(notificacionObtenida);
             }
         }
 
+        private async Task EliminarNotificacion(NotificacionCompleta notificacionObtenida)
+        {
+            ApiRespuestaBase apiRespuestaBase = await ServicioNotificaciones.EliminarNotificacion(notificacionObtenida.Id, apiRestCreadorRespuesta);
+            bool esRespuestaCritica = ManejadorRespuestas.ManejarRespuestasConDatosODiferentesAlCodigoDeExito(apiRespuestaBase);
+            if (!esRespuestaCritica)
+            {
+                if (apiRespuestaBase.estado == Constantes.CodigoExito)
+                {
+                    NotificacionCompleta? notificacionAEliminar = Estaticas.notificaciones.FirstOrDefault(notificacion => notificacion.Id == notificacionObtenida.Id || notificacion.Mensaje == notificacionObtenida.Mensaje);
+                    if (notificacionAEliminar != null)
+                    {
+                        Estaticas.notificaciones.Remove(notificacionAEliminar);
+                    }
+                }
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                grd_OverlayCarga.Visibility = Visibility.Collapsed;
+                await ManejadorSesion.RegresarInicioDeSesionSinAcceso();
+                this.Close();
+            }
+        }
 
         public async void CerrarSesion_Click(object sender, RoutedEventArgs e)
         {

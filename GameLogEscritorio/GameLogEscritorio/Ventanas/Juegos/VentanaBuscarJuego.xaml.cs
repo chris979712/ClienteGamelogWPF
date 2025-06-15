@@ -18,7 +18,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaBuscarJuego : Window
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
 
         private JuegoModelo _modeloJuegoEncontrado = new JuegoModelo();
 
@@ -26,15 +26,6 @@ namespace GameLogEscritorio.Ventanas
         {
             InitializeComponent();
             Estaticas.GuardarMedidasUltimaVentana(this);
-        }
-
-        private void Salir_Click(object sender, RoutedEventArgs e)
-        {
-            grd_OverlayCarga.Visibility = Visibility.Visible;
-            MenuPrincipal menuPrincipal = new MenuPrincipal();
-            AnimacionesVentana.IniciarVentanaPosicionActualDeVentana(this.Top, this.Left, this.Width, this.Height, menuPrincipal);
-            grd_OverlayCarga.Visibility = Visibility.Collapsed;
-            this.Close();
         }
 
         public bool ValidarDatos()

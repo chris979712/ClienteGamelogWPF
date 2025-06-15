@@ -340,6 +340,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a /Imagenes/Iconos/estrella_media.png.
+        /// </summary>
+        public static string EstrellaMedia {
+            get {
+                return ResourceManager.GetString("EstrellaMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a /Imagenes/Iconos/estrella_vacia.png.
         /// </summary>
         public static string EstrellaVacia {

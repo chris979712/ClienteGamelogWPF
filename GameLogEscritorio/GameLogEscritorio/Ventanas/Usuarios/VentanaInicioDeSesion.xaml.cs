@@ -12,13 +12,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace GameLogEscritorio.Ventanas
 {
     public partial class VentanaInicioDeSesion : Window
     {
-        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
+
         public VentanaInicioDeSesion()
         {
             InitializeComponent();
@@ -73,7 +74,8 @@ namespace GameLogEscritorio.Ventanas
 
             if (errorEnPendientes || errorEnFavoritos || errorEnSeguidos || errorEnJuegoPendiente)
             {
-                new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.ErrorEnLaCargaDatosUsuario, Constantes.CodigoErrorServidor);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, Properties.Resources.ErrorEnLaCargaDatosUsuario, Constantes.CodigoErrorServidor);
+                AnimacionesVentana.MostarVentanaEnCentroDePosicionActualDeVentana(ventanaEmergente);
             }
             else
             {
@@ -87,12 +89,12 @@ namespace GameLogEscritorio.Ventanas
 
         }
 
-        private async Task IniciarConexionNotificacionesAsync()
+        private static async Task IniciarConexionNotificacionesAsync()
         {
             await ServicioNotificacion.Conectar();
         }
 
-        private void CargarListaJugadoresSeguidos(ApiSeguidosRespuesta jugadoresSeguidos)
+        private static void CargarListaJugadoresSeguidos(ApiSeguidosRespuesta jugadoresSeguidos)
         {
             if(jugadoresSeguidos.jugadoresSeguidos?.Count >= 1)
             {
@@ -123,7 +125,7 @@ namespace GameLogEscritorio.Ventanas
             txbl_Sugerencia.Visibility = string.IsNullOrEmpty(txb_Contrasenia.Text) ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private async Task<bool> CargarFotoDePerfilUsuario()
+        private static async Task<bool> CargarFotoDePerfilUsuario()
         {
             bool fotoEncontrada = false;
             RespuestaGRPC respuestaGRPC = await ServicioFotoDePerfil.ObtenerFotoJugador(UsuarioSingleton.Instancia.foto!);
@@ -141,7 +143,7 @@ namespace GameLogEscritorio.Ventanas
             return fotoEncontrada;
         }
 
-        private void CargarListaDeJuegos(ApiJuegosRespuesta juegosFavoritosObtenidos)
+        private static void CargarListaDeJuegos(ApiJuegosRespuesta juegosFavoritosObtenidos)
         {
             if(Estaticas.juegosFavoritos != null)
             {

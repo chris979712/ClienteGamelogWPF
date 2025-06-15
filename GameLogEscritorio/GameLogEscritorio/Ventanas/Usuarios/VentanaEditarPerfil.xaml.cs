@@ -16,7 +16,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaEditarPerfil : Window
     {
 
-        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         private byte[] imagenASubir = new byte[0];
         private string _rutaNuevaFoto = "";
 
@@ -138,7 +138,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private async Task RevertirFotoDePerfil()
+        private static async Task RevertirFotoDePerfil()
         {
             RespuestaGRPC respuestaGRPC = await Servicios.GameLogAPIGRPC.Servicio.ServicioFotoDePerfil.ActualizarFotoDePerfilJugador(UsuarioSingleton.Instancia.foto!, UsuarioSingleton.Instancia.idJugador!, FotoPorDefecto.ObtenerFotoDePerfilPorDefecto());
             if (respuestaGRPC.codigo != Constantes.CodigoExito)
@@ -258,7 +258,7 @@ namespace GameLogEscritorio.Ventanas
             }
         }
 
-        private bool EsImagenValida(string rutaArchivo)
+        private static bool EsImagenValida(string rutaArchivo)
         {
             bool esImagenValida = false;
             try

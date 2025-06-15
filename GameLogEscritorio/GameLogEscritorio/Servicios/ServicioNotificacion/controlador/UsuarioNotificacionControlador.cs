@@ -16,7 +16,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
     public class UsuarioNotificacionControlador
     {
 
-        private static readonly IApiRestRespuestaFactory apiRespuestasRestFactory = new FactoryRespuestasAPI();
+        private static readonly IApiRestRespuestaFactory apiRespuestasRestFactory = new FactoryRespuestasApi();
 
         public UsuarioNotificacionControlador() 
         {
@@ -38,7 +38,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                 case Constantes.AccionSocialAgregarSeguidor:
                     await ActualizarNuevasNotificaciones();
                     MostrarNotificacion(notificacion.mensaje!);
-                    ActualizarVentanaSeguidores(notificacion);
+                    ActualizarVentanaSeguidores();
                     break;
                 case Constantes.AccionSocialEliminarSeguidor:
                     await ActualizarNuevasNotificaciones();
@@ -122,7 +122,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             return Estaticas.notificaciones;
         }
 
-        private void ActualizarVentanaNotificaciones()
+        private static void ActualizarVentanaNotificaciones()
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -134,7 +134,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             });
         }
 
-        private void ActualizarEliminacionListaDeSeguidosSeguidores(MensajeNotificacion notificacion)
+        private static void ActualizarEliminacionListaDeSeguidosSeguidores(MensajeNotificacion notificacion)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -143,7 +143,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                 {
                     if (notificacion.idJugadorSeguido == UsuarioSingleton.Instancia.idJugador)
                     {
-                        var informacionJugador = VentanaSocial.Seguidores.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguidor).FirstOrDefault();
+                        var informacionJugador = VentanaSocial.Seguidores.FirstOrDefault(jugador => jugador.idUsuario == notificacion.idJugadorSeguidor);
                         if (informacionJugador != null)
                         {
                             VentanaSocial.Seguidores.Remove(informacionJugador);
@@ -151,7 +151,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     }
                     else if (notificacion.idJugadorSeguidor == UsuarioSingleton.Instancia.idJugador)
                     {
-                        var informacionJugador = VentanaSocial.Seguidos.Where(jugador => jugador.idUsuario == notificacion.idJugadorSeguido).FirstOrDefault();
+                        var informacionJugador = VentanaSocial.Seguidos.FirstOrDefault(jugador => jugador.idUsuario == notificacion.idJugadorSeguido);
                         if (informacionJugador != null)
                         {
                             VentanaSocial.Seguidos.Remove(informacionJugador);
@@ -162,7 +162,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             });
         }
 
-        private void ActualizarVentanaSeguidores(MensajeNotificacion notificacion)
+        private void ActualizarVentanaSeguidores()
         {
             Application.Current.Dispatcher.Invoke(async () =>
             {
@@ -221,23 +221,20 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
         }
 
 
-        private void ActualizarVentanaDescripcionPerfil(MensajeNotificacion notificacion)
+        private static void ActualizarVentanaDescripcionPerfil(MensajeNotificacion notificacion)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
                 var ventana = Application.Current.Windows.OfType<VentanaPerfilJugador>().FirstOrDefault(ventana => ventana.IsVisible || ventana.IsLoaded);
-                if(ventana != null)
+                if(ventana != null && ventana.perfilJugador.idJugador == notificacion.idJugadorSeguido)
                 {
-                    if(ventana.perfilJugador.idJugador == notificacion.idJugadorSeguido)
-                    {
-                        ventana.btn_Seguir.Visibility = Visibility.Visible;
-                        ventana.btn_DejarDeSeguir.Visibility=Visibility.Collapsed;
-                    }
+                    ventana.btn_Seguir.Visibility = Visibility.Visible;
+                    ventana.btn_DejarDeSeguir.Visibility=Visibility.Collapsed;
                 }
             });
         }
 
-        private void MostrarNotificacion(string mensaje)
+        private static void MostrarNotificacion(string mensaje)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -246,7 +243,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             });
         }
 
-        private void MostrarAdvertencia(string mensaje)
+        private static void MostrarAdvertencia(string mensaje)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -255,9 +252,9 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
             });
         }
 
-        public async Task CerrarSesionUsuarioBaneado()
+        public static async Task CerrarSesionUsuarioBaneado()
         {
-            var respuesta = await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRespuestasRestFactory);
+            await ServicioLogin.CerrarSesion(UsuarioSingleton.Instancia.correo!, apiRespuestasRestFactory);
             UsuarioSingleton.Instancia.CerrarSesion();
             SesionToken.CerrarSesion();
             Estaticas.juegosPendientes = new ObservableCollection<JuegoCompleto>();

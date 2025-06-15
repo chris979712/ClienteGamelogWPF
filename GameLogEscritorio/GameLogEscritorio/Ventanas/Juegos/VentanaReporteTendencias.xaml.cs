@@ -15,7 +15,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaReporteTendencias : Window
     {
 
-        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         public ISeries[]? Series { get; set; }
         public Axis[]? XAxes { get; set; }
         public Axis[]? YAxes { get; set; }

@@ -15,7 +15,7 @@ namespace GameLogEscritorio.Ventanas
     public partial class VentanaCodigoDeRecuperacion : Window
     {
 
-        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasAPI();
+        private readonly IApiRestRespuestaFactory apiRestCreadorRespuesta = new FactoryRespuestasApi();
         private int _idAcceso {  get; set; }
         private string _correo { get; set; }
 
