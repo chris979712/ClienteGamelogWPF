@@ -520,6 +520,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Puede que no recibas actualizaciones en tiempo real, estamos intentando reconectarte al servidor de notificaciones para recibir actualizaciones..
+        /// </summary>
+        public static string IntentoReconexionSockets {
+            get {
+                return ResourceManager.GetString("IntentoReconexionSockets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error al procesar la respuesta obtenida por el servidor.
         /// </summary>
         public static string JsonExcepcion {

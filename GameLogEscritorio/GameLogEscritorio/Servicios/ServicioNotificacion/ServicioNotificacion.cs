@@ -1,4 +1,5 @@
 ﻿using GameLogEscritorio.Log4net;
+using GameLogEscritorio.Servicios.GameLogAPIRest.Modelo.Notificacion;
 using GameLogEscritorio.Servicios.ServicioNotificacion.controlador;
 using GameLogEscritorio.Servicios.ServicioNotificacion.Mensaje;
 using GameLogEscritorio.Utilidades;
@@ -64,21 +65,37 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             bool resultadoConexionAEventos = false;
             try
             {
-                socket.OnConnected += async (sender, e) => {
+                socket.OnConnected += async (sender, e) => 
+                {
                     await _socket!.EmitAsync(Properties.Resources.EventoSuscribirNotificacionJugador, UsuarioSingleton.Instancia.idJugador);
                     await _socket!.EmitAsync(Properties.Resources.EventoMensajesServidor);
                 };
 
+                socket.OnReconnectAttempt += (sender, e) =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        VentanaEmergenteNotificacion ventanaEmergenteNotificacion = new VentanaEmergenteNotificacion(Properties.Resources.IntentoReconexionSockets);
+                        ventanaEmergenteNotificacion.Show();
+                    });
+                };
+
                 socket.OnError += (sender, e) =>
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
-                    AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
+                    Application.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
+                    });
                 };
 
                 socket.OnReconnectFailed += (sender, e) =>
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
-                    AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
+                    Application.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoError, Properties.Resources.SocketExcepcion, Constantes.CodigoErrorServidor);
+                        AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
+                    });
                 };
 
                 socket.On(Properties.Resources.EventoMensajesServidor, respuesta =>
