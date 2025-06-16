@@ -36,7 +36,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                     Transport = TransportProtocol.WebSocket,
                     Reconnection = true,
                     ReconnectionAttempts = 3,
-                    ReconnectionDelay = 1000,
+                    ReconnectionDelay = 5000,
                     EIO = EngineIO.V3,
                     ConnectionTimeout = TimeSpan.FromSeconds(125)
                 };
@@ -55,8 +55,6 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             catch(Exception excepcion)
             {
                 LoggerManejador.Error(excepcion.Message);
-                VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
             }
         }
 
@@ -150,8 +148,6 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
             catch (Exception excepcion)
             {
                 LoggerManejador.Error(excepcion.Message);
-                VentanaEmergente ventanaEmergente = new VentanaEmergente(Properties.Resources.TituloExcepcion, Properties.Resources.Excepcion, Constantes.CodigoErrorServidor);
-                AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
             }
             return resultadoConexionAEventos;
         }

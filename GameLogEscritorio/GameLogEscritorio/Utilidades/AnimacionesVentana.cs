@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameLogEscritorio.Ventanas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,7 +62,7 @@ namespace GameLogEscritorio.Utilidades
 
         public static void MostarVentanaEnCentroDePosicionActualDeVentana(Window ventanaHija)
         {
-            Window ventanaPadre = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)!;
+            Window ventanaPadre = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive && w.GetType() != typeof(VentanaEmergente) && w.GetType() != typeof(VentanaEmergenteNotificacion))!;
             double porcentajeTamaño = 0.5;
             if (ventanaPadre != null)
             {
@@ -86,7 +87,7 @@ namespace GameLogEscritorio.Utilidades
         {
             Application.Current.Dispatcher.BeginInvoke(() =>
             {
-                Window ventanaPadre = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)!;
+                Window ventanaPadre = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive && w.GetType() != typeof(VentanaEmergente) && w.GetType() != typeof(VentanaEmergenteNotificacion))!;
                 double porcentajeTamaño = 0.5;
                 if (ventanaPadre != null)
                 {
