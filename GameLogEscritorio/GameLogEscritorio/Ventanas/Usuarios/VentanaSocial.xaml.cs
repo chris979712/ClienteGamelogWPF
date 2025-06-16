@@ -35,7 +35,7 @@ namespace GameLogEscritorio.Ventanas
             this.Close();
         }
 
-        private static async void btn_eliminarSeguidor(object sender, RoutedEventArgs e)
+        private async void btn_eliminarSeguidor(object sender, RoutedEventArgs e)
         {
             var boton = sender as Button;
             var informacionJugador = boton?.DataContext as JugadorDetalle;
@@ -45,7 +45,7 @@ namespace GameLogEscritorio.Ventanas
                 bool? resultadoConfirmacion = ventanaDeConfirmacion.ShowDialog();
                 if (resultadoConfirmacion == true)
                 {
-                    await EliminarSeguidor(informacionJugador);
+                     await EliminarSeguidor(informacionJugador);
                 }
             }
         }

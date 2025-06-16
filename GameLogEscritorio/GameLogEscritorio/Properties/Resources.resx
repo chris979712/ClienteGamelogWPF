@@ -118,34 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApiGrpcUrl" xml:space="preserve">
-    <value>https://192.168.208.245:443</value>
+    <value>https://192.168.100.78:443</value>
   </data>
   <data name="ApiUrlAcceso" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog/acceso</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog/acceso</value>
   </data>
   <data name="ApiUrlBase" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog</value>
   </data>
   <data name="ApiUrlJuego" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog/juego</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog/juego</value>
   </data>
   <data name="ApiUrlJugador" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog/jugador</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog/jugador</value>
   </data>
   <data name="ApiUrlMeGusta" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog/MeGusta</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog/MeGusta</value>
   </data>
   <data name="ApiUrlLogin" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog/login</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog/login</value>
   </data>
   <data name="ApiUrlReporte" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog/reporte</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog/reporte</value>
   </data>
   <data name="ApiUrlResena" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog/resena</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog/resena</value>
   </data>
   <data name="ApiUrlSeguidor" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog/seguidor</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog/seguidor</value>
   </data>
   <data name="ArgumentNullExcepcion" xml:space="preserve">
     <value>Argumentos para realizar la solicitud inválidos</value>
@@ -160,7 +160,7 @@
     <value>Error inesperado al querer realizar la solicitud</value>
   </data>
   <data name="HttpExcepcion" xml:space="preserve">
-    <value>Error en la conexión de internet al intentar realizar la solicitud con el servidor. Verifique su conexión y vuelva a iniciar sesión.</value>
+    <value>Error de conexión al intentar realizar la solicitud con el servidor. Verifique su conexión de internet e intente de nuevo.</value>
   </data>
   <data name="ImagenNoEncontrada" xml:space="preserve">
     <value>La imagen de perfil no fue encontrada.</value>
@@ -238,7 +238,7 @@
     <value>No fue posible establecer contacto con el servidor multimedia. Los archivos multimedia mostrados son predeterminados.</value>
   </data>
   <data name="SocketURL" xml:space="preserve">
-    <value>http://192.168.208.245:80</value>
+    <value>http://192.168.100.78:80</value>
   </data>
   <data name="UsuarioServicioNotificacion" xml:space="preserve">
     <value>CMOLogGameUMVX2683</value>
@@ -301,7 +301,7 @@
     <value>Ventana reseñas de </value>
   </data>
   <data name="ApiURLNotificacion" xml:space="preserve">
-    <value>https://192.168.208.245/gamelogapi/gamelog/notificacion</value>
+    <value>https://192.168.100.78/gamelogapi/gamelog/notificacion</value>
   </data>
   <data name="ConfirmacionEliminacionReseña" xml:space="preserve">
     <value>¿Está seguro de querer eliminar la reseña seleccionada?</value>
