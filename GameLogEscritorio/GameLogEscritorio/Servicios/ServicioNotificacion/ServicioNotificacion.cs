@@ -80,6 +80,15 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion
                     });
                 };
 
+                socket.OnReconnected += (sender, e) =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        VentanaEmergenteNotificacion ventanaEmergenteNotificacion = new VentanaEmergenteNotificacion(Properties.Resources.ReconexionSocketExitosa);
+                        ventanaEmergenteNotificacion.Show();
+                    });
+                };
+
                 socket.OnError += (sender, e) =>
                 {
                     Application.Current.Dispatcher.BeginInvoke(() =>

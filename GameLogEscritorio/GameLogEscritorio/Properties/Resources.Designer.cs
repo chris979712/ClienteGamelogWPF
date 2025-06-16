@@ -601,6 +601,15 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Conexión al servidor de notificaciones restablecida. Las notificaciones y actualizaciones se recibirán en tiempo real..
+        /// </summary>
+        public static string ReconexionSocketExitosa {
+            get {
+                return ResourceManager.GetString("ReconexionSocketExitosa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Juego no encontrado, quizá quisiste buscar: .
         /// </summary>
         public static string RedireccionamientoSlug {
