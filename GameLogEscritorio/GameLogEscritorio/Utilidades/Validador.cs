@@ -94,7 +94,7 @@ namespace GameLogEscritorio.Utilidades
         public static bool ValidarCodigo(string codigo)
         {
             bool esValida = false;
-            string codigoLimpio = Regex.Replace(codigo.Trim(), @"\s+", "", RegexOptions.None, TimeSpan.FromMilliseconds(500));
+            string codigoLimpio = Regex.Replace(codigo.Trim(), @"\s+", " ", RegexOptions.None, TimeSpan.FromMilliseconds(500));
             if (!string.IsNullOrWhiteSpace(codigoLimpio) && ValidarPatronRegex(codigoLimpio, _codigoVerificacionRegex))
             {
                 esValida = true;
@@ -105,7 +105,7 @@ namespace GameLogEscritorio.Utilidades
         public static bool ValidarNombreDeUsuario(string nombreDeUsuario)
         {
             bool esValida = false;
-            string nombreDeUsuarioLimpio = Regex.Replace(nombreDeUsuario.Trim(), @"\s+", "", RegexOptions.None, TimeSpan.FromMilliseconds(500));
+            string nombreDeUsuarioLimpio = Regex.Replace(nombreDeUsuario.Trim(), @"\s+", " ", RegexOptions.None, TimeSpan.FromMilliseconds(500));
             if (!string.IsNullOrWhiteSpace(nombreDeUsuarioLimpio) && ValidarPatronRegex(nombreDeUsuarioLimpio, _soloLetrasYNumeros))
             {
                 esValida = true;
