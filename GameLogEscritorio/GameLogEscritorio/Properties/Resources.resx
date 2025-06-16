@@ -339,4 +339,10 @@
   <data name="EstrellaMedia" xml:space="preserve">
     <value>/Imagenes/Iconos/estrella_media.png</value>
   </data>
+  <data name="IntentoReconexionSockets" xml:space="preserve">
+    <value>Puede que no recibas actualizaciones en tiempo real, estamos intentando reconectarte al servidor de notificaciones para recibir actualizaciones.</value>
+  </data>
+  <data name="ReconexionSocketExitosa" xml:space="preserve">
+    <value>Conexión al servidor de notificaciones restablecida. Las notificaciones y actualizaciones se recibirán en tiempo real.</value>
+  </data>
 </root>
