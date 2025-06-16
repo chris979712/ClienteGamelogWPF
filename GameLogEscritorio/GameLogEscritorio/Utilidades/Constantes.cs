@@ -27,6 +27,7 @@
         public const string tipoJugadorPorDefecto = "Jugador";
         public const string TipoDeEstadoPorDefecto = "Desbaneado";
         public const string JuegoNoEncontradoRawg = "Not found.";
+        public const string DesvincularInteraccionReseñas = "Desvincular_rnteraccion_resena";
         public const string AccionSocialDarMeGusta = "Interactuar_resena";
         public const string AccionSocialAgregarSeguidor = "Agregar_seguidor";
         public const string AccionSocialEliminarSeguidor = "Eliminar_seguidor";
