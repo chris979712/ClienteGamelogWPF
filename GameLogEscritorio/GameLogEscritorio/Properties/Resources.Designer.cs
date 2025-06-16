@@ -70,7 +70,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245:443.
+        ///   Busca una cadena traducida similar a https://192.168.100.78:443.
         /// </summary>
         public static string ApiGrpcUrl {
             get {
@@ -79,7 +79,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog/acceso.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog/acceso.
         /// </summary>
         public static string ApiUrlAcceso {
             get {
@@ -88,7 +88,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog.
         /// </summary>
         public static string ApiUrlBase {
             get {
@@ -97,7 +97,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog/juego.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog/juego.
         /// </summary>
         public static string ApiUrlJuego {
             get {
@@ -106,7 +106,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog/jugador.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog/jugador.
         /// </summary>
         public static string ApiUrlJugador {
             get {
@@ -115,7 +115,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog/login.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog/login.
         /// </summary>
         public static string ApiUrlLogin {
             get {
@@ -124,7 +124,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog/MeGusta.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog/MeGusta.
         /// </summary>
         public static string ApiUrlMeGusta {
             get {
@@ -133,7 +133,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog/notificacion.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog/notificacion.
         /// </summary>
         public static string ApiURLNotificacion {
             get {
@@ -142,7 +142,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog/reporte.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog/reporte.
         /// </summary>
         public static string ApiUrlReporte {
             get {
@@ -151,7 +151,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog/resena.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog/resena.
         /// </summary>
         public static string ApiUrlResena {
             get {
@@ -160,7 +160,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://192.168.208.245/gamelogapi/gamelog/seguidor.
+        ///   Busca una cadena traducida similar a https://192.168.100.78/gamelogapi/gamelog/seguidor.
         /// </summary>
         public static string ApiUrlSeguidor {
             get {
@@ -502,7 +502,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Error en la conexión de internet al intentar realizar la solicitud con el servidor. Verifique su conexión y vuelva a iniciar sesión..
+        ///   Busca una cadena traducida similar a Error de conexión al intentar realizar la solicitud con el servidor. Verifique su conexión de internet e intente de nuevo..
         /// </summary>
         public static string HttpExcepcion {
             get {
@@ -655,7 +655,7 @@ namespace GameLogEscritorio.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a http://192.168.208.245:80.
+        ///   Busca una cadena traducida similar a http://192.168.100.78:80.
         /// </summary>
         public static string SocketURL {
             get {
