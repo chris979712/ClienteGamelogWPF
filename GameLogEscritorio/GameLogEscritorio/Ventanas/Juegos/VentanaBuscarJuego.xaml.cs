@@ -48,6 +48,7 @@ namespace GameLogEscritorio.Ventanas
                 string soloLetrasYNumeros = Regex.Replace(nombreNormal, @"[^a-zA-Z0-9\s]", "");
                 string nombreSlugJuego = Regex.Replace(soloLetrasYNumeros.Trim(), @"\s+", "-").ToLower();
                 grd_OverlayCarga.Visibility = Visibility.Visible;
+                grd_resultado.Visibility = Visibility.Collapsed;
                 _modeloJuegoEncontrado =  await ServicioBuscarJuego.BuscarJuegoPorSlug(nombreSlugJuego);
                 if (!string.IsNullOrEmpty(_modeloJuegoEncontrado.name))
                 {
