@@ -60,7 +60,7 @@
                         <TextBlock Text="Nombre de usuario*:" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"
                                FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"/>
                         <TextBox x:Name="txb_NombreUsuario" Width="220" MaxLength="20" FontSize="12" FontFamily="pack://application:,,,/GameLogEscritorio;component/Fuentes/#OCR B Std"
-                             BorderBrush="Black" BorderThickness="1" ext:TextBoxExtensiones.TextoSugerido="Ej: usuario123"/>
+                                 BorderBrush="Black" BorderThickness="1" ext:TextBoxExtensiones.TextoSugerido="Solo letras y numeros"/>
                     </StackPanel>
                 </StackPanel>
 
