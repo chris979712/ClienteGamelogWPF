@@ -49,6 +49,9 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     MostrarAdvertencia(notificacion.mensaje!);
                     await CerrarSesionUsuarioBaneado();
                     break;
+                case Constantes.DesvincularInteraccionReseñas:
+                    await ActualizarNuevasNotificaciones();
+                    break;
             }
         }
 
