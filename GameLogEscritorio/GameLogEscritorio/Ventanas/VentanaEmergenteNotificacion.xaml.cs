@@ -14,7 +14,7 @@ namespace GameLogEscritorio.Ventanas
             Loaded += (s, e) =>
             {
                 var ventanaPrincipal = Application.Current.MainWindow;
-                double centroMitadDerechaX = ventanaPrincipal.Left + (ventanaPrincipal.ActualWidth * 0.85);
+                double centroMitadDerechaX = ventanaPrincipal.Left + (ventanaPrincipal.ActualWidth * 0.75);
                 Left = centroMitadDerechaX - (this.ActualWidth / 2);
                 Top = ventanaPrincipal.Top + 20;
                 Top = ventanaPrincipal.Top + 20; 
