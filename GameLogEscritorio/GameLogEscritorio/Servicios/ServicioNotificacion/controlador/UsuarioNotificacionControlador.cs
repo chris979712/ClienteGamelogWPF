@@ -46,8 +46,8 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
                     ActualizarVentanaDescripcionPerfil(notificacion);
                     break;
                 case Constantes.AccionSocialBanearUsuario:
-                    MostrarAdvertencia(notificacion.mensaje!);
                     await CerrarSesionUsuarioBaneado();
+                    MostrarAdvertencia(notificacion.mensaje!);
                     break;
                 case Constantes.DesvincularInteraccionReseñas:
                     await ActualizarNuevasNotificaciones();
@@ -248,7 +248,7 @@ namespace GameLogEscritorio.Servicios.ServicioNotificacion.controlador
 
         private static void MostrarAdvertencia(string mensaje)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.BeginInvoke(() =>
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(Constantes.TipoAdvertencia, mensaje, Constantes.CodigoErrorAcceso);
                 AnimacionesVentana.MostrarVentanaEnCentroDeVentanaActualDespachador(ventanaEmergente);
