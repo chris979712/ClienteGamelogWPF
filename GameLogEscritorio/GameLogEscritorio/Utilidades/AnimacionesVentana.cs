@@ -105,6 +105,7 @@ namespace GameLogEscritorio.Utilidades
                     ventanaHija.Height = 400 * porcentajeTamaño;
                     ventanaHija.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 }
+                ventanaHija.Topmost = true;
                 ventanaHija.Show();
             });
         }
